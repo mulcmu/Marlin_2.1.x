@@ -71,7 +71,7 @@ void MKS_reset_settings() {
   };
   mks_language_index = MKS_SimpleChinese;
   COPY(mks_corner_offsets, init_dgus_level_offsets);
-  mks_park_pos.set(20, 20, 10);
+  mks_park_pos.set(0, (Y_MAX_POS - 10), 50);
   mks_min_extrusion_temp = 0;
 }
 
