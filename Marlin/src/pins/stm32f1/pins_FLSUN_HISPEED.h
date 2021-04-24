@@ -81,7 +81,9 @@
 //
 // Servos
 //
-//#define SERVO0_PIN                        PA8   // use IO0 to enable BLTOUCH support/remove Mks_Wifi
+#ifndef SERVO0_PIN
+  #define SERVO0_PIN                        PA8   // Enable BLTOUCH support on IO0 (WIFI connector)
+#endif
 
 //
 // Limit Switches
