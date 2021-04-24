@@ -318,7 +318,7 @@
 #if ENABLED(PSU_CONTROL)
   #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box
 
-  //#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
+  #define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
   //#define PSU_POWERUP_DELAY 250   // (ms) Delay for the PSU to warm up to full power
 
   //#define PSU_POWERUP_GCODE  "M355 S1"  // G-code to run after power-on (e.g., case light on)
@@ -552,7 +552,7 @@
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
   // FLSUN QQS-Pro 1.6mm aluminium heater with 4mm lattice glass
-  #define DEFAULT_bedKp 82.98   
+  #define DEFAULT_bedKp 82.98
   #define DEFAULT_bedKi 15.93
   #define DEFAULT_bedKd 288.25
 
@@ -679,7 +679,7 @@
   // Make delta curves from many straight lines (linear interpolation).
   // This is a trade-off between visible corners (not enough segments)
   // and processor overload (too many expensive sqrt calls).
-  #define DELTA_SEGMENTS_PER_SECOND 200
+  #define DELTA_SEGMENTS_PER_SECOND 100
 
   // After homing move down to a height where XY movement is unconstrained
   #define DELTA_HOME_TO_SAFE_ZONE
@@ -705,10 +705,10 @@
   #endif
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-  #define DELTA_PRINTABLE_RADIUS 130      // (mm)
+  #define DELTA_PRINTABLE_RADIUS 130.0     // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-  #define DELTA_DIAGONAL_ROD 280.0        // (mm)                         
+  #define DELTA_DIAGONAL_ROD 280.00       // (mm)                         
 
   // Distance between bed and nozzle Z home position
   #define DELTA_HEIGHT 370.00             // (mm) Get this value from G33 auto calibrate
@@ -877,7 +877,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 200 }
+#define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 210 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1207,7 +1207,7 @@
  * A total of 3 or more adds more slow probes, taking the average.
  */
 //#define MULTIPLE_PROBING 2
-//#define EXTRA_PROBING    1
+//#define EXTRA_PROBING  1
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1369,7 +1369,7 @@
 #endif
 
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
-  #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
+  #define SOFT_ENDSTOPS_MENU_ITEM    // Enable/Disable software endstops from the LCD
 #endif
 
 /**
@@ -1387,7 +1387,7 @@
  */
 #define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-  #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
+  #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
   #define FIL_RUNOUT_STATE     LOW        // Pin state indicating that filament is NOT present.
@@ -1582,7 +1582,7 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 20            // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 15            // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 8      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
@@ -1771,7 +1771,7 @@
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
-  //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
+  #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
 #endif
 
 //
@@ -1800,7 +1800,7 @@
 // Preheat Constants - Up to 5 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 210
+#define PREHEAT_1_TEMP_HOTEND 200
 #define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED   200 // Value from 0 to 255
@@ -2495,7 +2495,7 @@
 
 #define DGUS_LCD_UI_MKS
 #if ENABLED(DGUS_LCD_UI_MKS)
-  //#define USE_MKS_GREEN_UI
+  #define USE_MKS_GREEN_UI
 #endif
 
 //
@@ -2691,14 +2691,10 @@
   #define TOUCH_SCREEN_CALIBRATION
 
   // QQS-Pro use MKS Robin TFT v2.0
-  #define TOUCH_CALIBRATION_X 12033
-  #define TOUCH_CALIBRATION_Y -9047
-  #define TOUCH_OFFSET_X        -30
-  #define TOUCH_OFFSET_Y        254
-  //#define TOUCH_CALIBRATION_X 12316
-  //#define TOUCH_CALIBRATION_Y -8981
-  //#define TOUCH_OFFSET_X        -43
-  //#define TOUCH_OFFSET_Y        257
+  #define TOUCH_CALIBRATION_X   12033
+  #define TOUCH_CALIBRATION_Y   -9047
+  #define TOUCH_OFFSET_X          -30
+  #define TOUCH_OFFSET_Y          254
   //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
 
   #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
@@ -2799,14 +2795,14 @@
 // Support for Adafruit NeoPixel LED driver
 //#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
-  #define NEOPIXEL_TYPE   NEO_GRB  // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-  #define NEOPIXEL_PIN    LED_PWM  // LED driving pin
+  #define NEOPIXEL_TYPE     NEO_GRB   // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
+  #define NEOPIXEL_PIN      LED_PWM   // LED driving pin
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
-  //#define NEOPIXEL2_PIN    5
-  #define NEOPIXEL_PIXELS 12       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
-  //#define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
-  #define NEOPIXEL_BRIGHTNESS 255  // Initial brightness (0-255)
-  #define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
+  //#define NEOPIXEL2_PIN         5
+  #define NEOPIXEL_PIXELS        12   // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
+  //#define NEOPIXEL_IS_SEQUENTIAL    // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+  #define NEOPIXEL_BRIGHTNESS    255  // Initial brightness (0-255)
+  #define NEOPIXEL_STARTUP_TEST       // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
   //#define NEOPIXEL2_SEPARATE
