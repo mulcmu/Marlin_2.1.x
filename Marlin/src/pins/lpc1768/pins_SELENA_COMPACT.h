@@ -40,8 +40,10 @@
 //
 #define X_MIN_PIN                          P1_28
 #define X_MAX_PIN                          P1_25
-#define Y_STOP_PIN                         P2_11
-#define Z_STOP_PIN                         P1_27
+#define Y_MIN_PIN                          P2_11
+#define Y_MAX_PIN                          -1
+#define Z_MIN_PIN                          P1_27
+#define Z_MAX_PIN                          -1
 #ifndef Z_MIN_PROBE_PIN
   #define Z_MIN_PROBE_PIN                  P1_22
 #endif

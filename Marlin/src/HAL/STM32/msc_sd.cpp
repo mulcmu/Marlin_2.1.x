@@ -13,32 +13,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#if defined(ARDUINO_ARCH_STM32) && !defined(STM32GENERIC) && !defined(MAPLE_STM32F1)
-
 #include "../../inc/MarlinConfigPre.h"
 
-#if HAS_SD_HOST_DRIVE
+#if defined(ARDUINO_ARCH_STM32) && !defined(STM32GENERIC) && HAS_SD_HOST_DRIVE
 
-#include "../shared/Marduino.h"
 #include "msc_sd.h"
+#include "../shared/Marduino.h"
 #include "usbd_core.h"
-
-#include "../../sd/cardreader.h"
-
 #include <USB.h>
 #include <USBMscHandler.h>
 
 #define BLOCK_SIZE 512
 #define PRODUCT_ID 0x29
 
+#include "../../sd/cardreader.h"
+
 class Sd2CardUSBMscHandler : public USBMscHandler {
 public:
   DiskIODriver* diskIODriver() {
     #if ENABLED(MULTI_VOLUME)
       #if SHARED_VOLUME_IS(SD_ONBOARD)
-        return &card.media_driver_sdcard;
+        return &card.media_sd_spi;
       #elif SHARED_VOLUME_IS(USB_FLASH_DRIVE)
-        return &card.media_driver_usbFlash;
+        return &card.media_usbFlashDrive;
       #endif
     #else
       return card.diskIODriver();
@@ -124,5 +121,4 @@ void MSC_SD_init() {
   USBDevice.begin();
 }
 
-#endif // HAS_SD_HOST_DRIVE
-#endif // ARDUINO_ARCH_STM32 && !STM32GENERIC && !MAPLE_STM32F1
+#endif // __STM32F1__ && HAS_SD_HOST_DRIVE

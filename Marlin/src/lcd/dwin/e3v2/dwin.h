@@ -255,13 +255,13 @@ extern char print_filename[16];
 extern millis_t dwin_heat_time;
 
 typedef struct {
-  #if HAS_HOTEND
+  #if ENABLED(HAS_HOTEND)
     celsius_t E_Temp = 0;
   #endif
-  #if HAS_HEATED_BED
+  #if ENABLED(HAS_HEATED_BED)
     celsius_t Bed_Temp = 0;
   #endif
-  #if HAS_FAN
+  #if ENABLED(HAS_FAN)
     int16_t Fan_speed = 0;
   #endif
   int16_t print_speed     = 100;
@@ -344,13 +344,13 @@ void HMI_Move_E();
 
 void HMI_Zoffset();
 
-#if HAS_HOTEND
+#if ENABLED(HAS_HOTEND)
   void HMI_ETemp();
 #endif
-#if HAS_HEATED_BED
+#if ENABLED(HAS_HEATED_BED)
   void HMI_BedTemp();
 #endif
-#if HAS_FAN
+#if ENABLED(HAS_FAN)
   void HMI_FanSpeed();
 #endif
 

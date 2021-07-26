@@ -20,7 +20,6 @@
  *
  * Ported sys0724 & Vynt
  */
-#pragma once
 
 /**
  * Arduino Mega? or Due with RuRAMPS4DUE pin assignments
@@ -156,12 +155,12 @@
   #define TEMP_5_PIN                           6  // A6 (Marlin 2.0 not support)
 #endif
 
-// SPI for MAX Thermocouple
+// SPI for Max6675 or Max31855 Thermocouple
 /*
 #if DISABLED(SDSUPPORT)
-  #define TEMP_0_CS_PIN                       53
+  #define MAX6675_SS_PIN                      53
 #else
-  #define TEMP_0_CS_PIN                       49
+  #define MAX6675_SS_PIN                      49
 #endif
 */
 
