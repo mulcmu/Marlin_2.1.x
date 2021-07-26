@@ -362,11 +362,15 @@
       while (--segments) {
         raw += diff;
         planner.buffer_line(raw, scaled_fr_mm_s, active_extruder, segment_xyz_mm
-          OPTARG(SCARA_FEEDRATE_SCALING, inv_duration)
+          #if ENABLED(SCARA_FEEDRATE_SCALING)
+            , inv_duration
+          #endif
         );
       }
       planner.buffer_line(destination, scaled_fr_mm_s, active_extruder, segment_xyz_mm
-        OPTARG(SCARA_FEEDRATE_SCALING, inv_duration)
+        #if ENABLED(SCARA_FEEDRATE_SCALING)
+          , inv_duration
+        #endif
       );
       return false; // Did not set current from destination
     }

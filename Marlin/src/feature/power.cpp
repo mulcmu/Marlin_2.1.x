@@ -99,10 +99,6 @@ bool Power::is_power_needed() {
   return false;
 }
 
-#ifndef POWER_TIMEOUT
-  #define POWER_TIMEOUT 0
-#endif
-
 void Power::check() {
   static millis_t nextPowerCheck = 0;
   millis_t ms = millis();
@@ -110,7 +106,7 @@ void Power::check() {
     nextPowerCheck = ms + 2500UL;
     if (is_power_needed())
       power_on();
-    else if (!lastPowerOn || (POWER_TIMEOUT > 0 && ELAPSED(ms, lastPowerOn + SEC_TO_MS(POWER_TIMEOUT))))
+    else if (!lastPowerOn || ELAPSED(ms, lastPowerOn + SEC_TO_MS(POWER_TIMEOUT)))
       power_off();
   }
 }

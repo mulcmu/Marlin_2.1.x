@@ -144,7 +144,7 @@
 #undef SPINDLE_DIR_PIN
 
 #if HAS_CUTTER
-  #if !HAS_EXTRUDERS
+  #if !EXTRUDERS
     #undef E0_DIR_PIN
     #undef E0_ENABLE_PIN
     #undef E0_STEP_PIN

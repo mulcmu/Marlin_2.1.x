@@ -113,7 +113,10 @@
 
   void move_extruder_servo(const uint8_t e) {
     planner.synchronize();
-    if ((EXTRUDERS & 1) && e < EXTRUDERS - 1) {
+    #if EXTRUDERS & 1
+      if (e < EXTRUDERS - 1)
+    #endif
+    {
       MOVE_SERVO(_SERVO_NR(e), servo_angles[_SERVO_NR(e)][e & 1]);
       safe_delay(500);
     }
@@ -822,7 +825,7 @@ void fast_line_to_current(const AxisEnum fr_axis) { _line_to_current(fr_axis, 0.
 
 #endif // ELECTROMAGNETIC_SWITCHING_TOOLHEAD
 
-#if HAS_EXTRUDERS
+#if EXTRUDERS
   inline void invalid_extruder_error(const uint8_t e) {
     SERIAL_ECHO_START();
     SERIAL_CHAR('T'); SERIAL_ECHO(e);
@@ -1181,7 +1184,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
       sync_plan_position();
 
       #if ENABLED(DELTA)
-        //LOOP_LINEAR_AXES(i) update_software_endstops(i); // or modify the constrain function
+        //LOOP_XYZ(i) update_software_endstops(i); // or modify the constrain function
         const bool safe_to_move = current_position.z < delta_clip_start_height - 1;
       #else
         constexpr bool safe_to_move = true;
@@ -1191,9 +1194,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
       const bool should_move = safe_to_move && !no_move && IsRunning();
       if (should_move) {
 
-        #if EITHER(SINGLENOZZLE_STANDBY_TEMP, SINGLENOZZLE_STANDBY_FAN)
-          thermalManager.singlenozzle_change(old_tool, new_tool);
-        #endif
+        TERN_(SINGLENOZZLE_STANDBY_TEMP, thermalManager.singlenozzle_change(old_tool, new_tool));
 
         #if ENABLED(TOOLCHANGE_FILAMENT_SWAP)
           if (should_swap && !too_cold) {
@@ -1382,7 +1383,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
     #if HAS_MULTI_HOTEND
       thermalManager.setTargetHotend(thermalManager.degTargetHotend(active_extruder), migration_extruder);
       TERN_(AUTOTEMP, planner.autotemp_update());
-      thermalManager.set_heating_message(0);
+      TERN_(HAS_STATUS_MESSAGE, thermalManager.set_heating_message(0));
       thermalManager.wait_for_hotend(active_extruder);
     #endif
 
