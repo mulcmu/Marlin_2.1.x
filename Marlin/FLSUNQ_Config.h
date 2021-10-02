@@ -80,7 +80,7 @@
 
   #define TOUCH_SCREEN           //(C/F) (Default) UI MARLIN
 #else
-  #define DWIN                   //(G) TFT DGUS screen
+  #define DWIN                   //(D) TFT DGUS screen
   #define HOST_ACTION_COMMANDS 
 #endif
 
@@ -113,7 +113,7 @@
 
 // BMG Extruder (B) Extruder step(417).
 //#define BMG                            //(B) Uncommment for BMG Left/Right.
-//#define NEMA14                         //(N) Uncommment for Mini-Sherpa/SuperDrive.
+//#define NEMA14                         //(n) Uncommment for Mini-Sherpa/SuperDrive.
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -148,8 +148,8 @@
 
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
 // more at the bottom page.
-//#define STALLGUARD_1               // Special mod for TMC2209 = SENSORLESS_HOMING
-//#define STALLGUARD_2               // Special mod for TMC2209 = SENSORLESS_PROBING
+//#define STALLGUARD_1               // (G) Special mod for TMC2209 = SENSORLESS_HOMING
+//#define STALLGUARD_2               // (g) Special mod for TMC2209 = SENSORLESS_PROBING
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
 //#define X_PROBE                   // Set to invert the logic of the PROBE.
@@ -167,9 +167,10 @@
  */
 #define ADD_MENUS                      //  (Default) Add menu PID, DELTA, INFO,...with UI_COLOR.
 
-// For user who change their nozzle thermistor 
+// For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5 
 //#define TEMP_SENSOR_0 13             // uncomment with a good number/type.
+//#define HEATER_0_MAXTEMP 300
 
 /*__________________________8__________________________*/
 /** ===================================================
@@ -226,15 +227,9 @@
 
 //TFT Type For TFT_GENERIC
 #if ENABLED(TFT_GENERIC)
-  #ifdef TS35
-    #define TFT_DRIVER ST7796 // for new TS35v2
-    #define TFT_RES_480x320
-    #define TFT_INTERFACE_SPI
-  #else
-    #define TFT_DRIVER AUTO 
-    #define TFT_INTERFACE_FSMC  //Default socket on MKS_nano, mini, hispeed.
-    #define TFT_RES_320x240
-  #endif  
+  #define TFT_DRIVER AUTO 
+  #define TFT_INTERFACE_FSMC  //Default socket on MKS_nano, mini, hispeed.
+  #define TFT_RES_320x240
 #endif
 
 /**
