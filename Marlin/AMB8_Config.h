@@ -67,7 +67,7 @@
 #define ADAPTIVE_STEP_SMOOTHING
 #ifdef RAMPS
   #define TEMP_SENSOR_0 1
-  #define TEMP_SENSOR_BED 11
+  #define TEMP_SENSOR_BED 5
   #define TEMP_SENSOR_CHAMBER 11
   #define TEMP_CHAMBER_PIN TEMP_1_PIN //
 #else
@@ -76,7 +76,8 @@
   #define TEMP_SENSOR_CHAMBER 11
   //#define TEMP_CHAMBER_PIN TEMP_1_PIN //
 #endif
-
+//#define MICROSTEPS32
+#define Z_OFFSET  -3.60
 //============= End_Hardware ===============//
 
 //Choice add menu: (OPT)
@@ -84,6 +85,7 @@
 #define PID_EDIT_MENU              //
 #define PID_AUTOTUNE_MENU          //
 #define LCD_INFO_MENU              // Informations printer.
+#define CUSTOM_MENU_MAIN
 
 //  Type Calibration (CAL)
 #define AUTO_BED_LEVELING_BILINEAR //(A)
@@ -92,9 +94,13 @@
 
 // Option for Octoprint (OCTO)
 #define HOST_ACTION_COMMANDS       // Action Command Prompt support Message on Octoprint
-//#define UTF_FILENAME_SUPPORT
+#define UTF_FILENAME_SUPPORT
+#define EMERGENCY_PARSER
 //#define CANCEL_OBJECTS
-
+#define SDCARD_SORT_ALPHA
+#define M114_DETAIL
+#define REPORT_FAN_CHANGE
+#define MEATPACK_ON_SERIAL_PORT_1
 /* OPTION no validate */
 //#define USE_CONTROLLER_FAN         //BOARD FAN
 //EXTRUDER_AUTO_FAN   //
@@ -114,6 +120,15 @@
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC
   #define TFT_RES_320x240
+#endif
+
+//variables to calculate steps and current
+#ifdef MICROSTEPS32
+  #define XYZ_MICROSTEPS 32
+  #define E_MICROSTEPS 32
+#else
+  #define XYZ_MICROSTEPS 16
+  #define E_MICROSTEPS 16
 #endif
 
 //Set for A4988 
