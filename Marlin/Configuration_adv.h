@@ -396,9 +396,7 @@
  * Enable Autotemp Mode with M104/M109 F<factor> S<mintemp> B<maxtemp>.
  * Disable by sending M104/M109 with no F parameter (or F0 with AUTOTEMP_PROPORTIONAL).
  */
-#ifdef RAMPS
-  #define AUTOTEMP
-#endif
+#define AUTOTEMP
 #if ENABLED(AUTOTEMP)
   #define AUTOTEMP_OLDWEIGHT    0.98
   // Turn on AUTOTEMP on M104/M109 by default using proportions set here
@@ -458,7 +456,7 @@
  * Hotend Idle Timeout
  * Prevent filament in the nozzle from charring and causing a critical jam.
  */
-//#define HOTEND_IDLE_TIMEOUT
+#define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
   #define HOTEND_IDLE_TIMEOUT_SEC (5*60)    // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER   180     // (°C) Minimum temperature to enable hotend protection
@@ -1191,7 +1189,7 @@
 // @section lcd
 
 #if EITHER(IS_ULTIPANEL, EXTENSIBLE_UI)
-  #define MANUAL_FEEDRATE { 50*60, 50*60, 2*60, 60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
+  #define MANUAL_FEEDRATE { 50*60, 50*60, 5*60, 60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -1430,9 +1428,9 @@
     #define SDSORT_LIMIT       40     // Maximum number of sorted items (10-256). Costs 27 bytes each.
     #define FOLDER_SORTING     -1     // -1=above  0=none  1=below
     #define SDSORT_GCODE       false  // Allow turning sorting on/off with LCD and M34 G-code.
-    #define SDSORT_USES_RAM    false  // Pre-allocate a static array for faster pre-sorting.
+    #define SDSORT_USES_RAM    true   // Pre-allocate a static array for faster pre-sorting.
     #define SDSORT_USES_STACK  false  // Prefer the stack for pre-sorting to give back some SRAM. (Negated by next 2 options.)
-    #define SDSORT_CACHE_NAMES false  // Keep sorted items in RAM longer for speedy performance. Most expensive option.
+    #define SDSORT_CACHE_NAMES true  // Keep sorted items in RAM longer for speedy performance. Most expensive option.
     #define SDSORT_DYNAMIC_RAM false  // Use dynamic allocation (within SD menus). Least expensive option. Set SDSORT_LIMIT before use!
     #define SDSORT_CACHE_VFATS 2      // Maximum number of 13-byte VFAT entries to use for sorting.
                                       // Note: Only affects SCROLL_LONG_FILENAMES with SDSORT_CACHE_NAMES but not SDSORT_DYNAMIC_RAM.
@@ -2591,9 +2589,9 @@
 // Réglages des Vref TMC à 0.74v>0.8vMax sinon danger!!
 // TMC drivers use rms current not max(peak) so Irms is 740mA/1.414 = 523mA
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       720// 523        // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS     16        // 0..256
+    #define X_CURRENT       750// 523       // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME  X_CURRENT       // (mA) RMS current for sensorless homing
+    #define X_MICROSTEPS    XYZ_MICROSTEPS  // 0..256
     #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
     //#define X_INTERPOLATE  true      // Enable to override 'INTERPOLATE' for the X axis
@@ -2611,7 +2609,7 @@
   #if AXIS_IS_TMC(Y)
     #define Y_CURRENT       523 //800
     #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS    X_MICROSTEPS
+    #define Y_MICROSTEPS    XYZ_MICROSTEPS
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
     //#define Y_INTERPOLATE  true
@@ -2629,7 +2627,7 @@
   #if AXIS_IS_TMC(Z)
     #define Z_CURRENT       523 // 740mAx70%x2=1036
     #define Z_CURRENT_HOME  Z_CURRENT
-    #define Z_MICROSTEPS    X_MICROSTEPS
+    #define Z_MICROSTEPS    XYZ_MICROSTEPS
     #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
     //#define Z_INTERPOLATE  true
@@ -2691,7 +2689,7 @@
 
   #if AXIS_IS_TMC(E0)
     #define E0_CURRENT      396 //800
-    #define E0_MICROSTEPS    16
+    #define E0_MICROSTEPS   E_MICROSTEPS
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
     //#define E0_INTERPOLATE true
@@ -2963,7 +2961,7 @@
     //#define J_STALL_SENSITIVITY  8
     //#define K_STALL_SENSITIVITY  8
     //#define SPI_ENDSTOPS              // TMC2130 only
-    //#define IMPROVE_HOMING_RELIABILITY
+    #define IMPROVE_HOMING_RELIABILITY
   #endif
 
   /**
@@ -3728,18 +3726,55 @@
 // Custom Menu: Main Menu
 //#define CUSTOM_MENU_MAIN
 #if ENABLED(CUSTOM_MENU_MAIN)
-  //#define CUSTOM_MENU_MAIN_TITLE "Custom Commands"
-  #define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
-  #define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
-  //#define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
-  #define CUSTOM_MENU_MAIN_ONLY_IDLE         // Only show custom menu when the machine is idle
+  #define CUSTOM_MENU_MAIN_TITLE "Level and init Commands"
+  //#define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
+  //#define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
+  #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
+  //#define CUSTOM_MENU_MAIN_ONLY_IDLE         // Only show custom menu when the machine is idle
 
-  #define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
-  #define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
+  #define MAIN_MENU_ITEM_1_DESC "Initialize EEPROM"
+  #define MAIN_MENU_ITEM_1_GCODE "M502\nM500\nM997"
+  #define MAIN_MENU_ITEM_1_CONFIRM
+
+  #define MAIN_MENU_ITEM_2_DESC "Reboot Printer"
+  #define MAIN_MENU_ITEM_2_GCODE "M997"
+  #define MAIN_MENU_ITEM_2_CONFIRM
+
+  #define MAIN_MENU_ITEM_3_DESC "Run PID Nozzle for " PREHEAT_1_LABEL
+    //#define MAIN_MENU_ITEM_5_GCODE "M810" //M810 M106 P0 S180|M303 E0 C8 S210 U|M500|M107
+  #define MAIN_MENU_ITEM_3_GCODE "M106 P0 S200\nM303 E0 C8 S210 U\nM500\nG28W\nM107"
+  #define MAIN_MENU_ITEM_3_CONFIRM
+
+  #define MAIN_MENU_ITEM_4_DESC "Run PID Nozzle for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_4_GCODE "M106 P0 S180\nM303 E0 C8 S230 U\nM500\nG28W\nM107"
+  #define MAIN_MENU_ITEM_4_CONFIRM
+
+  #define MAIN_MENU_ITEM_5_DESC "Run PID Nozzle for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_5_GCODE "M303 E0 C8 S240 U\nM500\nG28W"
+  #define MAIN_MENU_ITEM_5_CONFIRM
+
+  #define MAIN_MENU_ITEM_6_DESC "Cool"
+  #define MAIN_MENU_ITEM_6_GCODE "M108\nM106 255"
+  #define MAIN_MENU_ITEM_6_CONFIRM
+
+//  #define MAIN_MENU_ITEM_6_DESC "Bed Leveling UBL for " PREHEAT_1_LABEL
+//  #define MAIN_MENU_ITEM_6_GCODE "M1004 H0 B90 S0"
+//  #define MAIN_MENU_ITEM_6_CONFIRM
+
+//  #define MAIN_MENU_ITEM_7_DESC "Bed Leveling UBL for " PREHEAT_2_LABEL
+//  #define MAIN_MENU_ITEM_7_GCODE "M1004 H0 B80 S1"
+//  #define MAIN_MENU_ITEM_7_CONFIRM
+
+//  #define MAIN_MENU_ITEM_8_DESC "Bed Leveling UBL for " PREHEAT_3_LABEL
+//  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
+//  #define MAIN_MENU_ITEM_8_CONFIRM
+
+//  #define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
+//  #define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
   //#define MAIN_MENU_ITEM_1_CONFIRM          // Show a confirmation dialog before this action
 
-  #define MAIN_MENU_ITEM_2_DESC "Preheat for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+//  #define MAIN_MENU_ITEM_2_DESC "Preheat for " PREHEAT_1_LABEL
+//  #define MAIN_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
   //#define MAIN_MENU_ITEM_2_CONFIRM
 
   //#define MAIN_MENU_ITEM_3_DESC "Preheat for " PREHEAT_2_LABEL
@@ -3832,7 +3867,8 @@
  */
 //#define HOST_ACTION_COMMANDS
 #if ENABLED(HOST_ACTION_COMMANDS)
-  //#define HOST_PROMPT_SUPPORT
+  #define HOST_PAUSE_M76
+  #define HOST_PROMPT_SUPPORT
   //#define HOST_START_MENU_ITEM  // Add a menu item that tells the host to start
 #endif
 
@@ -4182,10 +4218,14 @@
 //
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe
 //
-//#define PINS_DEBUGGING
+#ifdef DBUG
+  #define PINS_DEBUGGING
+#endif
 
 // Enable Marlin dev mode which adds some special commands
-//#define MARLIN_DEV_MODE
+#ifdef DBUG
+  #define MARLIN_DEV_MODE
+#endif
 
 /**
  * Postmortem Debugging captures misbehavior and outputs the CPU status and backtrace to serial.
