@@ -551,7 +551,7 @@
 #define TEMP_WINDOW                  1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_HYSTERESIS              3  // (°C) Temperature proximity considered "close enough" to the target
 
-#define TEMP_BED_RESIDENCY_TIME     10  // (seconds) Time to wait for bed to "settle" in M190
+#define TEMP_BED_RESIDENCY_TIME      6  // (seconds) Time to wait for bed to "settle" in M190
 #define TEMP_BED_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_BED_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
 
@@ -677,7 +677,7 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-//#define PIDTEMPBED
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -703,9 +703,10 @@
   //ANet A8 Plateau alu+Liège+ZIFLEX.
   //M304 P124.74 I14.50 D715.28 /M304 P135.39 I16.53 D739.85
   // REGLER à 60°C Memo=>M304 P98.09 I18.71 D342.86
-  #define DEFAULT_bedKp 234.84  //148.21  //248.62    //228.02
-  #define DEFAULT_bedKi 045.5 //017.91  //048.28    //38.13
-  #define DEFAULT_bedKd 808.02  //817.54  //853.51    //909.044 
+  //M304 P184.21 I36.55 D618.93
+  #define DEFAULT_bedKp 184.21  //148.21  //248.62    //228.02
+  #define DEFAULT_bedKi 036.55  //017.91  //048.28    //38.13
+  #define DEFAULT_bedKd 618.93  //817.54  //853.51    //909.044 
 
   // REGLER POUR PETG à 75°C
   //Plateau alu+ZIFLEX+isolation silicone
@@ -1002,10 +1003,15 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
+#ifdef MICROSTEPS32
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.28, 159.96, 796.09, 1144.14 }
+#else
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.33, 79.81, 398.68, 1144.14 }
+#endif
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 100 }  //A8 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.28, 159.96, 796.09, 1144.14 } //  OPT microstep à 32
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 81.70, 81.62, 398.68, 495.07 }  // OPT 20200126 https://www.thingiverse.com/thing:2484766
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.33, 79.81, 398.68, 1144.14 }  //
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.33, 79.81, 398.68, 1144.14 }  //
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,280}  //BEAR RAMPS
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 800, 1107.4 } //RS32
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 99.98, 79.91, 397.75, 153.61 } // nbre de pas des moteurs par tour
@@ -1038,7 +1044,7 @@
  */
 //#define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 10000 } //A8
 //#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 } //MK3 RAMPS
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 200, 5000 } //BEAR RAMPS
+#define DEFAULT_MAX_ACCELERATION      { 1250, 1250, 200, 5000 } //BEAR RAMPS
 //#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 1000 } //RS32
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1053,18 +1059,18 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
+//#define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
 //#define DEFAULT_ACCELERATION          400  //A8
 //#define DEFAULT_ACCELERATION          1500 //MK3 RAMPS
-//#define DEFAULT_ACCELERATION          1250 //BEAR MKS accélérations par défaut
+#define DEFAULT_ACCELERATION          1250 //BEAR MKS accélérations par défaut
 //#define DEFAULT_ACCELERATION          400  //A8&A8Plus
 //#define DEFAULT_ACCELERATION          500  //RS32
-#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-//#define DEFAULT_RETRACT_ACCELERATION  1250    //BEAR RAMPS
+//#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+#define DEFAULT_RETRACT_ACCELERATION  1250    //BEAR RAMPS
 
-#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
+//#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
 //#define DEFAULT_TRAVEL_ACCELERATION   2000  //MK3 RAMPS
-//#define DEFAULT_TRAVEL_ACCELERATION   1250  //BEAR RAMPS
+#define DEFAULT_TRAVEL_ACCELERATION   1250  //BEAR RAMPS
 //#define DEFAULT_TRAVEL_ACCELERATION   400   //A8Plus
 /**
  * Default Jerk limits (mm/s)
@@ -1104,7 +1110,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.05  //0.032  //0.013 //0.02	//201907 0.02/ (mm) (D=DiaNozexjerkXxJerkY/AccelPrinting)Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.017  //0.032  //0.013 //0.02	//201907 0.02/ (mm) (D=DiaNozexjerkXxJerkY/AccelPrinting)Distance from real junction edge
 //JUNCTION_DEVIATION_MM 0.06 //équivalent de jerk +/- = 10 (MK8 de base ou DirectDrive)
 //JUNCTION_DEVIATION_MM 0.10 //équivalent de jerk entre 17-19 (E3Dv6/à distance(Bowden)
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
@@ -1317,9 +1323,9 @@
  
 // Pour le support http://www.thingiverse.com/thing:2111157 201810
 #if ANY(RAMPS, SKR)
-  #define NOZZLE_TO_PROBE_OFFSET { 25, 6, -3.60 }
+  #define NOZZLE_TO_PROBE_OFFSET { 25, 6, Z_OFFSET }
 #else
-  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
+  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, Z_OFFSET }
 #endif
 
 // Most probes should stay away from the edges of the bed, but
@@ -1327,13 +1333,13 @@
 #define PROBING_MARGIN 15
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE (133*60) //(66*60)
+#define XY_PROBE_FEEDRATE (133*60) //7980 (66*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (10*60) //(200*60)
+#define Z_PROBE_FEEDRATE_FAST (10*60) //600 (200*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
+#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2) //300
 
 /**
  * Probe Activation Switch
@@ -1530,8 +1536,8 @@
 #define Y_BED_SIZE 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS -8 //-9BNBSX //0   //-19(EVO2+)//201907 E3D //-33 //reglage milieu plateau/buse
-#define Y_MIN_POS 0 //-1BNBSX  //-3  //-05(EVO2+)//201907 E3D //-10 //reglage milieu plateau/buse
+#define X_MIN_POS -34 //-9BNBSX //0   //-19(EVO2+)//201907 E3D //-33 //reglage milieu plateau/buse
+#define Y_MIN_POS -4 //-1BNBSX  //-3  //-05(EVO2+)//201907 E3D //-10 //reglage milieu plateau/buse
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -1881,14 +1887,14 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#ifdef SKR
-  #define MANUAL_X_HOME_POS -34
-  #define MANUAL_Y_HOME_POS -4
-  #define MANUAL_Z_HOME_POS 0
+//#ifdef SKR
+  //#define MANUAL_X_HOME_POS -34
+  //#define MANUAL_Y_HOME_POS -4
+  //#define MANUAL_Z_HOME_POS 0
   //#define MANUAL_I_HOME_POS 0
   //#define MANUAL_J_HOME_POS 0
   //#define MANUAL_K_HOME_POS 0
-#endif
+//#endif
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -2292,13 +2298,13 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-#define ENCODER_PULSES_PER_STEP 4 //OPT
+//#define ENCODER_PULSES_PER_STEP 4
 
 //
 // Use this option to override the number of step signals required to
 // move between next/prev menu items.
 //
-#define ENCODER_STEPS_PER_MENU_ITEM 1
+//#define ENCODER_STEPS_PER_MENU_ITEM 1
 
 /**
  * Encoder Direction Options
@@ -2315,7 +2321,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-//#define REVERSE_ENCODER_DIRECTION
+#define REVERSE_ENCODER_DIRECTION    //OPT
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -2323,7 +2329,7 @@
 //  If CLOCKWISE normally moves DOWN this makes it go UP.
 //  If CLOCKWISE normally moves UP this makes it go DOWN.
 //
-#define REVERSE_MENU_DIRECTION    //OPT
+//#define REVERSE_MENU_DIRECTION
 
 //
 // This option reverses the encoder direction for Select Screen.
@@ -2331,7 +2337,7 @@
 //  If CLOCKWISE normally moves LEFT this makes it go RIGHT.
 //  If CLOCKWISE normally moves RIGHT this makes it go LEFT.
 //
-#define REVERSE_SELECT_DIRECTION
+#define REVERSE_SELECT_DIRECTION    //OPT
 
 //
 // Individual Axis Homing
