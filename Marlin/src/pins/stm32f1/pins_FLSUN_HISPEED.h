@@ -73,10 +73,10 @@
 
 #if HAS_SPI_FLASH
   // SPI 2
-  #define W25QXX_CS_PIN                     PB12  // SPI2_NSS / Flash chip-select
-  #define W25QXX_MOSI_PIN                   PB15
-  #define W25QXX_MISO_PIN                   PB14
-  #define W25QXX_SCK_PIN                    PB13
+  #define SPI_FLASH_CS_PIN                  PB12  // SPI2_NSS / Flash chip-select
+  #define SPI_FLASH_MOSI_PIN                PB15
+  #define SPI_FLASH_MISO_PIN                PB14
+  #define SPI_FLASH_SCK_PIN                 PB13
 #endif
 
 //
@@ -272,9 +272,9 @@
   #endif
 #endif
 
-#define MT_DET_1_PIN                        PA4   // MT_DET
-#define MT_DET_2_PIN                        PE6   // FALA_CRTL
-#define MT_DET_PIN_INVERTING                false
+#define MT_DET_1_PIN                      PA4   // MT_DET
+#define MT_DET_2_PIN                      PE6   // FALA_CRTL
+#define MT_DET_PIN_STATE                  LOW
 
 //
 // LED / NEOPixel
@@ -341,8 +341,6 @@
   #define TFT_BACKLIGHT_PIN                 PD13
 
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
-  #define FSMC_CS_PIN                       PD7   // NE4
-  #define FSMC_RS_PIN                       PD11  // A0
   #define FSMC_DMA_DEV                      DMA2
   #define FSMC_DMA_CHANNEL               DMA_CH5
 
@@ -356,11 +354,14 @@
     #define TFT_BTOKMENU_COLOR            0x145F  // Cyan
   #endif
   #define TFT_BUFFER_SIZE                  14400
+
 #elif HAS_GRAPHICAL_TFT
+
   #define TFT_RESET_PIN                     PC6
   #define TFT_BACKLIGHT_PIN                 PD13
   #define TFT_CS_PIN                        PD7   // NE4
   #define TFT_RS_PIN                        PD11  // A0
+
 #endif
 
 #if NEED_TOUCH_PINS
