@@ -518,7 +518,7 @@
  *
  */
 #ifndef TEMP_SENSOR_0
-  #define TEMP_SENSOR_0 11 //201908 E3D NTC 3950 type sonde température tête 1 (lié à la table correspondante dans thermistortable.h)
+  #define TEMP_SENSOR_0 5 //201908 E3D NTC 3950 type sonde température tête 1 (lié à la table correspondante dans thermistortable.h)
 #endif
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
@@ -528,7 +528,7 @@
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
 #ifndef TEMP_SENSOR_BED
-  #define TEMP_SENSOR_BED 1 // type sonde température lit chauffant
+  #define TEMP_SENSOR_BED 5 // type sonde température lit chauffant
 #endif
 #define TEMP_SENSOR_PROBE 0
 #ifndef TEMP_SENSOR_CHAMBER
@@ -1006,7 +1006,7 @@
 #ifdef MICROSTEPS32
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.28, 159.96, 796.09, 1144.14 }
 #else
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.33, 79.81, 398.68, 1144.14 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.33, 79.81, 398.68, 495.07 }
 #endif
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 100 }  //A8 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.28, 159.96, 796.09, 1144.14 } //  OPT microstep à 32
@@ -1059,10 +1059,10 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-//#define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
 //#define DEFAULT_ACCELERATION          400  //A8
 //#define DEFAULT_ACCELERATION          1500 //MK3 RAMPS
-#define DEFAULT_ACCELERATION          1250 //BEAR MKS accélérations par défaut
+//#define DEFAULT_ACCELERATION          1250 //BEAR MKS accélérations par défaut
 //#define DEFAULT_ACCELERATION          400  //A8&A8Plus
 //#define DEFAULT_ACCELERATION          500  //RS32
 //#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
@@ -1097,7 +1097,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    10//2.5  // BNBSX (2.5)
+#define DEFAULT_EJERK    2.5  // BNBSX (2.5)
 //#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
 //#define DEFAULT_EJERK    1.5  //MK3S RAMPS
 //#define DEFAULT_EJERK    4.5  // BEAR MKS(4.5)
@@ -1110,7 +1110,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.017  //0.032  //0.013 //0.02	//201907 0.02/ (mm) (D=DiaNozexjerkXxJerkY/AccelPrinting)Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.05  //0.032  //0.013 //0.02	//201907 0.02/ (mm) (D=DiaNozexjerkXxJerkY/AccelPrinting)Distance from real junction edge
 //JUNCTION_DEVIATION_MM 0.06 //équivalent de jerk +/- = 10 (MK8 de base ou DirectDrive)
 //JUNCTION_DEVIATION_MM 0.10 //équivalent de jerk entre 17-19 (E3Dv6/à distance(Bowden)
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
@@ -1330,7 +1330,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 15
+#define PROBING_MARGIN 10
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (133*60) //7980 (66*60)
@@ -1432,7 +1432,7 @@
 //#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
-//#define PREHEAT_BEFORE_PROBING
+#define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
   #define PROBING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
   #define PROBING_BED_TEMP     50
@@ -1481,7 +1481,7 @@
 #endif
 
 #if ANY(STOCK, SKR)
-  #define INVERT_X_DIR true
+  #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
   #ifdef INV_EXT
@@ -1537,7 +1537,7 @@
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -34 //-9BNBSX //0   //-19(EVO2+)//201907 E3D //-33 //reglage milieu plateau/buse
-#define Y_MIN_POS -4 //-1BNBSX  //-3  //-05(EVO2+)//201907 E3D //-10 //reglage milieu plateau/buse
+#define Y_MIN_POS -2 //-1BNBSX  //-3  //-05(EVO2+)//201907 E3D //-10 //reglage milieu plateau/buse
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -1600,10 +1600,10 @@
 //#define FILAMENT_RUNOUT_SENSOR  //Define on AMB8_Config
 //#define FIL_RUNOUT_PIN  5
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-  #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
+  #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
-  #define FIL_RUNOUT_STATE     LOW        // Pin state indicating that filament is NOT present.
+  #define FIL_RUNOUT_STATE     HIGH        // Pin state indicating that filament is NOT present.
   #define FIL_RUNOUT_PULLUP               // Use internal pullup for filament runout pins.
   //#define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
   //#define WATCH_ALL_RUNOUT_SENSORS      // Execute runout script on any triggering sensor, not only for the active extruder.
@@ -1709,7 +1709,7 @@
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
-//#define RESTORE_LEVELING_AFTER_G28
+#define RESTORE_LEVELING_AFTER_G28
 //#define ENABLE_LEVELING_AFTER_G28
 
 /**
@@ -1726,7 +1726,9 @@
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of PROGMEM!
  */
-//#define DEBUG_LEVELING_FEATURE
+#ifdef DBUG
+  #define DEBUG_LEVELING_FEATURE
+#endif
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL, PROBE_MANUALLY)
   // Set a height for the start of manual adjustment
@@ -1799,8 +1801,8 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   //UBL // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 35              // 1 Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 10      // Don't use more than 15 points per axis, implementation limited.
+  #define MESH_INSET 1              // 1 Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X 7      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
@@ -1831,12 +1833,12 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-//#define LCD_BED_LEVELING
+#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
   #define LCD_PROBE_Z_RANGE 4     // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment
-  //#define MESH_EDIT_MENU        // Add a menu to edit mesh points
+  #define MESH_EDIT_MENU        // Add a menu to edit mesh points
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
@@ -1887,14 +1889,14 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#ifdef SKR
-  //#define MANUAL_X_HOME_POS -34
-  //#define MANUAL_Y_HOME_POS -4
-  //#define MANUAL_Z_HOME_POS 0
+#ifdef SKR
+  #define MANUAL_X_HOME_POS 0
+  #define MANUAL_Y_HOME_POS -3
+  #define MANUAL_Z_HOME_POS 0.2
   //#define MANUAL_I_HOME_POS 0
   //#define MANUAL_J_HOME_POS 0
   //#define MANUAL_K_HOME_POS 0
-//#endif
+#endif
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -1908,8 +1910,8 @@
 #define Z_SAFE_HOMING //TouchMi & probe
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
+  #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)  //X_CENTER  // X point for Z homing
+  #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)  //Y_CENTER  // Y point for Z homing
 #endif
 
 // Homing speeds (mm/m)
@@ -2061,7 +2063,7 @@
   #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 }
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
-  #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
+  //#define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
   #define NOZZLE_PARK_XY_FEEDRATE 100   // (mm/s) X and Y axes feedrate (also used for delta Z axis)
   #define NOZZLE_PARK_Z_FEEDRATE    5   // (mm/s) Z axis feedrate (not used for delta printers)
 #endif
@@ -2298,13 +2300,13 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-//#define ENCODER_PULSES_PER_STEP 4
+#define ENCODER_PULSES_PER_STEP 4
 
 //
 // Use this option to override the number of step signals required to
 // move between next/prev menu items.
 //
-//#define ENCODER_STEPS_PER_MENU_ITEM 1
+#define ENCODER_STEPS_PER_MENU_ITEM 1
 
 /**
  * Encoder Direction Options

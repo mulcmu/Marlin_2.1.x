@@ -76,8 +76,8 @@
   #define TEMP_SENSOR_CHAMBER 11
   //#define TEMP_CHAMBER_PIN TEMP_1_PIN //
 #endif
-//#define MICROSTEPS32
-#define Z_OFFSET  -3.60
+#define MICROSTEPS32
+#define Z_OFFSET  -3.9
 //============= End_Hardware ===============//
 
 //Choice add menu: (OPT)
@@ -88,19 +88,23 @@
 #define CUSTOM_MENU_MAIN
 
 //  Type Calibration (CAL)
-#define AUTO_BED_LEVELING_BILINEAR //(A)
-//#define AUTO_BED_LEVELING_UBL    //(U) 
-//#define LEVEL_BED_CORNERS
+//#define AUTO_BED_LEVELING_BILINEAR //(A)
+#define AUTO_BED_LEVELING_UBL    //(U) 
+#define LEVEL_BED_CORNERS
 
 // Option for Octoprint (OCTO)
 #define HOST_ACTION_COMMANDS       // Action Command Prompt support Message on Octoprint
 #define UTF_FILENAME_SUPPORT
 #define EMERGENCY_PARSER
+#define BINARY_FILE_TRANSFER
+//#define MEATPACK_ON_SERIAL_PORT_1
+#define SDCARD_CONNECTION ONBOARD
+
 //#define CANCEL_OBJECTS
 #define SDCARD_SORT_ALPHA
 #define M114_DETAIL
 #define REPORT_FAN_CHANGE
-#define MEATPACK_ON_SERIAL_PORT_1
+
 /* OPTION no validate */
 //#define USE_CONTROLLER_FAN         //BOARD FAN
 //EXTRUDER_AUTO_FAN   //

@@ -1274,7 +1274,7 @@
 
 #if HAS_DISPLAY
   // The timeout (in ms) to return to the status screen from sub-menus
-  //#define LCD_TIMEOUT_TO_STATUS 15000
+  #define LCD_TIMEOUT_TO_STATUS 15000
 
   #if ENABLED(SHOW_BOOTSCREEN)
     #define BOOTSCREEN_TIMEOUT 4000      // (ms) Total Duration to display the boot screen(s)
@@ -1299,7 +1299,7 @@
 // LCD Print Progress options
 #if EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY)
   #if ANY(HAS_MARLINUI_U8GLIB, EXTENSIBLE_UI, HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL)
-    //#define SHOW_REMAINING_TIME         // Display estimated time to completion
+    #define SHOW_REMAINING_TIME         // Display estimated time to completion
     #if ENABLED(SHOW_REMAINING_TIME)
       #define USE_M73_REMAINING_TIME    // Use remaining time from M73 command instead of estimation
       //#define ROTATE_PROGRESS_DISPLAY   // Display (P)rogress, (E)lapsed, and (R)emaining time
@@ -1346,7 +1346,7 @@
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
   #define SD_FINISHED_STEPPERRELEASE true   // Disable steppers when SD Print is finished
-  #define SD_FINISHED_RELEASECOMMAND "M84"  // Use "M84XYE" to keep Z enabled so your bed stays in place
+  #define SD_FINISHED_RELEASECOMMAND "M84XYZE"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
@@ -1361,7 +1361,7 @@
 
   //#define MEDIA_MENU_AT_TOP               // Force the media menu to be listed on the top of the main menu
 
-  #define EVENT_GCODE_SD_ABORT "G28"        // G-code to run on SD Abort Print (e.g., "G28XY" or "G27")
+  #define EVENT_GCODE_SD_ABORT "G28X"        // G-code to run on SD Abort Print (e.g., "G28XY" or "G27")
 
   #if ENABLED(PRINTER_EVENT_LEDS)
     #define PE_LEDS_COMPLETED_TIME  (30*60) // (seconds) Time to keep the LED "done" color before restoring normal illumination
@@ -1536,7 +1536,7 @@
    *
    * :[ 'LCD', 'ONBOARD', 'CUSTOM_CABLE' ]
    */
-  #define SDCARD_CONNECTION LCD
+  //#define SDCARD_CONNECTION LCD
 
   // Enable if SD detect is rendered useless (e.g., by using an SD extender)
   //#define NO_SD_DETECT
@@ -2380,8 +2380,8 @@
 //#define ADVANCED_PAUSE_FEATURE    //Define on AMB8_Config //MODRUNOUT
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   //Rétracter le filament avant de se garer.
-  #define PAUSE_PARK_RETRACT_FEEDRATE         60  // (mm/s) Initial retract feedrate.
-  #define PAUSE_PARK_RETRACT_LENGTH            0  //BEAR 0  //2  // (mm) Initial retract.
+  #define PAUSE_PARK_RETRACT_FEEDRATE         40  // (mm/s) Initial retract feedrate.
+  #define PAUSE_PARK_RETRACT_LENGTH            2  //BEAR 0  //2  // (mm) Initial retract.
                                                   // This short retract is done immediately, before parking the nozzle.
   //Décharger automatiquement le filament après le déclenchement de l'événement.
   #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     25  //BEAR 10  //10  // (mm/s) Unload filament feedrate. This can be pretty fast.
@@ -2589,7 +2589,7 @@
 // Réglages des Vref TMC à 0.74v>0.8vMax sinon danger!!
 // TMC drivers use rms current not max(peak) so Irms is 740mA/1.414 = 523mA
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       750// 523       // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       600// 523       // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT       // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS    XYZ_MICROSTEPS  // 0..256
     #define X_RSENSE          0.11
@@ -2607,7 +2607,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       523 //800
+    #define Y_CURRENT       600 //523
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS    XYZ_MICROSTEPS
     #define Y_RSENSE          0.11
@@ -2625,7 +2625,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       523 // 740mAx70%x2=1036
+    #define Z_CURRENT       900 // 740mAx70%x2=1036
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS    XYZ_MICROSTEPS
     #define Z_RSENSE          0.11
@@ -3726,9 +3726,9 @@
 // Custom Menu: Main Menu
 //#define CUSTOM_MENU_MAIN
 #if ENABLED(CUSTOM_MENU_MAIN)
-  #define CUSTOM_MENU_MAIN_TITLE "Level and init Commands"
+  #define CUSTOM_MENU_MAIN_TITLE "Preparation Commands"
   //#define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
-  //#define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
+  #define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
   //#define CUSTOM_MENU_MAIN_ONLY_IDLE         // Only show custom menu when the machine is idle
 
@@ -3753,21 +3753,17 @@
   #define MAIN_MENU_ITEM_5_GCODE "M303 E0 C8 S240 U\nM500\nG28W"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "Cool"
-  #define MAIN_MENU_ITEM_6_GCODE "M108\nM106 255"
+  #define MAIN_MENU_ITEM_6_DESC "Bed Leveling UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_GCODE "M1004 H0 B50 S0"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-//  #define MAIN_MENU_ITEM_6_DESC "Bed Leveling UBL for " PREHEAT_1_LABEL
-//  #define MAIN_MENU_ITEM_6_GCODE "M1004 H0 B90 S0"
-//  #define MAIN_MENU_ITEM_6_CONFIRM
+  #define MAIN_MENU_ITEM_7_DESC "Bed Leveling UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "M1004 H0 B70 S1"
+  #define MAIN_MENU_ITEM_7_CONFIRM
 
-//  #define MAIN_MENU_ITEM_7_DESC "Bed Leveling UBL for " PREHEAT_2_LABEL
-//  #define MAIN_MENU_ITEM_7_GCODE "M1004 H0 B80 S1"
-//  #define MAIN_MENU_ITEM_7_CONFIRM
-
-//  #define MAIN_MENU_ITEM_8_DESC "Bed Leveling UBL for " PREHEAT_3_LABEL
-//  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
-//  #define MAIN_MENU_ITEM_8_CONFIRM
+  #define MAIN_MENU_ITEM_8_DESC "Bed Leveling UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
+  #define MAIN_MENU_ITEM_8_CONFIRM
 
 //  #define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
 //  #define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
