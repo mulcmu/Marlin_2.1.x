@@ -127,9 +127,9 @@
 #define PREHEAT_BEFORE_PROBING         //(P) (Default) Run a PreHeat bed at 60°C
 //#define PREHEAT_BEFORE_LEVELING    
 #if NONE(SR_MKS, SR_BTT)
-  #define AUTO_BED_LEVELING_UBL          //(U) (Default) Wizard UBL includes. 
+  #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes. 
 #else
-  #define AUTO_BED_LEVELING_BILINEAR     //(A) (Default SR).
+  #define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
   #define G26_MESH_VALIDATION
   #define SKEW_CORRECTION
 #endif
@@ -182,7 +182,7 @@
                                    // Not compatible with the MEATPACK option. 
 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-#define MEATPACK_ON_SERIAL_PORT_1       //(M) With connection USB
+//#define MEATPACK_ON_SERIAL_PORT_1       //(M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2       // With other connection like Tx/Rx Wifi socket.
 
 //-----------------------------//
@@ -249,13 +249,6 @@
   #ifndef DRIVER_EXT
     #define DRIVER_EXT A4988
   #endif
-#else
-  #define Q_TMC
-  #define STEALTHCHOP_E
-  #define DRIVER_AXES TMC2209
-  #ifndef DRIVER_EXT
-    #define DRIVER_EXT TMC2209
-  #endif
 #endif
 
 // Set for TMC2208_STANDALONE
@@ -287,7 +280,7 @@
 #endif
 
 // Software Serial UART for TMC2209
-#ifdef Q_UART9
+#if ANY(Q_UART9, SR_MKS, SR_BTT) 
     #define Q_TMC
     #define STEALTHCHOP_E
     #define DRIVER_AXES TMC2209
@@ -362,10 +355,10 @@
 #endif
 //Jerk
 #ifndef XYZJERK
-  #define XYZJERK  25
+  #define XYZJERK  20
 #endif
 #ifndef EJERK
-  #define EJERK    15
+  #define EJERK    10
 #endif
 //Z_OffSet
 #ifndef Z_OFFSET
