@@ -143,14 +143,19 @@
   #define MT_DET_1_PIN                      PA4   // MT_DET
   #define MT_DET_2_PIN                      PE6
   #define MT_DET_PIN_STATE                  LOW
+#else
+  #define FIL_RUNOUT_PIN                    PA4
+  #define FIL_RUNOUT2_PIN                   PE6
 #endif
 
+/*
 #ifndef FIL_RUNOUT_PIN
-  #define FIL_RUNOUT_PIN            MT_DET_1_PIN
+  #define FIL_RUNOUT_PIN            PA4   // MT_DET //MT_DET_1_PIN
 #endif
 #ifndef FIL_RUNOUT2_PIN
   #define FIL_RUNOUT2_PIN           MT_DET_2_PIN
 #endif
+*/
 
 #ifndef POWER_LOSS_PIN
   #define POWER_LOSS_PIN                    PA13  // PW_DET
