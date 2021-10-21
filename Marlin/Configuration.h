@@ -920,7 +920,7 @@
   #else
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-    #define DELTA_PRINTABLE_RADIUS 130.0    // (mm)
+    #define DELTA_PRINTABLE_RADIUS 125.0    // (mm)
 
   // Maximum reachable area
     #define DELTA_MAX_RADIUS       130.0    // (mm)
@@ -1494,7 +1494,7 @@
 #elif ENABLED(XP)
 //
 #else
-  #define MULTIPLE_PROBING 2
+  //#define MULTIPLE_PROBING 2
 #endif
 //#define EXTRA_PROBING    1
 
