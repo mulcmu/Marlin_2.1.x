@@ -126,8 +126,8 @@
 
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
-#define LIN_ADVANCE                //(L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
-#define POWER_LOSS_RECOVERY        // (Default) Continue print after Power-Loss.
+#define LIN_ADVANCE                  //(L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
+#define POWER_LOSS_RECOVERY          // (Default) Continue print after Power-Loss.
 
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
 // more at the bottom page.
@@ -135,8 +135,8 @@
 //#define STALLGUARD_2               // (g) Special mod for TMC2209 = SENSORLESS_PROBING
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
-//#define X_PROBE                   // Set to invert the logic of the PROBE.
-//#define Z_OFFSET -2.5             // Set your own OffSet
+//#define X_PROBE                    // Set to invert the logic of the PROBE.
+//#define Z_OFFSET -2.5              // Set your own OffSet
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -148,27 +148,27 @@
  * = like (Prontoface/Octoprint/HostRepertier/Astoprint)=
  * ====== Choice add menu on TFT: (OPT) =================
  */
-#define ADD_MENUS                      //  (Default) Add menu PID, DELTA, INFO,...
+#define ADD_MENUS                    //  (Default) Add menu PID, DELTA, INFO,...
 
 // For user who change their nozzle thermistor 
 // by another one ex: "ATC Semitec 104GT-2" = 5 
-//#define TEMP_SENSOR_0 13             // uncomment with a good number/type.
+//#define TEMP_SENSOR_0 13           // uncomment with a good number/type.
 
 // For user who change their HotEnd like Volcano and
 // want to increase the temperature limit. 
-//#define HEATER_0_MAXTEMP 300           // uncomment with a real limit of your HotEnd.
+//#define HEATER_0_MAXTEMP 300       // uncomment with a real limit of your HotEnd.
 
 /*__________________________8__________________________*/
 /** ===================================================
 * == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
 * ======================================================
 */
-//#define HOST_ACTION_COMMANDS     // Action Command Prompt support Message on Octoprint
-//#define BINARY_FILE_TRANSFER     // Bin transfert for ESP3D firmware v2.1 or others.
-                                   // Not compatible with the MEATPACK option. 
+#define HOST_ACTION_COMMANDS              // (Default) Action Command Prompt support Message on Octoprint
+//#define BINARY_FILE_TRANSFER            // Bin transfert for ESP3D firmware v2.1 or others.
+                                          // Not compatible with the MEATPACK option. 
 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-#define MEATPACK_ON_SERIAL_PORT_1       //(M) With connection USB
+#define MEATPACK_ON_SERIAL_PORT_1         //(M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2       // With other connection like Tx/Rx Wifi socket.
 
 /** ========================================
@@ -203,14 +203,14 @@
     #define CUSTOM_MENU_MAIN
   #endif
   #ifdef NEOPIXEL_LED
-    #define LED_CONTROL_MENU          // To control LedStrip.
+    #define LED_CONTROL_MENU            // To control LedStrip.
   #endif
 #endif
 
 //TFT Type For TFT_GENERIC
 #if ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
-  #define TFT_INTERFACE_FSMC  //Default socket on MKS_nano, mini, hispeed.
+  #define TFT_INTERFACE_FSMC             //Default socket on MKS_nano, mini, hispeed.
   #define TFT_RES_320x240
 #endif
 
@@ -272,15 +272,15 @@
 #endif
 //Add definition for UART9 for Q5
 #if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)
-    #define X_SERIAL_TX_PIN                   PA10  // RXD1
-    #define X_SERIAL_RX_PIN                   PA10  // RXD1
-    #define Y_SERIAL_TX_PIN                   PA9   // TXD1
-    #define Y_SERIAL_RX_PIN                   PA9   // TXD1
-    #define Z_SERIAL_TX_PIN                   PC7   // IO1
-    #define Z_SERIAL_RX_PIN                   PC7   // IO1
-    #define E0_SERIAL_TX_PIN                  PC13  // IO0
-    #define E0_SERIAL_RX_PIN                  PC13  // IO0
-    #define TMC_BAUD_RATE                    19200
+    #define X_SERIAL_TX_PIN             PA10  // RXD1
+    #define X_SERIAL_RX_PIN             PA10  // RXD1
+    #define Y_SERIAL_TX_PIN             PA9   // TXD1
+    #define Y_SERIAL_RX_PIN             PA9   // TXD1
+    #define Z_SERIAL_TX_PIN             PC7   // IO1
+    #define Z_SERIAL_RX_PIN             PC7   // IO1
+    #define E0_SERIAL_TX_PIN            PC13  // IO0
+    #define E0_SERIAL_RX_PIN            PC13  // IO0
+    #define TMC_BAUD_RATE               19200
 #endif
 
 /**---------------------------//
