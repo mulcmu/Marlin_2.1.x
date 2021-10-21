@@ -136,7 +136,7 @@
 
 // ---Expe tools Levelling-------
 //#define G26_MESH_VALIDATION          // Print Mesh Validation Pattern tool(By menu).
-//#define LEVEL_BED_CORNERS
+//#define LEVEL_BED_CORNERS            // for manual bed adjustment with screws.
 
 //--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
 //#define AUTO_BED_LEVELING_BILINEAR   //(A)
@@ -177,7 +177,7 @@
 * == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
 * ======================================================
 */
-//#define HOST_ACTION_COMMANDS     // Action Command Prompt support Message on Octoprint
+#define HOST_ACTION_COMMANDS       // Default - Action Command Prompt support Message on Octoprint
 //#define BINARY_FILE_TRANSFER     // Bin transfert for ESP3D firmware v2.1 or others.
                                    // Not compatible with the MEATPACK option. 
 
