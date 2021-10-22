@@ -897,7 +897,7 @@
     #define PROBE_MANUALLY_STEP 0.05      // (mm)
   #endif
   #ifdef Q5
-    #define DELTA_PRINTABLE_RADIUS 105.0
+    #define DELTA_PRINTABLE_RADIUS  95.0
     #define DELTA_MAX_RADIUS       105.0
     #define DELTA_DIAGONAL_ROD     215.0
     #define DELTA_HEIGHT           210.0  //200.0
@@ -907,7 +907,7 @@
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
   #elif ANY(SR_MKS, SR_BTT)
-    #define DELTA_PRINTABLE_RADIUS 132.0
+    #define DELTA_PRINTABLE_RADIUS 122.0
     #define DELTA_MAX_RADIUS       132.0
     #define DELTA_DIAGONAL_ROD     315.0
     #define DELTA_HEIGHT           320.0
@@ -1491,11 +1491,8 @@
 #elif ENABLED(N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
-#elif ENABLED(XP)
-//
-#else
-  //#define MULTIPLE_PROBING 2
 #endif
+//#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
 /**
