@@ -340,7 +340,7 @@
   #define XYZJERK  20
 #endif
 #ifndef EJERK
-  #define EJERK     15
+  #define EJERK    15
 #endif
 //Z_OffSet
 #ifndef Z_OFFSET
