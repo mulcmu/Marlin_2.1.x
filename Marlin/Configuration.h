@@ -685,7 +685,7 @@
       #define DEFAULT_Ki   3.38
       #define DEFAULT_Kd  58.69
     #endif
-    // FIND YOUR OWN: measured after M106 S180 with M303 E0 S230 C8 U0
+    // FIND YOUR OWN: measured after M106 S180 with M303 E0 S230 C8 U
     //#define DEFAULT_Kp
     //#define DEFAULT_Ki
     //#define DEFAULT_Kd
