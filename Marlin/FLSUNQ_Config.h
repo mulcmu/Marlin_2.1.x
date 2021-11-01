@@ -326,24 +326,27 @@
 #endif
 
 //===================PART CONSTANTS VARIALBES ===================//
+//#define NEMA14
 
 // Variables to calculate steps and current
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
-    #define EXTRUDER_STEPS 720  // Extruder Mini-Sherpa
-  #elif ENABLED(BMG)
-    #define EXTRUDER_STEPS 420  // Extruder BMG(Left/Right)
+    #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter
   #else
-    #define EXTRUDER_STEPS 410  // Extruder TITAN(Default)
+    #ifdef BMG
+      #define EXTRUDER_STEPS 420  // Extruder BMG(Left/Right)
+    #else 
+      #define EXTRUDER_STEPS 410  // Extruder TITAN(Default)
+    #endif
   #endif
 #endif
 //Jerk
 #ifndef XYZJERK
-  #define XYZJERK  20
+  #define XYZJERK  10
 #endif
 #ifndef EJERK
-  #define EJERK    15
+  #define EJERK    10
 #endif
 //Z_OffSet
 #ifndef Z_OFFSET
