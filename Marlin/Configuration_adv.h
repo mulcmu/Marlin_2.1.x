@@ -1928,7 +1928,9 @@
   #define LIN_ADVANCE_K 0       // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
   #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
-  #define ALLOW_LOW_EJERK     // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
+  #ifdef NEMA14
+	  #define ALLOW_LOW_EJERK     // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
+  #endif
 #endif
 
 // @section leveling
@@ -2423,6 +2425,10 @@
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     28
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      550
+  #elif ENABLED(NEMA14)
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     10
+    #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH       80
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
@@ -2443,6 +2449,10 @@
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
+  #elif ENABLED(NEMA14)
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE   6
+    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    80 
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
