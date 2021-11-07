@@ -621,7 +621,11 @@
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
-  #define HEATER_0_MAXTEMP 275
+  #if ANY(SR_MKS, SR_BTT)
+    #define HEATER_0_MAXTEMP 300
+  #else
+    #define HEATER_0_MAXTEMP 275
+  #endif
 #endif
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
@@ -1983,7 +1987,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-//#define LEVEL_BED_CORNERS //Define on FLSUNQ_Config
+//#define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
   #define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
@@ -2218,7 +2222,7 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { 0, (Y_MAX_POS - 10), 30 } //OPT
+  #define NOZZLE_PARK_POINT { 0, (Y_MAX_POS - 20), 30 } //OPT
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
