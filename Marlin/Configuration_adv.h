@@ -1693,7 +1693,7 @@
 
     #define DGUS_FILAMENT_LOADUNLOAD
     #if ENABLED(DGUS_FILAMENT_LOADUNLOAD)
-      #define DGUS_FILAMENT_PURGE_LENGTH 50
+      #define DGUS_FILAMENT_PURGE_LENGTH 20
       #define DGUS_FILAMENT_LOAD_LENGTH_PER_TIME 0.5 // (mm) Adjust in proportion to DGUS_UPDATE_INTERVAL_MS
     #endif
 
@@ -3052,7 +3052,9 @@
    * Enable M122 debugging command for TMC stepper drivers.
    * M122 S0/1 will enable continuous reporting.
    */
-  #define TMC_DEBUG
+  #ifdef DBUG
+    #define TMC_DEBUG
+  #endif
 
   /**
    * You can set your own advanced settings by filling in predefined functions.
@@ -3839,9 +3841,21 @@
   #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "Reboot Printer"
-  #define MAIN_MENU_ITEM_9_GCODE "M997"
+  #define MAIN_MENU_ITEM_9_DESC "Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_9_CONFIRM
+
+  #define MAIN_MENU_ITEM_10_DESC "Print a test pattern in " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_10_GCODE "G28W\nG29 L1\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_10_CONFIRM
+  
+  #define MAIN_MENU_ITEM_11_DESC "Print a test pattern in " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_11_GCODE "G28W\nG29 L2\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_11_CONFIRM
+
+  #define MAIN_MENU_ITEM_12_DESC "Reboot Printer"
+  #define MAIN_MENU_ITEM_12_GCODE "M997"
+  #define MAIN_MENU_ITEM_12_CONFIRM
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
@@ -3965,7 +3979,7 @@
  */
 //#define HOST_ACTION_COMMANDS     // Define on FLSUNQ_Config
 #if ENABLED(HOST_ACTION_COMMANDS)
-  //#define HOST_PAUSE_M76
+  #define HOST_PAUSE_M76
   #define HOST_PROMPT_SUPPORT
   //#define HOST_START_MENU_ITEM      // Add a menu item that tells the host to start
   //#define HOST_SHUTDOWN_MENU_ITEM   // Add a menu item that tells the host to shut down
