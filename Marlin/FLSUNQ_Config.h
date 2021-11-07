@@ -80,7 +80,7 @@
 
   #define TOUCH_SCREEN           //(C/F) (Default) UI MARLIN
 #else
-  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(i) (Default) UI Color FLSUN
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN
   //(D) TFT DGUS screen
   //#define DGUS_LCD_UI_MKS         // Mks_H43_v1.0 (T5LCFG_800x480)
   //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)                 
@@ -129,20 +129,18 @@
 //#define DELTA_HOME_TO_SAFE_ZONE      // Option to move down after homing to a height where XYZ movement is unconstrained.
 #define PREHEAT_BEFORE_PROBING         //(P) (Default) Run a PreHeat bed at 60°C
 //#define PREHEAT_BEFORE_LEVELING    
+
+// ---Expe tools Levelling-------
+
 #if NONE(SR_MKS, SR_BTT)
   #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes.
+//--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
+  //#define AUTO_BED_LEVELING_BILINEAR   //(A)
 #else
   #define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
   #define G26_MESH_VALIDATION
   #define SKEW_CORRECTION
 #endif
-
-// ---Expe tools Levelling-------
-//#define G26_MESH_VALIDATION          // Print Mesh Validation Pattern tool(By menu).
-//#define LEVEL_BED_CORNERS            // for manual bed adjustment with screws.
-
-//--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
-//#define AUTO_BED_LEVELING_BILINEAR   //(A)
 
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
@@ -188,6 +186,10 @@
 //#define MEATPACK_ON_SERIAL_PORT_1       //(M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2       // With other connection like Tx/Rx Wifi socket.
 
+//----------Options Plus-----------//
+#define SDCARD_SORT_ALPHA
+#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
+
 //-----------------------------//
 //For tests on my dev'printer!!//
 //-----------------------------//
@@ -218,11 +220,12 @@
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
+  #define TOUCH_IDLE_SLEEP 600          //  (Default) Auto-Off screenview.
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define PROBE_OFFSET_WIZARD
+    #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
     #define CUSTOM_MENU_MAIN
-    #define G26_MESH_VALIDATION         // (Default) Command G26 to print a Mesh Validation Pattern tool.
   #endif
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU          // To control LedStrip.
