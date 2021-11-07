@@ -80,7 +80,7 @@
 
   #define TOUCH_SCREEN           //(C/F) (Default) UI MARLIN
 #else
-  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
   //(D) TFT DGUS screen
   //#define DGUS_LCD_UI_MKS         // Mks_H43_v1.0 (T5LCFG_800x480)
   //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)                 
