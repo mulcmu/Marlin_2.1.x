@@ -187,8 +187,8 @@
 //#define MEATPACK_ON_SERIAL_PORT_2       // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//
-#define SDCARD_SORT_ALPHA
-#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
+//#define SDCARD_SORT_ALPHA
+//#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
 
 //-----------------------------//
 //For tests on my dev'printer!!//
