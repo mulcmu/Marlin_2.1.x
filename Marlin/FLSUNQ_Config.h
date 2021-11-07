@@ -80,7 +80,10 @@
 
   #define TOUCH_SCREEN           //(C/F) (Default) UI MARLIN
 #else
-  #define DWIN                   //(D) TFT DGUS screen
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(i) (Default) UI Color FLSUN
+  //(D) TFT DGUS screen
+  //#define DGUS_LCD_UI_MKS         // Mks_H43_v1.0 (T5LCFG_800x480)
+  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)                 
   #define HOST_ACTION_COMMANDS 
 #endif
 
@@ -127,7 +130,7 @@
 #define PREHEAT_BEFORE_PROBING         //(P) (Default) Run a PreHeat bed at 60°C
 //#define PREHEAT_BEFORE_LEVELING    
 #if NONE(SR_MKS, SR_BTT)
-  #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes. 
+  #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes.
 #else
   #define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
   #define G26_MESH_VALIDATION
@@ -178,7 +181,7 @@
 * ======================================================
 */
 #define HOST_ACTION_COMMANDS       // Default - Action Command Prompt support Message on Octoprint
-//#define BINARY_FILE_TRANSFER     // Bin transfert for ESP3D firmware v2.1 or others.
+#define BINARY_FILE_TRANSFER       // Bin transfert for ESP3D firmware v2.1 or others.
                                    // Not compatible with the MEATPACK option. 
 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
@@ -219,6 +222,7 @@
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define PROBE_OFFSET_WIZARD
     #define CUSTOM_MENU_MAIN
+    #define G26_MESH_VALIDATION         // (Default) Command G26 to print a Mesh Validation Pattern tool.
   #endif
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU          // To control LedStrip.
@@ -346,7 +350,7 @@
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
-    #define EXTRUDER_STEPS 722  // Extruder Mini-Sherpa
+    #define EXTRUDER_STEPS 720  // Extruder Mini-Sherpa
   #elif ANY(BMG, SR_MKS, SR_BTT)
     #define EXTRUDER_STEPS 420  // Extruder BMG(Left/Right)
   #else
@@ -355,7 +359,7 @@
 #endif
 //Jerk
 #ifndef XYZJERK
-  #define XYZJERK  20
+  #define XYZJERK  10
 #endif
 #ifndef EJERK
   #define EJERK    10
@@ -377,7 +381,7 @@
 #endif  
 #ifndef E_CURRENT
   #ifdef NEMA14
-    #define E_CURRENT       300
+    #define E_CURRENT       350
   #else
     #define E_CURRENT       850
   #endif
