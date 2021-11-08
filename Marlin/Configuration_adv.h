@@ -1926,7 +1926,10 @@
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0       // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
-  #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define EXPERIMENTAL_SCURVE   // Enable this option to permit S-Curve Acceleration
+  #ifdef NEMA14
+	  #define ALLOW_LOW_EJERK     // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
+  #endif
 #endif
 
 // @section leveling
@@ -2406,7 +2409,11 @@
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   #define PAUSE_PARK_RETRACT_FEEDRATE         60  // (mm/s) Initial retract feedrate.
   #define PAUSE_PARK_RETRACT_LENGTH            3  // (mm) Initial retract.
-  #ifdef Q5
+  #ifdef NEMA14
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     10  // (mm/s) Unload filament feedrate. This can be pretty fast.
+    #define FILAMENT_CHANGE_UNLOAD_ACCEL        25  // (mm/s^2) Lower acceleration may allow a faster feedrate.
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH      100  //FE250 (mm) The length of filament for a complete unload.
+  #elif ENABLED(Q5)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     28  // (mm/s) Unload filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25  // (mm/s^2) Lower acceleration may allow a faster feedrate.
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      550  //FE250 (mm) The length of filament for a complete unload.
@@ -2422,7 +2429,11 @@
   #define FILAMENT_CHANGE_SLOW_LOAD_FEEDRATE   6  // (mm/s) Slow move when starting load.
   #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     0  // (mm) Slow length, to allow time to insert material.
                                                   // 0 to disable start loading and skip to fast load only
-  #ifdef Q5
+  #ifdef NEMA14
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE   6  // (mm/s) Load filament feedrate. This can be pretty fast.
+    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25  // (mm/s^2) Lower acceleration may allow a faster feedrate.
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    80  // (mm) Load length of filament, from extruder gear to nozzle.
+  #elif ENABLED(Q5)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25  // (mm/s^2) Lower acceleration may allow a faster feedrate.
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600  // (mm) Load length of filament, from extruder gear to nozzle.
@@ -3806,9 +3817,21 @@
   #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "Reboot Printer"
-  #define MAIN_MENU_ITEM_9_GCODE "M997"
+  #define MAIN_MENU_ITEM_9_DESC "Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_9_CONFIRM
+
+  #define MAIN_MENU_ITEM_10_DESC "Print a test pattern in " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_10_GCODE "G28W\nG29 L1\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_10_CONFIRM
+  
+  #define MAIN_MENU_ITEM_11_DESC "Print a test pattern in " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_11_GCODE "G28W\nG29 L2\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_11_CONFIRM
+
+  #define MAIN_MENU_ITEM_12_DESC "Reboot Printer"
+  #define MAIN_MENU_ITEM_12_GCODE "M997"
+  #define MAIN_MENU_ITEM_12_CONFIRM
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
