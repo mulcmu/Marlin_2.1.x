@@ -333,6 +333,8 @@
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
     #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter
+    //#define XYZJERK  5        // For the future 2.0.9.3
+    //#define EJERK    2.8      // For the future 2.0.9.3
   #else
     #ifdef BMG
       #define EXTRUDER_STEPS 420  // Extruder BMG(Left/Right)
@@ -365,7 +367,7 @@
 #endif  
 #ifndef E_CURRENT
   #ifdef NEMA14
-    #define E_CURRENT       300
+    #define E_CURRENT       350
   #else
     #define E_CURRENT       850
   #endif
