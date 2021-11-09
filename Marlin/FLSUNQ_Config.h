@@ -164,11 +164,11 @@
 * ======================================================
 */
 #define HOST_ACTION_COMMANDS              // (Default) Action Command Prompt support Message on Octoprint
-//#define BINARY_FILE_TRANSFER            // Bin transfert for ESP3D firmware v2.1 or others.
+#define BINARY_FILE_TRANSFER              // Bin transfert for ESP3D firmware v2.1 or others.
                                           // Not compatible with the MEATPACK option. 
 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-#define MEATPACK_ON_SERIAL_PORT_1         // (M) With connection USB
+//#define MEATPACK_ON_SERIAL_PORT_1       // (M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2       // With other connection like Tx/Rx Wifi socket.
 
 /** ========================================
