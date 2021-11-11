@@ -20,7 +20,7 @@
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
-#define QQSP                       //  (Default_QQS) env = flsun_hispeedv1
+#define QQSP                         //  (Default_QQS) env = flsun_hispeedv1
 //#define Q5                         // env = mks_nano_robin35 (change in platformio.ini file or 
                                      // click on the "Default" icon on the bottom edge of the window and 
                                      // choose "mks_robin_nano35").
@@ -59,19 +59,18 @@
         * = Driver TFT Color (1 CHOICE)=
         * ==============================
         */
-#define MKS_ROBIN_TFT32        // (Default) Mks_Robin_TFT_V2.0
-//#define MKS_TS35_V2_00       // Only for NanoV2 or V3
-//#define TFT_GENERIC          // For the user who haven't the same screen.
 
-//#define DGUS_LCD_UI_MKS      // Mks_H43_v1.0 
-//Note for H43: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
+#define MKS_ROBIN_TFT32         // (Default QQS & Q5) Mks_Robin_TFT_V2.0
+//#define MKS_ROBIN_TFT35       // TS35 Compatible nanoV1, hispeedV1 (socket FSMC)
+//#define TFT_GENERIC           // For the user who haven't the same screen.
 
                 /*--- Choice UI TFT ----*/
 #define TFT_COLOR_UI                     // (C) (Default) UI Color MARLIN
 //#define TFT_CLASSIC_UI                 // (F) Standard LCD (UI Classic LCD)
 //#define TFT_LVGL_UI                    // (I) UI Color MKS (Bug with captor sensor PR22595)
+//#define TFT_DWIN                       // (D) UI Color DGUS like Mks_H43_v1.0 
 
-#define TOUCH_SCREEN                     // (C/F) (Default) UI MARLIN
+//Note for Mks_H43: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
 
 /* ======================================//
 * === Note:Languages already integrated==// 
@@ -100,7 +99,7 @@
  */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG/Sherpa.
 
-// BMG Extruder (B) Extruder step(417).
+// BMG Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            // (B) Uncommment for BMG Left/Right.
 //#define NEMA14                         // (n) Uncommment for SuperDriveHX/Mini-Sherpa/Orbiter.
 
@@ -124,12 +123,13 @@
 //--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
 //#define AUTO_BED_LEVELING_BILINEAR   // (A)
 
+
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
 #define LIN_ADVANCE                  // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 #define POWER_LOSS_RECOVERY          // (Default) Continue print after Power-Loss.
 
-// WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
+// WARNING:These options need wiring pins DIAG(TMC) to EndStop plug(Signal).
 // more at the bottom page.
 //#define STALLGUARD_1               // (G) Special mod for TMC2209 = SENSORLESS_HOMING
 //#define STALLGUARD_2               // (g) Special mod for TMC2209 = SENSORLESS_PROBING
@@ -208,11 +208,15 @@
   #endif
 #endif
 
-//TFT Type For TFT_GENERIC
-#if ENABLED(TFT_GENERIC)
+//TFT Type For TFT_Screen
+#ifdef TFT_DWIN
+  #define DGUS_LCD_UI_MKS        //Wifi socket pins(PA10/PA9) for Tx/Rx
+#elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
-  #define TFT_INTERFACE_FSMC             //Default socket on MKS_nano, mini, hispeed.
+  #define TFT_INTERFACE_FSMC      //Default socket on MKS_nano, mini, hispeed.
   #define TFT_RES_320x240
+#else 
+  #define TOUCH_SCREEN            // (C/F) (Default) UI MARLIN
 #endif
 
 /**
@@ -323,6 +327,7 @@
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
+  #define Y_OFFSET 0
   #define Z_OFFSET 0
 #endif
 
