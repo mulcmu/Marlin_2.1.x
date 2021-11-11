@@ -136,7 +136,8 @@
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
 //#define X_PROBE                    // Set to invert the logic of the PROBE.
-//#define Z_OFFSET -2.5              // Set your own OffSet
+//#define Y_OFFSET 14.7              // Set your own OffSet
+//#define Z_OFFSET -1.3              // Set your own OffSet
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -164,7 +165,7 @@
 * ======================================================
 */
 #define HOST_ACTION_COMMANDS              // (Default) Action Command Prompt support Message on Octoprint
-#define BINARY_FILE_TRANSFER              // Bin transfert for ESP3D firmware v2.1 or others.
+#define BINARY_FILE_TRANSFER              // (Default) Bin transfert for ESP3D firmware v2.1 or others.
                                           // Not compatible with the MEATPACK option. 
 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
@@ -353,8 +354,10 @@
 //Z_OffSet
 #ifndef Z_OFFSET
   #ifndef Q5
+    #define Y_OFFSET        0
     #define Z_OFFSET       -16.2
   #else
+    #define Y_OFFSET        0
     #define Z_OFFSET       -18
   #endif
 #endif

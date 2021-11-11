@@ -3785,7 +3785,7 @@
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
   //#define CUSTOM_MENU_MAIN_ONLY_IDLE       // Only show custom menu when the machine is idle
 
-  #define MAIN_MENU_ITEM_1_DESC "0-Initialize EEPROM"
+  #define MAIN_MENU_ITEM_1_DESC "Initialize EEPROM"
   #define MAIN_MENU_ITEM_1_GCODE "M502\nM500\nM997"
   #define MAIN_MENU_ITEM_1_CONFIRM
 
@@ -3793,31 +3793,31 @@
   #define MAIN_MENU_ITEM_2_GCODE "G33 P3 V3\nM500\nM140 S0"
   #define MAIN_MENU_ITEM_2_CONFIRM
 
-  #define MAIN_MENU_ITEM_3_DESC "1.Fine Calib. Delta"
+  #define MAIN_MENU_ITEM_3_DESC "Fine Calib. Delta"
   #define MAIN_MENU_ITEM_3_GCODE "G33 P5 V3\nM500\nM140 S0"  //P6ok
   #define MAIN_MENU_ITEM_3_CONFIRM
 
-  #define MAIN_MENU_ITEM_4_DESC "2.Wizard ZOffSet "
+  #define MAIN_MENU_ITEM_4_DESC "ZProbe Wizard "
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "3.Bed Leveling UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_DESC "0.Bed Leveling UBL for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_5_GCODE "M1004 H0 B60 S0"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "3.Print a test pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_6_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_6_DESC "0.Run PID Nozzle for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "3.Run PID Nozzle for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
+  #define MAIN_MENU_ITEM_7_DESC "0.Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "4.Bed Leveling UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_8_DESC "1.Bed Leveling UBL for " PREHEAT_2_LABEL
   #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B80 S1"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "5.Bed Leveling UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_9_DESC "2.Bed Leveling UBL for " PREHEAT_3_LABEL
   #define MAIN_MENU_ITEM_9_GCODE "M1004 H0 B90 S2"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
