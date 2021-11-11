@@ -1,4 +1,4 @@
-### 2021-07-24 MARLIN 2.0.9.1 OFFICIAL RELEASE
+### 2021-11-11 MARLIN 2.0.9.2 OFFICIAL RELEASE
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -8,25 +8,25 @@ Each firmware has a header that corresponds to the hardware (board) and function
 Below is an example with the firmware for a QQS-Pro printer with a HiSpeedv1 board with TMC2208 stepper drivers:
 
 **Exemple:**
-8CWBPULR-Robin_mini.bin 
+SCWTPULR-Robin_mini.bin => QQSPro Stock
 => 
-   - (8)TMC2208 standalone - 
+   - (S)4xA4988 - 
    - (C)UI Marlin TFT32 - 
    - (W)Wifi module - 
-   - (T)Extruder Titan/Stock - 
+   - (T)Extruder Titan(Stock) - 
    - (P)PreHeat bed - 
    - (U)Leveling mode -
    - (L)LinearAdvance - 
    - (R)Arc function enabled.
 
 
-  **Note**: After choosing your binary, remove the "8CWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
+  **Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
   **Caption:**
 
   **/*------Drivers--------*/**
-  - (S) A4988 (green/red)
+  - (S) A4988 (green/red rectangle)
   - (8) TMC2208 Standalone
   - (9) TMC2209 Standalone
   - (U8) 4xTMC2208_UART with no module ESP12.
@@ -47,7 +47,7 @@ Below is an example with the firmware for a QQS-Pro printer with a HiSpeedv1 boa
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan/Stock
   - (B) Extruder BMG
-  - (n) Extruder Nema14 (Sherpa/SuperDrive/...)
+  - (n) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)

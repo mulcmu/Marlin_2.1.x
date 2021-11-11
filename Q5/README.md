@@ -1,4 +1,4 @@
-### 2021-07-24 MARLIN 2.0.9.1 OFFICIAL RELEASE
+### 2021-11-11 MARLIN 2.0.9.2 OFFICIAL RELEASE
  
  - Q5 STOCK With 3xTMC2208 + 1xA4988 = Q5_STOCK-Robin_nano.bin
 
@@ -6,7 +6,7 @@ Each firmware has a header that corresponds to the hardware (board) and function
 Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2 board with TMC2208 and A4988 stepper drivers:
 
 **Exemple:**
-8+SCWBPULR-Robin_nano.bin 
+8+SCWBPULR-Robin_nano.bin => Q5 Stock
 => - (8+S)TMC2208 standalone + A4988 - 
    - (C)UI Marlin TFT32 - 
    - (W)Wifi module - 
@@ -44,7 +44,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (T) Extruder Titan
   - (B) Extruder BMG
   - (b) Extruder BMG mini
-  - (n) Extruder NEMA14 mini-Sherpa
+  - (n) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)

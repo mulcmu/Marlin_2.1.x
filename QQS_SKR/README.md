@@ -1,14 +1,14 @@
-### 2021-07-24 MARLIN 2.0.9.1 OFFICIAL RELEASE
+### 2021-11-11 MARLIN 2.0.9.2 OFFICIAL RELEASE
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
 Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2 board with TMC2208 and A4988 stepper drivers:
 
 **Exemple:**
-8+SCWBPULR-Robin_nano.bin 
-=> - (8+S)TMC2208 standalone + A4988 - 
-   - (C)UI Marlin TFT32 - 
+9rWBPULR-MoBo.bin => Q5 or QQS with other MotherBoard.
+=> - (9)4xTMC2208 standalone - 
+   - (r)UI for BTT screen - 
    - (W)Wifi module - 
-   - (T)Extruder Titan - 
+   - (B)Extruder BMG - 
    - (P)PreHeat bed - 
    - (U)Leveling mode -
    - (L)LinearAdvance - 
@@ -19,7 +19,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
 
   **/*-------Others Firmwares for QQS with SKR family or Mks_Nano Family----*/**
   - (QQS)U9rTPULR16-SKR14T_firmware   QQS SKR14T(4xTMC2209UART)16steps with TITAN extruder. 
-  - (QQS)U8rBPUR32-SKR12PRO_firmware     QQS SKR12PRO(4xTMC2208_standAlone)32steps without LA, with BMG extruder.
+  - (QQS)U8rBPUR32-SKR12PRO_firmware  QQS SKR12PRO(4xTMC2208_standAlone)32steps without LA, with BMG extruder.
   - (QQS)U9rTPULR16-SKR14_firmware QQS with SKRv1.4 Board with emulation LCD (Marlin Mode)
   
   **Caption:**
@@ -48,7 +48,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan
   - (B) Extruder BMG (Also reverse the extruder direction)
-  - (N) Extruder NEMA14 (mini-Sherpa/Orbiter)
+  - (n) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
