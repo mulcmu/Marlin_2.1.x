@@ -1435,7 +1435,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 0, Z_OFFSET } //(QQS -16.2) (Q5 -18)
+#define NOZZLE_TO_PROBE_OFFSET { 0, Y_OFFSET, Z_OFFSET } //(QQS -16.2) (Q5 -18)
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1527,7 +1527,7 @@
 #define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
-#if NONE(X_PROBE, N_PROBE, SR_MKS, SR_BTT)
+#if NONE(X_PROBE, N_PROBE)
   #define PAUSE_BEFORE_DEPLOY_STOW
 #endif
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
@@ -2026,7 +2026,7 @@
  * Useful to retract or move the Z probe out of the way.
  */
 
-#if ANY(QQSP, Q5)
+#if ANY(QQSP, Q5, SR_MKS, SR_BTT)
   #define Z_PROBE_END_SCRIPT "G28"
 //#define Z_PROBE_END_SCRIPT "G0 Z30 F12000\n G0 X0 Y0 Z30"
 #endif

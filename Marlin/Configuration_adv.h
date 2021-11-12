@@ -585,7 +585,7 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#if NONE(SR_MKS, SR_BTT) 
+#if NONE(Q5, SR_MKS, SR_BTT) 
   #define E0_AUTO_FAN_PIN -1
 #else
   #define E0_AUTO_FAN_PIN FAN1_PIN  //PB0 for SR_MKS(default) or wiring to PB1.
@@ -3825,37 +3825,29 @@
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "Run PID Nozzle for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_5_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
+  #define MAIN_MENU_ITEM_5_DESC "0.Bed Leveling UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_GCODE "M1004 H0 B60 S0"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "Bed Leveling UBL for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_6_GCODE "M1004 H0 B60 S0"
+  #define MAIN_MENU_ITEM_6_DESC "0.Run PID Nozzle for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "Bed Leveling UBL for " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "M1004 H0 B80 S1"
+  #define MAIN_MENU_ITEM_7_DESC "0.Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "Bed Leveling UBL for " PREHEAT_3_LABEL
-  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
+  #define MAIN_MENU_ITEM_8_DESC "1.Bed Leveling UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B80 S1"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "Print a test pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_9_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_9_DESC "2.Bed Leveling UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "M1004 H0 B90 S2"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
-  #define MAIN_MENU_ITEM_10_DESC "Print a test pattern in " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_10_GCODE "G28W\nG29 L1\nG26 I0 P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
+  #define MAIN_MENU_ITEM_10_GCODE "M997"
   #define MAIN_MENU_ITEM_10_CONFIRM
-  
-  #define MAIN_MENU_ITEM_11_DESC "Print a test pattern in " PREHEAT_3_LABEL
-  #define MAIN_MENU_ITEM_11_GCODE "G28W\nG29 L2\nG26 I0 P4\nM500\nG28W"
-  #define MAIN_MENU_ITEM_11_CONFIRM
-
-  #define MAIN_MENU_ITEM_12_DESC "Reboot Printer"
-  #define MAIN_MENU_ITEM_12_GCODE "M997"
-  #define MAIN_MENU_ITEM_12_CONFIRM
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"

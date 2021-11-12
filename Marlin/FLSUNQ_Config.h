@@ -62,29 +62,21 @@
 /*__________________________3________________________________*/
         /** =============================
         * =====Type of TFT screen ======
-        * = Driver TFT Color (1 CHOICE)=
+        * == Choice UI TFT (1 CHOICE) ==
         * ==============================
         */
 #if ANY(Q5, QQSP)
-  #define MKS_ROBIN_TFT32        // (Default) Mks_Robin_TFT_V2.0
-  //#define MKS_TS35_V2_00       // Only for NanoV2 or V3
-  //#define TFT_GENERIC          // For the user who haven't the same screen.
-
-  //#define DGUS_LCD_UI_MKS      // Mks_H43_v1.0 
-  //Note for H43: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
-
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI           //(C) (Default) UI Color MARLIN
   //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)
-  //#define TFT_LVGL_UI          //(I) Standard LCD (UI Color MKS)
+  //#define TFT_LVGL_UI          //(I) Standard LCD (UI Color MKS) Color MKS (Bug with captor sensor PR22595)
+  //#define TFT_BTT_UI           //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
+  //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
-  #define TOUCH_SCREEN           //(C/F) (Default) UI MARLIN
+  //#define TFT_GENERIC          // For the user who haven't the same screen.
 #else
-  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
-  //(D) TFT DGUS screen
-  //#define DGUS_LCD_UI_MKS         // Mks_H43_v1.0 (T5LCFG_800x480)
-  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)                 
-  #define HOST_ACTION_COMMANDS 
+  #define TFT_BTT_UI             //(r) UI Classic (emulation LCD Marlin)
+  //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
 /* ======================================//
@@ -114,7 +106,7 @@
  */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG/Sherpa.
 
-// BMG Extruder (B) Extruder step(417).
+// BMG Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG Left/Right.
 //#define NEMA14                         //(n) Uncommment for Mini-Sherpa/SuperDrive.
 
@@ -154,6 +146,7 @@
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
 //#define X_PROBE                   // Set to invert the logic of the PROBE.
+//#define Y_OFFSET 14.7 
 //#define Z_OFFSET -2.5             // Set your own OffSet
 
 //=================================================================================//
@@ -171,6 +164,9 @@
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5 
 //#define TEMP_SENSOR_0 13             // uncomment with a good number/type.
+
+// For user who change their HotEnd like Volcano and
+// want to increase the temperature limit. 
 //#define HEATER_0_MAXTEMP 300
 
 /*__________________________8__________________________*/
@@ -213,7 +209,7 @@
 #endif
 
 //= For users who dont have a terminal =//
-#if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)
+#if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
   #define DELTA_CALIBRATION_MENU        //  (Default) Auto for CLASSIC and COLOR.
   #define PID_EDIT_MENU                 //  (Default) Tune PID Bed and Nozzle.
   #define PID_AUTOTUNE_MENU             //  (Default) Tune auto PID.
@@ -232,19 +228,33 @@
   #endif
 #endif
 
-//TFT Type For TFT_GENERIC
-#if ENABLED(TFT_GENERIC)
-  #define TFT_DRIVER AUTO 
-  #define TFT_INTERFACE_FSMC  //Default socket on MKS_nano, mini, hispeed.
-  #define TFT_RES_320x240
-#endif
-
 /**
  * =================================================
  * ===Part for Hardware definitions=================
  * ===Don't change if you're not sure how to do it.= 
  * =================================================
  */
+
+//Type of Driver TFT Color (1 choice)
+#ifdef TFT_DWIN_UI
+  #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
+//Note for H43: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
+  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
+  //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display). 
+#elif ENABLED(TFT_BTT_UI)
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen  
+#elif ENABLED(TFT_GENERIC)
+  #define TFT_DRIVER AUTO
+  #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
+  #define TFT_RES_320x240
+#else
+  #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
+  //#define MKS_TS35_V2_00          // Only for NanoV2 or V3
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+#endif
+
+
+
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
 #if BOTH(STOCK, Q5)||BOTH(STOCK, QQSP)
@@ -261,9 +271,9 @@
 // Set for TMC2208_STANDALONE
 #ifdef ALL_TMC8
     #define Q_TMC
-    #undef LIN_ADVANCE
     #define DRIVER_AXES TMC2208_STANDALONE
     #ifndef DRIVER_EXT
+      #undef LIN_ADVANCE						
       #define DRIVER_EXT TMC2208_STANDALONE
     #endif
 #endif
@@ -344,6 +354,7 @@
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
+  #define Y_OFFSET 0
   #define Z_OFFSET 0
 #endif
 
@@ -370,8 +381,10 @@
 //Z_OffSet
 #ifndef Z_OFFSET
   #ifndef Q5
+    #define Y_OFFSET        0
     #define Z_OFFSET       -16.2
   #else
+    #define Y_OFFSET        0
     #define Z_OFFSET       -18
   #endif
 #endif
