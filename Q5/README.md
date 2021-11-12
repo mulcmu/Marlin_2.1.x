@@ -6,8 +6,8 @@ Each firmware has a header that corresponds to the hardware (board) and function
 Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2 board with TMC2208 and A4988 stepper drivers:
 
 **Exemple:**
-8+SCWBPULR-Robin_nano.bin => Q5 Stock
-=> - (8+S)TMC2208 standalone + A4988 - 
+8+SCWTPULR-Robin_nano.bin => Q5 Stock
+=> - (8+S)TMC2208 standalone(XYZ) + A4988(E0) - 
    - (C)UI Marlin TFT32 - 
    - (W)Wifi module - 
    - (T)Extruder Titan - 
