@@ -30,7 +30,8 @@
 /* MODE STOCK for QQS & Q5 */
 #define STOCK                         // (S) (Default_QQS) For 4xA4988(green or red color).
                                       // (S) (Default_Q5) For 3xTMC2208+1xA4988.
-
+                                      // (S) (Default_SR) For 4xTMC2209.
+                                      
 /* MODE STANDALONE XYZ+E for QQS & Q5 */
 //#define ALL_TMC8                     // (8) For 4xTMC2208_STANDALONE
 //#define ALL_TMC9                     // (9) For 4xTMC2209_STANDALONE
@@ -59,18 +60,14 @@
         * = Driver TFT Color (1 CHOICE)=
         * ==============================
         */
-
-#define MKS_ROBIN_TFT32         // (Default QQS & Q5) Mks_Robin_TFT_V2.0
-//#define MKS_ROBIN_TFT35       // TS35 Compatible nanoV1, hispeedV1 (socket FSMC)
-//#define TFT_GENERIC           // For the user who haven't the same screen.
-
                 /*--- Choice UI TFT ----*/
-#define TFT_COLOR_UI                     // (C) (Default) UI Color MARLIN
-//#define TFT_CLASSIC_UI                 // (F) Standard LCD (UI Classic LCD)
-//#define TFT_LVGL_UI                    // (I) UI Color MKS (Bug with captor sensor PR22595)
-//#define TFT_DWIN                       // (D) UI Color DGUS like Mks_H43_v1.0 
+  #define TFT_COLOR_UI           //(C) (Default) UI Color MARLIN
+  //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)
+  //#define TFT_LVGL_UI          //(I) Standard LCD (UI Color MKS) Color MKS (Bug with captor sensor PR22595)
+  //#define TFT_DWIN_UI          //(D) UI for DGUS screen => Comment MKS_WIFI line.
 
-//Note for Mks_H43: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
+/* With other MotherBoard (SKR, NanoV3) */
+  //#define TFT_BTT_UI           //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
 
 /* ======================================//
 * === Note:Languages already integrated==// 
@@ -122,7 +119,6 @@
 
 //--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
 //#define AUTO_BED_LEVELING_BILINEAR   // (A)
-
 
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
@@ -189,7 +185,7 @@
 #endif
 
 //= For users who dont have a terminal =//
-#ifdef ADD_MENUS
+#if ANY(TFT_CLASSIC_UI, TFT_COLOR_UI, TFT_LVGL_UI, TFT_BTT_UI)
   #ifndef TFT_LVGL_UI
     #define DELTA_CALIBRATION_MENU      //  (Default) Auto for CLASSIC and COLOR.
   #endif
@@ -208,23 +204,32 @@
   #endif
 #endif
 
-//TFT Type For TFT_Screen
-#ifdef TFT_DWIN
-  #define DGUS_LCD_UI_MKS        //Wifi socket pins(PA10/PA9) for Tx/Rx
-#elif ENABLED(TFT_GENERIC)
-  #define TFT_DRIVER AUTO
-  #define TFT_INTERFACE_FSMC      //Default socket on MKS_nano, mini, hispeed.
-  #define TFT_RES_320x240
-#else 
-  #define TOUCH_SCREEN            // (C/F) (Default) UI MARLIN
-#endif
-
 /**
  * =================================================
  * ===Part for Hardware definitions=================
  * ===Don't change if you're not sure how to do it.= 
  * =================================================
  */
+
+//Type of Driver TFT Color (1 choice)
+//Note for DGUS/DWIN: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
+#ifdef TFT_DWIN_UI
+  #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
+  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
+  //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
+  //#define LCD_SERIAL_PORT 1 
+#elif ENABLED(TFT_BTT_UI)
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screens  
+#elif ENABLED(TFT_GENERIC)
+  #define TFT_DRIVER AUTO
+  #define TFT_INTERFACE_FSMC        //Default socket on MKS_nanoV1, mini, hispeed.
+  #define TFT_RES_320x240
+#else
+  #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
+  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
+  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43 
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+#endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
 #ifdef STOCK
