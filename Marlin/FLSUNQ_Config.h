@@ -216,7 +216,7 @@
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  #define TOUCH_IDLE_SLEEP 600          //  (Default) Auto-Off screenview.
+  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Off screenview.
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define PROBE_OFFSET_WIZARD
