@@ -269,7 +269,7 @@ static bool probe_calibration_points(float z_pt[NPP + 1], const int8_t probe_poi
  *  - formulae for approximative forward kinematics in the end-stop displacement matrix
  *  - definition of the matrix scaling parameters
  */
-static void reverse_kinematics_probe_points(float z_pt[NPP + 1], abc_float_t mm_at_pt_axis[NPP + 1], const float dcr) { 
+static void reverse_kinematics_probe_points(float z_pt[NPP + 1], abc_float_t mm_at_pt_axis[NPP + 1], const float dcr) {
   xyz_pos_t pos{0};
 
   LOOP_CAL_ALL(rad) {
@@ -411,7 +411,6 @@ void GcodeSuite::G33() {
     const float total_offset = HYPOT(probe.offset_xy.x, probe.offset_xy.y);
     dcr -= probe_at_offset ? _MAX(total_offset, PROBING_MARGIN) : total_offset;
   #endif
-
   NOMORE(dcr, DELTA_PRINTABLE_RADIUS);
   if (parser.seenval('R')) dcr -= _MAX(parser.value_float(),0);
 
@@ -464,8 +463,9 @@ void GcodeSuite::G33() {
   SERIAL_ECHOLNPGM("G33 Auto Calibrate");
 
   // Report settings
-  FSTR_P const checkingac = F("Checking... AC");
-  SERIAL_ECHOF(checkingac);
+  PGM_P const checkingac = PSTR("Checking... AC");
+  SERIAL_ECHOPGM_P(checkingac);
+  SERIAL_ECHOPGM(" at radius:", dcr);
   if (verbose_level == 0) SERIAL_ECHOPGM(" (DRY-RUN)");
   SERIAL_EOL();
   ui.set_status(checkingac);
