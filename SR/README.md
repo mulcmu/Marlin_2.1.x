@@ -1,21 +1,21 @@
-### 2021-07-24 MARLIN 2.0.9.2 BUGFIX RELEASE
+### 2021-11-20 MARLIN 2.0.9.3 BUGFIX RELEASE
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
-Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and DGUS TFT:
+Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and BTT TFT:
 
 **Exemple:**
-SRM-SrBPALR-Robin_nano_v3.bin
+SRM-SrBPULR-Robin_nano_v3.bin
 => SRM = SR with MKS Nano_V3 board.
    SRB = SR with BTT Skr_v1.3 board.
-   - (S) 4xTMC2209 - Stock
-   - (r)UI Marlin RepRap TFT - Stock  
+   - (S)4xTMC2209 in UART mode - Stock
+   - (r)UI Marlin RepRap TFT - (BTT TFT)  
    - (B)Extruder BMG - Stock
-   - (P)PreHeat bed - 
-   - (A)Leveling mode ABL - Stock
+   - (P)PreHeat bed (60°C) 
+   - (U)Leveling mode UBL
    - (L)LinearAdvance enabled - Stock 
-   - (R)Arc function enabled.
+   - (R)Arc function enabled - Stock
 
-  **Note**: After choosing your binary, remove the "SRM-SrBALRL-" header or rename the file to "firmware.bin" for QQS-SKR,
+  **Note**: After choosing your binary, remove the "SRM-SrBPULR-" header or rename the file to "Robin_nano_v3.bin" for SR-MKS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
   **/*-------Others Firmwares for QQS with SKR family or Mks_Nano Family----*/**
@@ -50,7 +50,7 @@ SRM-SrBPALR-Robin_nano_v3.bin
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan
   - (B) Extruder BMG (Also reverse the extruder direction)
-  - (N) Extruder NEMA14 (mini-Sherpa/Orbiter)
+  - (n) Extruder NEMA14 (mini-Sherpa/Orbiter)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
