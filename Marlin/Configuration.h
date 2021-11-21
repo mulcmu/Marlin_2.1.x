@@ -90,12 +90,12 @@
 #define SHOW_BOOTSCREEN
 
 // Show the bitmap in Marlin/_Bootscreen.h on startup.
-#if ANY(TFT_CLASSIC_UI, TFT_REPRAP)
+#if ANY(TFT_CLASSIC_UI, TFT_BTT_UI)
   #define SHOW_CUSTOM_BOOTSCREEN  //TIPS
 #endif
 
 // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
-#if ANY(TFT_CLASSIC_UI, TFT_REPRAP)
+#if ANY(TFT_CLASSIC_UI, TFT_BTT_UI)
   #define CUSTOM_STATUS_SCREEN_IMAGE  //TIPS
 #endif
 
@@ -622,7 +622,7 @@
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
   #if ANY(SR_MKS, SR_BTT)
-    #define HEATER_0_MAXTEMP 300
+    #define HEATER_0_MAXTEMP 290
   #else
     #define HEATER_0_MAXTEMP 275
   #endif
@@ -910,7 +910,7 @@
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
   #elif ANY(SR_MKS, SR_BTT)
-    #define DELTA_PRINTABLE_RADIUS 122.0
+    #define DELTA_PRINTABLE_RADIUS 132.0
     #define DELTA_MAX_RADIUS       132.0
     #define DELTA_DIAGONAL_ROD     315.0
     #define DELTA_HEIGHT           320.0
@@ -919,7 +919,7 @@
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define PROBING_MARGIN 5
+    //#define PROBING_MARGIN 5
   #else
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
@@ -1145,7 +1145,11 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 210 }
+#if ANY(XP, SR_MKS, SR_BTT)
+  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 500, 210 }
+#else
+  #define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 210 }
+#endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -3197,14 +3201,21 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#define FAN_SOFT_PWM
+#if NONE(SR_MKS, SR_BTT)
+  #define FAN_SOFT_PWM
+#endif
+
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#define SOFT_PWM_SCALE 1
+#if ANY(SR_MKS, SR_BTT)
+  #define SOFT_PWM_SCALE 0
+#else
+  #define SOFT_PWM_SCALE 1
+#endif
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,

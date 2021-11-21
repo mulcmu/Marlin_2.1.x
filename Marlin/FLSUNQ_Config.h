@@ -129,7 +129,8 @@
 //--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
   //#define AUTO_BED_LEVELING_BILINEAR   //(A)
 #else
-  #define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
+  //#define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
+  #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes.
   #define G26_MESH_VALIDATION
   #define SKEW_CORRECTION
 #endif
@@ -242,7 +243,7 @@
   //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
   //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display). 
 #elif ENABLED(TFT_BTT_UI)
-  #define REPRAP_DISCOUNT_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen  
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen  
 #elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
@@ -366,7 +367,7 @@
   #ifdef NEMA14
     #define EXTRUDER_STEPS 720  // Extruder Mini-Sherpa
   #elif ANY(BMG, SR_MKS, SR_BTT)
-    #define EXTRUDER_STEPS 420  // Extruder BMG(Left/Right)
+    #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
   #else
     #define EXTRUDER_STEPS 410  // Extruder TITAN(Default)
   #endif
