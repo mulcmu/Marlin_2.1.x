@@ -254,9 +254,6 @@
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #endif
 
-
-
-
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
 #if BOTH(STOCK, Q5)||BOTH(STOCK, QQSP)
   #ifdef Q5
