@@ -279,7 +279,7 @@
   #if ANY(SR_MKS, SR_BTT)
     #define THERMAL_PROTECTION_HYSTERESIS 20  // Degrees Celsius
   #else
-    #define THERMAL_PROTECTION_HYSTERESIS  6  // Degrees Celsius
+    #define THERMAL_PROTECTION_HYSTERESIS  6  //4 Degrees Celsius
   #endif
   //#define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
   #if BOTH(ADAPTIVE_FAN_SLOWING, PIDTEMP)
@@ -343,14 +343,14 @@
  * Thermal Protection parameters for the laser cooler.
  */
 #if ENABLED(THERMAL_PROTECTION_COOLER)
-  #define THERMAL_PROTECTION_COOLER_PERIOD     10 // Seconds
-  #define THERMAL_PROTECTION_COOLER_HYSTERESIS  3 // Degrees Celsius
+  #define THERMAL_PROTECTION_COOLER_PERIOD    10 // Seconds
+  #define THERMAL_PROTECTION_COOLER_HYSTERESIS 3 // Degrees Celsius
 
   /**
    * Laser cooling watch settings (M143/M193).
    */
-  #define WATCH_COOLER_TEMP_PERIOD             60 // Seconds
-  #define WATCH_COOLER_TEMP_INCREASE            3 // Degrees Celsius
+  #define WATCH_COOLER_TEMP_PERIOD            60 // Seconds
+  #define WATCH_COOLER_TEMP_INCREASE           3 // Degrees Celsius
 #endif
 
 #if ENABLED(PIDTEMP)
@@ -911,7 +911,7 @@
    * This feature was designed for Deltabots with very fast Z moves; however, higher speed Cartesians
    * might be able to use it. If the machine can't raise Z fast enough the BLTouch may go into ALARM.
    */
-  //#define BLTOUCH_HS_MODE
+  //#define BLTOUCH_HS_MODE true
 
   // Safety: Enable voltage mode settings in the LCD menu.
   //#define BLTOUCH_LCD_VOLTAGE_MENU
@@ -970,7 +970,7 @@
 
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
   #define G34_MAX_GRADE              5    // (%) Maximum incline that G34 will handle
-  #define Z_STEPPER_ALIGN_ITERATIONS 5    // Number of iterations to apply during alignment
+  #define Z_STEPPER_ALIGN_ITERATIONS 3    // Number of iterations to apply during alignment
   #define Z_STEPPER_ALIGN_ACC        0.02 // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
@@ -1741,7 +1741,7 @@
 
     #define DGUS_FILAMENT_LOADUNLOAD
     #if ENABLED(DGUS_FILAMENT_LOADUNLOAD)
-      #define DGUS_FILAMENT_PURGE_LENGTH 20
+      #define DGUS_FILAMENT_PURGE_LENGTH 10
       #define DGUS_FILAMENT_LOAD_LENGTH_PER_TIME 0.5 // (mm) Adjust in proportion to DGUS_UPDATE_INTERVAL_MS
     #endif
 
@@ -2245,7 +2245,7 @@
 #if ENABLED(TFT_BTT_UI)
   #define BUFSIZE 32
 #else
-  #define BUFSIZE 16
+  #define BUFSIZE 16	//4
 #endif
 
 // Transmission to Host Buffer Size
@@ -2258,7 +2258,7 @@
 #if ENABLED(TFT_BTT_UI)
   #define TX_BUFFER_SIZE 32
 #else
-  #define TX_BUFFER_SIZE 16
+  #define TX_BUFFER_SIZE 16	//0
 #endif
 
 // Host Receive Buffer Size
@@ -3722,6 +3722,14 @@
 //#define CNC_COORDINATE_SYSTEMS
 
 /**
+ * CNC Drilling Cycle - UNDER DEVELOPMENT
+ *
+ * Enables G81 to perform a drilling cycle.
+ * Currently only supports a single cycle, no G-code chaining.
+ */
+//#define CNC_DRILLING_CYCLE
+
+/**
  * Auto-report fan speed with M123 S<seconds>
  * Requires fans with tachometer pins
  */
@@ -3933,6 +3941,8 @@
   //#define MAIN_MENU_ITEM_5_GCODE "G28\nM503"
   //#define MAIN_MENU_ITEM_5_CONFIRM
 #endif
+
+// Custom Menu: Configuration Menu
 #if ANY(SR_MKS, SR_BTT)
   #define CUSTOM_MENU_CONFIG
   #if ENABLED(CUSTOM_MENU_CONFIG)
@@ -3954,7 +3964,6 @@
   #endif
 #endif
 
-// Custom Menu: Configuration Menu
 //#define CUSTOM_MENU_CONFIG
 //#if ENABLED(CUSTOM_MENU_CONFIG)
   //#define CUSTOM_MENU_CONFIG_TITLE "Radio Commands"
@@ -3966,10 +3975,6 @@
   //#define CONFIG_MENU_ITEM_1_DESC "Wifi ON"
   //#define CONFIG_MENU_ITEM_1_GCODE "M118 [ESP110] WIFI-STA pwd=12345678"
   //#define CONFIG_MENU_ITEM_1_CONFIRM        // Show a confirmation dialog before this action
-  
-  //#define CONFIG_MENU_ITEM_3_DESC "Radio OFF"
-  //#define CONFIG_MENU_ITEM_3_GCODE "M118 [ESP110] OFF pwd=12345678"
-  //#define CONFIG_MENU_ITEM_3_CONFIRM
 
   //#define CONFIG_MENU_ITEM_2_DESC "Bluetooth ON"
   //#define CONFIG_MENU_ITEM_2_GCODE "M118 [ESP110] BT pwd=12345678"
