@@ -404,7 +404,7 @@
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
 #if ANY(SR_MKS, SR_BTT)
-  //#define HOTEND_OFFSET_X { 0.0, 2.00 } // (mm) relative X-offset for each nozzle
+  //#define HOTEND_OFFSET_X { 0.0, 20.00 } // (mm) relative X-offset for each nozzle
   #define HOTEND_OFFSET_Y { 0.0, 2.00 }  // (mm) relative Y-offset for each nozzle
   //#define HOTEND_OFFSET_Z { 0.0, 0.00 }  // (mm) relative Z-offset for each nozzle
 #endif
@@ -555,11 +555,11 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-  #if ANY(SR_MKS, SR_BTT)
-    #define TEMP_SENSOR_BED 11
-  #else
-    #define TEMP_SENSOR_BED 1
-  #endif
+#if ANY(SR_MKS, SR_BTT)
+  #define TEMP_SENSOR_BED 11
+#else
+  #define TEMP_SENSOR_BED 1
+#endif
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -663,8 +663,8 @@
   //#define PID_AUTOTUNE_MENU     //Define on FLSUNQ_Config// Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
-  #ifdef H43
-    #define LCD_PID_AUTOTUNE     // Available for MKS H43 for QQS
+  #ifdef HX43
+    #define LCD_PID_AUTOTUNE     // Available for MKS HX43 for QQS
   #endif
 
   #if ENABLED(PID_PARAMS_PER_HOTEND)
@@ -717,7 +717,7 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-#ifndef H43
+#ifndef HX43
   #define PIDTEMPBED
 #endif
 
@@ -878,6 +878,7 @@
 #define DELTA
 
 #if ENABLED(DELTA)
+
   // Make delta curves from many straight lines (linear interpolation).
   // This is a trade-off between visible corners (not enough segments)
   // and processor overload (too many expensive sqrt calls).
@@ -933,7 +934,7 @@
   #else
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-    #define DELTA_PRINTABLE_RADIUS 125.0    // (mm)
+    #define DELTA_PRINTABLE_RADIUS 130.0    // (mm)
 
   // Maximum reachable area
     #define DELTA_MAX_RADIUS       130.0    // (mm)
@@ -942,7 +943,7 @@
     #define DELTA_DIAGONAL_ROD 280.0        // (mm)
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT 380.00              //370 E3D-360 (mm) Get this value from G33 auto calibrate
+    #define DELTA_HEIGHT 370.00              //370 E3D-360 (mm) Get this value from G33 auto calibrate
 
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
@@ -1902,7 +1903,7 @@
   // The height can be set with M420 Z<height>
   #define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
-    #define DEFAULT_LEVELING_FADE_HEIGHT 200.0 // (mm) Default fade height.
+    #define DEFAULT_LEVELING_FADE_HEIGHT 10.0 // (mm) Default fade height.
   #endif
 
   // For Cartesian machines, instead of dividing moves on mesh boundaries,
@@ -1935,7 +1936,7 @@
 
   // Set the number of grid points per dimension.
   // Works best with 5 or more points in each dimension.
-  #define GRID_SET_MAX_POINTS 7 //MKS H43 require this to work 
+  #define GRID_SET_MAX_POINTS 7 //MKS HX43 require this to work 
   #define GRID_MAX_POINTS_X GRID_SET_MAX_POINTS
   #define GRID_MAX_POINTS_Y GRID_SET_MAX_POINTS
 
@@ -2048,13 +2049,13 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
+//#define Z_PROBE_END_SCRIPT "G0 Z30 F12000\n G0 X0 Y0 Z30"
 
 #if ANY(QQSP, Q5, SR_MKS, SR_BTT)
   #define Z_PROBE_END_SCRIPT "G28"
-//#define Z_PROBE_END_SCRIPT "G0 Z30 F12000\n G0 X0 Y0 Z30"
 #endif
-#ifdef H43
-  #define Z_PROBE_END_HEIGHT  100 // MKS H43 require this to work
+#ifdef HX43
+  #define Z_PROBE_END_HEIGHT  100 // MKS HX43 require this to work
 #endif
 
 // @section homing
@@ -2251,6 +2252,7 @@
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
   #define NOZZLE_PARK_XY_FEEDRATE 100   // (mm/s) X and Y axes feedrate (also used for delta Z axis)
   #define NOZZLE_PARK_Z_FEEDRATE    5   // (mm/s) Z axis feedrate (not used for delta printers)
+  //#define NOZZLE_PARK_ON_TEMP_ERROR   // Park Nozzle before Halt on temperature error
 #endif
 
 /**
@@ -3342,7 +3344,7 @@
  * Set this manually if there are extra servos needing manual control.
  * Set to 0 to turn off servo support.
  */
-#define NUM_SERVOS 1 // Note: Servo index starts with 0 for M280-M282 commands
+//#define NUM_SERVOS 3 // Note: Servo index starts with 0 for M280-M282 commands
 
 // (ms) Delay before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
