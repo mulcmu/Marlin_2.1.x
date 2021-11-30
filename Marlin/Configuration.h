@@ -171,7 +171,7 @@
 #ifndef MOTHERBOARD
   #ifdef QQSP
     #define MOTHERBOARD BOARD_FLSUN_HISPEED
-    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
     #define BAUD_RATE_GCODE
   #endif  
   #ifdef Q5
@@ -580,7 +580,7 @@
 #define TEMP_WINDOW                  1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_HYSTERESIS              3  // (°C) Temperature proximity considered "close enough" to the target
 
-#define TEMP_BED_RESIDENCY_TIME      0  // (seconds) Time to wait for bed to "settle" in M190
+#define TEMP_BED_RESIDENCY_TIME      2  // (seconds) Time to wait for bed to "settle" in M190
 #define TEMP_BED_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_BED_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
 
@@ -921,12 +921,12 @@
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
   #elif ANY(SR_MKS, SR_BTT)
-    #define DELTA_PRINTABLE_RADIUS 132.0
-    #define DELTA_MAX_RADIUS       132.0
-    #define DELTA_DIAGONAL_ROD     315.0
-    #define DELTA_HEIGHT           320.0
+    #define DELTA_PRINTABLE_RADIUS  132.0
+    #define DELTA_MAX_RADIUS        132.0
+    #define DELTA_DIAGONAL_ROD      315.0
+    #define DELTA_HEIGHT            320.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
-    #define DELTA_RADIUS           151.67
+    #define DELTA_RADIUS            151.67
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -934,21 +934,21 @@
   #else
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-    #define DELTA_PRINTABLE_RADIUS 130.0    // (mm)
+    #define DELTA_PRINTABLE_RADIUS   130.0      // (mm)
 
   // Maximum reachable area
-    #define DELTA_MAX_RADIUS       130.0    // (mm)
+    #define DELTA_MAX_RADIUS         130.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-    #define DELTA_DIAGONAL_ROD 280.0        // (mm)
+    #define DELTA_DIAGONAL_ROD       280.0      // (mm)
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT 370.00              //370 E3D-360 (mm) Get this value from G33 auto calibrate
+    #define DELTA_HEIGHT             370.00     //370 E3D-360 (mm) Get this value from G33 auto calibrate
 
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-    #define DELTA_RADIUS 140.8               // (mm) Get this value from G33 auto calibrate
+    #define DELTA_RADIUS             140.8      // (mm) Get this value from G33 auto calibrate
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
@@ -1974,7 +1974,7 @@
   /// 10=53points, 13=90points, 15=110points
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-  #define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
+  #define UBL_HILBERT_CURVE         // Use Hilbert distribution for less travel when probing multiple points
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500
@@ -3179,7 +3179,7 @@
   #define TOUCH_SCREEN_CALIBRATION //or (M995)
 
   // QQS-Pro use MKS Robin TFT v2.0
-  #ifdef QQSP
+  #if BOTH(QQSP, MKS_ROBIN_TFT32)||BOTH(QQSR, MKS_ROBIN_TFT32)
     #define TOUCH_CALIBRATION_X   12033
     #define TOUCH_CALIBRATION_Y   -9047
     #define TOUCH_OFFSET_X          -30
