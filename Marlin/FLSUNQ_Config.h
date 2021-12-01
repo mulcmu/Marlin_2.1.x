@@ -106,8 +106,8 @@
  */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG/Sherpa.
 
-// BMG Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
-//#define BMG                            //(B) Uncommment for BMG Left/Right.
+// BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
+//#define BMG                            //(B) Uncommment for BMG_right.
 //#define NEMA14                         //(n) Uncommment for Mini-Sherpa/SuperDrive.
 
 /*__________________________5_____________________________*/
@@ -118,27 +118,27 @@
       * ===============================
       */
 
-//#define DELTA_HOME_TO_SAFE_ZONE      // Option to move down after homing to a height where XYZ movement is unconstrained.
-#define PREHEAT_BEFORE_PROBING         //(P) (Default) Run a PreHeat bed at 60°C
+//#define DELTA_HOME_TO_SAFE_ZONE        // Option to move down after homing to a height where XYZ movement is unconstrained.
+#define PREHEAT_BEFORE_PROBING           //(P) (Default) Run a PreHeat bed at 60°C
 //#define PREHEAT_BEFORE_LEVELING    
 
 // ---Expe tools Levelling-------
 
 #if NONE(SR_MKS, SR_BTT)
-  #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes.
+  #define AUTO_BED_LEVELING_UBL          //(U) (Default) Wizard UBL includes.
 //--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"= #define CUSTOM_MENU_MAIN
   //#define AUTO_BED_LEVELING_BILINEAR   //(A)
 #else
   //#define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
-  #define AUTO_BED_LEVELING_UBL        //(U) (Default) Wizard UBL includes.
+  #define AUTO_BED_LEVELING_UBL          //(U) (Default) Wizard UBL includes.
   #define G26_MESH_VALIDATION
   #define SKEW_CORRECTION
 #endif
 
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
-#define LIN_ADVANCE                //(L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
-#define POWER_LOSS_RECOVERY        // (Default) Continue print after Power-Loss.
+#define LIN_ADVANCE                         //(L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
+#define POWER_LOSS_RECOVERY                 // (Default) Continue print after Power-Loss.
 
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
 // more at the bottom page.
@@ -146,9 +146,9 @@
 //#define STALLGUARD_2               // (g) Special mod for TMC2209 = SENSORLESS_PROBING
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
-//#define X_PROBE                   // Set to invert the logic of the PROBE.
+//#define X_PROBE                    // Set to invert the logic of the PROBE.
 //#define Y_OFFSET 14.7 
-//#define Z_OFFSET -2.5             // Set your own OffSet
+//#define Z_OFFSET -2.5              // Set your own OffSet
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -217,7 +217,7 @@
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Off screenview.
+  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview.
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define PROBE_OFFSET_WIZARD

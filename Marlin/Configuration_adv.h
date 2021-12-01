@@ -1423,7 +1423,7 @@
 
   #define SD_MENU_CONFIRM_START             // Confirm the selected SD file before printing
 
-  #define NO_SD_AUTOSTART                 // Remove auto#.g file support completely to save some Flash, SRAM
+  //#define NO_SD_AUTOSTART                 // Remove auto#.g file support completely to save some Flash, SRAM
   //#define MENU_ADDAUTOSTART               // Add a menu option to run auto#.g files
 
   //#define BROWSE_MEDIA_ON_INSERT          // Open the file browser when media is inserted
@@ -2241,7 +2241,11 @@
 // @section serial
 
 // The ASCII buffer for serial input
-#define MAX_CMD_SIZE 96
+#ifdef XP
+  #define MAX_CMD_SIZE 500
+#else
+  #define MAX_CMD_SIZE 96
+#endif
 #if ENABLED(TFT_BTT_UI)
   #define BUFSIZE 32
 #else
@@ -2501,7 +2505,7 @@
   #endif
 
   #define FILAMENT_CHANGE_SLOW_LOAD_FEEDRATE   6  // (mm/s) Slow move when starting load.
-  #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     0  // (mm) Slow length, to allow time to insert material.
+  #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     5  // (mm) Slow length, to allow time to insert material.
                                                   // 0 to disable start loading and skip to fast load only
   #ifdef Q5
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20
@@ -3864,7 +3868,7 @@
 //#define GCODE_MACROS
 #if ENABLED(GCODE_MACROS)
   #define GCODE_MACROS_SLOTS       5  // Up to 10 may be used
-  #define GCODE_MACROS_SLOT_SIZE  50  // Maximum length of a single macro
+  #define GCODE_MACROS_SLOT_SIZE  500  // Maximum length of a single macro
 #endif
 
 /**
@@ -3920,6 +3924,12 @@
   #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
   #define MAIN_MENU_ITEM_10_GCODE "M997"
   #define MAIN_MENU_ITEM_10_CONFIRM
+
+  #ifdef XP
+    #define MAIN_MENU_ITEM_11_DESC "Stop Server4D"
+    #define MAIN_MENU_ITEM_11_GCODE "M118 A1 action:poweroff"
+    #define MAIN_MENU_ITEM_11_CONFIRM
+  #endif
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
