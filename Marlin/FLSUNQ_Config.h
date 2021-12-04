@@ -362,7 +362,7 @@
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
-    #define EXTRUDER_STEPS 720  // Extruder Mini-Sherpa
+    #define EXTRUDER_STEPS 720  // Extruder Mini-Sherpa/SuperDriveHX
   #elif ANY(BMG, SR_MKS, SR_BTT)
     #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
   #else
@@ -371,10 +371,14 @@
 #endif
 //Jerk
 #ifndef XYZJERK
-  #define XYZJERK  10
+  #define XYZJERK  10.0
 #endif
 #ifndef EJERK
-  #define EJERK    10
+  #ifdef NEMA14
+    #define EJERK       5.0
+  #else
+    #define EJERK       10.0
+  #endif
 #endif
 //Z_OffSet
 #ifndef Z_OFFSET
@@ -395,7 +399,7 @@
 #endif  
 #ifndef E_CURRENT
   #ifdef NEMA14
-    #define E_CURRENT       350
+    #define E_CURRENT       380
   #else
     #define E_CURRENT       850
   #endif

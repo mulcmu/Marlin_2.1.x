@@ -2230,6 +2230,8 @@
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
+#elif ENABLED(XP)
+  #define BLOCK_BUFFER_SIZE 32  
 #elif ENABLED(TFT_BTT_UI)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
@@ -2241,12 +2243,12 @@
 // @section serial
 
 // The ASCII buffer for serial input
-#ifdef XP
+#ifdef XP1 //BLOCK_BUFFER_SIZE=64, BUFSIZE 32, TX_BUFFER_SIZE 32, RX_BUFFER_SIZE 2048 (OCTO)
   #define MAX_CMD_SIZE 500
 #else
   #define MAX_CMD_SIZE 96
 #endif
-#if ENABLED(TFT_BTT_UI)
+#if ANY(TFT_BTT_UI, XP)
   #define BUFSIZE 32
 #else
   #define BUFSIZE 16	//4
@@ -2259,7 +2261,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#if ENABLED(TFT_BTT_UI)
+#if ANY(TFT_BTT_UI, XP)
   #define TX_BUFFER_SIZE 32
 #else
   #define TX_BUFFER_SIZE 16	//0
@@ -2269,7 +2271,9 @@
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
-//#define RX_BUFFER_SIZE 1024
+#ifdef XP1
+  #define RX_BUFFER_SIZE 2048 //1024
+#endif
 
 #if RX_BUFFER_SIZE >= 1024
   // Enable to have the controller send XON/XOFF control characters to
@@ -2512,9 +2516,9 @@
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
   #elif ENABLED(NEMA14)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE   6
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    80 
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    70 
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25

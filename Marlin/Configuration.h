@@ -920,6 +920,17 @@
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
+  #elif ENABLED(SDHX) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
+    #define DELTA_PRINTABLE_RADIUS  130.0            //
+    #define DELTA_MAX_RADIUS        130.0            //
+    #define DELTA_DIAGONAL_ROD      285.0            //L285.8064
+    #define DELTA_HEIGHT            350.0            //H333.1926
+    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
+    #define DELTA_RADIUS            128.0            //R127.3126
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0278, 0.1700, -0.1978}    //XYZ
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1243, -0.2939, 0.4182 } //ABC
+    //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
+    #define PROBING_MARGIN 5
   #elif ANY(SR_MKS, SR_BTT)
     #define DELTA_PRINTABLE_RADIUS  132.0
     #define DELTA_MAX_RADIUS        132.0
@@ -1924,7 +1935,7 @@
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
     #ifdef NEMA14
-      #define G26_RETRACT_MULTIPLIER   0.8
+      #define G26_RETRACT_MULTIPLIER   1.0
     #else
       #define G26_RETRACT_MULTIPLIER   4.0  // G26 Q (retraction) used by default between mesh test elements.
     #endif
