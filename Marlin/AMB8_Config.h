@@ -40,15 +40,15 @@
 //#define INV_EXT                    //(T) Uncommment to reverse direction.
 //#define BMG                        //(B) Uncomment to change Extruder step.
 
-/*-------Driver TFT Color--(1 CHOICE)-----*/
-#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-#define TFT_REPRAP
-//#define TFT_GENERIC
+
 
 /*--- Choice UI TFT ----*/
 //#define TFT_CLASSIC_UI             //(F) UI STANDARD 
-//#define TFT_COLOR_UI               //(C) UI MARLIN (too big with mode UART+UBL=ok with nanolib)
-//#define TFT_LVGL_UI                //(I) UI MKS  => (Bug)
+//#define TFT_COLOR_UI               //(C) UI MARLIN
+//#define TFT_LVGL_UI                //(I) UI MKS
+#define TFT_BTT_UI                 //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
+//#define TFT_DWIN_UI                //(D) UI for DGUS screen
+//#define TFT_ROTATION TFT_ROTATE_180
 
 /*----  Modules -----*/
 //#define ESP_WIFI                   //(W) Module ESP8266/ESP12
@@ -91,6 +91,8 @@
 //#define AUTO_BED_LEVELING_BILINEAR //(A)
 #define AUTO_BED_LEVELING_UBL    //(U) 
 #define LEVEL_BED_CORNERS
+#define G26_MESH_VALIDATION //UBL
+//#define Z_STEPPER_AUTO_ALIGN
 
 // Option for Octoprint (OCTO)
 #define HOST_ACTION_COMMANDS       // Action Command Prompt support Message on Octoprint
@@ -98,13 +100,17 @@
 #define EMERGENCY_PARSER
 #define BINARY_FILE_TRANSFER
 //#define MEATPACK_ON_SERIAL_PORT_1
-#define SDCARD_CONNECTION ONBOARD
 
+//#define USB_FLASH_DRIVE_SUPPORT     //SKR2
+//#define MULTI_VOLUME
 //#define CANCEL_OBJECTS
 #define SDCARD_SORT_ALPHA
+#define AUTO_REPORT_POSITION
+//#define AUTO_REPORT_TEMPERATURES  //Actif
+//#define M115_GEOMETRY_REPORT      //Actif
 #define M114_DETAIL
 #define REPORT_FAN_CHANGE
-
+//#define SDCARD_CONNECTION ONBOARD   //Actif default
 /* OPTION no validate */
 //#define USE_CONTROLLER_FAN         //BOARD FAN
 //EXTRUDER_AUTO_FAN   //
@@ -119,11 +125,42 @@
   #define LED_CONTROL_MENU           // To control LedStrip.
 #endif
 
-//TFT Type For TFT_GENERIC
-#if ENABLED(TFT_GENERIC)
+/*-------Driver TFT Color--(1 CHOICE)-----*/
+#ifdef TFT_DWIN_UI
+  #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
+  //#define USE_MKS_GREEN_UI  // Actif default Comment blue
+//Note for H43: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
+  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
+  //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
+  //#define CR10_STOCKDISPLAY       //skrminiE3_V2 
+  // CR-6 OEM touch screen. A DWIN display with touch.
+  //#define DWIN_CREALITY_TOUCHLCD
+  //#define DWIN_CREALITY_LCD_ENHANCED
+  //#define DWIN_CREALITY_LCD_JYERSUI
+  //#define DWIN_MARLINUI_PORTRAIT
+  //#define LCD_SERIAL_PORT 1
+  //#define DGUS_LCD_UI_ORIGIN
+  //#define DGUS_LCD_UI_RELOADED
+#elif ENABLED(TFT_BTT_UI)
+/* For BTT-TFT35v2 , 43, ... */
+  //#define HAS_BTT_EXP_MOT 1
+  //#define CR10_STOCKDISPLAY
+  //#define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //(r)(Default) UI Color FLSUN or BTT screen  
+#elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
-  #define TFT_INTERFACE_FSMC
+  #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
   #define TFT_RES_320x240
+#else
+/*-MKS Robin TFT24/28/32 ： ST7789V 320*240 MCU 16bit FSMC-*/
+  #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0(FSMC)
+  //#define MKS_ROBIN_TFT35         //Mks_Robin_TFT
+  //#define MKS_ROBIN_TFT_V1_1R
+  //#define MKS_ROBIN_TFT24
+  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT (FSMC)
+  //#define MKS_ROBIN_TFT_V1_1R
+  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3 (SPI)
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #endif
 
 //variables to calculate steps and current

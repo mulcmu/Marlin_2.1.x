@@ -91,12 +91,12 @@
 #define SHOW_BOOTSCREEN
 
 // Show the bitmap in Marlin/_Bootscreen.h on startup.
-#if ANY(TFT_CLASSIC_UI, TFT_REPRAP)
+#if ANY(TFT_CLASSIC_UI, TFT_BTT_UI)
   #define SHOW_CUSTOM_BOOTSCREEN  //TIPS
 #endif
 
 // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
-#if ANY(TFT_CLASSIC_UI, TFT_REPRAP)
+#if ANY(TFT_CLASSIC_UI, TFT_BTT_UI)
   #define CUSTOM_STATUS_SCREEN_IMAGE  //TIPS
 #endif
 
@@ -130,7 +130,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 250000
+#define BAUDRATE 115200
 //#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
 /**
@@ -1012,7 +1012,7 @@
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
 #ifdef MICROSTEPS32
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.28, 159.96, 796.09, 1144.14 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.30, 160.01, 791.56, 1144.14 }
 #else
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.33, 79.81, 398.68, 495.07 }
 #endif
@@ -2519,9 +2519,7 @@
 //
 // Note: Details on connecting to the Anet V1.0 controller are in the file pins_ANET_10.h
 //
-#if ANY(RAMPS, SKR)
-  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //EVO3.0 active le lcd 12864
-#endif
+//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //EVO3.0 active le lcd 12864
 
 //
 // K.3D Full Graphic Smart Controller
