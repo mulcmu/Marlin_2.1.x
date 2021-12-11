@@ -373,13 +373,73 @@
   #define TFT_BUFFER_SIZE                  14400
   
 #endif
+/* Module TEST TFT BTT */
+#if HAS_WIRED_LCD
+    #define BEEPER_PIN                      PC5 //PB5//EXP1_10
+    #define BTN_ENC                         -1 //PA15//EXP1_09
+
+    #define BTN_EN1                         PA9//EXP1_06//RX1
+    #define BTN_EN2                         PA10//EXP1_08//TX1
+
+    #define LCD_PINS_RS                     -1 //PB8
+    #define LCD_PINS_ENABLE                 PA5 //EXP1_3
+    #define LCD_PINS_D4                     -1  //PB9
+#endif
+
+/**
+ *            SKR Mini E3 V2.0
+ *                ------
+ *            5V | 1  2 | GND
+ * (LCD_EN) PB15 | 3  4 | PB8  (LCD_RS)
+ * (LCD_D4) PB9  | 5  6   PA10 (BTN_EN2)RX1
+ *         RESET | 7  8 | PA9  (BTN_EN1)TX1
+ *(BTN_ENC) PA15 | 9 10 | PB5  (BEEPER)
+ *                ------
+ *                 EXP1
+ *        ------              ------         
+ *   VCC | 1  2 | GND    VCC | 1  2 | GND    
+ *     A | 3  4 | B        A | 3  4 | B      
+ *       | 5  6   TX    BEEP | 5  6   ENT    
+ *       | 7  8 | RX      TX | 7  8 | RX     
+ *  BEEP | 9 10 | ENT        | 9 10 |        
+ *        ------              ------         
+ *         EXP1                DWIN           
+   #if ENABLED(CR10_STOCKDISPLAY)
+
+    #define BEEPER_PIN                      PB5//EXP1_10
+    #define BTN_ENC                         PA15//EXP1_09
+
+    #define BTN_EN1                         PA9//EXP1_06//RX1
+    #define BTN_EN2                         PA10//EXP1_08//TX1
+
+    #define LCD_PINS_RS                     PB8
+    #define LCD_PINS_ENABLE               EXP1_3
+    #define LCD_PINS_D4                     PB9
+
+  #else     // !CR10_STOCKDISPLAY- SKR13 TFT AUX
+ *               SKR 13
+ *                ------
+ *       0.3 RX0 | 2  1 | NC
+ *       0.2 TX0 | 4  3 | NC 
+ *           GND | 6  5   GND
+ *            5v | 8  7 | 5V
+ *                ------
+ *                 AUX-1
+    #define LCD_PINS_RS              EXP1_07_PIN  //Reset
+
+    #define BTN_EN1                  EXP2_08_PIN  //3.26 (31) J3-2 & AUX-4
+    #define BTN_EN2                  EXP2_06_PIN  //3.25 (33) J3-4 & AUX-4
+    #define BTN_ENC                  EXP1_09_PIN  //0.28 (58) open-drain
+
+    #define LCD_PINS_ENABLE          EXP1_08_PIN
+    #define LCD_PINS_D4              EXP1_06_PIN
+
+    #define LCD_SDSS                 EXP2_07_PIN  //0.16 (SD_SS)// (16) J3-7 & AUX-4
+    #define SD_DETECT_PIN            EXP2_04_PIN  //1.31 (SD_DETECT)// (49) (NOT 5V tolerant)
+
+
+ */
 /*
-//SR
-//      #if IS_ULTIPANEL
-//        #define LCD_PINS_D5         EXPA1_05_PIN
-//        #define LCD_PINS_D6         EXPA1_04_PIN
-//        #define LCD_PINS_D7         EXPA1_03_PIN
-//-------------        
 #if HAS_WIRED_LCD
   #define LCD_PINS_ENABLE        PD13
   #define LCD_PINS_D4              -1 //PE14 //dataline EXP1_06_PIN  // PA6(LCD_D4)
