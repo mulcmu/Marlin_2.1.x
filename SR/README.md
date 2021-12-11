@@ -26,11 +26,9 @@ SRM-SrBPULR-Robin_nano_v3.bin
   **Caption:**
 
   **/*------Drivers--------*/**
-  - (S) Stock drivers.
-  - (8) TMC2208 Standalone
-  - (9) TMC2209 Standalone
-  - (U8) 4xTMC2208_UART with no module ESP12.
-  - (U9) 4xTMC2209_UART with no module ESP12.
+  - (S) Stock=4xTMC2209_UART.
+  - (U8) 4xTMC2208_UART.
+  - (U9) 4xTMC2209_UART.
   - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
   - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
@@ -42,15 +40,14 @@ SRM-SrBPULR-Robin_nano_v3.bin
   - (C) UI MARLIN (TFT Color screen)
   - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
   - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3)
-  - (G) UI DWIN (TFT DGUS Color screen)
+  - (D) UI DWIN (TFT DGUS Color screen)
 
   **/*------Modules--------*/**
-  - (N) NeoPixel (management of led strips)
+  - (n) NeoPixel (management of led strips)
   - (W) Module ESP8266/ESP12 (infos at the middle of the page)
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
-  - (T) Extruder Titan
-  - (B) Extruder BMG (Also reverse the extruder direction)
-  - (n) Extruder NEMA14 (mini-Sherpa/Orbiter)
+  - (B) Extruder BMG right_hand (Stock)
+  - (X) Extruder NEMA14 (SDHX/Mini-Sherpa/Orbiter/LGX)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
