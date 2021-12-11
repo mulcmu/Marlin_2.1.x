@@ -1,4 +1,4 @@
-### 2021-11-11 MARLIN 2.0.9.2 OFFICIAL RELEASE
+### 2021-11-11 MARLIN 2.0.9.3+ OFFICIAL BUGFIX
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -40,14 +40,15 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   - (C) UI MARLIN (TFT Color screen)
   - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
   - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3)
+  - (D) UI DWIN (H43)
 
   **/*------Modules--------*/**
-  - (N) NeoPixel (management of led strips)
+  - (n) NeoPixel (management of led strips)
   - (W) Module ESP8266/ESP12 (infos at the middle of the page)
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan/Stock
   - (B) Extruder BMG
-  - (n) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
+  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Lgx/...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)

@@ -1,28 +1,33 @@
-### 2021-11-11 MARLIN 2.0.9.2 OFFICIAL RELEASE
- 
- - Q5 STOCK With 3xTMC2208 + 1xA4988 = Q5_STOCK-Robin_nano.bin
+### 2021-11-11 MARLIN 2.0.9.3+ OFFICIAL BUGFIX
 
+- QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
+- QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
+- QQS-Pro STOCK With 4xTMC2209 = QQSP_STOCK_TMC9-Robin_mini.bin
+  
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
-Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2 board with TMC2208 and A4988 stepper drivers:
+Below is an example with the firmware for a QQS printer with a MKS-NanoV3 board with 4xTMC2209 stepper drivers and BMG_right extruder:
 
 **Exemple:**
-8+SCWTPULR-Robin_nano.bin => Q5 Stock
-=> - (8+S)TMC2208 standalone(XYZ) + A4988(E0) - 
-   - (C)UI Marlin TFT32 - 
-   - (W)Wifi module - 
-   - (T)Extruder Titan - 
+QQS_TS35-U9CBPULR32-Robin_nano_v3.bin
+=> 
+   - (U9)4xTMC2209 UART - 
+   - (C)UI Marlin TS35v2 - 
+   - (B)Extruder BMG Right_ hand - 
    - (P)PreHeat bed - 
    - (U)Leveling mode -
    - (L)LinearAdvance - 
-   - (R)Arc function enabled.
+   - (R)Arc function enabled -
+   - (32)Steps nb -
 
-  **Note**: After choosing your binary, remove the "8+SCWTPULR-" header or rename the file to "Robin_nano.bin" for Q5,
+  **Note**: After choosing your binary, remove the "QQS_TS35-U9CBPULR32-" header or rename the file to "Robin_nano_v3.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
+
+![Cnx_NanoV3](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/NanoV3_EndStop.png)
 
   **Caption:**
 
   **/*------Drivers--------*/**
-  - (S) A4988 (green/red)
+  - (S) A4988 (green/red rectangle)
   - (8) TMC2208 Standalone
   - (9) TMC2209 Standalone
   - (U8) 4xTMC2208_UART with no module ESP12.
@@ -35,16 +40,16 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (F) UI STANDARD (Emulation LCD screen on TFT)
   - (C) UI MARLIN (TFT Color screen)
   - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
-  - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3 include BTT's TFT)
+  - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3)
+  - (D) UI DWIN (H43)
 
   **/*------Modules--------*/**
   - (n) NeoPixel (management of led strips)
   - (W) Module ESP8266/ESP12 (infos at the middle of the page)
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
-  - (T) Extruder Titan
+  - (T) Extruder Titan/Stock
   - (B) Extruder BMG
-  - (b) Extruder BMG mini
-  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/LGX...)
+  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Lgx/...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
@@ -54,6 +59,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
+  - (16/32) Steps Number
   
   **/*-------Others options for advanced users who build their firmware----*/**
   - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
