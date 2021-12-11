@@ -374,6 +374,12 @@
   
 #endif
 /*
+//SR
+//      #if IS_ULTIPANEL
+//        #define LCD_PINS_D5         EXPA1_05_PIN
+//        #define LCD_PINS_D6         EXPA1_04_PIN
+//        #define LCD_PINS_D7         EXPA1_03_PIN
+//-------------        
 #if HAS_WIRED_LCD
   #define LCD_PINS_ENABLE        PD13
   #define LCD_PINS_D4              -1 //PE14 //dataline EXP1_06_PIN  // PA6(LCD_D4)
