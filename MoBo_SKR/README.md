@@ -1,25 +1,29 @@
-### 2021-11-11 MARLIN 2.0.9.2 OFFICIAL RELEASE
+### 2021-11-11 MARLIN 2.0.9.3+ OFFICIAL BUGFIX
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
-Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2 board with TMC2208 and A4988 stepper drivers:
+Below is an example with the firmware for a Q5 printer with a BTT-SRK14T board with 4xTMC2209 stepper drivers and BMG_right extruder:
 
 **Exemple:**
-9rWBPULR-MoBo.bin => Q5 or QQS with other MotherBoard.
-=> - (9)4xTMC2208 standalone - 
+U9rWBPULR-MoBo.bin => Q5 or QQS with other MotherBoard.
+=> - (U9)4xTMC2208 UART - 
    - (r)UI for BTT screen - 
    - (W)Wifi module - 
-   - (B)Extruder BMG - 
-   - (P)PreHeat bed - 
-   - (U)Leveling mode -
+   - (B)Extruder BMG_Right - 
+   - (P)PreHeat bed - 60°C
+   - (U)Leveling mode - UBL
    - (L)LinearAdvance - 
    - (R)Arc function enabled.
 
   **Note**: After choosing your binary, remove the "8CWBL-SRKxx" header or rename the file to "firmware.bin" for QQS-SKR,
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
+  ![Cnx_SKR13](./images/SKR13_EndStop.png)
+  ![Cnx_SKR14](./images/SKR14_EndStop.png)
+  ![Cnx_SKR2](./images/SKR2_EndStop.png)
+
   **/*-------Others Firmwares for QQS with SKR family or Mks_Nano Family----*/**
   - (QQS)U9rTPULR16-SKR14T_firmware   QQS SKR14T(4xTMC2209UART)16steps with TITAN extruder. 
-  - (QQS)U8rBPUR32-SKR12PRO_firmware  QQS SKR12PRO(4xTMC2208_standAlone)32steps without LA, with BMG extruder.
+  - (QQS)U8rBPUR32-SKR13_firmware  QQS SKR13(4xTMC2208_standAlone)32steps without LA, with BMG Right_Hand extruder.
   - (QQS)U9rTPULR16-SKR14_firmware QQS with SKRv1.4 Board with emulation LCD (Marlin Mode)
   
   **Caption:**
@@ -40,15 +44,15 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (F) UI STANDARD (Emulation LCD screen on TFT)
   - (C) UI MARLIN (TFT Color screen)
   - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
-  - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3)
+  - (r) UI STANDARD (For BTT-TFT screen with Marlin Mode Emulation on TFT )
 
   **/*------Modules--------*/**
-  - (N) NeoPixel (management of led strips)
+  - (n) NeoPixel (management of led strips)
   - (W) Module ESP8266/ESP12 (infos at the middle of the page)
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
-  - (T) Extruder Titan
-  - (B) Extruder BMG (Also reverse the extruder direction)
-  - (n) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
+  - (T) Extruder Titan(Stock)/BMG left_Hand
+  - (B) Extruder BMG Right_Hand (Also reverse the extruder direction)
+  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
