@@ -22,9 +22,9 @@
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
-//#define QQSP                         // (Default_QQS) env = flsun_hispeedv1
+#define QQSP                         // (Default_QQS) env = flsun_hispeedv1
 //#define Q5                         // env = mks_robin_nano35 
-#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
+//#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
 //#define SR_BTT                     // env = lpc1768
                                      // change in platformio.ini file or 
                                      // click on the "Default" icon on the bottom edge of the window and 
