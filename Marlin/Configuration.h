@@ -176,6 +176,7 @@
   #endif  
   #ifdef Q5
     #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4
     #define BAUD_RATE_GCODE
   #endif
   #ifdef SR_MKS
