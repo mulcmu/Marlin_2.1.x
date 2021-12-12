@@ -1299,7 +1299,9 @@
  *      - normally-closed switches to GND and D32.
  *      - normally-open switches to 5V and D32.
  */
-//#define Z_MIN_PROBE_PIN 32 // Pin 32 is the RAMPS default
+#ifdef SR_BTT
+  #define Z_MIN_PROBE_PIN P1_25 // Pin 32 is the RAMPS default
+#endif
 
 /**
  * Probe Type
@@ -1773,6 +1775,9 @@
  */
 #define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
+  #ifdef SR_BTT
+    #define FIL_RUNOUT_PIN    P1_29
+  #endif
   #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
