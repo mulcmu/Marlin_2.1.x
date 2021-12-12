@@ -130,7 +130,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 //#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
 /**
@@ -173,7 +173,7 @@
   #define CUSTOM_MACHINE_NAME "Extrudeur_BNBSXv1"
 #endif
 #ifdef SKR
-  #define CUSTOM_MACHINE_NAME "Extrudeur_BNBSXv2"
+  #define CUSTOM_MACHINE_NAME "AMB8_BNBSXv2"
 #endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
@@ -2036,7 +2036,7 @@
 #define NOZZLE_PARK_FEATURE
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 }
+  #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 70 }
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
@@ -2276,13 +2276,13 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-#define ENCODER_PULSES_PER_STEP 4
+//#define ENCODER_PULSES_PER_STEP 4
 
 //
 // Use this option to override the number of step signals required to
 // move between next/prev menu items.
 //
-#define ENCODER_STEPS_PER_MENU_ITEM 1
+//#define ENCODER_STEPS_PER_MENU_ITEM 1
 
 /**
  * Encoder Direction Options
@@ -2299,7 +2299,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-#define REVERSE_ENCODER_DIRECTION    //OPT
+//#define REVERSE_ENCODER_DIRECTION    //OPT
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -2315,7 +2315,7 @@
 //  If CLOCKWISE normally moves LEFT this makes it go RIGHT.
 //  If CLOCKWISE normally moves RIGHT this makes it go LEFT.
 //
-#define REVERSE_SELECT_DIRECTION    //OPT
+//#define REVERSE_SELECT_DIRECTION    //OPT
 
 //
 // Individual Axis Homing

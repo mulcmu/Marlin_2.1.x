@@ -1460,7 +1460,7 @@
 
   // Allow international symbols in long filenames. To display correctly, the
   // LCD's font must contain the characters. Check your selected LCD language.
-  //#define UTF_FILENAME_SUPPORT
+  #define UTF_FILENAME_SUPPORT
 
   // This allows hosts to request long names for files and folders with M33
   #define LONG_FILENAME_HOST_SUPPORT
@@ -1927,6 +1927,7 @@
   #define LIN_ADVANCE_K 0.00 		//0.22 PLA=75 // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
   #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define ALLOW_LOW_EJERK
 #endif
 
 // @section leveling
@@ -1937,11 +1938,11 @@
  */
 #if EITHER(AUTO_BED_LEVELING_3POINT, AUTO_BED_LEVELING_UBL)
   #define PROBE_PT_1_X 20
-  #define PROBE_PT_1_Y 160
+  #define PROBE_PT_1_Y 210
   #define PROBE_PT_2_X 20
   #define PROBE_PT_2_Y 10
-  #define PROBE_PT_3_X 180
-  #define PROBE_PT_3_Y 10
+  #define PROBE_PT_3_X 210
+  #define PROBE_PT_3_Y 110
 #endif
 
 /**
@@ -2284,7 +2285,7 @@
  *   'M106 P<fan> T2'     : Use the set secondary speed
  *   'M106 P<fan> T1'     : Restore the previous fan speed
  */
-//#define EXTRA_FAN_SPEED
+#define EXTRA_FAN_SPEED
 
 /**
  * Firmware-based and LCD-controlled retract
@@ -2661,7 +2662,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       900 // 740mAx70%x2=1036
+    #define Z_CURRENT       700 // 740mAx70%x2=1036
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS    XYZ_MICROSTEPS
     #define Z_RSENSE          0.11
@@ -3774,7 +3775,7 @@
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
   //#define CUSTOM_MENU_MAIN_ONLY_IDLE         // Only show custom menu when the machine is idle
 
-  #define MAIN_MENU_ITEM_1_DESC "Initialize EEPROM"
+  #define MAIN_MENU_ITEM_1_DESC "Init. EEPROM"
   #define MAIN_MENU_ITEM_1_GCODE "M502\nM500\nM997"
   #define MAIN_MENU_ITEM_1_CONFIRM
 
@@ -3782,28 +3783,28 @@
   #define MAIN_MENU_ITEM_2_GCODE "M997"
   #define MAIN_MENU_ITEM_2_CONFIRM
 
-  #define MAIN_MENU_ITEM_3_DESC "Run PID Nozzle for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_3_DESC "PID Nozzle for " PREHEAT_1_LABEL
     //#define MAIN_MENU_ITEM_5_GCODE "M810" //M810 M106 P0 S180|M303 E0 C8 S210 U|M500|M107
   #define MAIN_MENU_ITEM_3_GCODE "M106 P0 S200\nM303 E0 C8 S210 U\nM500\nG28W\nM107"
   #define MAIN_MENU_ITEM_3_CONFIRM
 
-  #define MAIN_MENU_ITEM_4_DESC "Run PID Nozzle for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_4_DESC "PID Nozzle for " PREHEAT_2_LABEL
   #define MAIN_MENU_ITEM_4_GCODE "M106 P0 S180\nM303 E0 C8 S230 U\nM500\nG28W\nM107"
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "Run PID Nozzle for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_5_DESC "PID Nozzle for " PREHEAT_3_LABEL
   #define MAIN_MENU_ITEM_5_GCODE "M303 E0 C8 S240 U\nM500\nG28W"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "Bed Leveling UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_DESC "Level.UBL for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_6_GCODE "M1004 H0 B50 S0"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "Bed Leveling UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_7_DESC "Level.UBL for " PREHEAT_2_LABEL
   #define MAIN_MENU_ITEM_7_GCODE "M1004 H0 B70 S1"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "Bed Leveling UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_8_DESC "Level.UBL for " PREHEAT_3_LABEL
   #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B90 S2"
   #define MAIN_MENU_ITEM_8_CONFIRM
 

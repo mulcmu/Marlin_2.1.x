@@ -110,11 +110,12 @@
 //#define M115_GEOMETRY_REPORT      //Actif
 #define M114_DETAIL
 #define REPORT_FAN_CHANGE
+#define GCODE_CASE_INSENSITIVE
 //#define SDCARD_CONNECTION ONBOARD   //Actif default
 /* OPTION no validate */
 //#define USE_CONTROLLER_FAN         //BOARD FAN
 //EXTRUDER_AUTO_FAN   //
-
+#define TMC_HOME_PHASE { 896, 896, 896 }
 //
 //==================Part for Driver defintions=============//
 // Options for Modules Hardware
