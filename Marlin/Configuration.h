@@ -114,9 +114,13 @@
   #define SERIAL_PORT 0
 #endif
 #ifdef SKR
-  #define SERIAL_PORT 3
+  #define SERIAL_PORT 1
+  #define BAUDRATE 250000
+  #define BAUD_RATE_GCODE
   #define SERIAL_PORT_2 -1
-  //#define SERIAL_PORT_3 3
+  //#define BAUDRATE_2 250000 
+  #define SERIAL_PORT_3 3
+  //#define BAUDRATE_3 250000 
 #endif
 
 /**
@@ -130,7 +134,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 250000
+//#define BAUDRATE 115200
 //#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
 /**
