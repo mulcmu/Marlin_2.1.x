@@ -17,6 +17,10 @@ U9rWBPULR-MoBo.bin => Q5 or QQS with other MotherBoard.
   **Note**: After choosing your binary, remove the "8CWBL-SRKxx" header or rename the file to "firmware.bin" for QQS-SKR,
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
+  - P = Probe (Purple)
+  - R = Runout for the filament (Orange)
+  - F = Fan1 for the HeatSink (Green) (begin at 50°C)
+
   ![Cnx_SKR13](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/SKR13_EndStop.png)
   ![Cnx_SKR14](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/SKR14_EndStop.png)
   ![Cnx_SKR2](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/SKR2_EndStop.png)
