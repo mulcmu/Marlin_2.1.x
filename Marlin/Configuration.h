@@ -863,7 +863,7 @@
     #define PROBE_MANUALLY_STEP 0.05      // (mm)
   #endif
   #ifdef Q5
-    #define DELTA_PRINTABLE_RADIUS  100.0  //100
+    #define DELTA_PRINTABLE_RADIUS  105.0  //100
     #define DELTA_MAX_RADIUS       105.0    // (mm)
     #define DELTA_DIAGONAL_ROD 215.0
     #define DELTA_HEIGHT 210.0  //200.0
@@ -874,7 +874,7 @@
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 } 
   #else
     // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-    #define DELTA_PRINTABLE_RADIUS 125.0    // (mm)
+    #define DELTA_PRINTABLE_RADIUS 130.0    // (mm)
  
     // Maximum reachable area
     #define DELTA_MAX_RADIUS       130.0    // (mm)
