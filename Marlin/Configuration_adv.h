@@ -991,7 +991,7 @@
 #define DEFAULT_STEPPER_DEACTIVE_TIME 120
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
-#define DISABLE_INACTIVE_Z true  // Set 'false' if the nozzle could fall onto your printed part!
+#define DISABLE_INACTIVE_Z false  // Set 'false' if the nozzle could fall onto your printed part!
 #define DISABLE_INACTIVE_I true
 #define DISABLE_INACTIVE_J true
 #define DISABLE_INACTIVE_K true
@@ -1368,7 +1368,7 @@
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
   #define SD_FINISHED_STEPPERRELEASE true   // Disable steppers when SD Print is finished
-  #define SD_FINISHED_RELEASECOMMAND "M84XYZE"  // Use "M84XYE" to keep Z enabled so your bed stays in place
+  #define SD_FINISHED_RELEASECOMMAND "M84XYE"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
@@ -2626,7 +2626,7 @@
 // Réglages des Vref TMC à 0.74v>0.8vMax sinon danger!!
 // TMC drivers use rms current not max(peak) so Irms is 740mA/1.414 = 523mA
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       600// 523       // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       1000// 523       // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT       // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS    XYZ_MICROSTEPS  // 0..256
     #define X_RSENSE          0.11
@@ -2662,7 +2662,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       700 // 740mAx70%x2=1036
+    #define Z_CURRENT       1200 // 740mAx70%x2=1036
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS    XYZ_MICROSTEPS
     #define Z_RSENSE          0.11
