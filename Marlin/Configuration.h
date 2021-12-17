@@ -747,7 +747,7 @@
  * When set to any value below 255, enables a form of PWM to the chamber heater that acts like a divider
  * so don't use it unless you are OK with PWM on your heater. (See the comment on enabling PIDTEMPCHAMBER)
  */
-#define MAX_CHAMBER_POWER 255 // limits duty cycle to chamber heater; 255=full current
+//#define MAX_CHAMBER_POWER 255 // limits duty cycle to chamber heater; 255=full current
 
 #if ENABLED(PIDTEMPCHAMBER)
   #define MIN_CHAMBER_POWER 0
@@ -1464,9 +1464,9 @@
 #endif
 
 #if ANY(STOCK, SKR)
-  #define INVERT_X_DIR false
+  #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
-  #define INVERT_Z_DIR true
+  #define INVERT_Z_DIR false
   #ifdef INV_EXT
     #define INVERT_E0_DIR false
   #else
