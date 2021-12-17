@@ -225,7 +225,7 @@
   #define SPI_FLASH_SCK_PIN                 PB13
 #endif
 
-/**
+/**NANOv3
  *                ------                                     ------
  * (BEEPER)  PC5 |10  9 | PE13 (BTN_ENC)   (SPI1 MISO)  PA6 |10  9 | PA5  (SPI1 SCK)
  * (LCD_EN) PD13 | 8  7 | PC6  (LCD_RS)      (BTN_EN1)  PE8 | 8  7 | PE10 (SPI1 CS)
@@ -234,6 +234,16 @@
  *           GND | 2  1 | 5V                            GND | 2  1 | 3.3V
  *                ------                                     ------
  *                 EXP1                                       EXP2
+ */
+/**SKR2
+ *               -----                                             -----
+ *           NC | 1 2 | GND                                    5V | 1 2 | GND
+ *        RESET | 3 4 | PC4 (SD_DETECT)             (LCD_D7) PE13 | 3 4 | PE12 (LCD_D6)
+ *   (MOSI) PA7 | 5 6   PB2 (BTN_EN2)               (LCD_D5) PE11 | 5 6   PE10 (LCD_D4)
+ *  (SD_SS) PA4 | 7 8 | PE7 (BTN_EN1)               (LCD_RS)  PE9 | 7 8 | PB1  (LCD_EN)
+ *    (SCK) PA5 | 9 10| PA6 (MISO)                 (BTN_ENC)  PB0 | 9 10| PC5  (BEEPER)
+ *               -----                                             -----
+ *               EXP2                                              EXP1
  */
 #define EXP1_03_PIN                         PD10
 #define EXP1_04_PIN                         PD11
