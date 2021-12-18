@@ -12,7 +12,10 @@ Please test this firmware and let us know if it misbehaves in any way. Volunteer
 
 # Latest stable source of Marlin 2.0.x for Delta FLSun QQS-Pro (motherboard HISPEED_V1) & Q5 (motherboard NANO_V1).
 
-**20210702** 2.0.9
+**20211111** 2.0.9.2
+- Last Marlin Release 2.0.9.2
+
+**20210702** 2.0.9.1
 - Last Marlin Release 2.0.9.1
 
 **20210610** 2.0.8
