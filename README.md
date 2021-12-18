@@ -5,6 +5,7 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/marlinfirmware/marlin.svg)
 [![Build Status](https://github.com/MarlinFirmware/Marlin/workflows/CI/badge.svg?branch=bugfix-2.0.x)](https://github.com/MarlinFirmware/Marlin/actions)
 
+<img align="right" width=175 src="buildroot/share/pixmaps/logo/marlin-250.png" />
 <img align="left" width=200 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/FLSun-LogoColor3.png" />
 
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
