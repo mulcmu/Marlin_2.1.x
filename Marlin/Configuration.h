@@ -1464,7 +1464,7 @@
 #endif
 
 #if ANY(STOCK, SKR)
-  #define INVERT_X_DIR true
+  #define INVERT_X_DIR true         //BEAR Montage tete Prusa/BEAR (true)
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR false
   #ifdef INV_EXT
@@ -2303,7 +2303,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-//#define REVERSE_ENCODER_DIRECTION    //OPT
+#define REVERSE_ENCODER_DIRECTION    //OPT
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -2335,9 +2335,7 @@
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
 //
-#ifdef RAMPS
-  #define SPEAKER
-#endif
+#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.
