@@ -610,6 +610,8 @@
  */
 #if NONE(Q5, SR_MKS, SR_BTT) 
   #define E0_AUTO_FAN_PIN -1
+#elif ENABLED(SR_MKS)
+  #define E0_AUTO_FAN_PIN PB0  
 #else
   #define E0_AUTO_FAN_PIN FAN1_PIN  //PB0 for SR_MKS(default) or wiring to PB1.
 #endif
@@ -1041,7 +1043,7 @@
  * Set DISABLE_INACTIVE_? 'true' to shut down axis steppers after an idle period.
  * The Deactive Time can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
-#define DEFAULT_STEPPER_DEACTIVE_TIME (2*60)
+#define DEFAULT_STEPPER_DEACTIVE_TIME (5*60)
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
 #define DISABLE_INACTIVE_Z false // Set 'false' if the nozzle could fall onto your printed part!
@@ -1533,9 +1535,7 @@
 
   // Allow international symbols in long filenames. To display correctly, the
   // LCD's font must contain the characters. Check your selected LCD language.
-  #if ANY(SR_MKS, SR_BTT)
-    #define UTF_FILENAME_SUPPORT
-  #endif
+  #define UTF_FILENAME_SUPPORT
 
   // This allows hosts to request long names for files and folders with M33
   #define LONG_FILENAME_HOST_SUPPORT
@@ -2375,7 +2375,7 @@
 #define SERIAL_OVERRUN_PROTECTION
 
 // For serial echo, the number of digits after the decimal point
-//#define SERIAL_FLOAT_PRECISION 4
+#define SERIAL_FLOAT_PRECISION 4
 
 // @section extras
 
@@ -2386,7 +2386,9 @@
  *   'M106 P<fan> T2'     : Use the set secondary speed
  *   'M106 P<fan> T1'     : Restore the previous fan speed
  */
-//#define EXTRA_FAN_SPEED   //if ENABLE FAN_1
+#ifdef TFT_BTT_UI							 
+ #define EXTRA_FAN_SPEED   //if ENABLE FAN_1
+#endif
 
 /**
  * Firmware-based and LCD-controlled retract
@@ -3927,11 +3929,11 @@
   #define MAIN_MENU_ITEM_1_GCODE "M502\nM500\nM997"
   #define MAIN_MENU_ITEM_1_CONFIRM
 
-  #define MAIN_MENU_ITEM_2_DESC "Fast Calib. Delta"
+  #define MAIN_MENU_ITEM_2_DESC "Fast Calib.Delta"
   #define MAIN_MENU_ITEM_2_GCODE "G33 P3 V3\nM500\nM140 S0"
   #define MAIN_MENU_ITEM_2_CONFIRM
 
-  #define MAIN_MENU_ITEM_3_DESC "Fine Calib. Delta"
+  #define MAIN_MENU_ITEM_3_DESC "Fine Calib.Delta"
   #define MAIN_MENU_ITEM_3_GCODE "G33 P5 V3\nM500\nM140 S0"  //P6ok
   #define MAIN_MENU_ITEM_3_CONFIRM
 
@@ -3943,7 +3945,7 @@
   #define MAIN_MENU_ITEM_5_GCODE "M1004 H0 B60 S0"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "0.Run PID Nozzle for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_DESC "0.RunPIDNozzlefor " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_6_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 

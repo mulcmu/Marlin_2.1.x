@@ -176,6 +176,7 @@
     //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
     #define BAUD_RATE_GCODE
   #endif  
+												 
   #ifdef Q5
     #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
     //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4
@@ -941,7 +942,7 @@
     #define DELTA_HEIGHT            320.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
     #define DELTA_RADIUS            151.67
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     //#define PROBING_MARGIN 5
@@ -1223,6 +1224,9 @@
  * "Jerk" specifies the minimum speed change that requires acceleration.
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
+																																						
+																															  
+  
  */
 #define CLASSIC_JERK  //DELTA
 #if ENABLED(CLASSIC_JERK)
@@ -1560,8 +1564,8 @@
 #define Z_PROBE_LOW_POINT          -4 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -25  //For some users with high probe
-#define Z_PROBE_OFFSET_RANGE_MAX 20
+#define Z_PROBE_OFFSET_RANGE_MIN -30  //For some users with high probe
+#define Z_PROBE_OFFSET_RANGE_MAX 25
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -2265,7 +2269,7 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { 0, (Y_MAX_POS - 20), 30 } //OPT
+  #define NOZZLE_PARK_POINT { 0, (Y_MAX_POS - 20), 50 } //OPT
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
@@ -3168,7 +3172,7 @@
  *   TFT_ROTATE_270, TFT_ROTATE_270_MIRROR_X, TFT_ROTATE_270_MIRROR_Y,
  *   TFT_MIRROR_X, TFT_MIRROR_Y, TFT_NO_ROTATION
  */
-#ifdef Q5
+#if BOTH(TFT_COLOR_UI, Q5)|| BOTH(TFT_CLASSIC_UI, Q5)
   #define TFT_ROTATION TFT_ROTATE_180
 #endif
 
@@ -3242,21 +3246,14 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#if NONE(SR_MKS, SR_BTT)
-  #define FAN_SOFT_PWM
-#endif
-
+#define FAN_SOFT_PWM
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#if ANY(SR_MKS, SR_BTT)
-  #define SOFT_PWM_SCALE 0
-#else
-  #define SOFT_PWM_SCALE 1
-#endif
+#define SOFT_PWM_SCALE 1
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,

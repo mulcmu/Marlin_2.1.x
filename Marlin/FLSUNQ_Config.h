@@ -90,7 +90,7 @@
 /*__________________________4______________________________*/
                   /*----  Modules -----*/
 
-//#define MKS_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
+#define MKS_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
 //#define ESP3D_30                       //(w) Enable firmware ESP3D v3.0 (ESP8266/ESP12)
 
 /*For LedStrip which need an external power source on Vcc pin.*/
@@ -132,7 +132,7 @@
   //#define AUTO_BED_LEVELING_BILINEAR   //(A) (Default SR).
   #define AUTO_BED_LEVELING_UBL          //(U) (Default) Wizard UBL includes.
   #define G26_MESH_VALIDATION
-  #define SKEW_CORRECTION
+  //#define SKEW_CORRECTION
 #endif
 
 /*_______________________6____________________*/
@@ -392,7 +392,7 @@
 #endif
 // TMC Current in UART mode
 #ifndef XYZ_CURRENT
-  #define XYZ_CURRENT       900
+  #define XYZ_CURRENT       950
 #endif
 #ifndef XYZ_CURRENT_HOME
   #define XYZ_CURRENT_HOME  600
