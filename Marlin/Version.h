@@ -60,6 +60,13 @@
  * Default generic printer UUID.
  */
 //#define DEFAULT_MACHINE_UUID "cede2a2f-41a2-4748-9b12-c55c62f367ff"
+#if ANY(SR_MKS, SR_BTT)
+    #define DEFAULT_MACHINE_UUID "3f2714ca-2781-453f-a95c-c52848b8d061"
+#elif ENABLED Q5
+    #define DEFAULT_MACHINE_UUID "cede2a2f-41a2-4748-9b12-c55c62f367ff"
+#else
+    #define DEFAULT_MACHINE_UUID "8959c708-a02c-45fb-bb2e-a9bae09dbc02"
+#endif
 
 /**
  * The WEBSITE_URL is the location where users can get more information such as
@@ -71,6 +78,6 @@
  * Set the vendor info the serial USB interface, if changable
  * Currently only supported by DUE platform
  */
-#define USB_DEVICE_VENDOR_ID           0x1a86
-#define USB_DEVICE_PRODUCT_ID          0x7523
+//#define USB_DEVICE_VENDOR_ID           0x1a86
+//#define USB_DEVICE_PRODUCT_ID          0x7523
 //#define USB_DEVICE_MANUFACTURE_NAME    WEBSITE_URL

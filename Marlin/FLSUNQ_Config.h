@@ -1,9 +1,13 @@
 /*==========================================================================
 *=================== FLSunQ - DELTA Printers ===============================
+*================= With pins_MKS_ROBIN_MINI.h BOARD (QQS-Pro)===============
 *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
 *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
+*================= With pins_MKS_ROBIN_NANO_V1_3_F4.h BOARD (Q5-2021-)======
+*================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
+*================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
 *===========================================================================
-*                         MARLIN_v2.0.9.2
+*                         MARLIN_v2.0.9.3
 * For a Delta printer start with one of the configuration files in the
 * config/examples/delta/FLSUN/ directory and customize for your machine.
 * 
@@ -21,13 +25,16 @@
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
 #define QQSP                         //  (Default_QQS) env = flsun_hispeedv1
-//#define Q5                         // env = mks_nano_robin35 (change in platformio.ini file or 
+//#define Q5                         // env = mks_nano_robin35 or (Q5_2021) env =  mks_nano_robin_v1_3_f4
+//#define SR_BTT                     // env = lpc1768
+//#define SR_MKS                     // env = mks_nano_robin_v3_usb_flash_drive_msc
+                                     // NOTE: change in platformio.ini file or
                                      // click on the "Default" icon on the bottom edge of the window and 
                                      // choose "mks_robin_nano35").
 
 /*________________________2___________________________*/
           /*-----Type Drivers-(1 CHOICE)-----*/
-/* MODE STOCK for QQS & Q5 */
+/* MODE STOCK for QQS & Q5 & SR */
 #define STOCK                         // (S) (Default_QQS) For 4xA4988(green or red color).
                                       // (S) (Default_Q5) For 3xTMC2208+1xA4988.
                                       // (S) (Default_SR) For 4xTMC2209.
