@@ -375,15 +375,21 @@
 #endif
 /* Module TEST TFT BTT */
 #if HAS_WIRED_LCD
-    #define BEEPER_PIN                      PC5 //PB5//EXP1_10
-    #define BTN_ENC                         -1 //PA15//EXP1_09
+    //#define BEEPER_PIN                      PC5 //PB5//EXP1_10
+    //#define BTN_ENC                         -1 //PA15//EXP1_09
 
     #define BTN_EN1                         PA9//EXP1_06//RX1
     #define BTN_EN2                         PA10//EXP1_08//TX1
 
     #define LCD_PINS_RS                     -1 //PB8
-    #define LCD_PINS_ENABLE                 PA5 //EXP1_3
-    #define LCD_PINS_D4                     -1  //PB9
+    #define LCD_PINS_ENABLE                 -1 //EXP1_3
+    //#define LCD_PINS_D4                     -1  //PB9
+    #ifndef TFT_BUFFER_SIZE
+      #define TFT_BUFFER_SIZE               1200
+    #endif
+    #ifndef TFT_QUEUE_SIZE
+      #define TFT_QUEUE_SIZE                6144
+    #endif    
 #endif
 
 /**

@@ -174,6 +174,7 @@
   #ifdef QQSP
     #define MOTHERBOARD BOARD_FLSUN_HISPEED
     //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
+    //#define MOTHERBOARD BOARD_MKS_SGEN_L
     #define BAUD_RATE_GCODE
   #endif  
 												 
@@ -683,6 +684,9 @@
       #define DEFAULT_Ki 0.72
       #define DEFAULT_Kd 57.54
     #elif ANY(SR_MKS, SR_BTT)
+    //M301 P23.7612 I1.7268 D81.7385-220
+    //M301 P19.6543 I1.4039 D68.7900-240
+    //M301 P19.8891 I1.4288 D69.2140-250
       #define DEFAULT_Kp   13.7
       #define DEFAULT_Ki   0.48
       #define DEFAULT_Kd   70.22
@@ -745,6 +749,9 @@
     #define DEFAULT_bedKi 3.94
     #define DEFAULT_bedKd 69.11
   #elif ANY(SR_MKS, SR_BTT)
+  //M304 P56.1605 I10.9688 D191.6944-60
+  //M304 P100.4504 I19.3174 D348.2281-80
+  //M304 P136.6639 I26.2815 D473.7682-90
     #define DEFAULT_bedKp 111.12
     #define DEFAULT_bedKi 22.05
     #define DEFAULT_bedKd 373.36
@@ -934,7 +941,7 @@
     #define DELTA_TOWER_ANGLE_TRIM { 0.0278, 0.1700, -0.1978}    //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1243, -0.2939, 0.4182 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define PROBING_MARGIN 5
+    #define PROBING_MARGIN 10
   #elif ANY(SR_MKS, SR_BTT)
     #define DELTA_PRINTABLE_RADIUS  132.0
     #define DELTA_MAX_RADIUS        132.0
@@ -945,7 +952,7 @@
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    //#define PROBING_MARGIN 5
+    #define PROBING_MARGIN 10
   #else
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
@@ -1486,7 +1493,7 @@
 #define Z_PROBE_FEEDRATE_FAST (40*60)  //2400
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //750
+#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //400
 
 /**
  * Probe Activation Switch
