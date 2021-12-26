@@ -23,12 +23,16 @@
 # NEVER put it in the repository
 _Version.h
 bdf2u8g
+marlin_config.json
+mczip.h
+*.gen
+*.sublime-workspace
 
 #
 # OS
 #
 applet/
-*.DS_Store
+.DS_Store
 
 #
 # Misc
@@ -126,7 +130,7 @@ tags
 
 # Secure Credentials
 Configuration_Secure.h
-Config_XP.h
+Marlin/Config_XP.h
 
 #Visual Studio
 *.sln
@@ -149,11 +153,13 @@ vc-fileutils.settings
 #Simulation
 imgui.ini
 eeprom.dat
+spi_flash.bin
 
 #cmake
 CMakeLists.txt
 src/CMakeLists.txt
 CMakeListsPrivate.txt
+build/
 
 #CLion
 cmake-build-*
@@ -170,7 +176,3 @@ __pycache__
 
 # IOLogger logs
 *_log.csv
-
-# Simulation / Native
-eeprom.dat
-imgui.ini
