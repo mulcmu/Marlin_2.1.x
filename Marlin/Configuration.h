@@ -72,7 +72,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Foxies-CSTL, QQS-Pro)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Foxies-CSTL, DeltaQ)" // Who made the changes.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -101,6 +101,28 @@
 
 // @section machine
 
+// Choose the name from boards.h that matches your setup
+#ifndef MOTHERBOARD
+  #ifdef QQSP
+    #define MOTHERBOARD BOARD_FLSUN_HISPEED
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
+    //#define MOTHERBOARD BOARD_MKS_SGEN_L
+    #define BAUD_RATE_GCODE
+  #endif
+  #ifdef Q5
+    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO           // (Default) Q5 old MoBo 
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4 // Q5 new MoBo
+    #define BAUD_RATE_GCODE
+  #endif
+  #ifdef SR_MKS
+    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3
+    #define BAUD_RATE_GCODE
+  #endif
+  #ifdef SR_BTT
+    #define MOTHERBOARD BOARD_BTT_SKR_V1_3
+  #endif
+#endif
+
 /**
  * Select the serial port on the board to use for communication with the host.
  * This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -110,8 +132,8 @@
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
 #if ANY(SR_MKS, SR_BTT)
-  #define SERIAL_PORT -1
-  #define BAUDRATE 250000
+  #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
+  #define BAUDRATE 115200
 #else
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
@@ -139,10 +161,14 @@
 //#define BAUDRATE_2 250000   // Enable to override BAUDRATE
 #if ANY(SR_MKS, SR_BTT)
   #ifdef SR_BTT
-    #define SERIAL_PORT_2 0 //BTT
+    #define SERIAL_PORT_2 0 //BTT -1
   #endif
   #ifdef SR_MKS
-    #define SERIAL_PORT_2 3 //MKS
+    #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
+    #define BAUDRATE_2 500000
+    #ifdef WIFI_ESP
+      #define SERIAL_PORT_3 1
+    #endif
   #endif
 #else
   #ifdef WIFI_ESP
@@ -156,7 +182,6 @@
     #endif
   #endif
 #endif
-                           
 
 /**
  * Select a third serial port on the board to use for communication with the host.
@@ -168,29 +193,6 @@
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
-
-// Choose the name from boards.h that matches your setup
-#ifndef MOTHERBOARD
-  #ifdef QQSP
-    #define MOTHERBOARD BOARD_FLSUN_HISPEED
-    //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
-    //#define MOTHERBOARD BOARD_MKS_SGEN_L
-    #define BAUD_RATE_GCODE
-  #endif  
-												 
-  #ifdef Q5
-    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
-    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4
-    #define BAUD_RATE_GCODE
-  #endif
-  #ifdef SR_MKS
-    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3
-    #define BAUD_RATE_GCODE
-  #endif
-  #ifdef SR_BTT
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_3
-  #endif
-#endif
 
 // Name displayed in the LCD "Ready" message and Info menu
 #ifdef QQSP
@@ -752,9 +754,12 @@
   //M304 P56.1605 I10.9688 D191.6944-60
   //M304 P100.4504 I19.3174 D348.2281-80
   //M304 P136.6639 I26.2815 D473.7682-90
-    #define DEFAULT_bedKp 111.12
-    #define DEFAULT_bedKi 22.05
-    #define DEFAULT_bedKd 373.36
+  //#define DEFAULT_bedKp 111.12
+  //#define DEFAULT_bedKi 22.05
+  //#define DEFAULT_bedKd 373.36
+    #define DEFAULT_bedKp 75.6671
+    #define DEFAULT_bedKi 12.9567
+    #define DEFAULT_bedKd 294.5974
   #else
     #define DEFAULT_bedKp 82.98
     #define DEFAULT_bedKi 15.93
@@ -895,8 +900,10 @@
   // and processor overload (too many expensive sqrt calls).
   #if ANY(SR_MKS, SR_BTT)
     #define DELTA_SEGMENTS_PER_SECOND 160
+  #elif ANY(XP1, XP2)
+    #define DELTA_SEGMENTS_PER_SECOND 100  //200  
   #else
-    #define DELTA_SEGMENTS_PER_SECOND 100  //200
+    #define DELTA_SEGMENTS_PER_SECOND 80  //200
   #endif
 
   // After homing move down to a height where XY movement is unconstrained
@@ -1163,7 +1170,7 @@
   #define E_MICROSTEPS 16
 #endif
 #define XYZ_BELT_PITCH 2
-#if ANY(XP, Q5, SR_MKS, SR_BTT)
+#if ANY(XP1, Q5, SR_MKS, SR_BTT)
   #define XYZ_PULLEY_TEETH 20 //=> 80
 #else
   #define XYZ_PULLEY_TEETH 16 //=> 100
@@ -1178,7 +1185,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#if ANY(XP, SR_MKS, SR_BTT)
+#if ANY(XP1, SR_MKS, SR_BTT)
   #define DEFAULT_MAX_FEEDRATE          { 500, 500, 500, 210 }
 #else
   #define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 210 }
@@ -1210,7 +1217,7 @@
  * Default Acceleration (change/s) change = mm/s
  * Override with M204
  *
- *   M204 P    Acceleration
+ *   M204 P    Acceleration Print
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
@@ -1218,6 +1225,10 @@
   #define DEFAULT_ACCELERATION          2800    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  2800    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   2800    // X, Y, Z acceleration for travel (non printing) moves
+#elif ENABLED(NEMA14)
+  #define DEFAULT_ACCELERATION          2000   // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1500   //3000/250    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   2000   // X, Y, Z acceleration for travel (non printing) moves
 #else
   #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
@@ -1231,9 +1242,6 @@
  * "Jerk" specifies the minimum speed change that requires acceleration.
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
-																																						
-																															  
-  
  */
 #define CLASSIC_JERK  //DELTA
 #if ENABLED(CLASSIC_JERK)
@@ -1540,14 +1548,14 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
+//#define MULTIPLE_PROBING 2
+//#define EXTRA_PROBING    1
 #ifdef X_PROBE
   #define MULTIPLE_PROBING 2
 #elif ENABLED(N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
 #endif
-//#define MULTIPLE_PROBING 2
-//#define EXTRA_PROBING    1
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1647,12 +1655,9 @@
 //#define INVERT_K_DIR false
 
 #ifdef STOCK
-  #define INVERT_X_DIR false     //QQS_A4988 Q5_220X
-  #define INVERT_Y_DIR false     //QQS_A4988 Q5_220X
-  #define INVERT_Z_DIR false     //QQS_A4988 Q5_220X
-  //#define INVERT_I_DIR false
-  //#define INVERT_J_DIR false
-  //#define INVERT_K_DIR false
+  #define INVERT_X_DIR false  //QQS_A4988 Q5_220X
+  #define INVERT_Y_DIR false  //QQS_A4988 Q5_220X
+  #define INVERT_Z_DIR false  //QQS_A4988 Q5_220X
   #ifdef INV_EXT
     #define INVERT_E0_DIR false   //Q5_220X
   #else
@@ -1791,6 +1796,9 @@
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #ifdef SR_BTT
     #define FIL_RUNOUT_PIN    P1_29
+  #endif
+  #ifdef TFT_LVGL_UI
+    #define FIL_RUNOUT_PIN     MT_DET_1_PIN
   #endif
   #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
@@ -1949,7 +1957,10 @@
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
+    
     #define MESH_TEST_HOTEND_TEMP  205    // (°C) Default nozzle temperature for G26.
+    
+    
     #define MESH_TEST_BED_TEMP      60    // (°C) Default bed temperature for G26.
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
@@ -2080,7 +2091,6 @@
  * Useful to retract or move the Z probe out of the way.
  */
 //#define Z_PROBE_END_SCRIPT "G0 Z30 F12000\n G0 X0 Y0 Z30"
-
 #if ANY(QQSP, Q5, SR_MKS, SR_BTT)
   #define Z_PROBE_END_SCRIPT "G28"
 #endif
@@ -2204,6 +2214,7 @@
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
+  //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
 //
@@ -3247,9 +3258,6 @@
 // :[1,2,3,4,5,6,7,8]
 //#define NUM_M106_FANS 1
 
-// Increase the FAN PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino
-//#define FAST_PWM_FAN
-
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
@@ -3260,7 +3268,11 @@
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#define SOFT_PWM_SCALE 1
+#ifdef SR_MKS
+  #define SOFT_PWM_SCALE 0
+#else
+  #define SOFT_PWM_SCALE 1
+#endif
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,

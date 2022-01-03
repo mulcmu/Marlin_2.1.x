@@ -286,11 +286,7 @@
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
   #define THERMAL_PROTECTION_PERIOD 40        // Seconds
-  #if ANY(SR_MKS, SR_BTT)
-    #define THERMAL_PROTECTION_HYSTERESIS 20  // Degrees Celsius
-  #else
-    #define THERMAL_PROTECTION_HYSTERESIS  6  //4 Degrees Celsius
-  #endif
+  #define THERMAL_PROTECTION_HYSTERESIS  6  //4 Degrees Celsius
   //#define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
   #if BOTH(ADAPTIVE_FAN_SLOWING, PIDTEMP)
     //#define NO_FAN_SLOWING_IN_PID_TUNING    // Don't slow fan speed during M303
@@ -308,11 +304,7 @@
    * and/or decrease WATCH_TEMP_INCREASE. WATCH_TEMP_INCREASE should not be set
    * below 2.
    */
-  #if ANY(SR_MKS, SR_BTT)
-    #define WATCH_TEMP_PERIOD  32               // Seconds
-  #else
-    #define WATCH_TEMP_PERIOD  20               // Seconds
-  #endif  
+  #define WATCH_TEMP_PERIOD  20               // Seconds  
   #define WATCH_TEMP_INCREASE 2               // Degrees Celsius
 #endif
 
@@ -320,13 +312,8 @@
  * Thermal Protection parameters for the bed are just as above for hotends.
  */
 #if ENABLED(THERMAL_PROTECTION_BED)
-  #if ANY(SR_MKS, SR_BTT)
-    #define THERMAL_PROTECTION_BED_PERIOD        60 // Seconds
-    #define THERMAL_PROTECTION_BED_HYSTERESIS     5 // Degrees Celsius
-  #else
-    #define THERMAL_PROTECTION_BED_PERIOD        20 // Seconds
-    #define THERMAL_PROTECTION_BED_HYSTERESIS     2 // Degrees Celsius
-  #endif
+  #define THERMAL_PROTECTION_BED_PERIOD        20 // Seconds
+  #define THERMAL_PROTECTION_BED_HYSTERESIS     2 // Degrees Celsius
 
   /**
    * As described above, except for the bed (M140/M190/M303).
@@ -498,7 +485,7 @@
  */
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
-  #define HOTEND_IDLE_TIMEOUT_SEC (10*60)    // (seconds) Time without extruder movement to trigger protection
+  #define HOTEND_IDLE_TIMEOUT_SEC (10*60)   // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER   180     // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET   0     // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET      0     // (°C) Safe temperature for the bed after timeout
@@ -563,18 +550,21 @@
 //#define FAN_MAX_PWM 128
 
 /**
- * FAST PWM FAN Settings
+ * Fan Fast PWM
  *
- * Use to change the FAST FAN PWM frequency (if enabled in Configuration.h)
- * Combinations of PWM Modes, prescale values and TOP resolutions are used internally to produce a
- * frequency as close as possible to the desired frequency.
+ * Combinations of PWM Modes, prescale values and TOP resolutions are used internally
+ * to produce a frequency as close as possible to the desired frequency.
  *
- * FAST_PWM_FAN_FREQUENCY [undefined by default]
+ * FAST_PWM_FAN_FREQUENCY
  *   Set this to your desired frequency.
- *   If left undefined this defaults to F = F_CPU/(2*255*1)
- *   i.e., F = 31.4kHz on 16MHz microcontrollers or F = 39.2kHz on 20MHz microcontrollers.
- *   These defaults are the same as with the old FAST_PWM_FAN implementation - no migration is required
+ *   For AVR, if left undefined this defaults to F = F_CPU/(2*255*1)
+ *            i.e., F = 31.4kHz on 16MHz microcontrollers or F = 39.2kHz on 20MHz microcontrollers.
+ *   For non AVR, if left undefined this defaults to F = 1Khz.
+ *   This F value is only to protect the hardware from an absence of configuration
+ *   and not to complete it when users are not aware that the frequency must be specifically set to support the target board.
+ *
  *   NOTE: Setting very low frequencies (< 10 Hz) may result in unexpected timer behavior.
+ *         Setting very high frequencies can damage your hardware.
  *
  * USE_OCR2A_AS_TOP [undefined by default]
  *   Boards that use TIMER2 for PWM have limitations resulting in only a few possible frequencies on TIMER2:
@@ -584,9 +574,17 @@
  *   PWM on pin OC2A. Only use this option if you don't need PWM on 0C2A. (Check your schematic.)
  *   USE_OCR2A_AS_TOP sacrifices duty cycle control resolution to achieve this broader range of frequencies.
  */
+//#define FAST_PWM_FAN    // Increase the fan PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino
 #if ENABLED(FAST_PWM_FAN)
-  //#define FAST_PWM_FAN_FREQUENCY 31400
+  //#define FAST_PWM_FAN_FREQUENCY 31400  // Define here to override the defaults below
   //#define USE_OCR2A_AS_TOP
+  #ifndef FAST_PWM_FAN_FREQUENCY
+    #ifdef __AVR__
+      #define FAST_PWM_FAN_FREQUENCY ((F_CPU) / (2 * 255 * 1))
+    #else
+      #define FAST_PWM_FAN_FREQUENCY 1000U
+    #endif
+  #endif
 #endif
 
 /**
@@ -626,7 +624,7 @@
 #define COOLER_AUTO_FAN_PIN -1
 #define COOLER_FAN_PIN -1
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 50
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 80
 #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
 #define CHAMBER_AUTO_FAN_TEMPERATURE 30
 #define CHAMBER_AUTO_FAN_SPEED 255
@@ -918,10 +916,12 @@
   //#define BLTOUCH_FORCE_MODE_SET
 
   /**
-   * Use "HIGH SPEED" mode for probing.
+   * Enable "HIGH SPEED" option for probing.
    * Danger: Disable if your probe sometimes fails. Only suitable for stable well-adjusted systems.
    * This feature was designed for Deltabots with very fast Z moves; however, higher speed Cartesians
    * might be able to use it. If the machine can't raise Z fast enough the BLTouch may go into ALARM.
+   *
+   * Set the default state here, change with 'M401 S' or UI, use M500 to save, M502 to reset.
    */
   //#define BLTOUCH_HS_MODE true
 
@@ -1269,7 +1269,7 @@
 
 #if ANY(HAS_LCD_MENU, EXTENSIBLE_UI, HAS_DWIN_E3V2)
   #define MANUAL_FEEDRATE_XYZ 50*60
-  #define MANUAL_FEEDRATE { MANUAL_FEEDRATE_XYZ, MANUAL_FEEDRATE_XYZ, 5*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
+  #define MANUAL_FEEDRATE { MANUAL_FEEDRATE_XYZ, MANUAL_FEEDRATE_XYZ, 5*60, 60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -1477,7 +1477,7 @@
     #define PLR_ENABLED_DEFAULT   false // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
     //#define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
     //#define POWER_LOSS_ZRAISE       2 // (mm) Z axis raise on resume (on power loss with UPS)
-    //#define POWER_LOSS_PIN         44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
+    #define POWER_LOSS_PIN         -1//44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
     //#define POWER_LOSS_STATE     HIGH // State of pin indicating power loss
     //#define POWER_LOSS_PULLUP         // Set pullup / pulldown as appropriate for your sensor
     //#define POWER_LOSS_PULLDOWN
@@ -1579,7 +1579,9 @@
    *
    * [1] On AVR an interrupt-capable pin is best for UHS3 compatibility.
    */
-  //#define USB_FLASH_DRIVE_SUPPORT
+  #ifdef SR_MKS
+    #define USB_FLASH_DRIVE_SUPPORT
+  #endif
   #if ENABLED(USB_FLASH_DRIVE_SUPPORT)
     /**
      * USB Host Shield Library
@@ -1642,15 +1644,15 @@
    * :[ 'LCD', 'ONBOARD', 'CUSTOM_CABLE' ]
    */
   //#define SDCARD_CONNECTION LCD
-
+  //#define SDCARD_CONNECTION ONBOARD
   // Enable if SD detect is rendered useless (e.g., by using an SD extender)
   //#define NO_SD_DETECT
 
   // Multiple volume support - EXPERIMENTAL.
   //#define MULTI_VOLUME
   #if ENABLED(MULTI_VOLUME)
-    #define VOLUME_SD_ONBOARD
-    #define VOLUME_USB_FLASH_DRIVE
+    #define VOLUME_SD_ONBOARD 2
+    #define VOLUME_USB_FLASH_DRIVE 1
     #define DEFAULT_VOLUME SV_SD_ONBOARD
     #define DEFAULT_SHARED_VOLUME SV_USB_FLASH_DRIVE
   #endif
@@ -1741,7 +1743,7 @@
 
 #if HAS_MARLINUI_U8GLIB || IS_DWIN_MARLINUI
   // Show SD percentage next to the progress bar
-  #define SHOW_SD_PERCENT
+  //#define SHOW_SD_PERCENT
 
   // Enable to save many cycles by drawing a hollow frame on Menu Screens
   #define MENU_HOLLOW_FRAME
@@ -2009,7 +2011,7 @@
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0       // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
-  #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define EXPERIMENTAL_SCURVE   // Enable this option to permit S-Curve Acceleration
   #ifdef NEMA14
 	  #define ALLOW_LOW_EJERK     // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
   #endif
@@ -2264,7 +2266,7 @@
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
-#elif ENABLED(XP)
+#elif ENABLED(XP2)
   #define BLOCK_BUFFER_SIZE 32  
 #elif ENABLED(TFT_BTT_UI)
   #define BLOCK_BUFFER_SIZE 32
@@ -2282,7 +2284,7 @@
 #else
   #define MAX_CMD_SIZE 96
 #endif
-#if ANY(TFT_BTT_UI, XP)
+#if ANY(TFT_BTT_UI, XP1)
   #define BUFSIZE 32
 #else
   #define BUFSIZE 16	//4
@@ -2295,7 +2297,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#if ANY(TFT_BTT_UI, XP)
+#if ANY(TFT_BTT_UI, XP1)
   #define TX_BUFFER_SIZE 32
 #else
   #define TX_BUFFER_SIZE 16	//0
@@ -2305,7 +2307,7 @@
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
-#ifdef XP1
+#ifdef XP12
   #define RX_BUFFER_SIZE 2048 //1024
 #endif
 
@@ -2368,7 +2370,9 @@
 //#define NO_TIMEOUTS 1000 // Milliseconds
 
 // Some clients will have this feature soon. This could make the NO_TIMEOUTS unnecessary.
-//#define ADVANCED_OK
+#ifdef XP12
+  #define ADVANCED_OK
+#endif
 
 // Printrun may have trouble receiving long strings all at once.
 // This option inserts short delays between lines of serial output.
@@ -2386,7 +2390,7 @@
  *   'M106 P<fan> T2'     : Use the set secondary speed
  *   'M106 P<fan> T1'     : Restore the previous fan speed
  */
-#ifdef TFT_BTT_UI							 
+#ifdef TFT_BTT_UI
  #define EXTRA_FAN_SPEED   //if ENABLE FAN_1
 #endif
 
@@ -2534,7 +2538,7 @@
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      400
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH      700
   #else                                                // This short retract is done immediately, before parking the nozzle.
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20//10  // (mm/s) Unload filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        30  // (mm/s^2) Lower acceleration may allow a faster feedrate.
@@ -2548,7 +2552,7 @@
   #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     5  // (mm) Slow length, to allow time to insert material.
                                                   // 0 to disable start loading and skip to fast load only
   #ifdef Q5
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
   #elif ENABLED(NEMA14)
@@ -2558,7 +2562,7 @@
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   350   
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   550   
   #else                                             // 0 to disable start loading and skip to fast load only
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20// 6  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     30  // (mm/s^2) Lower acceleration may allow a faster feedrate.
@@ -2567,7 +2571,7 @@
                                                   //   For direct drive, the full length of the nozzle.
   #endif
   //#define ADVANCED_PAUSE_CONTINUOUS_PURGE       // Purge continuously up to the purge length until interrupted.
-  #define ADVANCED_PAUSE_PURGE_FEEDRATE        3  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
+  #define ADVANCED_PAUSE_PURGE_FEEDRATE       10  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
   #define ADVANCED_PAUSE_PURGE_LENGTH         50  // (mm) Length to extrude after loading.
                                                   //   Set to 0 for manual extrusion.
                                                   //   Filament can be extruded repeatedly from the Filament Change menu
@@ -2577,7 +2581,7 @@
 
                                                   // Filament Unload does a Retract, Delay, and Purge first:
   #define FILAMENT_UNLOAD_PURGE_RETRACT       13  // (mm) Unload initial retract length.
-  #define FILAMENT_UNLOAD_PURGE_DELAY       5000  // (ms) Delay for the filament to cool after retract.
+  #define FILAMENT_UNLOAD_PURGE_DELAY      10000  // (ms) Delay for the filament to cool after retract.
   #define FILAMENT_UNLOAD_PURGE_LENGTH         8  // (mm) An unretract is done, then this length is purged.
   #define FILAMENT_UNLOAD_PURGE_FEEDRATE      25  // (mm/s) feedrate to purge before unload
 
@@ -2760,6 +2764,7 @@
     #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
     //#define X_INTERPOLATE  true      // Enable to override 'INTERPOLATE' for the X axis
+    //#define X_HOLD_MULTIPLIER 0.5    // Enable to override 'HOLD_MULTIPLIER' for the X axis
   #endif
 
   #if AXIS_IS_TMC(X2)
@@ -2769,6 +2774,7 @@
     #define X2_RSENSE         0.11
     #define X2_CHAIN_POS     -1
     //#define X2_INTERPOLATE true
+    //#define X2_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(Y)
@@ -2778,6 +2784,7 @@
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
     //#define Y_INTERPOLATE  true
+    //#define Y_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(Y2)
@@ -2787,6 +2794,7 @@
     #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
     //#define Y2_INTERPOLATE true
+    //#define Y2_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(Z)
@@ -2796,6 +2804,7 @@
     #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
     //#define Z_INTERPOLATE  true
+    //#define Z_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(Z2)
@@ -2805,6 +2814,7 @@
     #define Z2_RSENSE         0.11
     #define Z2_CHAIN_POS     -1
     //#define Z2_INTERPOLATE true
+    //#define Z2_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(Z3)
@@ -2814,6 +2824,7 @@
     #define Z3_RSENSE         0.11
     #define Z3_CHAIN_POS     -1
     //#define Z3_INTERPOLATE true
+    //#define Z3_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(Z4)
@@ -2823,6 +2834,7 @@
     #define Z4_RSENSE         0.11
     #define Z4_CHAIN_POS     -1
     //#define Z4_INTERPOLATE true
+    //#define Z4_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(I)
@@ -2832,6 +2844,7 @@
     #define I_RSENSE         0.11
     #define I_CHAIN_POS     -1
     //#define I_INTERPOLATE  true
+    //#define I_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(J)
@@ -2841,6 +2854,7 @@
     #define J_RSENSE         0.11
     #define J_CHAIN_POS     -1
     //#define J_INTERPOLATE  true
+    //#define J_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(K)
@@ -2850,6 +2864,7 @@
     #define K_RSENSE         0.11
     #define K_CHAIN_POS     -1
     //#define K_INTERPOLATE  true
+    //#define K_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E0)
@@ -2858,6 +2873,7 @@
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
     //#define E0_INTERPOLATE true
+    //#define E0_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E1)
@@ -2866,6 +2882,7 @@
     #define E1_RSENSE         0.11
     #define E1_CHAIN_POS     -1
     //#define E1_INTERPOLATE true
+    //#define E1_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E2)
@@ -2874,6 +2891,7 @@
     #define E2_RSENSE         0.11
     #define E2_CHAIN_POS     -1
     //#define E2_INTERPOLATE true
+    //#define E2_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E3)
@@ -2882,6 +2900,7 @@
     #define E3_RSENSE         0.11
     #define E3_CHAIN_POS     -1
     //#define E3_INTERPOLATE true
+    //#define E3_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E4)
@@ -2890,6 +2909,7 @@
     #define E4_RSENSE         0.11
     #define E4_CHAIN_POS     -1
     //#define E4_INTERPOLATE true
+    //#define E4_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E5)
@@ -2898,6 +2918,7 @@
     #define E5_RSENSE         0.11
     #define E5_CHAIN_POS     -1
     //#define E5_INTERPOLATE true
+    //#define E5_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E6)
@@ -2906,6 +2927,7 @@
     #define E6_RSENSE         0.11
     #define E6_CHAIN_POS     -1
     //#define E6_INTERPOLATE true
+    //#define E6_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC(E7)
@@ -2914,6 +2936,7 @@
     #define E7_RSENSE         0.11
     #define E7_CHAIN_POS     -1
     //#define E7_INTERPOLATE true
+    //#define E7_HOLD_MULTIPLIER 0.5
   #endif
 
   /**
@@ -3066,11 +3089,11 @@
    */
   #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     150  // [mm/s]
+  #define X_HYBRID_THRESHOLD     120  // [mm/s]
   #define X2_HYBRID_THRESHOLD    100
-  #define Y_HYBRID_THRESHOLD     150
+  #define Y_HYBRID_THRESHOLD     120
   #define Y2_HYBRID_THRESHOLD    100
-  #define Z_HYBRID_THRESHOLD     150
+  #define Z_HYBRID_THRESHOLD     120
   #define Z2_HYBRID_THRESHOLD      3
   #define Z3_HYBRID_THRESHOLD      3
   #define Z4_HYBRID_THRESHOLD      3
@@ -3937,15 +3960,15 @@
   #define MAIN_MENU_ITEM_3_GCODE "G33 P5 V3\nM500\nM140 S0"  //P6ok
   #define MAIN_MENU_ITEM_3_CONFIRM
 
-  #define MAIN_MENU_ITEM_4_DESC "Wizard ZOffSet Menu"
+  #define MAIN_MENU_ITEM_4_DESC "ZProbe Wizard"
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "0.Bed Leveling UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_DESC "0.Bed Level. UBL for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_5_GCODE "M1004 H0 B60 S0"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "0.RunPIDNozzlefor " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_DESC "0.PID_Nozzle_for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_6_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
@@ -3953,11 +3976,11 @@
   #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "1.Bed Leveling UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_8_DESC "1.Bed Level. UBL for " PREHEAT_2_LABEL
   #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B80 S1"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "2.Bed Leveling UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_9_DESC "2.Bed Level. UBL for " PREHEAT_3_LABEL
   #define MAIN_MENU_ITEM_9_GCODE "M1004 H0 B90 S2"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
@@ -3965,7 +3988,7 @@
   #define MAIN_MENU_ITEM_10_GCODE "M997"
   #define MAIN_MENU_ITEM_10_CONFIRM
 
-  #ifdef XP
+  #ifdef XP1
     #define MAIN_MENU_ITEM_11_DESC "Stop Server4D"
     #define MAIN_MENU_ITEM_11_GCODE "M118 A1 action:poweroff"
     #define MAIN_MENU_ITEM_11_CONFIRM
@@ -3993,25 +4016,23 @@
 #endif
 
 // Custom Menu: Configuration Menu
-#if ANY(SR_MKS, SR_BTT)
-  #define CUSTOM_MENU_CONFIG
-  #if ENABLED(CUSTOM_MENU_CONFIG)
-    #define CONFIG_MENU_ITEM_1_CONFIRM
-    #define CONFIG_MENU_ITEM_1_DESC "Bed"
-    #define CONFIG_MENU_ITEM_1_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED)
+//#define CUSTOM_MENU_CONFIG
+#if ENABLED(CUSTOM_MENU_CONFIG)
+  #define CONFIG_MENU_ITEM_1_CONFIRM
+  #define CONFIG_MENU_ITEM_1_DESC "Bed"
+  #define CONFIG_MENU_ITEM_1_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED)
 
-    #define CONFIG_MENU_ITEM_2_CONFIRM
-    #define CONFIG_MENU_ITEM_2_DESC PREHEAT_1_LABEL
-    #define CONFIG_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+  #define CONFIG_MENU_ITEM_2_CONFIRM
+  #define CONFIG_MENU_ITEM_2_DESC PREHEAT_1_LABEL
+  #define CONFIG_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
 
-    #define CONFIG_MENU_ITEM_3_CONFIRM
-    #define CONFIG_MENU_ITEM_3_DESC PREHEAT_2_LABEL
-    #define CONFIG_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
+  #define CONFIG_MENU_ITEM_3_CONFIRM
+  #define CONFIG_MENU_ITEM_3_DESC PREHEAT_2_LABEL
+  #define CONFIG_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
 
-    #define CONFIG_MENU_ITEM_4_CONFIRM
-    #define CONFIG_MENU_ITEM_4_DESC "Cool"
-    #define CONFIG_MENU_ITEM_4_GCODE "M108\nM106 255"
-  #endif
+  #define CONFIG_MENU_ITEM_4_CONFIRM
+  #define CONFIG_MENU_ITEM_4_DESC "Cool"
+  #define CONFIG_MENU_ITEM_4_GCODE "M108\nM106 255"
 #endif
 
 //#define CUSTOM_MENU_CONFIG
