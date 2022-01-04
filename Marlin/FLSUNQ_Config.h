@@ -108,7 +108,7 @@
  * =========================================================
  */
                   /* User settings extruder */
-//#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SuperDriveHX.
+//#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX.
 //#define EXTRUDER_STEPS 562             // Ajust your eSteps.
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
@@ -302,6 +302,7 @@
 // Software Serial UART for TMC2208
 #ifdef Q_UART8
     #define Q_TMC
+    #define BOOT_MARLIN_LOGO_SMALL
     #define DRIVER_AXES TMC2208
     #ifndef DRIVER_EXT
       #undef LIN_ADVANCE
@@ -312,13 +313,14 @@
 // Software Serial UART for TMC2209
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
     #define Q_TMC
+    #define BOOT_MARLIN_LOGO_SMALL
     #define STEALTHCHOP_E
     #define DRIVER_AXES TMC2209
     #ifndef DRIVER_EXT
       #define DRIVER_EXT TMC2209
     #endif
 #endif
-//Add definition for UART9 for Q5
+//Add definition for UART for Q5
 #if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)
     #define X_SERIAL_TX_PIN             PA10  // RXD1
     #define X_SERIAL_RX_PIN             PA10  // RXD1
@@ -346,6 +348,7 @@
 // and proper jumper configuration. Uses I/O pins PA8(Default QQS).
 #ifdef QQS_UARTH
     #define Q_TMC
+    #define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
     #define STEALTHCHOP_E
     #define DRIVER_AXES TMC2209
