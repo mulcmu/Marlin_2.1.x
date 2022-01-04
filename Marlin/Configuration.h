@@ -21,7 +21,7 @@
  */
 #pragma once
 
-#define CONFIG_EXAMPLES_DIR "delta/generic"
+//#define CONFIG_EXAMPLES_DIR "delta/FLSUN"
 
 /**
  * Configuration.h
