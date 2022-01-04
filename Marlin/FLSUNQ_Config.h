@@ -17,7 +17,7 @@
 *  Default is actif for QQS and it's uncommented ;-)
 */
 //For run tests on my dev'printer!!
-//#define XP_DEV
+#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
 /*_______________________1___________________________*/
@@ -100,7 +100,7 @@
  * = SR Stock have a clone (B)MG Extruder (Default) ========
  * = If you have another choose by uncomment your extruder.=
  * ======= Also you can change the direction.===============
- * ====== Default eStep (T=397/422)/(B=417)/(X+722) ========
+ * === Default eStep (T=397/422)/(B=417)/(X+722)/(Lgx562)===
  * =========================================================
  */
                   /* User settings extruder */
@@ -156,7 +156,7 @@
 
 // ---Expe tools Levelling-------
 //--------IF YOUR USED ABL, DISABLE "SPECIAL MENU DELTA"=> #define CUSTOM_MENU_MAIN
-//#define AUTO_BED_LEVELING_BILINEAR     //(A) 
+//#define AUTO_BED_LEVELING_BILINEAR     //(A)
 #define AUTO_BED_LEVELING_UBL            //(U) (Default) Wizard UBL includes.
 
 //#define SKEW_CORRECTION                // Add another dimension correction. 
@@ -373,7 +373,7 @@
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
-    #define EXTRUDER_STEPS 720  // 562=LGX Extruder SuperHX, Mini-Sherpa, Orbiter
+    #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
   #elif ANY(BMG, SR_MKS, SR_BTT)
     #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
   #elif ENABLED(OMG)           
@@ -412,8 +412,8 @@
 #endif  
 #ifndef E_CURRENT
   #ifdef NEMA14
-    #define E_CURRENT       650//380
+    #define E_CURRENT       380
   #else
-    #define E_CURRENT       900
+    #define E_CURRENT       850
   #endif
 #endif
