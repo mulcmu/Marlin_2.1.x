@@ -2261,13 +2261,14 @@
 //===========================================================================
 
 // @section motion
-
+// XP1=BLOCK_BUFFER_SIZE=16, BUFSIZE=16, USART_TX_BUF_SIZE=64, USART_RX_BUF_SIZE=64, (BufferBuddy)
+// XP2=BLOCK_BUFFER_SIZE=64, BUFSIZE 32, TX_BUFFER_SIZE/USART_TX_BUF_SIZE 32, RX_BUFFER_SIZE 2048 (OCTO)
 // The number of linear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
 #elif ENABLED(XP2)
-  #define BLOCK_BUFFER_SIZE 32  
+  #define BLOCK_BUFFER_SIZE 64  
 #elif ENABLED(TFT_BTT_UI)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
@@ -2279,12 +2280,12 @@
 // @section serial
 
 // The ASCII buffer for serial input
-#ifdef XP //BLOCK_BUFFER_SIZE=64, BUFSIZE 32, TX_BUFFER_SIZE 32, RX_BUFFER_SIZE 2048 (OCTO)
+#ifdef XP
   #define MAX_CMD_SIZE 500
 #else
   #define MAX_CMD_SIZE 96
 #endif
-#if ANY(TFT_BTT_UI, XP1)
+#if ANY(TFT_BTT_UI, XP2)
   #define BUFSIZE 32
 #else
   #define BUFSIZE 16	//4
@@ -2299,6 +2300,8 @@
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
 #if ANY(TFT_BTT_UI, XP1)
   #define TX_BUFFER_SIZE 32
+#elif ENABLED(XP2)
+  #define USART_TX_BUF_SIZE 64
 #else
   #define TX_BUFFER_SIZE 16	//0
 #endif
@@ -2307,8 +2310,10 @@
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
-#ifdef XP12
-  #define RX_BUFFER_SIZE 2048 //1024
+#if ANY(XP1, XP2)
+  #define USART_RX_BUF_SIZE 64 
+#else
+  #define RX_BUFFER_SIZE 1024
 #endif
 
 #if RX_BUFFER_SIZE >= 1024
@@ -2370,7 +2375,7 @@
 //#define NO_TIMEOUTS 1000 // Milliseconds
 
 // Some clients will have this feature soon. This could make the NO_TIMEOUTS unnecessary.
-#ifdef XP12
+#if ANY(XP1, XP2)
   #define ADVANCED_OK
 #endif
 
