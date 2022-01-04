@@ -17,7 +17,7 @@
 *  Default is actif for QQS and it's uncommented ;-)
 */
 //For run tests on my dev'printer!!
-#define XP_DEV
+//#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
 /*_______________________1___________________________*/
