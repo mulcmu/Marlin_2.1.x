@@ -930,7 +930,7 @@
     #define PROBE_MANUALLY_STEP 0.05      // (mm)
   #endif
   #ifdef Q5
-    #define DELTA_PRINTABLE_RADIUS  95.0
+    #define DELTA_PRINTABLE_RADIUS 105.0
     #define DELTA_MAX_RADIUS       105.0
     #define DELTA_DIAGONAL_ROD     215.0
     #define DELTA_HEIGHT           210.0  //200.0
@@ -968,9 +968,6 @@
 
   // Maximum reachable area
     #define DELTA_MAX_RADIUS         130.0      // (mm)
-
-  // Maximum reachable area
-  #define DELTA_MAX_RADIUS       140.0    // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
     #define DELTA_DIAGONAL_ROD       280.0      // (mm)
@@ -1067,9 +1064,9 @@
 #define I_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
 #define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
