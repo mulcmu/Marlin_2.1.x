@@ -167,7 +167,8 @@
     #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
     #define BAUDRATE_2 500000
     #ifdef WIFI_ESP
-      #define SERIAL_PORT_3 1
+      #define SERIAL_PORT_3 1 // 1 MKS-Wifi(2=nok)
+      //#define BAUDRATE_3 115200
     #endif
   #endif
 #else
