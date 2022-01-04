@@ -23,7 +23,6 @@
 
 #define CONFIG_EXAMPLES_DIR "delta/generic"
 
-
 /**
  * Configuration.h
  *
