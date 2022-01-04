@@ -67,14 +67,6 @@ void set_offset_and_go_back(const_float_t z) {
   ui.goto_previous_screen_no_defer();
 }
 
-void _goto_manual_move_z(const_float_t scale) {
-  #if ENABLED(DELTA)
-    SET_SOFT_ENDSTOP_ENABLED(false);
-  #endif
-  ui.manual_move.menu_scale = scale;
-  ui.goto_screen(lcd_move_z);
-}
-
 void probe_offset_wizard_menu() {
   START_MENU();
   calculated_z_offset = probe.offset.z + current_position.z - z_offset_ref;
