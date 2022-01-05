@@ -929,16 +929,17 @@
     // Set the steprate for papertest probing
     #define PROBE_MANUALLY_STEP 0.05      // (mm)
   #endif
-  #ifdef Q5
-    #define DELTA_PRINTABLE_RADIUS 105.0
-    #define DELTA_MAX_RADIUS       105.0
-    #define DELTA_DIAGONAL_ROD     215.0
-    #define DELTA_HEIGHT           210.0  //200.0
+  #ifdef FKSN
+    #define DELTA_PRINTABLE_RADIUS  132.0
+    #define DELTA_MAX_RADIUS        132.0
+    #define DELTA_DIAGONAL_ROD      304.13
+    #define DELTA_HEIGHT            300.3
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
-    #define DELTA_RADIUS           107.5
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
+    #define DELTA_RADIUS            144.26
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
+    #define PROBING_MARGIN 10
   #elif ENABLED(SDHX) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
     #define DELTA_PRINTABLE_RADIUS  130.0            //
     #define DELTA_MAX_RADIUS        130.0            //
@@ -950,6 +951,16 @@
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1243, -0.2939, 0.4182 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
+  #elif ENABLED(Q5)  
+    #define DELTA_PRINTABLE_RADIUS 105.0
+    #define DELTA_MAX_RADIUS       105.0
+    #define DELTA_DIAGONAL_ROD     215.0
+    #define DELTA_HEIGHT           210.0  //200.0
+    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
+    #define DELTA_RADIUS           107.5
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
+    //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
   #elif ANY(SR_MKS, SR_BTT)
     #define DELTA_PRINTABLE_RADIUS  132.0
     #define DELTA_MAX_RADIUS        132.0
@@ -1300,7 +1311,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#ifndef N_PROBE
+#ifndef N_PROBE 					   
   #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 #endif
 
@@ -1344,7 +1355,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-#ifndef N_PROBE
+#if NONE(N_PROBE, P_PROBE)
   #define FIX_MOUNTED_PROBE
 #endif
 
@@ -1352,7 +1363,9 @@
  * Use the nozzle as the probe, as with a conductive
  * nozzle system or a piezo-electric smart effector.
  */
-//#define NOZZLE_AS_PROBE
+#ifdef P_PROBE
+  #define NOZZLE_AS_PROBE
+#endif
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -1497,12 +1510,17 @@
 // X and Y axis travel speed (mm/min) between probes 
 #define XY_PROBE_FEEDRATE (66*60)    //3960
 
+#if ANY(N_PROBE, P_PROBE)
+  #define Z_PROBE_FEEDRATE_FAST (10*60)  //600
+  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2) //300
+#else
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 //FEEDRATE_Z
-#define Z_PROBE_FEEDRATE_FAST (40*60)  //2400
+  #define Z_PROBE_FEEDRATE_FAST (40*60)  //2400
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //400
+  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //400
+#endif
 
 /**
  * Probe Activation Switch
@@ -1553,7 +1571,7 @@
 //#define EXTRA_PROBING    1
 #ifdef X_PROBE
   #define MULTIPLE_PROBING 2
-#elif ENABLED(N_PROBE)
+#elif ANY(P_PROBE, N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
 #endif
@@ -1587,7 +1605,7 @@
 #define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
-#if NONE(X_PROBE, N_PROBE)
+#if NONE(X_PROBE, P_PROBE, N_PROBE)
   #define PAUSE_BEFORE_DEPLOY_STOW
 #endif
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
@@ -2008,9 +2026,14 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 15             // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 8       // Don't use more than 15 points per axis, implementation limited.
+  #if ANY(N_PROBE, P_PROBE)
+    #define MESH_INSET 1
+    #define GRID_MAX_POINTS_X 10
+  #else
+  	#define MESH_INSET 15             // Set Mesh bounds as an inset region of the bed
+	  #define GRID_MAX_POINTS_X 8       // Don't use more than 15 points per axis, implementation limited.
   /// 10=53points, 13=90points, 15=110points
+  #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_HILBERT_CURVE         // Use Hilbert distribution for less travel when probing multiple points
@@ -2125,7 +2148,7 @@
 #endif
 
 // Delta only homes to Z
-#if ANY(Q5, STALLGUARD_2)
+#if ANY(Q5, STALLGUARD_2, P_PROBE)
   #define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (50*60) }
 #else
   #define HOMING_FEEDRATE_MM_M { (70*60), (70*60), (70*60) }
@@ -2285,7 +2308,11 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { 0, (Y_MAX_POS - 20), 50 } //OPT
+  #if ANY(N_PROBE, P_PROBE)
+    #define NOZZLE_PARK_POINT { 0, 0, 20 }
+  #else
+    #define NOZZLE_PARK_POINT { 0, (Y_MAX_POS - 20), 50 } //OPT
+  #endif
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance

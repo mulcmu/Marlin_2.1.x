@@ -62,7 +62,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT A4988//TMC2209_STANDALONE //TMC2209  // LV8729//
+//#define DRIVER_EXT xxxxxx    //A4988//TMC2209_STANDALONE //TMC2209  // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
@@ -96,7 +96,7 @@
 //#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
 
 /*_________________________________4______________________________*/
-                  /*---- Extruder and Modules -----*/
+          /*---- Extruder, Custom effector and Modules -----*/
 
 /**=========================================================
  * =========================================================
@@ -115,7 +115,10 @@
 //#define BMG                            //(B) Uncommment for BMG_left.
 //#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx.
 //#define OMG                            //(O) Uncommment for OMG.
-
+                  /*  Custom Effector  */
+                  /* rods, height, arms*/
+//#define SDHX                           // Custom effector with Direct_Drive SuperDriveHX()
+//#define FKSN                           // Customn effector FRANKENSUNrods, height
                   /* Module Mks_Wifi */ 
 #define MKS_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
 //#define ESP3D_30                       //(w) Enable firmware ESP3D v3.0 (ESP8266/ESP12) only with TFT_LVGL_UI
@@ -131,9 +134,12 @@
 //#define STALLGUARD_2                   // (g) Special mod for TMC2209_UART = SENSORLESS_PROBING
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
+//#define P_PROBE                        // Uncomment to use a piezo probe like ORION.
+                                         // and Set Y,Z OFFSET at zero
 //#define X_PROBE                        // Uncomment and Set an other probe (invert the logic too).
-//#define Y_OFFSET 14.7                  // Uncomment and set your own Y OffSet
-//#define Z_OFFSET -2.5                  // Uncomment and set your own Z OffSet
+
+//#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
+//#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
 
                   /* User settings Hotend */ 
 
