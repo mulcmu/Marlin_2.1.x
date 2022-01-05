@@ -2028,7 +2028,7 @@
 
   #if ANY(N_PROBE, P_PROBE)
     #define MESH_INSET 1
-    #define GRID_MAX_POINTS_X 10
+    #define GRID_MAX_POINTS_X 11
   #else
   	#define MESH_INSET 15             // Set Mesh bounds as an inset region of the bed
 	  #define GRID_MAX_POINTS_X 8       // Don't use more than 15 points per axis, implementation limited.
@@ -2148,7 +2148,7 @@
 #endif
 
 // Delta only homes to Z
-#if ANY(Q5, STALLGUARD_2, P_PROBE)
+#if ANY(Q5, STALLGUARD_2)
   #define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (50*60) }
 #else
   #define HOMING_FEEDRATE_MM_M { (70*60), (70*60), (70*60) }
