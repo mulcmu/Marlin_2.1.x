@@ -148,7 +148,11 @@ void prepare_for_probe_offset_wizard() {
   ui.synchronize(GET_TEXT(MSG_PROBE_WIZARD_MOVING));
   ui.wait_for_move = false;
 
-  SET_SOFT_ENDSTOP_LOOSE(true); // Disable soft endstops for free Z movement
+  #if ENABLED(DELTA)
+    SET_SOFT_ENDSTOP_ENABLED(false);
+  #else
+    SET_SOFT_ENDSTOP_LOOSE(true); // Disable soft endstops for free Z movement
+  #endif
 
   // Go to Calibration Menu
   ui.goto_screen(probe_offset_wizard_menu);

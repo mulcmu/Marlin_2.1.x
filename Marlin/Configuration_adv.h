@@ -21,7 +21,7 @@
  */
 #pragma once
 
-//#define CONFIG_EXAMPLES_DIR "delta/FLSUN/QQS-Pro"
+//#define CONFIG_EXAMPLES_DIR "delta/FLSUN/"
 
 /**
  * Configuration_adv.h
@@ -2261,15 +2261,13 @@
 //===========================================================================
 
 // @section motion
-// XP1=BLOCK_BUFFER_SIZE=16, BUFSIZE=16, USART_TX_BUF_SIZE=64, USART_RX_BUF_SIZE=64, (BufferBuddy)
-// XP2=BLOCK_BUFFER_SIZE=64, BUFSIZE 32, TX_BUFFER_SIZE/USART_TX_BUF_SIZE 32, RX_BUFFER_SIZE 2048 (OCTO)
 // The number of linear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
-#elif ENABLED(XP2)
-  #define BLOCK_BUFFER_SIZE 64  
-#elif ENABLED(TFT_BTT_UI)
+#elif ENABLED(XP1)
+  #define BLOCK_BUFFER_SIZE 16  
+#elif ENABLED(TFT_BTT_UI, XP2)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 16
@@ -2288,7 +2286,7 @@
 #if ANY(TFT_BTT_UI, XP2)
   #define BUFSIZE 32
 #else
-  #define BUFSIZE 16	//4
+  #define BUFSIZE 16  //4
 #endif
 
 // Transmission to Host Buffer Size
@@ -2298,22 +2296,21 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#if ANY(TFT_BTT_UI, XP1)
+#if ANY(XP1, XP2)
+  #define TX_BUFFER_SIZE 64
+#elif ENABLED(TFT_BTT_UI)
   #define TX_BUFFER_SIZE 32
-#elif ENABLED(XP2)
-  #define USART_TX_BUF_SIZE 64
 #else
-  #define TX_BUFFER_SIZE 16	//0
+  #define TX_BUFFER_SIZE 16 //0
 #endif
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+//  #define RX_BUFFER_SIZE 1024
 #if ANY(XP1, XP2)
-  #define USART_RX_BUF_SIZE 64 
-#else
-  #define RX_BUFFER_SIZE 1024
+  #define RX_BUFFER_SIZE 64 
 #endif
 
 #if RX_BUFFER_SIZE >= 1024
@@ -3992,12 +3989,6 @@
   #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
   #define MAIN_MENU_ITEM_10_GCODE "M997"
   #define MAIN_MENU_ITEM_10_CONFIRM
-
-  #ifdef XP1
-    #define MAIN_MENU_ITEM_11_DESC "Stop Server4D"
-    #define MAIN_MENU_ITEM_11_GCODE "M118 A1 action:poweroff"
-    #define MAIN_MENU_ITEM_11_CONFIRM
-  #endif
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
