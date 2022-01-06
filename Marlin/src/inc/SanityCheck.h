@@ -2478,7 +2478,7 @@ static_assert(Y_MAX_LENGTH >= Y_BED_SIZE, "Movement bounds (Y_MIN_POS, Y_MAX_POS
 #endif
 
 /**
- * emergency-command parser
+ * Emergency Command Parser
  */
 #if ENABLED(EMERGENCY_PARSER) && defined(__AVR__) && defined(USBCON)
   #error "EMERGENCY_PARSER does not work on boards with AT90USB processors (USBCON)."
