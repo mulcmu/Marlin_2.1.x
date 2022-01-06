@@ -424,7 +424,6 @@
 //
 // Espressif ESP32 WiFi
 //
-
 #define BOARD_ESPRESSIF_ESP32         6000  // Generic ESP32
 #define BOARD_MRR_ESPA                6001  // MRR ESPA based on ESP32 (native pins only)
 #define BOARD_MRR_ESPE                6002  // MRR ESPE based on ESP32 (with I2S stepper stream)
@@ -438,13 +437,11 @@
 //
 // SAMD51 ARM Cortex M4
 //
-
 #define BOARD_AGCM4_RAMPS_144         6100  // RAMPS 1.4.4
 
 //
 // Custom board
 //
-
 #define BOARD_CUSTOM                  9998  // Custom pins definition for development and/or rare boards
 
 //
