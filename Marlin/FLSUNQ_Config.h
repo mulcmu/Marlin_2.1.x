@@ -20,7 +20,7 @@
 * -Comment/Uncomment line to add or modify some options. 
 *  Default is actif for QQS and it's uncommented ;-)
 */
-//For run tests on my dev'printer!!
+//For run tests on my dev'printers!!
 //#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
