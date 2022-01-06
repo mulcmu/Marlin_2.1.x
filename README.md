@@ -11,7 +11,13 @@
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
-# Latest stable source of Marlin 2.0.x for Delta FLSun QQS-Pro (motherboard HISPEED_V1) & Q5 (motherboard NANO_V1).
+# Latest stable source of Marlin 2.0.x for Delta FLSun QQS-Pro (motherboard HISPEED_V1) & Q5 (motherboard NANO_V1) & SR with BTT-TFT screen (motherboard NANO_V3/SKR13).
+
+**20220114** 2.0.9.3
+- Last Marlin Release 2.0.9.3
+- Easy to configure by "FLSUNQ_Config.h" file,
+- Add options in FLSUNQ_Config (LGX/OMG/SDHX(steps) extruder, Frankensun/Custom effector, other Probes, thermistor, ...)
+- Integration SR motherboards with other screens like BTT-TFT,
 
 **20211111** 2.0.9.2
 - Last Marlin Release 2.0.9.2
