@@ -74,7 +74,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Foxies-CSTL, DeltaQ)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Foxies, ΔDeltaFox)" // Who made the changes.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -140,6 +140,7 @@
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
 #endif
+
 /**
  * Serial Port Baud Rate
  * This is the default communication speed for all serial ports.
@@ -846,7 +847,7 @@
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#define EXTRUDE_MINTEMP 180
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
@@ -914,7 +915,7 @@
   #elif ANY(XP1, XP2)
     #define DELTA_SEGMENTS_PER_SECOND 100  //200  
   #else
-    #define DELTA_SEGMENTS_PER_SECOND 80  //200
+    #define DELTA_SEGMENTS_PER_SECOND  80  //200
   #endif
 
   // After homing move down to a height where XY movement is unconstrained
@@ -951,34 +952,35 @@
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
   #elif ENABLED(SDHX) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
-    #define DELTA_PRINTABLE_RADIUS  130.0            //
-    #define DELTA_MAX_RADIUS        130.0            //
-    #define DELTA_DIAGONAL_ROD      285.0            //L285.8064
-    #define DELTA_HEIGHT            350.0            //H333.1926
+    #define DELTA_PRINTABLE_RADIUS  130.0            // (mm)
+    #define DELTA_MAX_RADIUS        130.0
+    #define DELTA_DIAGONAL_ROD      285.0
+    #define DELTA_HEIGHT            350.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            128.0            //R127.3126
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0278, 0.1700, -0.1978}    //XYZ
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1243, -0.2939, 0.4182 } //ABC
+    #define DELTA_RADIUS            128.0
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } //XYZ
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
-  #elif ENABLED(Q5)  
+  #elif ENABLED(Q5)
     #define DELTA_PRINTABLE_RADIUS 105.0
     #define DELTA_MAX_RADIUS       105.0
     #define DELTA_DIAGONAL_ROD     215.0
-    #define DELTA_HEIGHT           210.0  //200.0
+    #define DELTA_HEIGHT           210.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
-    #define DELTA_RADIUS           107.5
+    #define DELTA_RADIUS             107.5
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
+    #define PROBING_MARGIN 10
   #elif ANY(SR_MKS, SR_BTT)
     #define DELTA_PRINTABLE_RADIUS  132.0
     #define DELTA_MAX_RADIUS        132.0
     #define DELTA_DIAGONAL_ROD      315.0
     #define DELTA_HEIGHT            320.0
-    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
+    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }       // Trim adjustments for individual towers
     #define DELTA_RADIUS            151.67
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }  //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
@@ -994,7 +996,7 @@
     #define DELTA_DIAGONAL_ROD       280.0      // (mm)
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT             370.00     //370 E3D-360 (mm) Get this value from G33 auto calibrate
+    #define DELTA_HEIGHT             370.00     // (mm) Get this value from G33 auto calibrate
 
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
@@ -1244,17 +1246,17 @@
  *   M204 T    Travel Acceleration
  */
 #if ANY(SR_MKS, SR_BTT)
-  #define DEFAULT_ACCELERATION          2800    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  2800    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   2800    // X, Y, Z acceleration for travel (non printing) moves
+  #define DEFAULT_ACCELERATION          2800
+  #define DEFAULT_RETRACT_ACCELERATION  2800
+  #define DEFAULT_TRAVEL_ACCELERATION   2800
 #elif ENABLED(NEMA14)
   #define DEFAULT_ACCELERATION          2000   // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500   //3000/250    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   2000   // X, Y, Z acceleration for travel (non printing) moves
 #else
-  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
+  #define DEFAULT_ACCELERATION          1500   // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1500   // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1500   // X, Y, Z acceleration for travel (non printing) moves
 #endif
 
 /**
@@ -1376,6 +1378,7 @@
 #ifdef P_PROBE
   #define NOZZLE_AS_PROBE
 #endif
+
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
  */
@@ -1591,9 +1594,10 @@
 //#define EXTRA_PROBING    1
 #ifdef X_PROBE
   #define MULTIPLE_PROBING 2
-#elif ANY(P_PROBE, N_PROBE
+#elif ANY(P_PROBE, N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
+#else
 #endif
 
 /**
@@ -1889,8 +1893,11 @@
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  #define FILAMENT_RUNOUT_DISTANCE_MM 25
-
+  #ifdef NEMA14
+    #define FILAMENT_RUNOUT_DISTANCE_MM 190  //190mm print after detect
+  #else
+    #define FILAMENT_RUNOUT_DISTANCE_MM 25  //OPT
+  #endif
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
     // as the filament moves. (Be sure to set FILAMENT_RUNOUT_DISTANCE_MM
@@ -1999,9 +2006,9 @@
     #define MESH_TEST_HOTEND_TEMP  205    // (°C) Default nozzle temperature for G26.
     #define MESH_TEST_BED_TEMP      60    // (°C) Default bed temperature for G26.
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
-    #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
+    #define G26_XY_FEEDRATE_TRAVEL  80    // (mm/s) Feedrate for G26 XY travel moves.
     #ifdef NEMA14
-      #define G26_RETRACT_MULTIPLIER   1.0
+      #define G26_RETRACT_MULTIPLIER   0.8
     #else
       #define G26_RETRACT_MULTIPLIER   4.0  // G26 Q (retraction) used by default between mesh test elements.
     #endif
@@ -2013,10 +2020,8 @@
 
   // Set the number of grid points per dimension.
   // Works best with 5 or more points in each dimension.
-  #define GRID_SET_MAX_POINTS 7 //MKS HX43 require this to work 
-  #define GRID_MAX_POINTS_X GRID_SET_MAX_POINTS
-  #define GRID_MAX_POINTS_Y GRID_SET_MAX_POINTS
-
+  #define GRID_MAX_POINTS_X 7
+  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
 
@@ -2132,9 +2137,8 @@
  * Useful to retract or move the Z probe out of the way.
  */
 //#define Z_PROBE_END_SCRIPT "G0 Z30 F12000\n G0 X0 Y0 Z30"
-#if ANY(QQSP, Q5, SR_MKS, SR_BTT)
-  #define Z_PROBE_END_SCRIPT "G28"
-#endif
+#define Z_PROBE_END_SCRIPT "G28"
+
 #ifdef HX43
   #define Z_PROBE_END_HEIGHT  100 // MKS HX43 require this to work
 #endif
@@ -3267,11 +3271,11 @@
 
   // QQS-Pro use MKS Robin TFT v2.0
   #if BOTH(QQSP, MKS_ROBIN_TFT32)||BOTH(QQSR, MKS_ROBIN_TFT32)
-    #define TOUCH_CALIBRATION_X   12033
-    #define TOUCH_CALIBRATION_Y   -9047
-    #define TOUCH_OFFSET_X          -30
-    #define TOUCH_OFFSET_Y          254
-  //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
+    #define TOUCH_CALIBRATION_X 12033
+    #define TOUCH_CALIBRATION_Y -9047
+    #define TOUCH_OFFSET_X        -30
+    #define TOUCH_OFFSET_Y        254
+    #define TOUCH_ORIENTATION TOUCH_LANDSCAPE
   #endif
   #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
     #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM

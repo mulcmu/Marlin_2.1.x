@@ -856,6 +856,7 @@
                                               // For delta all values must be the same
 #define HOMING_BUMP_DIVISOR { 4, 4, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
+				 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
@@ -1078,7 +1079,7 @@
  * See https://hydraraptor.blogspot.com/2010/12/frequency-limit.html
  * Use M201 F<freq> G<min%> to change limits at runtime.
  */
-//#define XY_FREQUENCY_LIMIT      27 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
+//#define XY_FREQUENCY_LIMIT       27 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
 #ifdef XY_FREQUENCY_LIMIT
   #define XY_FREQUENCY_MIN_PERCENT 10 // (percent) Minimum FR percentage to apply. Set with M201 G<min%>.
 #endif
@@ -1967,7 +1968,7 @@
 #if ENABLED(BABYSTEPPING)
   //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
-  #define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).
+  #define BABYSTEP_ALWAYS_AVAILABLE         // Allow babystepping at all times (not just during movement).
   //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   //#define BABYSTEP_MILLIMETER_UNITS       // Specify BABYSTEP_MULTIPLICATOR_(XY|Z) in mm instead of micro-steps
@@ -2265,13 +2266,14 @@
 //===========================================================================
 
 // @section motion
+
 // The number of linear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
 #elif ENABLED(XP1)
-  #define BLOCK_BUFFER_SIZE 16  
-#elif ENABLED(TFT_BTT_UI, XP2)
+  #define BLOCK_BUFFER_SIZE 16
+#elif ANY(TFT_BTT_UI, XP2)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 16
@@ -2282,11 +2284,7 @@
 // @section serial
 
 // The ASCII buffer for serial input
-#ifdef XP
-  #define MAX_CMD_SIZE 500
-#else
-  #define MAX_CMD_SIZE 96
-#endif
+#define MAX_CMD_SIZE 96
 #if ANY(TFT_BTT_UI, XP2)
   #define BUFSIZE 32
 #else
@@ -2397,7 +2395,7 @@
  *   'M106 P<fan> T1'     : Restore the previous fan speed
  */
 #ifdef TFT_BTT_UI
- #define EXTRA_FAN_SPEED   //if ENABLE FAN_1
+  #define EXTRA_FAN_SPEED   //if ENABLE FAN_1
 #endif
 
 /**
@@ -3957,7 +3955,7 @@
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
   #define CUSTOM_MENU_MAIN_ONLY_IDLE       // Only show custom menu when the machine is idle
 
-  #define MAIN_MENU_ITEM_1_DESC "Initialize EEPROM"
+  #define MAIN_MENU_ITEM_1_DESC "Init. EEPROM"
   #define MAIN_MENU_ITEM_1_GCODE "M502\nM500\nM997"
   #define MAIN_MENU_ITEM_1_CONFIRM
 
@@ -3969,7 +3967,7 @@
   #define MAIN_MENU_ITEM_3_GCODE "G33 P5 V3\nM500\nM140 S0"  //P6ok
   #define MAIN_MENU_ITEM_3_CONFIRM
 
-  #define MAIN_MENU_ITEM_4_DESC "ZProbe Wizard"
+  #define MAIN_MENU_ITEM_4_DESC "ZOffSet Wizard"
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
@@ -3981,7 +3979,7 @@
   #define MAIN_MENU_ITEM_6_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "0.Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_DESC "0.Print_Test_Pattern in " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
@@ -3997,11 +3995,6 @@
   #define MAIN_MENU_ITEM_10_GCODE "M997"
   #define MAIN_MENU_ITEM_10_CONFIRM
 
-  #ifdef XP1
-    #define MAIN_MENU_ITEM_11_DESC "Stop Server4D"
-    #define MAIN_MENU_ITEM_11_GCODE "M118 A1 action:poweroff"
-    #define MAIN_MENU_ITEM_11_CONFIRM
-  #endif
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
