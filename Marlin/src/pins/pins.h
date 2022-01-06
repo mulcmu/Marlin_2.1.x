@@ -62,7 +62,7 @@
 #endif
 
 // Test the target within the included pins file
-#ifdef __MARLIN_PREBUILD__
+#ifdef __MARLIN_DEPS__
   #define NOT_TARGET(V...) 0
 #else
   #define NOT_TARGET(V...) NONE(V)
@@ -136,7 +136,7 @@
 #elif MB(AZTEEG_X3_PRO)
   #include "ramps/pins_AZTEEG_X3_PRO.h"         // ATmega2560                             env:mega2560
 #elif MB(ULTIMAIN_2)
-  #include "ramps/pins_ULTIMAIN_2.h"            // ATmega2560                             env:mega2560
+  #include "ramps/pins_ULTIMAIN_2.h"            // ATmega2560                             env:mega2560ext
 #elif MB(FORMBOT_RAPTOR)
   #include "ramps/pins_FORMBOT_RAPTOR.h"        // ATmega2560                             env:mega2560
 #elif MB(FORMBOT_RAPTOR2)
@@ -152,7 +152,7 @@
 #elif MB(RL200)
   #include "ramps/pins_RL200.h"                 // ATmega2560                             env:mega2560
 #elif MB(BQ_ZUM_MEGA_3D)
-  #include "ramps/pins_BQ_ZUM_MEGA_3D.h"        // ATmega2560                             env:mega2560
+  #include "ramps/pins_BQ_ZUM_MEGA_3D.h"        // ATmega2560                             env:mega2560ext
 #elif MB(MAKEBOARD_MINI)
   #include "ramps/pins_MAKEBOARD_MINI.h"        // ATmega2560                             env:mega2560
 #elif MB(TRIGORILLA_13)
@@ -574,7 +574,7 @@
 #elif MB(FLY_MINI)
   #include "stm32f1/pins_FLY_MINI.h"            // STM32F1                                env:FLY_MINI env:FLY_MINI_maple
 #elif MB(FLSUN_HISPEED)
-  #include "stm32f1/pins_FLSUN_HISPEED.h"       // STM32F1                                env:flsun_hispeedv1 env:flsun_hispeed
+  #include "stm32f1/pins_FLSUN_HISPEED.h"       // STM32F1                                env:flsun_hispeedv1
 #elif MB(BEAST)
   #include "stm32f1/pins_BEAST.h"               // STM32F103VE?                           env:STM32F103VE env:STM32F103RE_maple
 #elif MB(MINGDA_MPX_ARM_MINI)
