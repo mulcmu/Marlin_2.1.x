@@ -1,4 +1,4 @@
-### 2021-11-20 MARLIN 2.0.9.3 BUGFIX RELEASE
+### 2022-01-10 MARLIN 2.0.9.3 RELEASE
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
 Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and BTT TFT:

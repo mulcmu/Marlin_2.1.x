@@ -12,7 +12,10 @@ Please test this firmware and let us know if it misbehaves in any way. Volunteer
 
 Some information and guideline => [Wiki](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki)
 
-# Last release of Marlin 2.0.x for Delta FLSun QQS-Pro (motherboard HISPEED_V1) & Q5 (motherboard NANO_V1).
+# Last release of Marlin 2.0.x for Delta FLSun QQS-Pro (motherboard HISPEED_V1) & Q5 (motherboard NANO_V1)& SR (motherboard MKS/BTT with other screen like BTT-TFT35v3).
+
+**20220110** 2.0.9.3
+- Last Marlin Release 2.0.9.3
 
 **20211110** 2.0.9.2
 - Last Marlin Release 2.0.9.2
