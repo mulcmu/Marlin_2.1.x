@@ -166,13 +166,13 @@
   #ifdef SR_MKS
     #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
     #define BAUDRATE_2 500000
-    #ifdef WIFI_ESP
+    #ifdef MOD_AUX
       #define SERIAL_PORT_3 1 // 1 MKS-Wifi(2=nok)
       //#define BAUDRATE_3 115200
     #endif
   #endif
 #else
-  #ifdef WIFI_ESP
+  #ifdef MOD_AUX
     #ifdef ESP3D_30
       #define SERIAL_PORT_2 1
       #define NUM_SERIAL 2
@@ -2235,7 +2235,7 @@
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
-  //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
+  #define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
 //

@@ -62,7 +62,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT xxxxxx    //A4988//TMC2209_STANDALONE //TMC2209  // LV8729//
+//#define DRIVER_EXT xxxxxx    //TMC2209_STANDALONE //A4988//TMC2209  // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
@@ -119,8 +119,8 @@
                   /* rods, height, arms*/
 //#define SDHX                           // Custom effector with Direct_Drive SuperDriveHX()
 //#define FKSN                           // Customn effector FRANKENSUN
-                  /* Module Mks_Wifi */ 
-#define MKS_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
+                  /* Module Socket_Wifi */ 
+#define MOD_WIFI                         //(W) (Default_QQS) With Module ESP8266/ESP12 or Connexion Tx/RX
 //#define ESP3D_30                       //(w) Enable firmware ESP3D v3.0 (ESP8266/ESP12) only with TFT_LVGL_UI
 
                   /* Option for Neopixel */
@@ -219,8 +219,8 @@
 * the ESP3D firmware or the MKS(Stock) firmware.
 * https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/5.Firmware-Wifi
 */
-#ifdef MKS_WIFI
-  #define WIFI_ESP
+#ifdef MOD_WIFI
+  #define MOD_AUX                     // Enable UART2 on socket WIFI
   #ifdef ESP3D_30
     #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
     #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
