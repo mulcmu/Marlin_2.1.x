@@ -26,42 +26,38 @@ SRM-SrBPULR-Robin_nano_v3.bin
   **Caption:**
 
   **/*------Drivers--------*/**
-  - (S) Stock=4xTMC2209_UART.
-  - (U8) 4xTMC2208_UART.
-  - (U9) 4xTMC2209_UART.
-  - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
-  - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
-  - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
-  - (16) All drivers 16steps
+  - (S) Stock=4xTMC2209_UART. (default)
+  - (16) All drivers 16steps (default)
   - (32) All drivers 32steps
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
-  - (C) UI MARLIN (TFT Color screen)
-  - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
-  - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3)
-  - (D) UI DWIN (TFT DGUS Color screen)
+  - (C) UI MARLIN (TFT Color screen like Mks TS35v2)
+  - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv3)
+  - (r) UI STANDARD (TFT Color screen like BTT-TFT35v3 or Marlin Mode Emulation) (default)
+  - (D) UI DWIN (TFT DGUS Color screen like Mks H43)
 
   **/*------Modules--------*/**
   - (n) NeoPixel (management of led strips)
   - (W) Module ESP8266/ESP12 (infos at the middle of the page)
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
-  - (B) Extruder BMG right_hand (Stock)
+  - (B) Extruder BMG right_hand (Stock) (default)
+  - (O) Extruder OMG v2
   - (X) Extruder NEMA14 (SDHX/Mini-Sherpa/Orbiter/LGX)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
   - (g) SENSORLESS_PROBING (Only 2209)
   - (A) BED_LEVELING_BILINEAR
-  - (U) BED_LEVELING_UBL
-  - (P) PreHeat bed before leveling
-  - (R) ARC_SUPPORT
-  - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
+  - (U) BED_LEVELING_UBL (default)
+  - (P) PreHeat bed before leveling (default)
+  - (R) ARC_SUPPORT (default)
+  - (L) Linear Advance (default)
   
   **/*-------Others options for advanced users who build their firmware----*/**
-  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
+  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) (default)
   - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
-  - BINARY_FILE_TRANSFER
+  - BINARY_FILE_TRANSFER (default)
   - TEMP_SENSOR_0 (After changed the thermitor nozzle)
   - LCD_LANGUAGE (Change to the native language)
   - etc 
