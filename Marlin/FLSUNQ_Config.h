@@ -27,7 +27,7 @@
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
-#define QQSP                         // (Default_QQS) env = flsun_hispeedv1
+//#define QQSP                         // (Default_QQS) env = flsun_hispeedv1
 //#define Q5                         // env = mks_robin_nano35 or (Q5_2021) env = mks_robin_nano_v1_3_f4
                                      // for Q5_2021 = uncomment/comment your MoBo in configuration.h (Line114)
 //#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
@@ -240,7 +240,7 @@
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define PROBE_OFFSET_WIZARD
     #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
-    #define CUSTOM_MENU_MAIN
+    #define CUSTOM_MENU_MAIN            // ENABLE "SPECIAL MENU DELTA"
   #endif
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU            // To control LedStrip.
