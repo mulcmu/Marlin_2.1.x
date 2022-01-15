@@ -132,7 +132,7 @@
   #define BAUD_RATE_GCODE
   #define SERIAL_PORT_2 -1
   //#define BAUDRATE_2 250000 
-  #define SERIAL_PORT_3 3
+  //#define SERIAL_PORT_3 3
   //#define BAUDRATE_3 250000 
 #endif
 
