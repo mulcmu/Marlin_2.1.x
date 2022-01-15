@@ -1,6 +1,9 @@
 ### 2022-01-10 MARLIN 2.0.9.3 OFFICIAL RELEASE
  
- - Q5 STOCK With 3xTMC2208 + 1xA4988 = Q5_STOCK-Robin_nano.bin
+ # **NOTE**: Recently, the Q5 printer has two types of motherboards. The first ones have Mks_robin_nanoV1.2 and the new ones have Mks_robin_nanoV1.3. These are not the same firmwares for Marlin so be careful when downloading to take the right firmware associated with the MoBo.
+
+ - Old Q5 STOCK With 3xTMC2208 + 1xA4988 = Q5_STOCK-Robin_nano.bin
+ - New Q5 STOCK With 3xTMC2208 + 1xA4988 = Q5v1.3_STOCK-Robin_nano35.bin
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
 Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2 board with TMC2208 and A4988 stepper drivers:
@@ -16,7 +19,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
    - (L)LinearAdvance - 
    - (R)Arc function enabled.
 
-  **Note**: After choosing your binary, remove the "8+SCWTPULR-" header or rename the file to "Robin_nano.bin" for Q5,
+  **Note**: After choosing your binary, remove the "8+SCWTPULR-" header or rename the file to "Robin_nano.bin" for old Q5 or "Robin_nano.bin35" for the new Q5,
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
   **Caption:**
