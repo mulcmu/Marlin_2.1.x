@@ -2718,7 +2718,7 @@
 // Réglages des Vref TMC à 0.74v>0.8vMax sinon danger!!
 // TMC drivers use rms current not max(peak) so Irms is 740mA/1.414 = 523mA
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       450// 523       // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       400        //17HS13-0404 amp/Ph=0.4        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT       // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS    XYZ_MICROSTEPS  // 0..256
     #define X_RSENSE          0.11
@@ -2738,7 +2738,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       600 //523
+    #define Y_CURRENT       1000           //17H08-1004S Amp/Ph=1.0A
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS    XYZ_MICROSTEPS
     #define Y_RSENSE          0.11
@@ -2828,7 +2828,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      396 //800
+    #define E0_CURRENT      396        //17HS
     #define E0_MICROSTEPS   E_MICROSTEPS
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
