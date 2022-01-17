@@ -77,7 +77,7 @@
   //#define TEMP_CHAMBER_PIN TEMP_1_PIN //
 #endif
 #define MICROSTEPS32
-#define Z_OFFSET  -3.9
+#define Z_OFFSET  -4.21
 //============= End_Hardware ===============//
 
 //Choice add menu: (OPT)
@@ -101,7 +101,8 @@
 #define BINARY_FILE_TRANSFER
 //#define MEATPACK_ON_SERIAL_PORT_1
 
-//#define USB_FLASH_DRIVE_SUPPORT     //SKR2
+#define USB_FLASH_DRIVE_SUPPORT     //SKR2
+#define SDCARD_CONNECTION ONBOARD//LCD   //Actif default
 //#define MULTI_VOLUME
 //#define CANCEL_OBJECTS
 #define SDCARD_SORT_ALPHA
@@ -111,7 +112,7 @@
 #define M114_DETAIL
 #define REPORT_FAN_CHANGE
 #define GCODE_CASE_INSENSITIVE
-#define SDCARD_CONNECTION LCD   //Actif default
+
 /* OPTION no validate */
 //#define USE_CONTROLLER_FAN         //BOARD FAN
 //EXTRUDER_AUTO_FAN   //
