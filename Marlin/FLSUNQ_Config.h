@@ -116,7 +116,7 @@
 //#define SDHX                           // Custom effector with Direct_Drive SuperDriveHX()
 //#define FKSN                           // Customn effector FRANKENSUNrods, height
                   /* Module Mks_Wifi */ 
-#define MKS_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
+#define MOD_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
 //#define ESP3D_30                       //(w) Enable firmware ESP3D v3.0 (ESP8266/ESP12) only with TFT_LVGL_UI
 
                   /* Option for Neopixel */
