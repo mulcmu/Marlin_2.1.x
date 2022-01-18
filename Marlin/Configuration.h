@@ -169,13 +169,13 @@
   #ifdef SR_MKS
     #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
     #define BAUDRATE_2 500000
-    #ifdef WIFI_ESP
+    #ifdef MKS_WIFI
       #define SERIAL_PORT_3 1 // 1 MKS-Wifi(2=nok)
       //#define BAUDRATE_3 115200
     #endif
   #endif
 #else
-  #ifdef WIFI_ESP
+  #ifdef MOD_WIFI
     #ifdef ESP3D_30
       #define SERIAL_PORT_2 1
       #define NUM_SERIAL 2

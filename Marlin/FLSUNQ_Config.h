@@ -215,8 +215,8 @@
 * the ESP3D firmware or the MKS(Stock) firmware.
 * https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/5.Firmware-Wifi
 */
-#ifdef MKS_WIFI
-  #define WIFI_ESP
+#ifdef MOD_WIFI
+  #define MKS_WIFI
   #ifdef ESP3D_30
     #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
     #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
