@@ -199,9 +199,17 @@
    *       ￣￣ AE￣￣
    */
   // Module ESP-WIFI
-  #define WIFI_IO0_PIN                      PA8   // MKS ESP WIFI IO0 PIN
-  #define WIFI_IO1_PIN       			          PC7   // MKS ESP WIFI IO1 PIN
-  #define WIFI_RESET_PIN				            PA5   // MKS ESP WIFI RESET PIN
+  #ifdef MKS_WIFI
+    #define MKS_WIFI_SERIAL_NUM             SERIAL_PORT_2
+    #define MKS_WIFI_UART                   USART1
+    #undef PLATFORM_M997_SUPPORT
+    #define MKS_WIFI_IO0                    PC13
+    #define MKS_WIFI_IO4                    PC7
+    #define MKS_WIFI_IO_RST                 PA5
+  #endif
+  //#define WIFI_IO0_PIN                      PA8   // MKS ESP WIFI IO0 PIN
+  //#define WIFI_IO1_PIN       			          PC7   // MKS ESP WIFI IO1 PIN
+  //#define WIFI_RESET_PIN				            PA5   // MKS ESP WIFI RESET PIN
 #endif
 
 //
@@ -256,12 +264,13 @@
     #undef PSU_CONTROL
     #undef MKS_PWC
     #define SUICIDE_PIN                     PB2   // Enable MKSPWC SUICIDE PIN
-    #define SUICIDE_PIN_STATE               LOW   // Enable MKSPWC PIN STATE
+    #define SUICIDE_PIN_STATE              false // Enable MKSPWC PIN STATE
+    #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
+    #define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
   #else    
     #define PS_ON_PIN                       PB2   // PW_OFF
-  #endif
-  #define KILL_PIN                          PA2
-  #define KILL_PIN_STATE                    HIGH
+    #define KILL_PIN                        PA2
+    #define KILL_PIN_STATE                  true
 #endif
 
 #if ENABLED(BACKUP_POWER_SUPPLY)
@@ -350,16 +359,11 @@
   #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
   #define DOGLCD_SCK                        -1
 
-  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
-  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
-  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
-  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
-  
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
-  #define FSMC_CS_PIN                       PD7   // NE4
-  #define FSMC_RS_PIN                       PD11  // A0  
   #define FSMC_DMA_DEV                      DMA2
   #define FSMC_DMA_CHANNEL               DMA_CH5
+  #define FSMC_CS_PIN                       PD7   // NE4
+  #define FSMC_RS_PIN                       PD11  // A0  
 
   #define TFT_CS_PIN                 FSMC_CS_PIN
   #define TFT_RS_PIN                 FSMC_RS_PIN
@@ -370,9 +374,29 @@
     #define TFT_BTARROWS_COLOR            0xDEE6  // Yellow
     #define TFT_BTOKMENU_COLOR            0x145F  // Cyan
   #endif
-  #define TFT_BUFFER_SIZE                  14400
+  #ifdef MKS_WIKI
+    #undef TFT_BUFFER_SIZE
+    #define TFT_BUFFER_SIZE                  320*8
+  #else  
+    #define TFT_BUFFER_SIZE                  14400  
+  #endif
+#elif HAS_GRAPHICAL_TFT
+
+  #define TFT_RESET_PIN                     PC6
+  #define TFT_BACKLIGHT_PIN                 PD13
+  #define TFT_CS_PIN                        PD7   // NE4
+  #define TFT_RS_PIN                        PD11  // A0
   
 #endif
+
+#if NEED_TOUCH_PINS
+  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
+  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
+  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
+  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
+  #define TOUCH_INT_PIN                     -1
+#endif
+
 /* Module TEST TFT BTT */
 #if HAS_WIRED_LCD
     //#define BEEPER_PIN                      PC5 //PB5//EXP1_10
