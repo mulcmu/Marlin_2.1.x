@@ -271,6 +271,7 @@
     #define PS_ON_PIN                       PB2   // PW_OFF
     #define KILL_PIN                        PA2
     #define KILL_PIN_STATE                  true
+  #endif
 #endif
 
 #if ENABLED(BACKUP_POWER_SUPPLY)
@@ -381,12 +382,10 @@
     #define TFT_BUFFER_SIZE                  14400  
   #endif
 #elif HAS_GRAPHICAL_TFT
-
   #define TFT_RESET_PIN                     PC6
   #define TFT_BACKLIGHT_PIN                 PD13
   #define TFT_CS_PIN                        PD7   // NE4
   #define TFT_RS_PIN                        PD11  // A0
-  
 #endif
 
 #if NEED_TOUCH_PINS
@@ -397,7 +396,7 @@
   #define TOUCH_INT_PIN                     -1
 #endif
 
-/* Module TEST TFT BTT */
+/* Module TEST TFT BTT //
 #if HAS_WIRED_LCD
     //#define BEEPER_PIN                      PC5 //PB5//EXP1_10
     //#define BTN_ENC                         -1 //PA15//EXP1_09
@@ -415,7 +414,7 @@
       #define TFT_QUEUE_SIZE                6144
     #endif    
 #endif
-
+*/
 /**
  *            SKR Mini E3 V2.0
  *                ------

@@ -20,6 +20,8 @@
 //#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
+// Init EEPROM on first boot after a new build.
+//#define EEPROM_INIT_NOW   
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -348,6 +350,7 @@
 // and proper jumper configuration. Uses I/O pins PA8(Default QQS).
 #ifdef QQS_UARTH
     #define Q_TMC
+    #define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
     #define STEALTHCHOP_E
     #define DRIVER_AXES TMC2209

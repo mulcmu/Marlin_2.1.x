@@ -2544,7 +2544,7 @@
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      100
   #elif ANY(SR_MKS, SR_BTT)
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     40
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      700
   #else                                                // This short retract is done immediately, before parking the nozzle.
@@ -2568,7 +2568,7 @@
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    70 
   #elif ANY(SR_MKS, SR_BTT)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  30
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   550   
   #else                                             // 0 to disable start loading and skip to fast load only

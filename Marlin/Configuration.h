@@ -118,7 +118,7 @@
   #endif
   #ifdef SR_MKS
     #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3
-    #define BAUD_RATE_GCODE
+    //#define BAUD_RATE_GCODE
   #endif
   #ifdef SR_BTT
     #define MOTHERBOARD BOARD_BTT_SKR_V1_3
@@ -135,7 +135,7 @@
  */
 #if ANY(SR_MKS, SR_BTT)
   #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
-  #define BAUDRATE 115200
+  #define BAUDRATE 250000
 #else
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
@@ -170,8 +170,8 @@
     #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
     #define BAUDRATE_2 500000
     #ifdef MKS_WIFI
-      #define SERIAL_PORT_3 1 // 1 MKS-Wifi(2=nok)
-      //#define BAUDRATE_3 115200
+      #define SERIAL_PORT_3 1 // 1=ESP3Dv2.1 MKS-Wifi(2=nok)
+      #define BAUDRATE_3 115200
     #endif
   #endif
 #else
@@ -1843,11 +1843,17 @@
   #ifdef TFT_LVGL_UI
     #define FIL_RUNOUT_PIN     MT_DET_1_PIN
   #endif
-  #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
+  #ifdef XP1
+    #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
+    //#define FIL_RUNOUT_PULLDOWN
+  #else
+    #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
+    #define FIL_RUNOUT_PULLUP
+  #endif
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
-
+  
   #define FIL_RUNOUT_STATE     LOW        // Pin state indicating that filament is NOT present.
-  #define FIL_RUNOUT_PULLUP               // Use internal pullup for filament runout pins.
+  //#define FIL_RUNOUT_PULLUP               // Use internal pullup for filament runout pins.
   //#define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
   //#define WATCH_ALL_RUNOUT_SENSORS      // Execute runout script on any triggering sensor, not only for the active extruder.
                                           // This is automatically enabled for MIXING_EXTRUDERs.
@@ -2342,7 +2348,7 @@
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
   #define NOZZLE_PARK_XY_FEEDRATE 100   // (mm/s) X and Y axes feedrate (also used for delta Z axis)
-  #define NOZZLE_PARK_Z_FEEDRATE    5   // (mm/s) Z axis feedrate (not used for delta printers)
+  //#define NOZZLE_PARK_Z_FEEDRATE    5   // (mm/s) Z axis feedrate (not used for delta printers)
   //#define NOZZLE_PARK_ON_TEMP_ERROR   // Park Nozzle before Halt on temperature error
 #endif
 
@@ -3386,7 +3392,7 @@
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN      5
   #define NEOPIXEL_PIXELS     18   // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
-  //#define NEOPIXEL_IS_SEQUENTIAL // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+  #define NEOPIXEL_IS_SEQUENTIAL // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS 250  // Initial brightness (0-255)
   #define NEOPIXEL_STARTUP_TEST    // Cycle through colors at startup
 
