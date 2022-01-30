@@ -2564,7 +2564,7 @@
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   550   
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   560  // Default 565mm
   #else                                             // 0 to disable start loading and skip to fast load only
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20// 6  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     30  // (mm/s^2) Lower acceleration may allow a faster feedrate.
