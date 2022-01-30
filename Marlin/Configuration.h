@@ -133,7 +133,7 @@
  */
 #if ANY(SR_MKS, SR_BTT)
   #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
-  #define BAUDRATE 115200
+  #define BAUDRATE 250000
 #else
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
