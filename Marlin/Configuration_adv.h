@@ -2538,11 +2538,11 @@
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      100
   #elif ANY(SR_MKS, SR_BTT)
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     40
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      700
   #else                                                // This short retract is done immediately, before parking the nozzle.
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20//10  // (mm/s) Unload filament feedrate. This can be pretty fast.
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     30//10  // (mm/s) Unload filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        30  // (mm/s^2) Lower acceleration may allow a faster feedrate.
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      850  // (mm) The length of filament for a complete unload.
                                                   //   For Bowden, the full length of the tube and nozzle.
@@ -2562,11 +2562,11 @@
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    70 
   #elif ANY(SR_MKS, SR_BTT)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   560  // Default 565mm
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   550  // Default 565mm
   #else                                             // 0 to disable start loading and skip to fast load only
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20// 6  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40// 6  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     30  // (mm/s^2) Lower acceleration may allow a faster feedrate.
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   730  // (mm) Load length of filament, from extruder gear to nozzle.
                                                   //   For Bowden, the full length of the tube and nozzle.
