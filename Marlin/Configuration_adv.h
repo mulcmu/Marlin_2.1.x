@@ -2556,13 +2556,13 @@
   #elif ENABLED(NEMA14)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    70 
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    70
   #elif ANY(SR_MKS, SR_BTT)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  30
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   550   
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   550
   #else                                             // 0 to disable start loading and skip to fast load only
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  20// 6  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40// 6  //40  // (mm/s) Load filament feedrate. This can be pretty fast.
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     30  // (mm/s^2) Lower acceleration may allow a faster feedrate.
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   730  // (mm) Load length of filament, from extruder gear to nozzle.
                                                   //   For Bowden, the full length of the tube and nozzle.
