@@ -1296,36 +1296,37 @@
   #define FEEDRATE_CHANGE_BEEP_FREQUENCY 440
 #endif
 
-#if HAS_BED_PROBE && EITHER(HAS_MARLINUI_MENU, HAS_TFT_LVGL_UI)
-  //#define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
-  #if ENABLED(PROBE_OFFSET_WIZARD)
-    /**
-     * Enable to init the Probe Z-Offset when starting the Wizard.
-     * Use a height slightly above the estimated nozzle-to-probe Z offset.
-     * For example, with an offset of -5, consider a starting height of -4.
-     */
-    #define PROBE_OFFSET_WIZARD_START_Z (Z_OFFSET +1)
-
-    // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
-    //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
-  #endif
-#endif
-
 #if HAS_MARLINUI_MENU
 
   // Add Probe Z Offset calibration to the Z Probe Offsets menu
-  #if BOTH(HAS_BED_PROBE, AUTO_BED_LEVELING_BILINEAR)
-    // Add calibration in the Probe Offsets menu to compensate for X-axis twist.
-    //#define X_AXIS_TWIST_COMPENSATION
-    #if ENABLED(X_AXIS_TWIST_COMPENSATION)
-      /**
-       * Enable to init the Probe Z-Offset when starting the Wizard.
-       * Use a height slightly above the estimated nozzle-to-probe Z offset.
-       * For example, with an offset of -5, consider a starting height of -4.
-       */
-      #define XATC_START_Z 0.0
-      #define XATC_MAX_POINTS 3             // Number of points to probe in the wizard
-      #define XATC_Y_POSITION Y_CENTER      // (mm) Y position to probe
+  #if HAS_BED_PROBE
+    //#define PROBE_OFFSET_WIZARD
+    #if ENABLED(PROBE_OFFSET_WIZARD)
+      //
+      // Enable to init the Probe Z-Offset when starting the Wizard.
+      // Use a height slightly above the estimated nozzle-to-probe Z offset.
+      // For example, with an offset of -5, consider a starting height of -4.
+      //
+      //#define PROBE_OFFSET_WIZARD_START_Z (Z_OFFSET +1)
+
+      // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
+      //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
+    #endif
+
+    #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
+      // Add a calibration procedure in the Probe Offsets menu
+      // to compensate for twist in the X-axis.
+      //#define X_AXIS_TWIST_COMPENSATION
+      #if ENABLED(X_AXIS_TWIST_COMPENSATION)
+        /**
+         * Enable to init the Probe Z-Offset when starting the Wizard.
+         * Use a height slightly above the estimated nozzle-to-probe Z offset.
+         * For example, with an offset of -5, consider a starting height of -4.
+         */
+        #define XATC_START_Z 0.0
+        #define XATC_MAX_POINTS 3             // Number of points to probe in the wizard
+        #define XATC_Y_POSITION Y_CENTER      // (mm) Y position to probe
+      #endif
     #endif
   #endif
 
@@ -2008,7 +2009,7 @@
 //#define LIN_ADVANCE           // Define on FLSUNQ_Config
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
-  #define LIN_ADVANCE_K 0       // Unit: mm compression per 1mm/s extruder speed
+  #define LIN_ADVANCE_K 0.0     // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
   #define EXPERIMENTAL_SCURVE   // Enable this option to permit S-Curve Acceleration
   #ifdef NEMA14
@@ -4014,37 +4015,18 @@
 // Custom Menu: Configuration Menu
 //#define CUSTOM_MENU_CONFIG
 #if ENABLED(CUSTOM_MENU_CONFIG)
-  #define CONFIG_MENU_ITEM_1_CONFIRM
-  #define CONFIG_MENU_ITEM_1_DESC "Bed"
-  #define CONFIG_MENU_ITEM_1_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED)
-
-  #define CONFIG_MENU_ITEM_2_CONFIRM
-  #define CONFIG_MENU_ITEM_2_DESC PREHEAT_1_LABEL
-  #define CONFIG_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
-
-  #define CONFIG_MENU_ITEM_3_CONFIRM
-  #define CONFIG_MENU_ITEM_3_DESC PREHEAT_2_LABEL
-  #define CONFIG_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
-
-  #define CONFIG_MENU_ITEM_4_CONFIRM
-  #define CONFIG_MENU_ITEM_4_DESC "Cool"
-  #define CONFIG_MENU_ITEM_4_GCODE "M108\nM106 255"
-#endif
-
-//#define CUSTOM_MENU_CONFIG
-//#if ENABLED(CUSTOM_MENU_CONFIG)
   //#define CUSTOM_MENU_CONFIG_TITLE "Radio Commands"
-  //#define CUSTOM_MENU_CONFIG_SCRIPT_DONE "M117 Wireless Script Done"
-  //#define CUSTOM_MENU_CONFIG_SCRIPT_AUDIBLE_FEEDBACK
+  #define CUSTOM_MENU_CONFIG_SCRIPT_DONE "M117 Wireless Script Done"
+  #define CUSTOM_MENU_CONFIG_SCRIPT_AUDIBLE_FEEDBACK
   //#define CUSTOM_MENU_CONFIG_SCRIPT_RETURN  // Return to status screen after a script
-  //#define CUSTOM_MENU_CONFIG_ONLY_IDLE        // Only show custom menu when the machine is idle
+  #define CUSTOM_MENU_CONFIG_ONLY_IDLE        // Only show custom menu when the machine is idle
 
-  //#define CONFIG_MENU_ITEM_1_DESC "Wifi ON"
-  //#define CONFIG_MENU_ITEM_1_GCODE "M118 [ESP110] WIFI-STA pwd=12345678"
+  #define CONFIG_MENU_ITEM_1_DESC "Wifi ON"
+  #define CONFIG_MENU_ITEM_1_GCODE "M118 [ESP110] WIFI-STA pwd=12345678"
   //#define CONFIG_MENU_ITEM_1_CONFIRM        // Show a confirmation dialog before this action
 
-  //#define CONFIG_MENU_ITEM_2_DESC "Bluetooth ON"
-  //#define CONFIG_MENU_ITEM_2_GCODE "M118 [ESP110] BT pwd=12345678"
+  #define CONFIG_MENU_ITEM_2_DESC "Bluetooth ON"
+  #define CONFIG_MENU_ITEM_2_GCODE "M118 [ESP110] BT pwd=12345678"
   //#define CONFIG_MENU_ITEM_2_CONFIRM
 
   //#define CONFIG_MENU_ITEM_3_DESC "Radio OFF"
@@ -4058,7 +4040,7 @@
   //#define CONFIG_MENU_ITEM_5_DESC "Wifi ????"
   //#define CONFIG_MENU_ITEM_5_GCODE "M118 ????"
   //#define CONFIG_MENU_ITEM_5_CONFIRM
-//#endif
+#endif
 
 /**
  * User-defined buttons to run custom G-code.
