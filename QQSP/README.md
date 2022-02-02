@@ -1,4 +1,4 @@
-### 2022-01-10 MARLIN 2.0.9.3 OFFICIAL
+### 2022-02-02 MARLIN 2.0.9.3 BugFix
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -22,6 +22,8 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
 
   **Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
+
+**ADD:** Pack firmwares for BTT-TFT35/70 mode landscape and portrait.
 
   **Caption:**
 
