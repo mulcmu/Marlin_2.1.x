@@ -1,30 +1,35 @@
-### 2021-11-11 MARLIN 2.0.9.3+ OFFICIAL BUGFIX
+### 2022-02-02 MARLIN 2.0.9.3+ BUGFIX
 
-- QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
-- QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
+- QQS-Pro With MoBo Nanov3+4xTMC2209 = QQSP_TFT-header-Robin_nano_v3.bin
+- QQS-Pro With MoBo SRK+4xTMC2209 = QQSP_STOCK-header-MoBo-firmware.bin
 - QQS-Pro STOCK With 4xTMC2209 = QQSP_STOCK_TMC9-Robin_mini.bin
   
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
+
+**ADD:**
+ - Pack Firmware for BTT-TFT35/70 mode landscape and portrait for TFT35v3. 
+
 Below is an example with the firmware for a QQS printer with a MKS-NanoV3 board with 4xTMC2209 stepper drivers and BMG_right extruder:
 
 **Exemple:**
-QQS_TS35-U9CBPULR32-Robin_nano_v3.bin
+QQSP+TS35-U9CBPULR32-Robin_nano_v3.bin
 => 
-   - (U9)4xTMC2209 UART - 
-   - (C)UI Marlin TS35v2 - 
-   - (B)Extruder BMG Right_ hand - 
-   - (P)PreHeat bed - 
-   - (U)Leveling mode -
-   - (L)LinearAdvance - 
-   - (R)Arc function enabled -
-   - (32)Steps nb -
+ - (U9)4xTMC2209 UART - 
+ - (C)UI Marlin with TFT TS35v2 - 
+ - (B)Extruder BMG Right_ hand - 
+ - (P)PreHeat bed - 
+ - (U)Leveling mode -
+ - (L)LinearAdvance - 
+ - (R)Arc function enabled -
+ - (32)Steps nb -
+ - (MoBo) NanoV3
 
-  **Note**: After choosing your binary, remove the "QQS_TS35-U9CBPULR32-" header or rename the file to "Robin_nano_v3.bin" for QQS,
+  **Note**: After choosing your binary, remove the "QQSP_TS35-U9CBPULR32-" header or rename the file to "Robin_nano_v3.bin" for QQS or "firmware.bin".
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
-  - P = Probe (Purple)
-  - R = Runout for the filament (Orange)
-  - F = Fan1 for the HeatSink (Green) (begin at 50°C)
+ - P = Probe (Purple)
+ - R = Runout for the filament (Orange)
+ - F = Fan1 for the HeatSink (Green) (begin at 50°C)
 
 ![Cnx_NanoV3](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/NanoV3-EndStop.png)
 
@@ -38,13 +43,14 @@ QQS_TS35-U9CBPULR32-Robin_nano_v3.bin
   - (U9) 4xTMC2209_UART with no module ESP12.
   - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
-  - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
+  - (16) All drivers 16steps
+  - (32) All drivers 32steps
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
   - (C) UI MARLIN (TFT Color screen)
   - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
-  - (r) UI STANDARD (Marlin Mode on TFT FOR SKR/NANOv2-3)
+  - (r) UI STANDARD (Marlin Mode on BTT-TFT FOR SKR/NANOv2-3)
   - (D) UI DWIN (H43)
 
   **/*------Modules--------*/**

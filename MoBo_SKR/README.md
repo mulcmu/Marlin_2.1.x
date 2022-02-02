@@ -1,18 +1,24 @@
-### 2021-11-11 MARLIN 2.0.9.3+ OFFICIAL BUGFIX
+### 2022-02-02 MARLIN 2.0.9.3+ BUGFIX
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
-Below is an example with the firmware for a Q5 printer with a BTT-SRK14T board with 4xTMC2209 stepper drivers and BMG_right extruder:
+
+**ADD:**
+  - Pack Firmware for BTT-TFT35/70 mode landscape and portrait for TFT35v3. 
+
+Below is an example with the firmware for a QQS printer with a MKS-NanoV3 board with 4xTMC2209 stepper drivers and BMG_right extruder:
 
 **Exemple:**
-U9rWBPULR-MoBo.bin => Q5 or QQS with other MotherBoard.
-=> - (U9)4xTMC2208 UART - 
-   - (r)UI for BTT screen - 
-   - (W)Wifi module - 
-   - (B)Extruder BMG_Right - 
-   - (P)PreHeat bed - 60°C
-   - (U)Leveling mode - UBL
-   - (L)LinearAdvance - 
-   - (R)Arc function enabled.
+QQSP+BTT-U9rBPULR32-SKR2b-firmware.bin
+=> 
+  - (U9)4xTMC2209 UART - 
+  - (r)UI Classic/Touch with BTT-TFT35v3 - 
+  - (B)Extruder BMG Right_ hand - 
+  - (P)PreHeat bed - 
+  - (U)Leveling mode -
+  - (L)LinearAdvance - 
+  - (R)Arc function enabled -
+  - (32)Steps nb -
+  - (MoBo) SKR2 revision b
 
   **Note**: After choosing your binary, remove the "8CWBL-SRKxx" header or rename the file to "firmware.bin" for QQS-SKR,
   place it on your SD card, insert your SD card into the printer and power on your printer.
@@ -46,7 +52,7 @@ U9rWBPULR-MoBo.bin => Q5 or QQS with other MotherBoard.
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
-  - (C) UI MARLIN (TFT Color screen)
+  - (C) UI MARLIN (TFT Color screen with TS35v2)
   - (I) UI MKS (TFT Color screen>=480x320 use Lvgl/NANOv2-3)
   - (r) UI STANDARD (For BTT-TFT screen with Marlin Mode Emulation on TFT )
 
