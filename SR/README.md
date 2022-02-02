@@ -1,4 +1,4 @@
-### 2022-01-10 MARLIN 2.0.9.3 RELEASE
+### 2022-02-02 MARLIN 2.0.9.3 RELEASE BUGFIX
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
 Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and BTT TFT:
@@ -14,6 +14,10 @@ SRM-SrBPULR-Robin_nano_v3.bin
    - (U)Leveling mode UBL
    - (L)LinearAdvance enabled - Stock 
    - (R)Arc function enabled - Stock
+
+**ADD:**
+   - Pack Firmware for BTT-TFT35/70 mode landscape and portrait for TFT35v3. 
+
 
   **Note**: After choosing your binary, remove the "SRM-SrBPULR-" header or rename the file to "Robin_nano_v3.bin" for SR-MKS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
