@@ -17,7 +17,7 @@
 *  Default is actif for QQS and it's uncommented ;-)
 */
 //For run tests on my dev'printer!!
-//#define XP_DEV
+#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
@@ -257,10 +257,12 @@
   #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
 //Note for QQSP/Q5 DGUS/DWIN: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
   //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
+  //#define DGUS_LCD_UI_CREALITY_TOUCH
   //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
-  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen  
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen 
+  //#define CR10_STOCKDISPLAY 
 #elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.

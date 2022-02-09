@@ -642,7 +642,7 @@
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
   #if ANY(SR_MKS, SR_BTT)
-    #define HEATER_0_MAXTEMP 290
+    #define HEATER_0_MAXTEMP 300  // Volcano thermistor or HotMetal
   #else
     #define HEATER_0_MAXTEMP 275
   #endif
@@ -1540,10 +1540,10 @@
 #else
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 //#define Z_PROBE_FEEDRATE_FAST (200*60)
-  #define Z_PROBE_FEEDRATE_FAST (40*60)  //2400
+  #define Z_PROBE_FEEDRATE_FAST (80*60)  //4800 (40*60)  //2400
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //400
+  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 8) //8=600 6=400
 #endif
 
 /**
@@ -1593,9 +1593,7 @@
  */
 //#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
-#ifdef X_PROBE
-  #define MULTIPLE_PROBING 2
-#elif ANY(P_PROBE, N_PROBE)
+#if ANY(P_PROBE, N_PROBE, X_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
 #else
@@ -2060,10 +2058,13 @@
 
   #if ANY(N_PROBE, P_PROBE)
     #define MESH_INSET 1
-    #define GRID_MAX_POINTS_X 11
+    #define GRID_MAX_POINTS_X 11     // MeshHight
+  #elif ENABLED(XP1)
+    #define MESH_INSET 15
+    #define GRID_MAX_POINTS_X 6       //MeshLow
   #else
   	#define MESH_INSET 15             // Set Mesh bounds as an inset region of the bed
-	#define GRID_MAX_POINTS_X 8       // Don't use more than 15 points per axis, implementation limited.
+	  #define GRID_MAX_POINTS_X 8       // MeshFine Don't use more than 15 points per axis, implementation limited.
   /// 10=53points, 13=90points, 15=110points
   #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
@@ -2266,7 +2267,7 @@
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
-  //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
+  #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
   //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
@@ -3260,6 +3261,7 @@
 //
 //#define DWIN_CREALITY_LCD           // Creality UI
 //#define DWIN_CREALITY_LCD_ENHANCED  // Enhanced UI
+//#define DWIN_LCD_PROUI              // MRiscoC Enable ProUI
 //#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
 //#define DWIN_MARLINUI_PORTRAIT      // MarlinUI (portrait orientation)
 //#define DWIN_MARLINUI_LANDSCAPE     // MarlinUI (landscape orientation)
@@ -3393,7 +3395,7 @@
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN      5
   #define NEOPIXEL_PIXELS     18   // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
-  #define NEOPIXEL_IS_SEQUENTIAL // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+  //#define NEOPIXEL_IS_SEQUENTIAL // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS 250  // Initial brightness (0-255)
   #define NEOPIXEL_STARTUP_TEST    // Cycle through colors at startup
 
@@ -3408,10 +3410,10 @@
   #endif
 
   // Use some of the NeoPixel LEDs for static (background) lighting
-  //#define NEOPIXEL_BKGD_INDEX_FIRST  0              // Index of the first background LED
-  //#define NEOPIXEL_BKGD_INDEX_LAST   5              // Index of the last background LED
-  //#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
-  //#define NEOPIXEL_BKGD_ALWAYS_ON                   // Keep the backlight on when other NeoPixels are off
+  #define NEOPIXEL_BKGD_INDEX_FIRST  0              // Index of the first background LED
+  #define NEOPIXEL_BKGD_INDEX_LAST   8             // Index of the last background LED
+  #define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
+  #define NEOPIXEL_BKGD_ALWAYS_ON                   // Keep the backlight on when other NeoPixels are off
 #endif
 
 /**
