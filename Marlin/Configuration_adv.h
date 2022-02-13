@@ -2569,8 +2569,8 @@
                                                   //   For direct drive, the full length of the nozzle.
   #endif
   //#define ADVANCED_PAUSE_CONTINUOUS_PURGE       // Purge continuously up to the purge length until interrupted.
-  #define ADVANCED_PAUSE_PURGE_FEEDRATE       10  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
-  #define ADVANCED_PAUSE_PURGE_LENGTH         50  // (mm) Length to extrude after loading.
+  #define ADVANCED_PAUSE_PURGE_FEEDRATE        5  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
+  #define ADVANCED_PAUSE_PURGE_LENGTH         10  // (mm) Length to extrude after loading.
                                                   //   Set to 0 for manual extrusion.
                                                   //   Filament can be extruded repeatedly from the Filament Change menu
                                                   //   until extrusion is consistent, and to purge old filament.
@@ -3965,25 +3965,25 @@
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "0.Bed Level. UBL for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_5_GCODE "M1004B60S0"
+  #define MAIN_MENU_ITEM_5_DESC "1.Bed Level. UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_GCODE "M1004B60S1"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "0.PID_Nozzle_for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_DESC "1.PID_Nozzle_for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107\nM117 PID Tune Done"
   //"M106S128\nM303C8S215E0U\nM500\nM117 PID Tune Done"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "0.Print_Test_Pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29L0\nG26I0P4\nM500\nG28W\nM117 Print Mesh Done"
+  #define MAIN_MENU_ITEM_7_DESC "1.Print_Test_Pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29L1\nG26I0P4\nM500\nG28W\nM117 Print Mesh Done"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "1.Bed Level. UBL for " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_8_GCODE "G29L1\nM1004B80S1"
+  #define MAIN_MENU_ITEM_8_DESC "2.Bed Level. UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_8_GCODE "M1004B80S2"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "2.Bed Level. UBL for " PREHEAT_3_LABEL
-  #define MAIN_MENU_ITEM_9_GCODE "G29L2\nM1004B90S2"
+  #define MAIN_MENU_ITEM_9_DESC "3.Bed Level. UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "M1004B90S3"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
   #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
