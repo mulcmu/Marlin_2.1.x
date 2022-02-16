@@ -916,7 +916,7 @@
   // and processor overload (too many expensive sqrt calls).
   #if ANY(SR_MKS, SR_BTT)
     #define DELTA_SEGMENTS_PER_SECOND 160
-  #elif ANY(XP1, XP2)
+  #elif ENABLED(XP1)
     #define DELTA_SEGMENTS_PER_SECOND 100  //200  
   #else
     #define DELTA_SEGMENTS_PER_SECOND  80  //200
@@ -1251,12 +1251,8 @@
  */
 #if ANY(SR_MKS, SR_BTT)
   #define DEFAULT_ACCELERATION          2800
-  #define DEFAULT_RETRACT_ACCELERATION  2800
+  #define DEFAULT_RETRACT_ACCELERATION  1500   // E
   #define DEFAULT_TRAVEL_ACCELERATION   2800
-#elif ENABLED(NEMA14)
-  #define DEFAULT_ACCELERATION          2000   // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1500   //3000/250    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   2000   // X, Y, Z acceleration for travel (non printing) moves
 #else
   #define DEFAULT_ACCELERATION          1500   // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500   // E acceleration for retracts
@@ -1845,7 +1841,7 @@
   #ifdef TFT_LVGL_UI
     #define FIL_RUNOUT_PIN     MT_DET_1_PIN
   #endif
-  #ifdef XP1
+  #if ANY(XP1,XP2)
     #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
     //#define FIL_RUNOUT_PULLDOWN
   #else
