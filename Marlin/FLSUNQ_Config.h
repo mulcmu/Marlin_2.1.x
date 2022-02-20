@@ -17,7 +17,7 @@
 *  Default is actif for QQS and it's uncommented ;-)
 */
 //For run tests on my dev'printer!!
-#define XP_DEV
+//#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
@@ -107,7 +107,7 @@
  */
                   /* User settings extruder */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SuperDriveHX.
-//#define EXTRUDER_STEPS 562             // Ajust your eSteps.
+//#define EXTRUDER_STEPS  1120//560             // LGX Ajust your eSteps.
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
@@ -236,6 +236,7 @@
   #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview.
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
+    #define DIAG_JUMPERS_REMOVED
     #define PROBE_OFFSET_WIZARD
     #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
     #define CUSTOM_MENU_MAIN
@@ -365,9 +366,10 @@
 // Need wiring pins DIAG to EndSTOP(Signal).
 
 // Use the function Stallguard1 for homing without endstop
-// (Need to adjust the sensitivity).
+// (Need to adjust the sensitivity by TMC menu).
 // SENSORLESS_HOMING             
 #ifdef STALLGUARD_1
+  #undef DIAG_JUMPERS_REMOVED
   #define SENSORLESS_HOMING
 #endif
 // Use the function StallGuard2 for probing with the nozzle.
