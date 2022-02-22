@@ -22,7 +22,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   **Note**: After choosing your binary, remove the "8+SCWTPULR-" header or rename the file to "Robin_nano.bin" for old Q5 or "Robin_nano.bin35" for the new Q5,
   place it on your SD card, insert your SD card into the printer and power on your printer.
 
-  **Caption:**
+  **Header caption:**
 
   **/*------Drivers--------*/**
   - (S) A4988 (green/red)
