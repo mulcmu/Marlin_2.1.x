@@ -36,7 +36,7 @@ QQSP+BTT-U9rBPULR32-SKR2b-firmware.bin
   - (QQS)U8rBPUR32-SKR13_firmware  QQS SKR13(4xTMC2208_standAlone)32steps without LA, with BMG Right_Hand extruder.
   - (QQS)U9rTPULR16-SKR14_firmware QQS with SKRv1.4 Board with emulation LCD (Marlin Mode)
   
-  **Caption:**
+  **Header caption:**
 
   **/*------Drivers--------*/**
   - (S) A4988 (green/red)
