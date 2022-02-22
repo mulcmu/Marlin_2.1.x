@@ -33,7 +33,7 @@ QQSP+TS35-U9CBPULR32-Robin_nano_v3.bin
 
 ![Cnx_NanoV3](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/NanoV3-EndStop.png)
 
-  **Caption:**
+  **Header caption:**
 
   **/*------Drivers--------*/**
   - (S) A4988 (green/red rectangle)
