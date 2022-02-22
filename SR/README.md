@@ -27,7 +27,7 @@ SRM-SrBPULR-Robin_nano_v3.bin
   - (QQS)U8rBPUR32-SKR12PRO_firmware     QQS SKR12PRO(4xTMC2208_standAlone)32steps without LA, with BMG extruder.
   - (QQS)U9rTPULR16-SKR14_firmware QQS with SKRv1.4 Board with emulation LCD (Marlin Mode)
   
-  **Caption:**
+  **Header caption:**
 
   **/*------Drivers--------*/**
   - (S) Stock=4xTMC2209_UART. (default)
