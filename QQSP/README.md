@@ -25,7 +25,7 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
 
 **ADD:** Pack firmwares for BTT-TFT35/70 mode landscape and portrait.
 
-  **Caption:**
+  **Header caption:**
 
   **/*------Drivers--------*/**
   - (S) A4988 (green/red rectangle)
