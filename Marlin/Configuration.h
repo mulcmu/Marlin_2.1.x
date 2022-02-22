@@ -109,6 +109,7 @@
     #define MOTHERBOARD BOARD_FLSUN_HISPEED
     //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
     //#define MOTHERBOARD BOARD_MKS_SGEN_L
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4 // Q5 new MoBo
     #define BAUD_RATE_GCODE
   #endif
   #ifdef Q5
@@ -167,11 +168,15 @@
     #define SERIAL_PORT_2 0 //BTT -1
   #endif
   #ifdef SR_MKS
-    #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
-    #define BAUDRATE_2 250000
-    #ifdef MKS_WIFI
-      #define SERIAL_PORT_3 1 // 1=ESP3Dv2.1 MKS-Wifi(2=nok)
-      #define BAUDRATE_3 115200
+    #ifdef ESP3D_30
+      #undef SERIAL_PORT_2 //1 // 1=ESP3Dv3.0 MKS-Wifi
+    #elif ENABLED(MKS_WIFI)
+      #define SERIAL_PORT_2 1 // 1=ESP3Dv2.1 MKS-Wifi
+      #define SERIAL_PORT_3 3 // 3=BTT-TFT(0,1=nok)
+      #define BAUDRATE_3 250000//115200 
+    #else
+      #define SERIAL_PORT_2 3 // 3=BTT-TFT(0,1=nok)
+      #define BAUDRATE_2 250000      
     #endif
   #endif
 #else

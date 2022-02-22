@@ -326,7 +326,7 @@
     #endif
 #endif
 //Add definition for UART for Q5
-#if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)
+#if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)||BOTH(NANO1X, Q_UART8)||BOTH(NANO1X, Q_UART9)
     #define X_SERIAL_TX_PIN             PA10  // RXD1
     #define X_SERIAL_RX_PIN             PA10  // RXD1
     #define Y_SERIAL_TX_PIN             PA9   // TXD1
