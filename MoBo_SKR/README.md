@@ -22,7 +22,9 @@ QQSP+BTT-U9rBPULR32-SKR2b-firmware.bin
 
   **Note**: After choosing your binary, remove the "8CWBL-SRKxx" header or rename the file to "firmware.bin" for QQS-SKR,
   place it on your SD card, insert your SD card into the printer and power on your printer.
-
+  
+  After the flash and to configure and prepare your printer, please follow the steps on the Wiki => [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  
   - P = Probe (Purple)
   - R = Runout for the filament (Orange)
   - F = Fan1 for the HeatSink (Green) (begin at 50°C)
