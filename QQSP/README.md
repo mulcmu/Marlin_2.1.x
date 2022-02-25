@@ -22,6 +22,8 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
 
   **Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
+  
+  After the flash and to configure and prepare your printer, please follow the steps on the Wiki => [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
 
 **ADD:** Pack firmwares for BTT-TFT35/70 mode landscape and portrait.
 
