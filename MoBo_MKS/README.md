@@ -26,7 +26,9 @@ QQSP+TS35-U9CBPULR32-Robin_nano_v3.bin
 
   **Note**: After choosing your binary, remove the "QQSP_TS35-U9CBPULR32-" header or rename the file to "Robin_nano_v3.bin" for QQS or "firmware.bin".
   place it on your SD card, insert your SD card into the printer and power on your printer.
-
+  
+  After the flash and to configure and prepare your printer, please follow the steps on the Wiki => [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  
  - P = Probe (Purple)
  - R = Runout for the filament (Orange)
  - F = Fan1 for the HeatSink (Green) (begin at 50°C)
