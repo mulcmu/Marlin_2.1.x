@@ -21,7 +21,9 @@ SRM-SrBPULR-Robin_nano_v3.bin
 
   **Note**: After choosing your binary, remove the "SRM-SrBPULR-" header or rename the file to "Robin_nano_v3.bin" for SR-MKS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
-
+  
+  After the flash and to configure and prepare your printer, please follow the steps on the Wiki => [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  
   **/*-------Others Firmwares for QQS with SKR family or Mks_Nano Family----*/**
   - (QQS)U9rTPULR16-SKR14T_firmware   QQS SKR14T(4xTMC2209UART)16steps with TITAN extruder. 
   - (QQS)U8rBPUR32-SKR12PRO_firmware     QQS SKR12PRO(4xTMC2208_standAlone)32steps without LA, with BMG extruder.
