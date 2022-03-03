@@ -3399,9 +3399,9 @@
   //#define NEOPIXEL_PIN  LED_PWM  // LED driving pin
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN      5
-  #define NEOPIXEL_PIXELS     18   // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
-  //#define NEOPIXEL_IS_SEQUENTIAL // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
-  #define NEOPIXEL_BRIGHTNESS 250  // Initial brightness (0-255)
+  //#define NEOPIXEL_PIXELS    18  // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
+  #define NEOPIXEL_IS_SEQUENTIAL // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+  #define NEOPIXEL_BRIGHTNESS 100  // Initial brightness (0-255)
   #define NEOPIXEL_STARTUP_TEST    // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
@@ -3415,10 +3415,10 @@
   #endif
 
   // Use some of the NeoPixel LEDs for static (background) lighting
-  #define NEOPIXEL_BKGD_INDEX_FIRST  0              // Index of the first background LED
-  #define NEOPIXEL_BKGD_INDEX_LAST   8             // Index of the last background LED
+  //#define NEOPIXEL_BKGD_INDEX_FIRST  6              // Index of the first background LED
+  //#define NEOPIXEL_BKGD_INDEX_LAST   17             // Index of the last background LED
   #define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
-  #define NEOPIXEL_BKGD_ALWAYS_ON                   // Keep the backlight on when other NeoPixels are off
+  //#define NEOPIXEL_BKGD_ALWAYS_ON                   // Keep the backlight on when other NeoPixels are off
 #endif
 
 /**
