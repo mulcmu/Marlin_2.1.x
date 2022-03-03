@@ -401,7 +401,7 @@
 #endif
 #ifndef EJERK
   #ifdef NEMA14
-    #define EJERK       5.0
+    #define EJERK       2.8
   #else
     #define EJERK       10.0
   #endif
