@@ -165,7 +165,14 @@
 //#define BAUDRATE_2 250000   // Enable to override BAUDRATE
 #if ANY(SR_MKS, SR_BTT)
   #ifdef SR_BTT
-    #define SERIAL_PORT_2 0 //BTT -1
+    #ifdef MKS_WIFI
+      #define SERIAL_PORT 3 // 3=ESP3Dv3.0 MKS-Wifi
+      #define SERIAL_PORT_2 -1 // -1=USB Connection
+      #define BAUDRATE_3 250000//115200 
+    #else
+      #define SERIAL_PORT 0 // 0=USB Connection
+      #define BAUDRATE 250000
+    #endif
   #endif
   #ifdef SR_MKS
     #ifdef ESP3D_30
