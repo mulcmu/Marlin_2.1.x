@@ -2556,9 +2556,9 @@
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      550
   #elif ENABLED(NEMA14)
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     10
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      100
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH      110
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     40
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
@@ -2580,9 +2580,9 @@
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
   #elif ENABLED(NEMA14)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  10
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    70
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
@@ -2604,7 +2604,7 @@
   //#define ADVANCED_PAUSE_FANS_PAUSE             // Turn off print-cooling fans while the machine is paused.
 
                                                   // Filament Unload does a Retract, Delay, and Purge first:
-  #define FILAMENT_UNLOAD_PURGE_RETRACT       13  // (mm) Unload initial retract length.
+  #define FILAMENT_UNLOAD_PURGE_RETRACT        6  // (mm) Unload initial retract length.
   #define FILAMENT_UNLOAD_PURGE_DELAY      10000  // (ms) Delay for the filament to cool after retract.
   #define FILAMENT_UNLOAD_PURGE_LENGTH         8  // (mm) An unretract is done, then this length is purged.
   #define FILAMENT_UNLOAD_PURGE_FEEDRATE      25  // (mm/s) feedrate to purge before unload

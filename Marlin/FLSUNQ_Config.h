@@ -17,7 +17,7 @@
 *  Default is actif for QQS and it's uncommented ;-)
 */
 //For run tests on my dev'printer!!
-//#define XP_DEV
+#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
@@ -267,13 +267,17 @@
 #elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
+  //#define TFT_INTERFACE_SPI
   #define TFT_RES_320x240
-#else
-  #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
-  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
+  //#define TFT_RES_480x320
+#elif ENABLED(TFT_OTHER)
+  #define MKS_TS35_V2_0           // Only for NanoV2 or V3
   //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
-  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43 
+  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+#else
+   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
+   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
