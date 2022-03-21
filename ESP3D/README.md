@@ -1,4 +1,4 @@
-# Marlin 3D Printer Firmware for Delta QQS-Pro with HISPEEDv1 Board.
+# Marlin 3D Printer Firmwares for FLSun Deltas.
 
 [GitHub Wiki ](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/5.Firmware-Wifi)
 
