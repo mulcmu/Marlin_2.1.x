@@ -142,7 +142,7 @@
                   /* User settings Hotend */ 
 
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
-// by another one ex: "ATC Semitec 104GT-2" = 5 
+// by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13 
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
 
 // For user who change their HotEnd like Volcano and
