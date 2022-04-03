@@ -27,7 +27,7 @@
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
-//#define QQSP                         // (Default_QQS) env = flsun_hispeedv1
+#define QQSP                         // (Default_QQS) env = flsun_hispeedv1
 //#define Q5                         // env = mks_robin_nano35 or (Q5_2021) env = mks_robin_nano_v1_3_f4
                                      // for Q5_2021 = uncomment/comment your MoBo in configuration.h (Line114)
 //#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
@@ -82,7 +82,9 @@
 
   //#define TFT_GENERIC          // For the user who haven't the same screen.
 #else
-  #define TFT_BTT_UI             //(r) UI Classic (emulation LCD Marlin)
+                /*--- Choice UI TFT ----*/
+  //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
+  #define TFT_COLOR_UI              //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
@@ -125,7 +127,8 @@
 
                   /* Option for Neopixel */
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
-//#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7)
+//#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7) on QQS
+                                       //(n) Use port BLTouch (PA8) on SR_MKS
 
         /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
@@ -144,7 +147,7 @@
                   /* User settings Hotend */ 
 
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
-// by another one ex: "ATC Semitec 104GT-2" = 5 
+// by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
 
 // For user who change their HotEnd like Volcano and
@@ -233,6 +236,7 @@
   #define PID_EDIT_MENU                 //  (Default) Tune PID Bed and Nozzle.
   #define PID_AUTOTUNE_MENU             //  (Default) Tune auto PID.
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
+  #define MEDIA_MENU_AT_TOP             //  (Default) Print media menu at top list.  
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview.
@@ -267,6 +271,10 @@
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
   #define TFT_RES_320x240
+#elif BOTH(TFT_COLOR_UI, SR_MKS)
+  #define MKS_TS35_V2_0             // Only for NanoV2 or V3
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define MULTI_VOLUME             // Multiple volume support(µSD + USB)
 #else
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
@@ -347,7 +355,7 @@
  * ---------------------------//
  */
 
-// Note:
+// Note for QQSPro:
 // HardwareSerial with one pins for four drivers
 // Compatible with TMC2209. Provides best performance.
 // Requires SLAVE_ADDRESS definitions in Configuration_adv.h
@@ -401,7 +409,7 @@
 #endif
 #ifndef EJERK
   #ifdef NEMA14
-    #define EJERK       5.0
+    #define EJERK       2.5
   #else
     #define EJERK       10.0
   #endif
@@ -429,4 +437,8 @@
   #else
     #define E_CURRENT       850
   #endif
+#endif
+// NEOPIXEL for SR_MKS
+#ifdef NEOPIXEL_LED
+  #define LED_PWM    SERVO0_PIN
 #endif

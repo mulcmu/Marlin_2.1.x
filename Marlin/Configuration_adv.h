@@ -3969,24 +3969,24 @@
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "0.Bed Level. UBL for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_5_GCODE "M1004 H0 B60 S0"
+  #define MAIN_MENU_ITEM_5_DESC "Bed Level. UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_GCODE "M1004 H0 B70 S1"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "0.PID_Nozzle_for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_DESC "Run PID_Nozzle_for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_6_GCODE "M106 P0 S180\nM303 E0 C8 S210 U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "0.Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_DESC "Print a test pattern in " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29 L0\nG26 I0 P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "1.Bed Level. UBL for " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B80 S1"
+  #define MAIN_MENU_ITEM_8_DESC "Bed Level. UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_8_GCODE "M1004 H0 B80 S2"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "2.Bed Level. UBL for " PREHEAT_3_LABEL
-  #define MAIN_MENU_ITEM_9_GCODE "M1004 H0 B90 S2"
+  #define MAIN_MENU_ITEM_9_DESC "Bed Level. UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "M1004 H0 B90 S3"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
   #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
@@ -4112,7 +4112,7 @@
 #if ENABLED(HOST_ACTION_COMMANDS)
   #define HOST_PAUSE_M76
   #define HOST_PROMPT_SUPPORT
-  //#define HOST_START_MENU_ITEM      // Add a menu item that tells the host to start
+  #define HOST_START_MENU_ITEM      // Add a menu item that tells the host to start
   //#define HOST_SHUTDOWN_MENU_ITEM   // Add a menu item that tells the host to shut down
 #endif
 
