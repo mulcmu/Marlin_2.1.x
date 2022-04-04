@@ -134,10 +134,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(SR_MKS, SR_BTT)
-  #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
-  #define BAUDRATE 250000
-#else
+#if ANY(QQS, Q5)
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
 #endif
@@ -168,13 +165,16 @@
     #ifdef MKS_WIFI
       #define SERIAL_PORT 3 // 3=ESP3Dv3.0 MKS-Wifi
       #define SERIAL_PORT_2 -1 // -1=USB Connection
-      #define BAUDRATE_3 250000//115200 
+      #define BAUDRATE 115200 
     #else
-      #define SERIAL_PORT 0 // 0=USB Connection
-      #define BAUDRATE 250000
+      #define SERIAL_PORT  -1 // -1=USB Connection
+      #define SERIAL_PORT_2 0 // 0=USB Connection
+      #define BAUDRATE 115200
     #endif
   #endif
   #ifdef SR_MKS
+    #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
+    #define BAUDRATE 250000
     #ifdef ESP3D_30
       #undef SERIAL_PORT_2 //1 // 1=ESP3Dv3.0 MKS-Wifi
     #elif ENABLED(MKS_WIFI)
