@@ -1,5 +1,5 @@
-### 2022-01-10 MARLIN 2.0.9.3 OFFICIAL RELEASE
- 
+### 2022-04-05 MARLIN 2.0.10 RELEASE BUGFIX
+
  # **NOTE**: Recently, the Q5 printer has two types of motherboards. The first ones have Mks_robin_nanoV1.2 and the new ones have Mks_robin_nanoV1.3. These are not the same firmwares for Marlin so be careful when downloading to take the right firmware associated with the MoBo.
 
  - Old Q5 STOCK With 3xTMC2208 + 1xA4988 = Q5_STOCK-Robin_nano.bin
@@ -35,6 +35,8 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
   - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
+  - (16) All drivers 16steps (default)
+  - (32) All drivers 32steps
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -60,7 +62,8 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
-  
+  - (32) All axes in 32 steps instead of 16 steps.
+
   **/*-------Others options for advanced users who build their firmware----*/**
   - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
   - (M) MEATPACK (Improve dialogue/communication with OctoPrint)

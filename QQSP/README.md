@@ -1,4 +1,4 @@
-### 2022-02-02 MARLIN 2.0.9.3 BugFix
+### 2022-04-05 MARLIN 2.0.10 RELEASE BUGFIX
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -30,7 +30,7 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   **Header caption:**
 
   **/*------Drivers--------*/**
-  - (S) A4988 (green/red rectangle)
+  - (S) 4xA4988 (green/red rectangle)
   - (8) TMC2208 Standalone
   - (9) TMC2209 Standalone
   - (U8) 4xTMC2208_UART with no module ESP12.
@@ -38,6 +38,8 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
   - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
+  - (16) All drivers 16steps (default)
+  - (32) All drivers 32steps
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -52,6 +54,7 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan/Stock
   - (B) Extruder BMG
+  - (O) Extruder OMG
   - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Lgx/...)
   
   **/*-------Others options in firmware----*/**
@@ -62,7 +65,8 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
-  
+  - (32) All axes in 32 steps instead of 16 steps.
+
   **/*-------Others options for advanced users who build their firmware----*/**
   - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
   - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
