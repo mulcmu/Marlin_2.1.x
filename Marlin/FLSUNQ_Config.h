@@ -3,7 +3,7 @@
 *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
 *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
 *===========================================================================
-*                         MARLIN_v2.0.9.x
+*                         MARLIN_v2.0.10.x
 * For a Delta printer start with one of the configuration files in
 * the directory and customize for your machine:
 * https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.3/config/examples/delta/FLSUN/ 
@@ -80,8 +80,10 @@
 
   //#define TFT_GENERIC          // For the user who haven't the same screen.
 #else
-  #define TFT_BTT_UI             //(r) UI Classic (emulation LCD Marlin)
-  //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
+  //#define TFT_OTHER
+  //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
+  //#define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2
+  //#define TFT_DWIN_UI            //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
 /* ========================================//
@@ -123,7 +125,8 @@
 
                   /* Option for Neopixel */
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
-//#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7)
+//#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7) on QQS
+                                         //(n) Use port BLTouch (PA8) on SR_MKS
 
         /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
@@ -240,6 +243,7 @@
     #define PROBE_OFFSET_WIZARD
     #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
     #define CUSTOM_MENU_MAIN
+    #define MEDIA_MENU_AT_TOP           //  (Default) Print media menu at top list.
   #endif
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU            // To control LedStrip.
@@ -270,6 +274,10 @@
   //#define TFT_INTERFACE_SPI
   #define TFT_RES_320x240
   //#define TFT_RES_480x320
+#elif BOTH(TFT_COLOR_UI, SR_MKS)
+  #define MKS_TS35_V2_0             // Only for NanoV2 or V3
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define MULTI_VOLUME             // Multiple volume support(µSD + USB)
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
   //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
@@ -433,4 +441,8 @@
   #else
     #define E_CURRENT       850
   #endif
+#endif
+// NEOPIXEL for SR_MKS
+#ifdef SR_MKS
+  #define LED_PWM    SERVO0_PIN
 #endif
