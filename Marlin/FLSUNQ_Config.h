@@ -60,7 +60,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT xxxxxx    //A4988//TMC2209_STANDALONE //TMC2209  // LV8729//
+//#define DRIVER_EXT xxxxxx    //TMC2209_STANDALONE //A4988//TMC2209  // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
@@ -80,9 +80,9 @@
 
   //#define TFT_GENERIC          // For the user who haven't the same screen.
 #else
-  //#define TFT_OTHER
+  #define TFT_OTHER
+  #define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
-  //#define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_DWIN_UI            //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
@@ -302,40 +302,40 @@
 
 // Set for TMC2208_STANDALONE
 #ifdef ALL_TMC8
-    #define Q_TMC
-    #define DRIVER_AXES TMC2208_STANDALONE
-    #ifndef DRIVER_EXT
-      #undef LIN_ADVANCE
-      #define DRIVER_EXT TMC2208_STANDALONE
-    #endif
+  #define Q_TMC
+  #define DRIVER_AXES TMC2208_STANDALONE
+  #ifndef DRIVER_EXT
+    #undef LIN_ADVANCE
+    #define DRIVER_EXT TMC2208_STANDALONE
+  #endif
 #endif
 // Set for TMC2209_STANDALONE 
 #ifdef ALL_TMC9
-    #define Q_TMC
-    #define DRIVER_AXES TMC2209_STANDALONE
-    #ifndef DRIVER_EXT
-      #define DRIVER_EXT TMC2209_STANDALONE
-    #endif
+  #define Q_TMC
+  #define DRIVER_AXES TMC2209_STANDALONE
+  #ifndef DRIVER_EXT
+    #define DRIVER_EXT TMC2209_STANDALONE
+  #endif
 #endif
 
 // Software Serial UART for TMC2208
 #ifdef Q_UART8
-    #define Q_TMC
-    #define DRIVER_AXES TMC2208
-    #ifndef DRIVER_EXT
-      #undef LIN_ADVANCE
-      #define DRIVER_EXT TMC2208
-    #endif
+  #define Q_TMC
+  #define DRIVER_AXES TMC2208
+  #ifndef DRIVER_EXT
+    #undef LIN_ADVANCE
+    #define DRIVER_EXT TMC2208
+  #endif
 #endif
 
 // Software Serial UART for TMC2209
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
-    #define Q_TMC
-    #define STEALTHCHOP_E
-    #define DRIVER_AXES TMC2209
-    #ifndef DRIVER_EXT
-      #define DRIVER_EXT TMC2209
-    #endif
+  #define Q_TMC
+  #define STEALTHCHOP_E
+  #define DRIVER_AXES TMC2209
+  #ifndef DRIVER_EXT
+    #define DRIVER_EXT TMC2209
+  #endif
 #endif
 //Add definition for UART for Q5
 #if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)||BOTH(NANO1X, Q_UART8)||BOTH(NANO1X, Q_UART9)
@@ -398,13 +398,13 @@
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
-    #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
-  #elif ANY(BMG, SR_MKS, SR_BTT)
-    #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
+    #define EXTRUDER_STEPS 720 //1440 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
   #elif ENABLED(OMG)           
-    #define EXTRUDER_STEPS 390
+    #define EXTRUDER_STEPS 390 //780 //  
+  #elif ANY(BMG, SR_MKS, SR_BTT)
+    #define EXTRUDER_STEPS  417 //834 // Extruder BMG(Left/Right)
   #else
-    #define EXTRUDER_STEPS 410  // Extruder TITAN(Default)
+    #define EXTRUDER_STEPS 410  //820 // Extruder TITAN(Default)
   #endif
 #endif
 //Jerk
