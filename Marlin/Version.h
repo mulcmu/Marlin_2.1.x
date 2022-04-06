@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "FLSunQ_bugfix-2.0.9.3"
+#define SHORT_BUILD_VERSION "FLSunQ_bugfix-2.0.10"
 
 /**
  * Verbose version identifier which should contain a reference to the location
