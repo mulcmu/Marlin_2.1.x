@@ -236,13 +236,13 @@
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview.
+  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview. (M255 S100)
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
     #define PROBE_OFFSET_WIZARD
     #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
-    #define CUSTOM_MENU_MAIN
+    #define CUSTOM_MENU_MAIN            // Special Delta preparation menu.
     #define MEDIA_MENU_AT_TOP           //  (Default) Print media menu at top list.
   #endif
   #ifdef NEOPIXEL_LED
@@ -277,7 +277,7 @@
 #elif BOTH(TFT_COLOR_UI, SR_MKS)
   #define MKS_TS35_V2_0             // Only for NanoV2 or V3
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  #define MULTI_VOLUME             // Multiple volume support(µSD + USB)
+  #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
   //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0

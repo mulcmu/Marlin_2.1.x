@@ -74,7 +74,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Foxies, ΔDeltaFox)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Foxies, DeltaFox)" // Who made the changes.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -174,13 +174,16 @@
   #endif
   #ifdef SR_MKS
     #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
-    #define BAUDRATE 250000
+    #define BAUDRATE 115200
     #ifdef ESP3D_30
       #undef SERIAL_PORT_2 //1 // 1=ESP3Dv3.0 MKS-Wifi
     #elif ENABLED(MKS_WIFI)
       #define SERIAL_PORT_2 1 // 1=ESP3Dv2.1 MKS-Wifi
+      ///#define BAUDRATE_2 115200 //
       #define SERIAL_PORT_3 3 // 3=BTT-TFT(0,1=nok)
-      #define BAUDRATE_3 250000//115200 
+      ///#define BAUDRATE_3 250000 //115200
+      //#define SERIAL_PORT_2 3 // 1=ESP3Dv2.1 MKS-Wifi 
+      //#define BAUDRATE_2 250000     
     #else
       #define SERIAL_PORT_2 3 // 3=BTT-TFT(0,1=nok)
       #define BAUDRATE_2 250000      
@@ -2402,7 +2405,7 @@
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
-  #define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
+  //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
 //

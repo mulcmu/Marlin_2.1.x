@@ -4090,7 +4090,7 @@
 // Custom Menu: Main Menu
 //#define CUSTOM_MENU_MAIN  //Define on FLSUNQ_Config
 #if ENABLED(CUSTOM_MENU_MAIN)
-  #define CUSTOM_MENU_MAIN_TITLE "Special Menu Delta & Leveling"
+  #define CUSTOM_MENU_MAIN_TITLE "Special Delta preparation"
   //#define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
   //#define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
