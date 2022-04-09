@@ -134,7 +134,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(QQS, Q5)
+#if ANY(QQSP, Q5)
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
 #endif
@@ -852,9 +852,12 @@
     #define DEFAULT_bedKi 12.9567
     #define DEFAULT_bedKd 294.5974
   #else
-    #define DEFAULT_bedKp 82.98
-    #define DEFAULT_bedKi 15.93
-    #define DEFAULT_bedKd 288.25
+    //#define DEFAULT_bedKp 61.0677
+    //#define DEFAULT_bedKi 12.1166
+    //#define DEFAULT_bedKd 205.1877
+    #define DEFAULT_bedKp 65.6075
+    #define DEFAULT_bedKi 11.7156
+    #define DEFAULT_bedKd 244.9348
   #endif
   // FIND YOUR OWN: "M303 E-1 S60 C8 U" to run autotune on the bed at 60 degrees for 8 cycles.
   //M303 E-1 C8 S60 =>Memo M304 P61.05 I11.27 D218.99
