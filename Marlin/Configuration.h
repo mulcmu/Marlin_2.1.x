@@ -842,19 +842,10 @@
     #define DEFAULT_bedKi 3.94
     #define DEFAULT_bedKd 69.11
   #elif ANY(SR_MKS, SR_BTT)
-  //M304 P56.1605 I10.9688 D191.6944-60
-  //M304 P100.4504 I19.3174 D348.2281-80
-  //M304 P136.6639 I26.2815 D473.7682-90
-  //#define DEFAULT_bedKp 111.12
-  //#define DEFAULT_bedKi 22.05
-  //#define DEFAULT_bedKd 373.36
-    #define DEFAULT_bedKp 75.6671
-    #define DEFAULT_bedKi 12.9567
-    #define DEFAULT_bedKd 294.5974
+    #define DEFAULT_bedKp 268.6112
+    #define DEFAULT_bedKi 52.5401
+    #define DEFAULT_bedKd 915.5167
   #else
-    //#define DEFAULT_bedKp 61.0677
-    //#define DEFAULT_bedKi 12.1166
-    //#define DEFAULT_bedKd 205.1877
     #define DEFAULT_bedKp 65.6075
     #define DEFAULT_bedKi 11.7156
     #define DEFAULT_bedKd 244.9348
