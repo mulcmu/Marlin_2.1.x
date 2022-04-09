@@ -60,7 +60,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT xxxxxx    //TMC2209_STANDALONE //A4988//TMC2209  // LV8729//
+//#define DRIVER_EXT TMC2209_STANDALONE //xxxxxx    //A4988//TMC2209  // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
