@@ -298,7 +298,7 @@
   #define TOUCH_MOSI_PIN             EXP2_05_PIN  // SPI1_MOSI
 
   #define LCD_READ_ID                       0xD3
-  #define LCD_USE_DMA_SPI
+  //#define LCD_USE_DMA_SPI
 
   #define TFT_BUFFER_SIZE                  14400
 
