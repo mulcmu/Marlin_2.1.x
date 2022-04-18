@@ -236,6 +236,7 @@
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
+  //#define MEDIA_MENU_AT_TOP           //  Print media menu at top list.
   #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview. (M255 S100)
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
@@ -243,7 +244,6 @@
     #define PROBE_OFFSET_WIZARD
     #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
     #define CUSTOM_MENU_MAIN            // Special Delta preparation menu.
-    #define MEDIA_MENU_AT_TOP           //  (Default) Print media menu at top list.
   #endif
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU            // To control LedStrip.
