@@ -174,16 +174,14 @@
   #endif
   #ifdef SR_MKS
     #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
-    #define BAUDRATE 115200
+    #define BAUDRATE 250000
     #ifdef ESP3D_30
       #undef SERIAL_PORT_2 //1 // 1=ESP3Dv3.0 MKS-Wifi
     #elif ENABLED(MKS_WIFI)
       #define SERIAL_PORT_2 1 // 1=ESP3Dv2.1 MKS-Wifi
-      ///#define BAUDRATE_2 115200 //
+      #define BAUDRATE_2 115200 //
       #define SERIAL_PORT_3 3 // 3=BTT-TFT(0,1=nok)
-      ///#define BAUDRATE_3 250000 //115200
-      //#define SERIAL_PORT_2 3 // 1=ESP3Dv2.1 MKS-Wifi 
-      //#define BAUDRATE_2 250000     
+      #define BAUDRATE_3 250000 //115200   
     #else
       #define SERIAL_PORT_2 3 // 3=BTT-TFT(0,1=nok)
       #define BAUDRATE_2 250000      
@@ -1057,7 +1055,7 @@
     #define DELTA_PRINTABLE_RADIUS  132.0
     #define DELTA_MAX_RADIUS        132.0
     #define DELTA_DIAGONAL_ROD      315.0
-    #define DELTA_HEIGHT            320.0
+    #define DELTA_HEIGHT            330.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }       // Trim adjustments for individual towers
     #define DELTA_RADIUS            151.67
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }  //XYZ
@@ -2190,7 +2188,7 @@
   #if ANY(N_PROBE, P_PROBE)
     #define MESH_INSET 1
     #define GRID_MAX_POINTS_X 11     // MeshHight
-  #elif ENABLED(XP1)
+  #elif ANY(XP1, XP2)
     #define MESH_INSET 15
     #define GRID_MAX_POINTS_X 6       //MeshLow
   #else
@@ -3413,7 +3411,7 @@
   #define TOUCH_SCREEN_CALIBRATION //or (M995)
 
   // QQS-Pro use MKS Robin TFT v2.0
-  #if BOTH(QQSP, MKS_ROBIN_TFT32)||BOTH(QQSR, MKS_ROBIN_TFT32)
+  #ifdef XP1
     #define TOUCH_CALIBRATION_X 12033
     #define TOUCH_CALIBRATION_Y -9047
     #define TOUCH_OFFSET_X        -30
