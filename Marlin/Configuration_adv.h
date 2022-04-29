@@ -2333,7 +2333,9 @@
 
 // The ASCII buffer for serial input
 #define MAX_CMD_SIZE 96
-#if ANY(TFT_BTT_UI, XP2)
+#if ANY(XP1, XP2)
+  #define BUFSIZE 32    // For Multiple hosts.
+#elif ENABLED(TFT_BTT_UI)
   #define BUFSIZE 32
 #else
   #define BUFSIZE 16  //4
