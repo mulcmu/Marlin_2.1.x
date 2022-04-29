@@ -1032,10 +1032,10 @@
   #elif ENABLED(SDHX) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
     #define DELTA_PRINTABLE_RADIUS  130.0            // (mm)
     #define DELTA_MAX_RADIUS        130.0
-    #define DELTA_DIAGONAL_ROD      285.0
-    #define DELTA_HEIGHT            350.0
+    #define DELTA_DIAGONAL_ROD      280.0
+    #define DELTA_HEIGHT            365.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            128.0
+    #define DELTA_RADIUS            135.5
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -1068,7 +1068,7 @@
     #define DELTA_PRINTABLE_RADIUS   130.0      // (mm)
 
   // Maximum reachable area
-    #define DELTA_MAX_RADIUS         130.0      // (mm)
+    #define DELTA_MAX_RADIUS         132.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
     #define DELTA_DIAGONAL_ROD       280.0      // (mm)
@@ -3411,7 +3411,7 @@
   #define TOUCH_SCREEN_CALIBRATION //or (M995)
 
   // QQS-Pro use MKS Robin TFT v2.0
-  #ifdef XP1
+  #ifdef XP
     #define TOUCH_CALIBRATION_X 12033
     #define TOUCH_CALIBRATION_Y -9047
     #define TOUCH_OFFSET_X        -30
@@ -3527,7 +3527,7 @@
   //#define NEOPIXEL_PIN                4 // LED driving pin
   //#define NEOPIXEL2_TYPE  NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN               5
-  #ifdef NEOPIXEL_PIXELS
+  #ifndef NEOPIXEL_PIXELS
     #define NEOPIXEL_PIXELS            30 // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
   #endif
   #define NEOPIXEL_IS_SEQUENTIAL          // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
