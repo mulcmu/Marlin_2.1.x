@@ -680,7 +680,7 @@
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
   #if ANY(SR_MKS, SR_BTT)
-    #define HEATER_0_MAXTEMP 300  // Volcano thermistor or HotMetal
+    #define HEATER_0_MAXTEMP 285  // Volcano thermistor or HotMetal
   #else
     #define HEATER_0_MAXTEMP 275
   #endif
@@ -692,7 +692,11 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      110
+#if ANY(SR_MKS, SR_BTT)
+  #define BED_MAXTEMP      120
+#else
+  #define BED_MAXTEMP      110
+#endif
 #define CHAMBER_MAXTEMP  60
 
 /**
