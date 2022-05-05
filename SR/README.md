@@ -4,11 +4,15 @@ Each firmware has a header that corresponds to the hardware (board) and function
 
 **ADD:**
   - Pack Firmware for BTT-TFT35/50/70 mode landscape and portrait for TFT35v3. 
-  - Some TFTs for SR.
- 
-[BTT-TFT](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TFT35v3.png)
+  
+- BTT-TFT35v3,
+  
+  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TFT35v3.png" />
 
-[MKS-TS35R](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TS35R.png)
+- Mks-TS35R,
+  
+  <img width=700 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TS35R.png" />
+
 
 Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and BTT TFT:
 
