@@ -21,7 +21,7 @@
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
-//#define EEPROM_INIT_NOW   
+#define EEPROM_INIT_NOW   
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -38,13 +38,13 @@
 /*________________________2___________________________*/
           /*-----Type Stepper Drivers-(1 CHOICE)-----*/
 /* MODE STOCK for QQS & Q5 & SR */
-#define STOCK                         // (S) (Default_QQS) For 4xA4988(green or red color).
+//#define STOCK                         // (S) (Default_QQS) For 4xA4988(green or red color).
                                       // (S) (Default_Q5) For 3xTMC2208+1xA4988.
                                       // (S) (Default_SR) For 4xTMC2209_UART.
 
 /* MODE STANDALONE XYZ+E for QQS & Q5 */
 //#define ALL_TMC8                    // (8) For 4xTMC2208_STANDALONE
-//#define ALL_TMC9                    // (9) For 4xTMC2209_STANDALONE
+#define ALL_TMC9                    // (9) For 4xTMC2209_STANDALONE
 
 /* MODE UART XYZ+E for QQS & Q5 */
 //#define Q_UART8                     // (U8) 4xTMC2208_UART Note: remove on your printer the module WIFI and wire your TMC.
@@ -196,7 +196,8 @@
 */
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
-                                         // Not compatible with the MEATPACK option. 
+                                         // Not compatible with the MEATPACK option.
+#define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print 
 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
 //#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB
@@ -237,7 +238,7 @@
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   //#define MEDIA_MENU_AT_TOP           //  Print media menu at top list.
-  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview. (M255 S100)
+  //#define TOUCH_IDLE_SLEEP 900        //  (Default) Auto-Sleep screenview. (M255 S100)
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED

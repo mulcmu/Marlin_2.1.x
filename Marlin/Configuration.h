@@ -1684,7 +1684,7 @@
  */
 //#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
-#if ANY(P_PROBE, N_PROBE, X_PROBE)
+#if ANY(P_PROBE, N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
 #else
