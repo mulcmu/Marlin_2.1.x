@@ -14,7 +14,7 @@ Each firmware has a header that corresponds to the hardware (board) and function
   <img width=700 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TS35R.png" />
 
 
-Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and BTT TFT:
+Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and another TFT screen (TS35R):
 
 **Exemple:**
 SRM-SCBPULR32-Robin_nano_v3.bin
