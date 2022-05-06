@@ -20,17 +20,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#if defined(ARDUINO_ARCH_STM32) && !defined(STM32GENERIC) && !defined(MAPLE_STM32F1)
+#if defined(ARDUINO_ARCH_STM32) && !defined(STM32GENERIC)
 
 #include "../../inc/MarlinConfig.h"
 
 #if ENABLED(FLASH_EEPROM_EMULATION)
 
 #include "../shared/eeprom_api.h"
-
-// Better: "utility/stm32_eeprom.h", but only after updating stm32duino to 2.0.0
-// Use EEPROM.h for compatibility, for now.
-#include <EEPROM.h>
 
 /**
  * The STM32 HAL supports chips that deal with "pages" and some with "sectors" and some that
@@ -270,4 +266,4 @@ bool PersistentStore::read_data(int &pos, uint8_t *value, size_t size, uint16_t 
 }
 
 #endif // FLASH_EEPROM_EMULATION
-#endif // ARDUINO_ARCH_STM32 && !STM32GENERIC && !MAPLE_STM32F1
+#endif // ARDUINO_ARCH_STM32 && !STM32GENERIC
