@@ -28,6 +28,7 @@
 
 #include "../../../../module/temperature.h"
 #include "../../../../inc/MarlinConfig.h"
+#include "../../../../module/motion.h"
 
 static lv_obj_t *scr;
 extern lv_group_t*  g;
@@ -98,18 +99,27 @@ static void event_handler(lv_obj_t *obj, lv_event_t event) {
     case ID_P_TYPE:
       if (uiCfg.curTempType == 0) {
         if (ENABLED(HAS_MULTI_EXTRUDER)) {
-          if (uiCfg.curSprayerChoose == 0) {
-            uiCfg.curSprayerChoose = 1;
-          }
-          else if (uiCfg.curSprayerChoose == 1) {
+          #if DISABLED(SINGLENOZZLE)
+            if (uiCfg.curSprayerChoose == 0) {
+              uiCfg.curSprayerChoose = 1;
+            }
+            else if (uiCfg.curSprayerChoose == 1) {
+              if (TEMP_SENSOR_BED != 0) {
+                uiCfg.curTempType = 1;
+              }
+              else {
+                uiCfg.curTempType      = 0;
+                uiCfg.curSprayerChoose = 0;
+              }
+            }
+          #else
             if (TEMP_SENSOR_BED != 0) {
               uiCfg.curTempType = 1;
             }
             else {
-              uiCfg.curTempType      = 0;
-              uiCfg.curSprayerChoose = 0;
+              uiCfg.curTempType = 0;
             }
-          }
+          #endif
         }
         else if (uiCfg.curSprayerChoose == 0) {
           if (TEMP_SENSOR_BED != 0)
@@ -147,13 +157,13 @@ static void event_handler(lv_obj_t *obj, lv_event_t event) {
       disp_desire_temp();
       break;
     case ID_P_RETURN:
-      clear_cur_ui();
-      draw_return_ui();
+      lv_clear_cur_ui();
+      lv_draw_return_ui();
       break;
   }
 }
 
-void lv_draw_preHeat() {
+void lv_draw_preHeat(void) {
   scr = lv_screen_create(PRE_HEAT_UI);
 
   // Create image buttons
@@ -176,6 +186,12 @@ void lv_draw_preHeat() {
   labelType = lv_label_create_empty(buttonType);
   labelStep = lv_label_create_empty(buttonStep);
 
+  #if ENABLED(SINGLENOZZLE)
+		uiCfg.curSprayerChoose = 0;
+	#else
+		uiCfg.curSprayerChoose = active_extruder;
+  #endif
+
   disp_temp_type();
   disp_step_heat();
 
@@ -186,24 +202,31 @@ void lv_draw_preHeat() {
 
 void disp_temp_type() {
   if (uiCfg.curTempType == 0) {
-    if (uiCfg.curSprayerChoose == 1) {
-    lv_imgbtn_set_src_both(buttonType, "F:/bmp_extru2.bin");
-      if (gCfgItems.multiple_language) {
-        lv_label_set_text(labelType, preheat_menu.ext2);
-        lv_obj_align(labelType, buttonType, LV_ALIGN_IN_BOTTOM_MID, 0, BUTTON_TEXT_Y_OFFSET);
+    #if DISABLED(SINGLENOZZLE)
+      if (uiCfg.curSprayerChoose == 1) {
+        lv_imgbtn_set_src_both(buttonType, "F:/bmp_extru2.bin");
+        if (gCfgItems.multiple_language) {
+          lv_label_set_text(labelType, preheat_menu.ext2);
+          lv_obj_align(labelType, buttonType, LV_ALIGN_IN_BOTTOM_MID, 0, BUTTON_TEXT_Y_OFFSET);
+        }
       }
-    }
-    else {
-    lv_imgbtn_set_src_both(buttonType, "F:/bmp_extru1.bin");
+      else {
+        lv_imgbtn_set_src_both(buttonType, "F:/bmp_extru1.bin");
+        if (gCfgItems.multiple_language) {
+          lv_label_set_text(labelType, preheat_menu.ext1);
+          lv_obj_align(labelType, buttonType, LV_ALIGN_IN_BOTTOM_MID, 0, BUTTON_TEXT_Y_OFFSET);
+        }
+      }
+    #else
+      lv_imgbtn_set_src_both(buttonType, "F:/bmp_extru1.bin");
       if (gCfgItems.multiple_language) {
         lv_label_set_text(labelType, preheat_menu.ext1);
         lv_obj_align(labelType, buttonType, LV_ALIGN_IN_BOTTOM_MID, 0, BUTTON_TEXT_Y_OFFSET);
       }
-    }
-
+    #endif
   }
   else {
-  lv_imgbtn_set_src_both(buttonType, "F:/bmp_bed.bin");
+    lv_imgbtn_set_src_both(buttonType, "F:/bmp_bed.bin");
     if (gCfgItems.multiple_language) {
       lv_label_set_text(labelType, preheat_menu.hotbed);
       lv_obj_align(labelType, buttonType, LV_ALIGN_IN_BOTTOM_MID, 0, BUTTON_TEXT_Y_OFFSET);
@@ -217,8 +240,13 @@ void disp_desire_temp() {
   public_buf_l[0] = '\0';
 
   if (uiCfg.curTempType == 0) {
-    strcat(public_buf_l, uiCfg.curSprayerChoose < 1 ? preheat_menu.ext1 : preheat_menu.ext2);
-    sprintf(buf, preheat_menu.value_state, (int)thermalManager.temp_hotend[uiCfg.curSprayerChoose].celsius,  (int)thermalManager.temp_hotend[uiCfg.curSprayerChoose].target);
+    #if DISABLED(SINGLENOZZLE)
+      strcat(public_buf_l, uiCfg.curSprayerChoose < 1 ? preheat_menu.ext1 : preheat_menu.ext2);
+      sprintf(buf, preheat_menu.value_state, (int)thermalManager.temp_hotend[uiCfg.curSprayerChoose].celsius,  (int)thermalManager.temp_hotend[uiCfg.curSprayerChoose].target);
+    #else
+      strcat(public_buf_l, preheat_menu.ext1);
+      sprintf(buf, preheat_menu.value_state, (int)thermalManager.temp_hotend[0].celsius,  (int)thermalManager.temp_hotend[0].target);
+    #endif
   }
   #if HAS_HEATED_BED
     else {

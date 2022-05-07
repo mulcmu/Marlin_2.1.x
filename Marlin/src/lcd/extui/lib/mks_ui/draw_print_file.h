@@ -39,8 +39,8 @@ extern DIR_OFFSET dir_offset[10];
 #define MAX_DIR_LEVEL  10
 
 typedef struct {
-  char file_name[FILE_NUM][SHORT_NAME_LEN * MAX_DIR_LEVEL + 1];
-  char curDirPath[SHORT_NAME_LEN * MAX_DIR_LEVEL + 1];
+  char file_name[FILE_NUM][(SHORT_NAME_LEN + 1) * MAX_DIR_LEVEL + 1];
+  char curDirPath[(SHORT_NAME_LEN + 1) * MAX_DIR_LEVEL + 1];
   char long_name[FILE_NUM][SHORT_NAME_LEN * 2 + 1];
   bool IsFolder[FILE_NUM];
   char Sd_file_cnt;
@@ -50,7 +50,7 @@ typedef struct {
 extern LIST_FILE list_file;
 
 extern void disp_gcode_icon(uint8_t file_num);
-extern void lv_draw_print_file();
+extern void lv_draw_print_file(void);
 extern uint32_t lv_open_gcode_file(char *path);
 extern void lv_gcode_file_read(uint8_t *data_buf);
 extern void lv_close_gcode_file();

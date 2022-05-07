@@ -73,7 +73,8 @@ uint8_t sel_id = 0;
 
     for (uint16_t i = 0; i < fileCnt; i++) {
       if (list_file.Sd_file_cnt == list_file.Sd_file_offset) {
-        card.getfilename_sorted(SD_ORDER(i, fileCnt));
+        const uint16_t nr = SD_ORDER(i, fileCnt);
+        card.getfilename_sorted(nr);
 
         list_file.IsFolder[valid_name_cnt] = card.flag.filenameIsDir;
         strcpy(list_file.file_name[valid_name_cnt], list_file.curDirPath);
@@ -101,14 +102,14 @@ uint8_t sel_id = 0;
 
 bool have_pre_pic(char *path) {
   #if ENABLED(SDSUPPORT)
-    char *ps1, *ps2, *cur_name = strrchr(path, '/');
-    card.openFileRead(cur_name);
-    card.read(public_buf, 512);
+    char *ps1;//, *ps2;//, *cur_name = strrchr(path, '/');
+    card.openFileRead(path);
+    card.read(public_buf, 256);
     ps1 = strstr((char *)public_buf, ";simage:");
-    card.read(public_buf, 512);
-    ps2 = strstr((char *)public_buf, ";simage:");
+    //card.read(public_buf, 512);
+    //ps2 = strstr((char *)public_buf, ";simage:");
     card.closefile();
-    if (ps1 || ps2) return true;
+    if (ps1) return true;
   #endif
 
   return false;
@@ -204,7 +205,7 @@ static void event_handler(lv_obj_t *obj, lv_event_t event) {
   }
 }
 
-void lv_draw_print_file() {
+void lv_draw_print_file(void) {
   //uint8_t i;
   uint8_t file_count;
 
@@ -242,7 +243,7 @@ void lv_draw_print_file() {
   }
   */
 }
-static char test_public_buf_l[40];
+static char test_public_buf_l[(SHORT_NAME_LEN + 1) * MAX_DIR_LEVEL + strlen("S:/") + 1];
 void disp_gcode_icon(uint8_t file_num) {
   uint8_t i;
 
@@ -358,12 +359,12 @@ uint32_t lv_open_gcode_file(char *path) {
   #if ENABLED(SDSUPPORT)
     uint32_t *ps4;
     uint32_t pre_sread_cnt = UINT32_MAX;
-    char *cur_name;
+    //char *cur_name;
 
-    cur_name = strrchr(path, '/');
+    //cur_name = strrchr(path, '/');
 
-    card.openFileRead(cur_name);
-    card.read(public_buf, 512);
+    card.openFileRead(path);
+    card.read(public_buf, 256);
     ps4 = (uint32_t *)strstr((char *)public_buf, ";simage:");
     // Ignore the beginning message of gcode file
     if (ps4) {
@@ -456,7 +457,7 @@ void lv_gcode_file_read(uint8_t *data_buf) {
 void lv_close_gcode_file() {TERN_(SDSUPPORT, card.closefile());}
 
 void lv_gcode_file_seek(uint32_t pos) {
-  card.setIndex(pos);
+  TERN_(SDSUPPORT, card.setIndex(pos));
 }
 
 void cutFileName(char *path, int len, int bytePerLine, char *outStr) {

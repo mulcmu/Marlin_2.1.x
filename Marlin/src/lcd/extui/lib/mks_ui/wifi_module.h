@@ -64,6 +64,7 @@ typedef enum{
 #define TRANS_RCV_FIFO_BLOCK_NUM  14
 
 typedef struct {
+  bool receiveEspData;
   unsigned char *bufferAddr[TRANS_RCV_FIFO_BLOCK_NUM];
   unsigned char *p;
   UDISK_DATA_BUFFER_STATE state[TRANS_RCV_FIFO_BLOCK_NUM];
@@ -190,7 +191,10 @@ extern int  package_to_wifi(WIFI_RET_TYPE type, uint8_t *buf, int len);
 extern void get_wifi_list_command_send();
 extern void get_wifi_commands();
 extern int  readWifiBuf(int8_t *buf, int32_t len);
-extern void mks_wifi_firmware_update();
+extern void mks_wifi_firmware_upddate();
+extern int usartFifoAvailable(SZ_USART_FIFO *fifo);
+extern int readUsartFifo(SZ_USART_FIFO *fifo, int8_t *buf, int32_t len);
+extern void esp_port_begin(uint8_t interrupt);
 
 #ifdef __cplusplus
   } /* C-declarations for C++ */

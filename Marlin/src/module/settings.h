@@ -109,3 +109,4 @@ class MarlinSettings {
 };
 
 extern MarlinSettings settings;
+float mesh_point(int I,int J);//新增
