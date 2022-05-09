@@ -26,6 +26,7 @@
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
 #define QQSP                         // (Default_QQS) env = flsun_hispeedv1
+                                     // env:flsun_hispeedv2 (GD32F303VE6) 
 //#define Q5                         // env = mks_robin_nano35 or (Q5_2021) env = mks_robin_nano_v1_3_f4
                                      // for Q5_2021 = uncomment/comment your MoBo in configuration.h (Line114)
 //#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
