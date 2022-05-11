@@ -1056,13 +1056,13 @@
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
-  #elif ENABLED(SDHX) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
+  #elif ENABLED(QQS_SR) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
     #define DELTA_PRINTABLE_RADIUS  130.0            // (mm)
     #define DELTA_MAX_RADIUS        130.0
-    #define DELTA_DIAGONAL_ROD      280.0
+    #define DELTA_DIAGONAL_ROD      288.0            // Custom arm with Ball = 285
     #define DELTA_HEIGHT            365.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            135.5
+    #define DELTA_RADIUS            130.5            // Custom radius with Ball = 130.5
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
