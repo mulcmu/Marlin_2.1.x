@@ -61,7 +61,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT TMC2209_STANDALONE //xxxxxx    //A4988//TMC2209  // LV8729//
+//#define DRIVER_EXT xxxxxx    /A4988//TMC2209_STANDALONE ///TMC2209  // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
@@ -110,7 +110,7 @@
  */
                   /* User settings extruder */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SuperDriveHX.
-//#define EXTRUDER_STEPS  1120//560             // LGX Ajust your eSteps.
+//#define EXTRUDER_STEPS  1120//560      // To ajust your eSteps.
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
