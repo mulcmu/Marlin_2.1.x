@@ -149,8 +149,10 @@
 // by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13 
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
 
-// For user who change their HotEnd like Volcano and
-// want to increase the temperature limit. 
+// For user who change their HotEnd like Volcano....
+//#define VOLCANO               // 300°C With thermistor hight temp.
+
+// And those who want to increase the temperature limit.
 //#define HEATER_0_MAXTEMP 300
 
 /*__________________________5_____________________________*/
@@ -390,6 +392,7 @@
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
+  #define X_OFFSET 0
   #define Y_OFFSET 0
   #define Z_OFFSET 0
 #endif
@@ -423,11 +426,13 @@
 //Z_OffSet
 #ifndef Z_OFFSET
   #ifndef Q5
-    #define Y_OFFSET        0
-    #define Z_OFFSET       -16.2
+    #define X_OFFSET    0
+    #define Y_OFFSET    0
+    #define Z_OFFSET  -16.2
   #else
-    #define Y_OFFSET        0
-    #define Z_OFFSET       -18
+    #define X_OFFSET    0
+    #define Y_OFFSET    0
+    #define Z_OFFSET  -18
   #endif
 #endif
 // TMC Current in UART mode
