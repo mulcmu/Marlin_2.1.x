@@ -672,8 +672,8 @@
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
-  #if ANY(SR_MKS, SR_BTT)
-    #define HEATER_0_MAXTEMP 285  // Volcano thermistor or HotMetal
+  #ifdef VOLCANO
+    #define HEATER_0_MAXTEMP 300  // Volcano thermistor or HotMetal
   #else
     #define HEATER_0_MAXTEMP 275
   #endif
