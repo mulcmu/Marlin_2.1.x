@@ -120,7 +120,7 @@
 //#define OMG                            //(O) Uncommment for OMG.
                   /*  Custom Effector  */
                   /* rods, height, arms*/
-//#define SDHX                           // Custom effector with Direct_Drive SuperDriveHX()
+//#define QQS_SR                           // Custom effector with Direct_Drive SuperDriveHX()
 //#define FKSN                           // Customn effector FRANKENSUN
                   /* Module Socket_Wifi */ 
 #define MOD_WIFI                         //(W) (Default_QQS) With Module ESP8266/ESP12 or Connexion Tx/RX
