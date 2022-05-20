@@ -1,4 +1,5 @@
-/*==========================================================================
+/**
+*==========================================================================
 *=================== FLSunQ - DELTA Printers ===============================
 *================= With pins_MKS_ROBIN_MINI.h BOARD (QQS-Pro)===============
 *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
@@ -113,7 +114,7 @@
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX.
 //#define EXTRUDER_STEPS 562             // Ajust your eSteps.
 
-// BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
+// BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (X) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
 //#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx.
 //#define OMG                            //(O) Uncommment for OMG.
@@ -127,8 +128,9 @@
 
                   /* Option for Neopixel */
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
-//#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7) on QQS
-                                       //(n) Use port BLTouch (PA8) on SR_MKS
+//#define NEOPIXEL_LED                  //(n) Use port GPIO Wifi module (PC7) on QQS
+                                        //(n) Use port BLTouch (PA8) on SR_MKS
+//#define NEOPIXEL_PIXELS     18        // Number of LEDs in the strip
 
         /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
@@ -138,9 +140,10 @@
 
 //For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
 //#define P_PROBE                        // Uncomment to use a piezo probe like ORION.
-                                         // and Set Y,Z OFFSET at zero
+                                         // and Set X,Y,Z OFFSET at zero
 //#define X_PROBE                        // Uncomment and Set an other probe (invert the logic too).
 
+//#define X_OFFSET 0 //-2                // Uncomment and set your own X OffSet
 //#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
 //#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
 
@@ -417,9 +420,11 @@
 //Z_OffSet
 #ifndef Z_OFFSET
   #ifndef Q5
+    #define X_OFFSET        0
     #define Y_OFFSET        0
     #define Z_OFFSET       -16.2
   #else
+    #define X_OFFSET        0
     #define Y_OFFSET        0
     #define Z_OFFSET       -18
   #endif
@@ -439,6 +444,6 @@
   #endif
 #endif
 // NEOPIXEL for SR_MKS
-#ifdef NEOPIXEL_LED
+#if BOTH(NEOPIXEL_LED, SR_MKS)
   #define LED_PWM    SERVO0_PIN
 #endif
