@@ -239,12 +239,13 @@
   #define PID_EDIT_MENU                 //  (Default) Tune PID Bed and Nozzle.
   #define PID_AUTOTUNE_MENU             //  (Default) Tune auto PID.
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
-  #define MEDIA_MENU_AT_TOP             //  (Default) Print media menu at top list.  
+  //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.  
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview.
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
+    #define DIAG_JUMPERS_REMOVED
     #define PROBE_OFFSET_WIZARD
     #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
     #define CUSTOM_MENU_MAIN            // ENABLE "SPECIAL MENU DELTA"
