@@ -32,7 +32,7 @@
 #if NOT_TARGET(__STM32F1__, STM32F1)
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
 #elif HAS_MULTI_HOTEND || E_STEPPERS > 1
-  #error "FLSUN HiSpeedV1 only supports one hotend / E-stepper. Comment out this line to continue."
+  #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
 #endif
 
 #define BOARD_INFO_NAME      "FLSun HiSpeedV1"
@@ -41,7 +41,7 @@
 #define BOARD_NO_NATIVE_USB
 
 // Avoid conflict with TIMER_SERVO when using the STM32 HAL
-#define TEMP_TIMER  5
+#define TEMP_TIMER                             5
 
 //
 // Release PB4 (Y_ENABLE_PIN) from JTAG NRST role
@@ -105,6 +105,10 @@
   #define Y_STOP_PIN                  Y_DIAG_PIN  // +Y
   #define Z_MAX_PIN                   Z_DIAG_PIN  // +Z
   #define Z_MIN_PIN                         PA11  // -Z
+#endif
+
+#ifndef FIL_RUNOUT_PIN
+  #define FIL_RUNOUT_PIN                    PA4   // MT_DET
 #endif
 
 //
@@ -268,10 +272,16 @@
     #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
     #define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
   #else    
-    #define PS_ON_PIN                       PB2   // PW_OFF
+    #define PS_ON_PIN                       PA3   // PW_OFF
     #define KILL_PIN                        PA2
-    #define KILL_PIN_STATE                  true
+    #define KILL_PIN_STATE                  HIGH
   #endif
+#endif
+
+#if ENABLED(PSU_CONTROL)
+  #define KILL_PIN                          PA2   // PW_DET
+  #define KILL_PIN_STATE                    HIGH
+  //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
 #endif
 
 #if ENABLED(BACKUP_POWER_SUPPLY)
@@ -287,10 +297,8 @@
 //
 #if HAS_TFT_LVGL_UI
   #define MT_DET_1_PIN                      PA4   // MT_DET
-  #define MT_DET_PIN_STATE                  LOW
-  #define FIL_RUNOUT_PIN           MT_DET_1_PIN   // MT_DET
-#else
-  #define FIL_RUNOUT_PIN                    PA4   // MT_DET  
+  #define MT_DET_2_PIN                      PE6
+  #define MT_DET_PIN_STATE                   LOW
 #endif
 
 //

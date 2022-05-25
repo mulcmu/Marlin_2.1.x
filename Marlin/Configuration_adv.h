@@ -1796,8 +1796,7 @@
 //
 // Additional options for DGUS / DWIN displays
 //
-#if HAS_DGUS_LCD || ENABLED(DGUS_LCD_UI_CREALITY_TOUCH)
-  #define LCD_SERIAL_PORT 1
+#if HAS_DGUS_LCD
   #define LCD_BAUDRATE 115200
 
   #define DGUS_RX_BUFFER_SIZE 128
