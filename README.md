@@ -1,7 +1,6 @@
-# Marlin 3D Delta Printer Firmwares
 <p align="center"><img src="buildroot/share/pixmaps/logo/marlin-outrun-nf-500.png" height="250" alt="MarlinFirmware's logo" /></p>
 
-<h1 align="center">Marlin 3D Printer Firmware</h1>
+<h1 align="center">Marlin 3D Delta Printer Firmware</h1>
 
 <img align="right" width=175 src="buildroot/share/pixmaps/logo/marlin-250.png" />
 <img align="left" width=200 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/FLSun-LogoColor3.png" />
