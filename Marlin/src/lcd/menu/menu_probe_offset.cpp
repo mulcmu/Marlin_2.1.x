@@ -84,7 +84,7 @@ void probe_offset_wizard_menu() {
       lcd_put_u8str(tmp);
       MENU_ITEM_ADDON_END();
     #else
-      SUBMENU_F(tmp, []{ _goto_manual_move_z(float(FINE_MANUAL_MOVE)); });
+      SUBMENU_F(FPSTR(tmp), []{ _goto_manual_move_z(float(FINE_MANUAL_MOVE)); });
     #endif
   }
 
