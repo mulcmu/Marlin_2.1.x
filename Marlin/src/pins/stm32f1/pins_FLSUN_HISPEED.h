@@ -41,7 +41,7 @@
 #define BOARD_NO_NATIVE_USB
 
 // Avoid conflict with TIMER_SERVO when using the STM32 HAL
-#define TEMP_TIMER  5
+#define TEMP_TIMER                             5
 
 //
 // Release PB4 (Y_ENABLE_PIN) from JTAG NRST role
@@ -104,7 +104,7 @@
 #endif
 
 #ifndef FIL_RUNOUT_PIN
-  #define FIL_RUNOUT_PIN            MT_DET_1_PIN
+  #define FIL_RUNOUT_PIN                    PA4   // MT_DET
 #endif
 
 //
@@ -254,7 +254,7 @@
 //
 #if ENABLED(PSU_CONTROL)
   #define KILL_PIN                          PA2   // PW_DET
-  #define KILL_PIN_STATE                   HIGH
+  #define KILL_PIN_STATE                    HIGH
   //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
 #endif
 #if ENABLED(MKS_PWC)
@@ -271,9 +271,11 @@
   #endif
 #endif
 
-#define MT_DET_1_PIN                      PA4   // MT_DET
-#define MT_DET_2_PIN                      PE6   // FALA_CRTL
-#define MT_DET_PIN_STATE                  LOW
+#if HAS_TFT_LVGL_UI
+  #define MT_DET_1_PIN                      PA4   // MT_DET
+  #define MT_DET_2_PIN                      PE6   // FALA_CRTL
+  #define MT_DET_PIN_STATE                   LOW
+#endif
 
 //
 // LED / NEOPixel
