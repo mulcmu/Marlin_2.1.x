@@ -388,6 +388,7 @@
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
+  #define X_OFFSET 0
   #define Y_OFFSET 0
   #define Z_OFFSET 0
 #endif

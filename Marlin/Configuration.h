@@ -1084,7 +1084,7 @@
 #define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#ifndef X_PROBE
+#if NONE(X_PROBE, N_PROBE)
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true  // Set to true to invert the logic of the probe.
 #else
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
@@ -1514,8 +1514,8 @@
 #define XY_PROBE_FEEDRATE (66*60)    //3960
 
 #if ANY(N_PROBE, P_PROBE)
-  #define Z_PROBE_FEEDRATE_FAST (10*60)  //600
-  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2) //300
+  #define Z_PROBE_FEEDRATE_FAST (20*60)  //1200
+  #define Z_PROBE_FEEDRATE_SLOW (20*60)
 #else
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 //FEEDRATE_Z
@@ -1570,11 +1570,11 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 2
-//#define EXTRA_PROBING    1
 #if ANY(P_PROBE, N_PROBE, X_PROBE)
   #define MULTIPLE_PROBING 2
-  #define EXTRA_PROBING  1
+  #define EXTRA_PROBING    1
+#elif ENABLED(N_PROBE)
+  #define MULTIPLE_PROBING 2
 #endif
 
 /**
