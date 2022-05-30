@@ -183,7 +183,7 @@
       #define SERIAL_PORT_3 3 // 3=BTT-TFT(0,1=nok)
       #define BAUDRATE_3 250000 //115200   
     #else
-      #define SERIAL_PORT_2 3 // 3=BTT-TFT(0,1=nok)
+      #define SERIAL_PORT_2 3 // 3=BTT-TFT(0,1=nok)TX3/RX3
       #define BAUDRATE_2 250000      
     #endif
   #endif
