@@ -155,6 +155,9 @@
 // And those who want to increase the temperature limit.
 //#define HEATER_0_MAXTEMP 300
 
+// To change the old PID nozzle for Hotend with a new Model Predictive Control.
+//#define MPCTEMP
+
 /*__________________________5_____________________________*/
       /** =============================
       * ======= MODE LEVELING==========
