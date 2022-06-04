@@ -615,7 +615,7 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#if NONE(Q5, SR_MKS, SR_BTT, NANO1X) 
+#if NONE(Q5, SR_MKS, SR_BTT, NANO1X,) 
   #define E0_AUTO_FAN_PIN -1
 #elif ENABLED(SR_MKS)
   #define E0_AUTO_FAN_PIN PB0  //HE1
@@ -636,7 +636,7 @@
   #define COOLER_AUTO_FAN_PIN -1
 #endif
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 120 //80
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 80
 #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
 #define CHAMBER_AUTO_FAN_TEMPERATURE 40 //30
 #define CHAMBER_AUTO_FAN_SPEED 255
@@ -2008,7 +2008,7 @@
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   //#define BABYSTEP_MILLIMETER_UNITS       // Specify BABYSTEP_MULTIPLICATOR_(XY|Z) in mm instead of micro-steps
   #define BABYSTEP_MULTIPLICATOR_Z  1       // (steps or mm) Steps or millimeter distance for each Z babystep
-  #define BABYSTEP_MULTIPLICATOR_XY 1       // (steps or mm) Steps or millimeter distance for each XY babystep
+  //#define BABYSTEP_MULTIPLICATOR_XY 1       // (steps or mm) Steps or millimeter distance for each XY babystep
 
   #define DOUBLECLICK_FOR_Z_BABYSTEPPING  // Double-click on the Status Screen for Z Babystepping.
   #if ENABLED(DOUBLECLICK_FOR_Z_BABYSTEPPING)
