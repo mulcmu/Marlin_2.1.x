@@ -707,7 +707,9 @@
 //===========================================================================
 // Enable PIDTEMP for PID control or MPCTEMP for Predictive Model.
 // temperature control. Disable both for bang-bang heating.
-#define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+#ifndef MCPTEMP
+  #define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+#endif
 //#define MPCTEMP        // ** EXPERIMENTAL **
 
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
@@ -741,9 +743,9 @@
       #define DEFAULT_Kd   70.22
     #else
     // FLSUN QQ-S, 200 C with 100% part cooling
-      #define DEFAULT_Kp  28.16
-      #define DEFAULT_Ki   3.38
-      #define DEFAULT_Kd  58.69
+      #define DEFAULT_Kp 21.6708
+      #define DEFAULT_Ki  1.2515
+      #define DEFAULT_Kd 93.8127
     #endif
     // FIND YOUR OWN: measured after M106 S180 with M303 E0 S230 C8 U
     //#define DEFAULT_Kp
@@ -769,19 +771,27 @@
   #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
 
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
-
+  
+  #ifdef XP2
+    #define MPC_BLOCK_HEAT_CAPACITY { 13.6647 }           // (J/K) Heat block heat capacities.
+    #define MPC_SENSOR_RESPONSIVENESS { 0.0666 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
+    #define MPC_AMBIENT_XFER_COEFF { 0.0774 }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
+    #if ENABLED(MPC_INCLUDE_FAN)
+      #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1294 }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
+    #endif  
+  #else
   // Measured physical constants from M306
-  #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
-  #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
-  #define MPC_AMBIENT_XFER_COEFF { 0.068f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
-  #if ENABLED(MPC_INCLUDE_FAN)
-    #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.097f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
+    #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
+    #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
+    #define MPC_AMBIENT_XFER_COEFF { 0.068f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
+    #if ENABLED(MPC_INCLUDE_FAN)
+      #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.097f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
+    #endif
   #endif
-
   // For one fan and multiple hotends MPC needs to know how to apply the fan cooling effect.
   #if ENABLED(MPC_INCLUDE_FAN)
     //#define MPC_FAN_0_ALL_HOTENDS
-    //#define MPC_FAN_0_ACTIVE_HOTEND
+    #define MPC_FAN_0_ACTIVE_HOTEND
   #endif
 
   #define FILAMENT_HEAT_CAPACITY_PERMM { 5.6e-3f }    // 0.0056 J/K/mm for 1.75mm PLA (0.0149 J/K/mm for 2.85mm PLA).
@@ -793,7 +803,7 @@
   #define MPC_STEADYSTATE 0.5f                        // (K/s) Temperature change rate for steady state logic to be enforced.
 
   #define MPC_TUNING_POS { X_CENTER, Y_CENTER, 1.0f } // (mm) M306 Autotuning position, ideally bed center at first layer height.
-  #define MPC_TUNING_END_Z 10.0f                      // (mm) M306 Autotuning final Z position.
+  #define MPC_TUNING_END_Z 50.0f                      // (mm) M306 Autotuning final Z position.
 #endif
 
 //===========================================================================
@@ -1026,7 +1036,7 @@
     #define DELTA_PRINTABLE_RADIUS  130.0            // (mm)
     #define DELTA_MAX_RADIUS        130.0
     #define DELTA_DIAGONAL_ROD      288.0            // Custom arm with Ball = 285
-    #define DELTA_HEIGHT            365.0
+    #define DELTA_HEIGHT            366.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
     #define DELTA_RADIUS            130.5            // Custom radius with Ball = 130.5
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } //XYZ
