@@ -707,7 +707,7 @@
 //===========================================================================
 // Enable PIDTEMP for PID control or MPCTEMP for Predictive Model.
 // temperature control. Disable both for bang-bang heating.
-#ifndef MCPTEMP
+#ifndef MPCTEMP
   #define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
 #endif
 //#define MPCTEMP        // ** EXPERIMENTAL **
@@ -765,7 +765,7 @@
  */
 #if ENABLED(MPCTEMP)
   #define MPC_MAX BANG_MAX                            // (0..255) Current to nozzle while MPC is active.
-  #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
+  #define MPC_HEATER_POWER { 50.0f }                  // (W) Heat cartridge powers.
 
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
   
@@ -1032,7 +1032,7 @@
   #elif ENABLED(QQS_SR) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
     #define DELTA_PRINTABLE_RADIUS  130.0            // (mm)
     #define DELTA_MAX_RADIUS        130.0
-    #define DELTA_DIAGONAL_ROD      288.0            // Custom arm with Ball = 285
+    #define DELTA_DIAGONAL_ROD      280.0            // Custom arm with Ball = 285
     #define DELTA_HEIGHT            366.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
     #define DELTA_RADIUS            130.5            // Custom radius with Ball = 130.5
