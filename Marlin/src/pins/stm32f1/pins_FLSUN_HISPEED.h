@@ -26,13 +26,13 @@
  * FLSun Hispeed (clone MKS_Robin_miniV2) board.
  *
  * MKS Robin Mini USB uses UART3 (PB10-TX, PB11-RX)
- * #define SERIAL_PORT 3
+ * #define SERIAL_PORT_2 3
  */
 
 #if NOT_TARGET(__STM32F1__, STM32F1)
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
 #elif HAS_MULTI_HOTEND || E_STEPPERS > 1
-  #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
+  #error "FLSUN HiSpeedV1 only supports one hotend / E-stepper. Comment out this line to continue."
 #endif
 
 #define BOARD_INFO_NAME      "FLSun HiSpeedV1"
@@ -51,9 +51,6 @@
 //
 // EEPROM
 //
-#if ENABLED(SRAM_EEPROM_EMULATION)
-  #undef NO_EEPROM_SELECTED
-#endif
 #if EITHER(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
   #define FLASH_EEPROM_EMULATION
   #define EEPROM_PAGE_SIZE     (0x800U)           // 2K
@@ -84,9 +81,7 @@
 //
 // Servos
 //
-#ifndef SERVO0_PIN
-  #define SERVO0_PIN                        PA8   // Enable BLTOUCH support on IO0 (WIFI connector)
-#endif
+//#define SERVO0_PIN                        PA8   // use IO0 to enable BLTOUCH support/remove Mks_Wifi
 
 //
 // Limit Switches
@@ -165,12 +160,12 @@
     #define Z_SERIAL_TX_PIN      X_SERIAL_TX_PIN  // IO0
     #define Z_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
   #else /*  TMC220x   */
-    // SoftwareSerial with one pin per driver
-    // Compatible with TMC2208 and TMC2209 drivers
+  // SoftwareSerial with one pin per driver
+  // Compatible with TMC2208 and TMC2209 drivers
     #define  X_SLAVE_ADDRESS 0
     #define  Y_SLAVE_ADDRESS 0
     #define  Z_SLAVE_ADDRESS 0
-    
+
     #define X_SERIAL_TX_PIN                   PA10  // RXD1
     #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
     #define Y_SERIAL_TX_PIN                   PA9   // TXD1
@@ -178,12 +173,11 @@
     #define Z_SERIAL_TX_PIN                   PC7   // IO1
     #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
   #endif
-
 #else
   // Motor current PWM pins
   #define MOTOR_CURRENT_PWM_XY_PIN          PA6   // VREF2/3 CONTROL XY
   #define MOTOR_CURRENT_PWM_Z_PIN           PA7   // VREF4 CONTROL Z
-  #define MOTOR_CURRENT_PWM_RANGE          1500   // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
+  #define MOTOR_CURRENT_PWM_RANGE           1500  // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
   #ifndef DEFAULT_PWM_MOTOR_CURRENT
     #define DEFAULT_PWM_MOTOR_CURRENT { 900, 900, 900 }
   #endif
@@ -214,6 +208,14 @@
   //#define WIFI_IO0_PIN                      PA8   // MKS ESP WIFI IO0 PIN
   //#define WIFI_IO1_PIN       			          PC7   // MKS ESP WIFI IO1 PIN
   //#define WIFI_RESET_PIN				            PA5   // MKS ESP WIFI RESET PIN
+  /* fix Marlin
+  #define ESP_WIFI_MODULE_COM                  2  // Must also set either SERIAL_PORT or SERIAL_PORT_2 to this
+  #define ESP_WIFI_MODULE_BAUDRATE      BAUDRATE  // Must use same BAUDRATE as SERIAL_PORT & SERIAL_PORT_2
+  #define ESP_WIFI_MODULE_RESET_PIN         PA5   // WIFI CTRL/RST
+  #define ESP_WIFI_MODULE_ENABLE_PIN        -1
+  #define ESP_WIFI_MODULE_TXD_PIN           PA9   // MKS or ESP WIFI RX PIN
+  #define ESP_WIFI_MODULE_RXD_PIN           PA10  // MKS or ESP WIFI TX PIN
+  */
 #endif
 
 //
@@ -247,6 +249,15 @@
 
 #define FAN_PIN                             PB1   // E_FAN
 
+//
+// Misc. Functions
+//
+#if ENABLED(BACKUP_POWER_SUPPLY)
+  #define POWER_LOSS_PIN                    PA2   // PW_DET (UPS) MKSPWC
+#else
+    #define POWER_LOSS_PIN                  -1    // PW_DET
+    #define PS_ON_PIN                       PB2   // PW_OFF
+#endif
 
 /**
  *    Connector J2
@@ -284,17 +295,6 @@
   //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
 #endif
 
-#if ENABLED(BACKUP_POWER_SUPPLY)
-    #define POWER_LOSS_PIN                  PA2   // PW_DET (UPS) MKSPWC
-    #define PS_ON_PIN                       PA3   // PW_CN /PW_OFF, you can change it to other pin
-#else
-    #define POWER_LOSS_PIN                  -1    // PW_DET
-    #define PS_ON_PIN                       PB2   // PW_OFF
-#endif
-
-//
-// Misc. Functions
-//
 #if HAS_TFT_LVGL_UI
   #define MT_DET_1_PIN                      PA4   // MT_DET
   #define MT_DET_2_PIN                      PE6
@@ -330,6 +330,7 @@
 #else
   #define SDIO_SUPPORT
   #define SDIO_CLOCK                     4500000  // 4.5 MHz
+  //#define SDIO_READ_RETRIES                   16
   #define ONBOARD_SPI_DEVICE                   1  // SPI1
   #define ONBOARD_SD_CS_PIN                 PC11
   #define SD_DETECT_PIN                     -1    // SD_CD (-1 active refresh)
@@ -362,17 +363,17 @@
    * Setting an 'LCD_RESET_PIN' may cause a flicker when entering the LCD menu
    * because Marlin uses the reset as a failsafe to revive a glitchy LCD.
    */
-  #define TFT_RESET_PIN                     PC6   // FSMC_RST
+  //#define TFT_RESET_PIN                   PC6   // FSMC_RST
   #define TFT_BACKLIGHT_PIN                 PD13
-  
-  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
-  #define DOGLCD_SCK                        -1
 
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
   #define FSMC_DMA_DEV                      DMA2
   #define FSMC_DMA_CHANNEL               DMA_CH5
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0  
+
+  #define FSMC_CS_PIN                       PD7   // NE4
+  #define FSMC_RS_PIN                       PD11  // A0
 
   #define TFT_CS_PIN                 FSMC_CS_PIN
   #define TFT_RS_PIN                 FSMC_RS_PIN
