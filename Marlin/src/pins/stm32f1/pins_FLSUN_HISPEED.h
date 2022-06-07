@@ -94,7 +94,7 @@
   #define X_STOP_PIN                  X_DIAG_PIN 
   #define Y_STOP_PIN                  Y_DIAG_PIN
   #define Z_STOP_PIN                  Z_DIAG_PIN
-  #define Z_MIN_PIN                   Z_DIAG_PIN 
+  #define Z_MIN_PIN                   Z_DIAG_PIN  //Note= do another test with disable this
 #else
   #define X_STOP_PIN                  X_DIAG_PIN  // +X 
   #define Y_STOP_PIN                  Y_DIAG_PIN  // +Y
