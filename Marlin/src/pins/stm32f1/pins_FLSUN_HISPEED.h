@@ -81,9 +81,8 @@
 //
 // Servos
 //
-#ifndef SERVO0_PIN
-  #define SERVO0_PIN                        PA8   // Enable BLTOUCH support on IO0 (WIFI connector)
-#endif
+//#define SERVO0_PIN                        PA8   // Enable BLTOUCH support on IO0 (WIFI connector)
+
 //
 // Limit Switches
 //
@@ -91,11 +90,11 @@
 #define Y_DIAG_PIN                          PA12  //-Y
 #define Z_DIAG_PIN                          PC4  //-Z
 
-#ifdef SENSORLESS_PROBING
+#ifdef SENSORLESS_PROBING // Need to wire between DIAG pin and endstop XYZ
   #define X_STOP_PIN                  X_DIAG_PIN 
   #define Y_STOP_PIN                  Y_DIAG_PIN
   #define Z_STOP_PIN                  Z_DIAG_PIN
-  #define Z_MIN_PIN                   Z_DIAG_PIN 
+  //#define Z_MIN_PIN                   Z_DIAG_PIN 
 #else
   #define X_STOP_PIN                  X_DIAG_PIN  // +X 
   #define Y_STOP_PIN                  Y_DIAG_PIN  // +Y
@@ -274,7 +273,7 @@
 #if HAS_TFT_LVGL_UI
   #define MT_DET_1_PIN                      PA4   // MT_DET
   #define MT_DET_2_PIN                      PE6   // FALA_CRTL
-  #define MT_DET_PIN_STATE                   LOW
+  #define MT_DET_PIN_STATE                  LOW
 #endif
 
 //
@@ -338,7 +337,7 @@
    * Setting an 'LCD_RESET_PIN' may cause a flicker when entering the LCD menu
    * because Marlin uses the reset as a failsafe to revive a glitchy LCD.
    */
-  //#define TFT_RESET_PIN                   PC6   // FSMC_RST
+  #define TFT_RESET_PIN                      PC6   // FSMC_RST
   #define TFT_BACKLIGHT_PIN                 PD13
 
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
@@ -357,13 +356,6 @@
     #define TFT_BTOKMENU_COLOR            0x145F  // Cyan
   #endif
   #define TFT_BUFFER_SIZE                  14400
-
-#elif HAS_GRAPHICAL_TFT
-
-  #define TFT_RESET_PIN                     PC6
-  #define TFT_BACKLIGHT_PIN                 PD13
-  #define TFT_CS_PIN                        PD7   // NE4
-  #define TFT_RS_PIN                        PD11  // A0
 
 #endif
 
