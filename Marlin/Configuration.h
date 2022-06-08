@@ -433,13 +433,17 @@
 //#define PSU_NAME "Power Supply"
 
 #if ENABLED(PSU_CONTROL)
-  #define MKS_PWC                 // Using the MKS PWC add-on
-  #define PS_OFF_CONFIRM          // Confirm dialog when power off
+  //#define MKS_PWC                 // Using the MKS PWC add-on
+  //#define PS_OFF_CONFIRM          // Confirm dialog when power off
   //#define PS_OFF_SOUND            // Beep 1s when power off
-  #define PSU_ACTIVE_STATE HIGH     // Set 'LOW' for ATX, 'HIGH' for X-Box
+  #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box
 
-  //#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
-  //#define PSU_POWERUP_DELAY 250   // (ms) Delay for the PSU to warm up to full power
+  //#define PSU_DEFAULT_OFF               // Keep power off until enabled directly with M80
+  //#define PSU_POWERUP_DELAY      250    // (ms) Delay for the PSU to warm up to full power
+  //#define LED_POWEROFF_TIMEOUT 10000    // (ms) Turn off LEDs after power-off, with this amount of delay
+
+  //#define POWER_OFF_TIMER               // Enable M81 D<seconds> to power off after a delay
+  //#define POWER_OFF_WAIT_FOR_COOLDOWN   // Enable M81 S to power off only after cooldown
 
   //#define PSU_POWERUP_GCODE  "M355 S1"  // G-code to run after power-on (e.g., case light on)
   //#define PSU_POWEROFF_GCODE "M355 S0"  // G-code to run before power-off (e.g., case light off)
@@ -451,11 +455,13 @@
     #define AUTO_POWER_CONTROLLERFAN
     #define AUTO_POWER_CHAMBER_FAN
     #define AUTO_POWER_COOLER_FAN
-    //#define AUTO_POWER_E_TEMP        50 // (°C) Turn on PSU if any extruder is over this temperature
-    //#define AUTO_POWER_CHAMBER_TEMP  30 // (°C) Turn on PSU if the chamber is over this temperature
-    //#define AUTO_POWER_COOLER_TEMP   26 // (°C) Turn on PSU if the cooler is over this temperature
     #define POWER_TIMEOUT              30 // (s) Turn off power if the machine is idle for this duration
     //#define POWER_OFF_DELAY          60 // (s) Delay of poweroff after M81 command. Useful to let fans run for extra time.
+  #endif
+  #if EITHER(AUTO_POWER_CONTROL, POWER_OFF_WAIT_FOR_COOLDOWN)
+    //#define AUTO_POWER_E_TEMP        50 // (°C) PSU on if any extruder is over this temperature
+    //#define AUTO_POWER_CHAMBER_TEMP  30 // (°C) PSU on if the chamber is over this temperature
+    //#define AUTO_POWER_COOLER_TEMP   26 // (°C) PSU on if the cooler is over this temperature
   #endif
 #endif
 
@@ -498,6 +504,9 @@
  *     5 : 100kΩ  ATC Semitec 104GT-2/104NT-4-R025H42G - Used in ParCan, J-Head, and E3D, SliceEngineering 300°C
  *   501 : 100kΩ  Zonestar - Tronxy X3A
  *   502 : 100kΩ  Zonestar - used by hot bed in Zonestar Průša P802M
+ *   503 : 100kΩ  Zonestar (Z8XM2) Heated Bed thermistor
+ *   504 : 100kΩ  Zonestar P802QR2 (Part# QWG-104F-B3950) Hotend Thermistor
+ *   505 : 100kΩ  Zonestar P802QR2 (Part# QWG-104F-3950) Bed Thermistor
  *   512 : 100kΩ  RPW-Ultra hotend
  *     6 : 100kΩ  EPCOS - Not as accurate as table #1 (created using a fluke thermocouple)
  *     7 : 100kΩ  Honeywell 135-104LAG-J01
@@ -517,6 +526,7 @@
  *    61 : 100kΩ  Formbot/Vivedino 350°C Thermistor - beta 3950
  *    66 : 4.7MΩ  Dyze Design High Temperature Thermistor
  *    67 : 500kΩ  SliceEngineering 450°C Thermistor
+ *    68 : PT100 amplifier board from Dyze Design
  *    70 : 100kΩ  bq Hephestos 2
  *    75 : 100kΩ  Generic Silicon Heat Pad with NTC100K MGB18-104F39050L32
  *  2000 : 100kΩ  Ultimachine Rambo TDK NTCG104LH104KT1 NTC100K motherboard Thermistor
@@ -636,8 +646,8 @@
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
-  #if ANY(SR_MKS, SR_BTT)
-    #define HEATER_0_MAXTEMP 290
+  #ifdef VOLCANO
+    #define HEATER_0_MAXTEMP 300
   #else
     #define HEATER_0_MAXTEMP 275
   #endif
@@ -668,7 +678,9 @@
 
 // Enable PIDTEMP for PID control or MPCTEMP for Predictive Model.
 // temperature control. Disable both for bang-bang heating.
-#define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+#ifndef MPCTEMP 
+  #define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+#endif
 //#define MPCTEMP        // ** EXPERIMENTAL **
 
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
@@ -727,7 +739,7 @@
   //#define MPC_AUTOTUNE_MENU                         // Add MPC auto-tuning to the "Advanced Settings" menu. (~350 bytes of flash)
 
   #define MPC_MAX BANG_MAX                            // (0..255) Current to nozzle while MPC is active.
-  #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
+  #define MPC_HEATER_POWER { 50.0f }                  // (W) Heat cartridge powers.
 
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
 
@@ -754,7 +766,7 @@
   #define MPC_STEADYSTATE 0.5f                        // (K/s) Temperature change rate for steady state logic to be enforced.
 
   #define MPC_TUNING_POS { X_CENTER, Y_CENTER, 1.0f } // (mm) M306 Autotuning position, ideally bed center at first layer height.
-  #define MPC_TUNING_END_Z 10.0f                      // (mm) M306 Autotuning final Z position.
+  #define MPC_TUNING_END_Z 50.0f                      // (mm) M306 Autotuning final Z position.
 #endif
 
 //===========================================================================
@@ -992,10 +1004,10 @@
   #elif ENABLED(QQS_SR) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
     #define DELTA_PRINTABLE_RADIUS  130.0            //
     #define DELTA_MAX_RADIUS        130.0            //
-    #define DELTA_DIAGONAL_ROD      285.0            //L285.8064
-    #define DELTA_HEIGHT            350.0            //H333.1926
+    #define DELTA_DIAGONAL_ROD      280.0            //L285.8064
+    #define DELTA_HEIGHT            345.0            //H333.1926
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            128.0            //R127.3126
+    #define DELTA_RADIUS            135.0            //R127.3126
     #define DELTA_TOWER_ANGLE_TRIM { 0.0278, 0.1700, -0.1978}    //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1243, -0.2939, 0.4182 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -1424,6 +1436,17 @@
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
 //#define BLTOUCH
+
+/**
+ * MagLev V4 probe by MDD
+ *
+ * This probe is deployed and activated by powering a built-in electromagnet.
+ */
+//#define MAGLEV4
+#if ENABLED(MAGLEV4)
+  //#define MAGLEV_TRIGGER_PIN 11     // Set to the connected digital output
+  #define MAGLEV_TRIGGER_DELAY 15     // Changing this risks overheating the coil
+#endif
 
 /**
  * Touch-MI Probe by hotends.fr
@@ -2306,7 +2329,7 @@
 // @section temperature
 
 //
-// Preheat Constants - Up to 5 are supported without changes
+// Preheat Constants - Up to 6 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 200
@@ -3033,38 +3056,38 @@
 //========================== Extensible UI Displays ===========================
 //=============================================================================
 
-//
-// DGUS Touch Display with DWIN OS. (Choose one.)
-// ORIGIN : https://www.aliexpress.com/item/32993409517.html
-// FYSETC : https://www.aliexpress.com/item/32961471929.html
-// MKS    : https://www.aliexpress.com/item/1005002008179262.html
-//
-// Flash display with DGUS Displays for Marlin:
-//  - Format the SD card to FAT32 with an allocation size of 4kb.
-//  - Download files as specified for your type of display.
-//  - Plug the microSD card into the back of the display.
-//  - Boot the display and wait for the update to complete.
-//
-// ORIGIN (Marlin DWIN_SET)
-//  - Download https://github.com/coldtobi/Marlin_DGUS_Resources
-//  - Copy the downloaded DWIN_SET folder to the SD card.
-//
-// FYSETC (Supplier default)
-//  - Download https://github.com/FYSETC/FYSTLCD-2.0
-//  - Copy the downloaded SCREEN folder to the SD card.
-//
-// HIPRECY (Supplier default)
-//  - Download https://github.com/HiPrecy/Touch-Lcd-LEO
-//  - Copy the downloaded DWIN_SET folder to the SD card.
-//
-// MKS (MKS-H43) (Supplier default)
-//  - Download https://github.com/makerbase-mks/MKS-H43
-//  - Copy the downloaded DWIN_SET folder to the SD card.
-//
-// RELOADED (T5UID1)
-//  - Download https://github.com/Desuuuu/DGUS-reloaded/releases
-//  - Copy the downloaded DWIN_SET folder to the SD card.
-//
+/**
+ * DGUS Touch Display with DWIN OS. (Choose one.)
+ * ORIGIN : https://www.aliexpress.com/item/32993409517.html
+ * FYSETC : https://www.aliexpress.com/item/32961471929.html
+ * MKS    : https://www.aliexpress.com/item/1005002008179262.html
+ *
+ * Flash display with DGUS Displays for Marlin:
+ *  - Format the SD card to FAT32 with an allocation size of 4kb.
+ *  - Download files as specified for your type of display.
+ *  - Plug the microSD card into the back of the display.
+ *  - Boot the display and wait for the update to complete.
+ *
+ * ORIGIN (Marlin DWIN_SET)
+ *  - Download https://github.com/coldtobi/Marlin_DGUS_Resources
+ *  - Copy the downloaded DWIN_SET folder to the SD card.
+ *
+ * FYSETC (Supplier default)
+ *  - Download https://github.com/FYSETC/FYSTLCD-2.0
+ *  - Copy the downloaded SCREEN folder to the SD card.
+ *
+ * HIPRECY (Supplier default)
+ *  - Download https://github.com/HiPrecy/Touch-Lcd-LEO
+ *  - Copy the downloaded DWIN_SET folder to the SD card.
+ *
+ * MKS (MKS-H43) (Supplier default)
+ *  - Download https://github.com/makerbase-mks/MKS-H43
+ *  - Copy the downloaded DWIN_SET folder to the SD card.
+ *
+ * RELOADED (T5UID1)
+ *  - Download https://github.com/Desuuuu/DGUS-reloaded/releases
+ *  - Copy the downloaded DWIN_SET folder to the SD card.
+ */
 //#define DGUS_LCD_UI_ORIGIN
 //#define DGUS_LCD_UI_FYSETC
 //#define DGUS_LCD_UI_HIPRECY
@@ -3252,7 +3275,7 @@
 // Ender-3 v2 OEM display. A DWIN display with Rotary Encoder.
 //
 //#define DWIN_CREALITY_LCD           // Creality UI
-//#define DWIN_CREALITY_LCD_ENHANCED  // Enhanced UI
+//#define DWIN_LCD_PROUI              // Pro UI by MRiscoC
 //#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
 //#define DWIN_MARLINUI_PORTRAIT      // MarlinUI (portrait orientation)
 //#define DWIN_MARLINUI_LANDSCAPE     // MarlinUI (landscape orientation)
@@ -3383,29 +3406,29 @@
 #if ENABLED(NEOPIXEL_LED)
   #define NEOPIXEL_TYPE           NEO_GRB // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
                                           // See https://github.com/adafruit/Adafruit_NeoPixel/blob/master/Adafruit_NeoPixel.h
-  #define NEOPIXEL_PIN    LED_PWM  // LED driving pin
-  //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
-  //#define NEOPIXEL2_PIN    5
-  //#define NEOPIXEL_PIXELS 30     // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
-  //#define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
-  #define NEOPIXEL_BRIGHTNESS 250  // Initial brightness (0-255)
-  #define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
+  #define NEOPIXEL_PIN            LED_PWM // LED driving pin
+  //#define NEOPIXEL2_TYPE  NEOPIXEL_TYPE
+  //#define NEOPIXEL2_PIN               5
+  //#define NEOPIXEL_PIXELS            30 // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
+  //#define NEOPIXEL_IS_SEQUENTIAL        // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+  #define NEOPIXEL_BRIGHTNESS         250 // Initial brightness (0-255)
+  #define NEOPIXEL_STARTUP_TEST           // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
   //#define NEOPIXEL2_SEPARATE
   #if ENABLED(NEOPIXEL2_SEPARATE)
-    #define NEOPIXEL2_PIXELS      15  // Number of LEDs in the second strip
-    #define NEOPIXEL2_BRIGHTNESS 127  // Initial brightness (0-255)
-    #define NEOPIXEL2_STARTUP_TEST    // Cycle through colors at startup
+    #define NEOPIXEL2_PIXELS           15 // Number of LEDs in the second strip
+    #define NEOPIXEL2_BRIGHTNESS      127 // Initial brightness (0-255)
+    #define NEOPIXEL2_STARTUP_TEST        // Cycle through colors at startup
   #else
-    //#define NEOPIXEL2_INSERIES      // Default behavior is NeoPixel 2 in parallel
+    //#define NEOPIXEL2_INSERIES          // Default behavior is NeoPixel 2 in parallel
   #endif
 
   // Use some of the NeoPixel LEDs for static (background) lighting
-  //#define NEOPIXEL_BKGD_INDEX_FIRST  0              // Index of the first background LED
-  //#define NEOPIXEL_BKGD_INDEX_LAST   5              // Index of the last background LED
+  //#define NEOPIXEL_BKGD_INDEX_FIRST   0 // Index of the first background LED
+  //#define NEOPIXEL_BKGD_INDEX_LAST    5 // Index of the last background LED
   #define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
-  //#define NEOPIXEL_BKGD_ALWAYS_ON                   // Keep the backlight on when other NeoPixels are off
+  //#define NEOPIXEL_BKGD_ALWAYS_ON       // Keep the backlight on when other NeoPixels are off
 #endif
 
 /**

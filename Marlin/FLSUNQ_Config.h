@@ -8,10 +8,10 @@
 *================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
 *================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
 *===========================================================================
-*                         MARLIN_v2.0.9.3
+*                         MARLIN_v2.0.9.4
 * For a Delta printer start with one of the configuration files in
 * the directory and customize for your machine:
-* https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.3/config/examples/delta/FLSUN/ 
+* https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.4/config/examples/delta/FLSUN/ 
 * 
 * Wiki: https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki
 * 
@@ -81,7 +81,7 @@
   //#define TFT_BTT_UI           //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
-  //#define TFT_GENERIC          // For the user who haven't the same screen.
+  //#define TFT_OTHER            // For the user who haven't the same screen.
 #else
                 /*--- Choice UI TFT ----*/
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
@@ -120,7 +120,7 @@
 //#define OMG                            //(O) Uncommment for OMG.
                   /*  Custom Effector  */
                   /* rods, height, arms*/
-//#define QQS_SR                           // Custom effector with Direct_Drive SuperDriveHX()
+//#define QQS_SR                         // Custom effector with Direct_Drive SuperDriveHX()
 //#define FKSN                           // Customn effector FRANKENSUN
                   /* Module Socket_Wifi */ 
 #define MOD_WIFI                         //(W) (Default_QQS) With Module ESP8266/ESP12 or Connexion Tx/RX
@@ -152,8 +152,9 @@
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
+//#define VOLCANO                        // set to 300°C with appropriate thermistor.
 
-// For user who change their HotEnd like Volcano and
+// For user who change their HotEnd and
 // want to increase the temperature limit. 
 //#define HEATER_0_MAXTEMP 300
 
@@ -199,6 +200,7 @@
 * == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
 * ======================================================
 */
+//#define OCTO                           // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option. 
@@ -242,7 +244,7 @@
   //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.  
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  #define TOUCH_IDLE_SLEEP 900          //  (Default) Auto-Sleep screenview.
+  //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview.
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
@@ -271,19 +273,17 @@
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen  
-#elif ENABLED(TFT_GENERIC)
-  #define TFT_DRIVER AUTO
-  #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
-  #define TFT_RES_320x240
+#elif ENABLED(TFT_OTHER)
+  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
+  #define MKS_ROBIN_TFT35           // Mks_Robin_TFT35V2.0
+  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43 
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #elif BOTH(TFT_COLOR_UI, SR_MKS)
   #define MKS_TS35_V2_0             // Only for NanoV2 or V3
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  #define MULTI_VOLUME             // Multiple volume support(µSD + USB)
+  #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
 #else
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
-  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
-  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43 
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #endif
 
