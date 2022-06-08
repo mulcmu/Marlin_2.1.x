@@ -3982,7 +3982,7 @@
 // Custom Menu: Main Menu
 //#define CUSTOM_MENU_MAIN  //Define on FLSUNQ_Config
 #if ENABLED(CUSTOM_MENU_MAIN)
-  #define CUSTOM_MENU_MAIN_TITLE "Special Menu Delta & Leveling"
+  #define CUSTOM_MENU_MAIN_TITLE "Special Delta preparation"
   //#define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
   //#define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
@@ -4004,24 +4004,24 @@
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "Bed Level. UBL for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_5_GCODE "G29L1\nM1004H0B70S1"
+  #define MAIN_MENU_ITEM_5_DESC "1.Bed Level. UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_GCODE "G29L1\nM1004B70S1"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
-  #define MAIN_MENU_ITEM_6_DESC "Run PID_Nozzle_for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_6_DESC "1.Run PID_Nozzle_for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107"
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "Print a test pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29L0\nG26I0P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_7_DESC "1.Print a test pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29L1\nG26I0P4\nM500\nG28W"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
-  #define MAIN_MENU_ITEM_8_DESC "Bed Level. UBL for " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_8_GCODE "G29L2\nM1004H0B80S2"
+  #define MAIN_MENU_ITEM_8_DESC "2.Bed Level. UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_8_GCODE "G29L2\nM1004B80S2"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "Bed Level. UBL for " PREHEAT_3_LABEL
-  #define MAIN_MENU_ITEM_9_GCODE "G29L3\nM1004H0B90S3"
+  #define MAIN_MENU_ITEM_9_DESC "3.Bed Level. UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "G29L3\nM1004B90S3"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
   #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
