@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "FLSunQ_bugfix-2.0.10"
+#define SHORT_BUILD_VERSION "FLSunQ_bugfix-2.1.x"
 
 /**
  * Verbose version identifier which should contain a reference to the location
@@ -41,7 +41,7 @@
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-//#define STRING_DISTRIBUTION_DATE "2022-06-04"
+//#define STRING_DISTRIBUTION_DATE "2022-06-11"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
@@ -54,7 +54,7 @@
  * has a distinct Github fork— the Source Code URL should just be the main
  * Marlin repository.
  */
-#define SOURCE_CODE_URL "github.com/Foxies-CSTL/Marlin2.0.x"
+#define SOURCE_CODE_URL "github.com/Foxies-CSTL/Marlin2.1.x"
 
 /**
  * Default generic printer UUID.
