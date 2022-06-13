@@ -3,7 +3,7 @@
 *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
 *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
 *===========================================================================
-*                         MARLIN_v2.0.10.x
+*                         MARLIN_v2.1.x
 * For a Delta printer start with one of the configuration files in
 * the directory and customize for your machine:
 * https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.3/config/examples/delta/FLSUN/ 
@@ -18,6 +18,7 @@
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
+
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
@@ -79,10 +80,10 @@
   //#define TFT_BTT_UI           //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
-  //#define TFT_GENERIC          // For the user who haven't the same screen.
+  //#define TFT_OTHER            // For the user who haven't the same screen.
+  //#define TFT_GENERI
 #else
-  #define TFT_OTHER
-  #define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2
+  #define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI            //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
@@ -118,7 +119,7 @@
 //#define OMG                            //(O) Uncommment for OMG.
                   /*  Custom Effector  */
                   /* rods, height, arms*/
-//#define QQS-SR                         // Custom effector with balls like SR printer.
+//#define QQS_SR                         // Custom effector with balls like SR printer.
 //#define FKSN                           // Customn effector FRANKENSUNrods, height
                   /* Module Mks_Wifi */ 
 #define MOD_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
@@ -128,6 +129,7 @@
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
 //#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7) on QQS
                                          //(n) Use port BLTouch (PA8) on SR_MKS
+//#define NEOPIXEL_PIXELS     18         // Number of LEDs in the strip
 
         /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
@@ -140,6 +142,8 @@
                                          // and Set Y,Z OFFSET at zero
 //#define X_PROBE                        // Uncomment and Set an other probe (invert the logic too).
 
+// Ajust the position of your new probe.
+//#define X_OFFSET 0 //-2                // Uncomment and set your own X OffSet
 //#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
 //#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
 
@@ -150,13 +154,13 @@
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
 
 // For user who change their HotEnd like Volcano....
-//#define VOLCANO               // 300°C With thermistor hight temp.
+//#define VOLCANO                        // 300°C With thermistor hight temp.
 
 // And those who want to increase the temperature limit.
 //#define HEATER_0_MAXTEMP 300
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP
+//#define MPCTEMP                        // (M) 
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -200,6 +204,7 @@
 * == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
 * ======================================================
 */
+#define OCTO                             // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
@@ -453,6 +458,6 @@
   #endif
 #endif
 // NEOPIXEL for SR_MKS
-#ifdef SR_MKS
+#if BOTH(NEOPIXEL_LED, SR_MKS)
   #define LED_PWM    SERVO0_PIN
 #endif
