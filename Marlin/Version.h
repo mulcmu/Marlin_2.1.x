@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "FLSunQ_2.0.9.4"
+#define SHORT_BUILD_VERSION "FLSunQ_2.1"
 
 /**
  * Verbose version identifier which should contain a reference to the location
@@ -54,7 +54,7 @@
  * has a distinct Github fork— the Source Code URL should just be the main
  * Marlin repository.
  */
-#define SOURCE_CODE_URL "github.com/Foxies-CSTL/Marlin2.0.x"
+#define SOURCE_CODE_URL "github.com/Foxies-CSTL/Marlin_2.1.x"
 
 /**
  * Default generic printer UUID.
