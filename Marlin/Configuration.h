@@ -197,7 +197,7 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #ifdef QQSP
-  #define CUSTOM_MACHINE_NAME "ΔDelta QQSP"
+  #define CUSTOM_MACHINE_NAME "δDelta QQSP"
 #endif
 #ifdef Q5
   #define CUSTOM_MACHINE_NAME "δDelta Q5"
@@ -717,7 +717,7 @@
 #endif
 //#define MPCTEMP        // ** EXPERIMENTAL **
 
-#define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
+#define BANG_MAX 200     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
@@ -773,7 +773,7 @@
   //#define MPC_AUTOTUNE_MENU                         // Add MPC auto-tuning to the "Advanced Settings" menu. (~350 bytes of flash)
 
   #define MPC_MAX BANG_MAX                            // (0..255) Current to nozzle while MPC is active.
-  #define MPC_HEATER_POWER { 50.0f }                  // (W) Heat cartridge powers.
+  #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
 
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
 
@@ -788,7 +788,7 @@
   // For one fan and multiple hotends MPC needs to know how to apply the fan cooling effect.
   #if ENABLED(MPC_INCLUDE_FAN)
     //#define MPC_FAN_0_ALL_HOTENDS
-    //#define MPC_FAN_0_ACTIVE_HOTEND
+    #define MPC_FAN_0_ACTIVE_HOTEND
   #endif
 
   #define FILAMENT_HEAT_CAPACITY_PERMM { 5.6e-3f }    // 0.0056 J/K/mm for 1.75mm PLA (0.0149 J/K/mm for 2.85mm PLA).
@@ -799,7 +799,7 @@
   #define MPC_MIN_AMBIENT_CHANGE 1.0f                 // (K/s) Modeled ambient temperature rate of change, when correcting model inaccuracies.
   #define MPC_STEADYSTATE 0.5f                        // (K/s) Temperature change rate for steady state logic to be enforced.
 
-  #define MPC_TUNING_POS { X_CENTER, Y_CENTER, 1.0f } // (mm) M306 Autotuning position, ideally bed center at first layer height.
+  #define MPC_TUNING_POS { X_CENTER, Y_CENTER, 3.0f } // (mm) M306 Autotuning position, ideally bed center at first layer height.
   #define MPC_TUNING_END_Z 50.0f                      // (mm) M306 Autotuning final Z position.
 #endif
 
@@ -1039,11 +1039,11 @@
     #define DELTA_PRINTABLE_RADIUS  130.0            //
     #define DELTA_MAX_RADIUS        130.0            //
     #define DELTA_DIAGONAL_ROD      280.0            //L285.8064
-    #define DELTA_HEIGHT            345.0            //H333.1926
+    #define DELTA_HEIGHT            365.0            //H333.1926
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
     #define DELTA_RADIUS            135.0            //R127.3126
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0278, 0.1700, -0.1978}    //XYZ
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1243, -0.2939, 0.4182 } //ABC
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }    //XYZ
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
   #elif ENABLED(Q5)  
@@ -3346,13 +3346,12 @@
   #define TOUCH_SCREEN_CALIBRATION //or (M995)
 
   // QQS-Pro use MKS Robin TFT v2.0
-  #if BOTH(QQSP, MKS_ROBIN_TFT32)||BOTH(QQSR, MKS_ROBIN_TFT32)
-    #define TOUCH_CALIBRATION_X   12033
-    #define TOUCH_CALIBRATION_Y   -9047
-    #define TOUCH_OFFSET_X          -30
-    #define TOUCH_OFFSET_Y          254
+  //#define TOUCH_CALIBRATION_X   12033
+  //#define TOUCH_CALIBRATION_Y   -9047
+  //#define TOUCH_OFFSET_X          -30
+  //#define TOUCH_OFFSET_Y          254
   //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
-  #endif
+
   #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
     #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
   #endif

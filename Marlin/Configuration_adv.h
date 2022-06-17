@@ -429,7 +429,7 @@
 
 // Show Temperature ADC value
 // Enable for M105 to include ADC values read from temperature sensors.
-//#define SHOW_TEMP_ADC_VALUES
+#define SHOW_TEMP_ADC_VALUES  //
 
 /**
  * High Temperature Thermistor Support
@@ -2307,9 +2307,7 @@
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
-#elif ENABLED(XP1)
-  #define BLOCK_BUFFER_SIZE 16  
-#elif ANY(TFT_BTT_UI, XP2)
+#elif ENABLED(TFT_BTT_UI)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 16
@@ -2444,7 +2442,7 @@
  *   'M106 P<fan> T1'     : Restore the previous fan speed
  */
 #ifdef TFT_BTT_UI
- #define EXTRA_FAN_SPEED   //if ENABLE FAN_1
+  #define EXTRA_FAN_SPEED   //if ENABLE FAN_1
 #endif
 
 /**
@@ -2826,11 +2824,6 @@
    * Override for each driver with <driver>_INTERPOLATE settings below
    */
   #define INTERPOLATE      true
-
-  // test
-  //#define XYZ_CURRENT       900
-  //#define XYZ_CURRENT_HOME  800
-  //#define E_CURRENT         850
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
@@ -4103,7 +4096,7 @@
 // Custom Menu: Main Menu
 //#define CUSTOM_MENU_MAIN  //Define on FLSUNQ_Config
 #if ENABLED(CUSTOM_MENU_MAIN)
-  #define CUSTOM_MENU_MAIN_TITLE "Special Delta preparation"
+  #define CUSTOM_MENU_MAIN_TITLE "Special Delta Preparation"
   //#define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
   //#define CUSTOM_MENU_MAIN_SCRIPT_AUDIBLE_FEEDBACK
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
@@ -4128,13 +4121,19 @@
   #define MAIN_MENU_ITEM_5_DESC "1.Bed Level. UBL for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_5_GCODE "G29L1\nM1004B70S1"
   #define MAIN_MENU_ITEM_5_CONFIRM
-
-  #define MAIN_MENU_ITEM_6_DESC "1.Run PID_Nozzle_for " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107"
-  #define MAIN_MENU_ITEM_6_CONFIRM
+  
+  #ifdef MPCTEMP
+   #define MAIN_MENU_ITEM_6_DESC "1.Run Autotune on Active extruder"
+   #define MAIN_MENU_ITEM_6_GCODE "M306T\nM500\nG28\nM107"
+   #define MAIN_MENU_ITEM_6_CONFIRM
+  #else 
+   #define MAIN_MENU_ITEM_6_DESC "1.Run PID_Nozzle_for " PREHEAT_1_LABEL
+   #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107"
+   #define MAIN_MENU_ITEM_6_CONFIRM
+  #endif
 
   #define MAIN_MENU_ITEM_7_DESC "1.Print a test pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "G28W\nG29L1\nG26I0P4\nM500\nG28W"
+  #define MAIN_MENU_ITEM_7_GCODE "G28\nG29L1\nG26I0P4\nM500\nG28"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
   #define MAIN_MENU_ITEM_8_DESC "2.Bed Level. UBL for " PREHEAT_2_LABEL

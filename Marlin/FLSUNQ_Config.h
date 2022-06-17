@@ -8,12 +8,12 @@
 *================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
 *================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
 *===========================================================================
-*                         MARLIN_v2.0.9.4
+*                         MARLIN_v2.1
 * For a Delta printer start with one of the configuration files in
 * the directory and customize for your machine:
-* https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.4/config/examples/delta/FLSUN/ 
+* https://github.com/MarlinFirmware/Configurations/tree/release-2.1/config/examples/delta/FLSUN/ 
 * 
-* Wiki: https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki
+* Wiki: https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki
 * 
 * TIPS/NOTES:
 * -For TMC mode UART, look the "pins_FLSUN_HISPEED.h" file (src/pins/stm32f1/) for more information to wire.
@@ -22,9 +22,10 @@
 *  Default is actif for QQS and it's uncommented ;-)
 */
 //For run tests on my dev'printers!!
-//#define XP_DEV
+#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
+#define EEPROM_INIT_NOW              // (Default) Set commented after the first build.
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -112,15 +113,15 @@
  */
                   /* User settings extruder */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX.
-//#define EXTRUDER_STEPS 562             // Ajust your eSteps.
+//#define EXTRUDER_STEPS 1440//708//830  // Ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (X) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
-//#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx.
-//#define OMG                            //(O) Uncommment for OMG.
+//#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Orbiter.
+//#define OMG                            //(O) Uncommment for OMGv2.
                   /*  Custom Effector  */
                   /* rods, height, arms*/
-//#define QQS_SR                         // Custom effector with Direct_Drive SuperDriveHX()
+//#define QQS_SR                         // Custom effector with Direct_Drive SuperDriveHX(QQSP)
 //#define FKSN                           // Customn effector FRANKENSUN
                   /* Module Socket_Wifi */ 
 #define MOD_WIFI                         //(W) (Default_QQS) With Module ESP8266/ESP12 or Connexion Tx/RX
@@ -130,7 +131,7 @@
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
 //#define NEOPIXEL_LED                  //(n) Use port GPIO Wifi module (PC7) on QQS
                                         //(n) Use port BLTouch (PA8) on SR_MKS
-//#define NEOPIXEL_PIXELS     18        // Number of LEDs in the strip
+//#define NEOPIXEL_PIXELS     24        // Number of LEDs in the strip (mine is 24)
 
         /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
@@ -152,11 +153,14 @@
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
-//#define VOLCANO                        // set to 300°C with appropriate thermistor.
+//#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
 // For user who change their HotEnd and
 // want to increase the temperature limit. 
-//#define HEATER_0_MAXTEMP 300
+//#define HEATER_0_MAXTEMP 350           // Uncomment Volcano line.
+
+// To change the old PID nozzle for Hotend with a new Model Predictive Control.
+//#define MPCTEMP                        // (m) ex: run "M306 P40" Configure MPCTEMP for 40W hotend heater
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -225,10 +229,10 @@
 * ==========================================
 * Note:You must update the Wifi module with
 * the ESP3D firmware or the MKS(Stock) firmware.
-* https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/5.Firmware-Wifi
+* https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/5.Firmware-Wifi
 */
 #ifdef MOD_WIFI
-  #define MOD_AUX                     // Enable UART2 on socket WIFI
+  #define MOD_AUX                     // Enable UART2 on socket WIFI (MKs boards)
   #ifdef ESP3D_30
     #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
     #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
@@ -399,11 +403,11 @@
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef NEMA14
-    #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
-  #elif ANY(BMG, SR_MKS, SR_BTT)
-    #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
+    #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter
   #elif ENABLED(OMG)           
     #define EXTRUDER_STEPS 390
+  #elif ANY(BMG, SR_MKS, SR_BTT)
+    #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
   #else
     #define EXTRUDER_STEPS 410  // Extruder TITAN(Default)
   #endif
