@@ -1,4 +1,4 @@
-### 2022-04-05 MARLIN 2.0.10 RELEASE BUGFIX
+### 2022-06-18 MARLIN 2.1 RELEASE
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
 
@@ -7,14 +7,14 @@ Each firmware has a header that corresponds to the hardware (board) and function
   
 - BTT-TFT35v3,
   
-  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TFT35v3.png" />
+  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/menus/SR-TFT35v3.png" />
 
 - Mks-TS35R,
   
-  <img width=700 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/menus/SR-TS35R.png" />
+  <img width=700 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/menus/SR-TS35R.png" />
 
 
-Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and another TFT screen (TS35R):
+Below is an example with the firmware for a SR printer (STOCK) with a Mks_Robin_nanoV3 board with 4xTMC2209 drivers and another TFT screen (Mks-TS35R):
 
 **Exemple:**
 SRM-SCBPULR32-Robin_nano_v3.bin
@@ -34,9 +34,9 @@ SRM-SCBPULR32-Robin_nano_v3.bin
   
   After the flash and to configure and prepare your printer, please follow the steps on the Wiki => 
   
-  [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  [HERE](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/2.SETTINGS-THE-PRINTER)
   
-  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/FLSun-Wiki.png" />
+  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/icons/FLSun-Wiki.png" />
   
   **/*-------Others Firmwares for QQS with SKR family or Mks_Nano Family----*/**
   - (QQS)U9rTPULR16-SKR14T_firmware   QQS SKR14T(4xTMC2209UART)16steps with TITAN extruder. 
@@ -47,8 +47,8 @@ SRM-SCBPULR32-Robin_nano_v3.bin
 
   **/*------Drivers--------*/**
   - (S) Stock=4xTMC2209_UART. (default)
-  - (16) All drivers 16steps (default)
-  - (32) All drivers 32steps
+  - (16) All drivers 16steps
+  - (32) All drivers 32steps (TMC-UART)
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -63,24 +63,27 @@ SRM-SCBPULR32-Robin_nano_v3.bin
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (B) Extruder BMG right_hand (Stock) (default)
   - (O) Extruder OMG v2
-  - (X) Extruder NEMA14 (**SDHX**/Mini-Sherpa/Orbiter/LGX)
+  - (X) Extruder DirectDrive NEMA14 (**SDHX**/Mini-Sherpa/Orbiter/Salfin)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
   - (g) SENSORLESS_PROBING (Only 2209)
-  - (A) BED_LEVELING_BILINEAR
+  - (m) MPCTEMP - Model predictive temperature control
+  - (H) Hotend Volcano or HotendAllMetal
   - (U) BED_LEVELING_UBL (default)
   - (P) PreHeat bed before leveling (default)
   - (R) ARC_SUPPORT (default)
   - (L) Linear Advance (default)
-  - (32) All axes in 32 steps instead of 16 steps.
-  
+  - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
+
   **/*-------Others options for advanced users who build their firmware----*/**
   - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) (default)
-  - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
+  - Host start print by menu (Only TFT_COLOR_UI)
   - BINARY_FILE_TRANSFER (default)
   - TEMP_SENSOR_0 (After changed the thermitor nozzle)
   - LCD_LANGUAGE (Change to the native language)
+  - Add line for nb of leds.
+  - Fixed "Special Menu" for MPC and levelings.
   - etc 
   
 ***

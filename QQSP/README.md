@@ -1,4 +1,4 @@
-### 2022-06-09 MARLIN 2.0.9.4 RELEASE
+### 2022-06-18 MARLIN 2.1 RELEASE
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -25,11 +25,11 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   
   After the flash and to configure and prepare your printer, please follow the steps on the Wiki => 
   
-  [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  [HERE](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/2.SETTINGS-THE-PRINTER)
 
-<img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/FLSun-Wiki.png" />
+<img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/icons/FLSun-Wiki.png" />
 
-**ADD:** Pack firmwares for BTT-TFT35/70 mode landscape and portrait.
+**ADD:** Pack firmwares for BTT-TFT35/50/70 mode landscape and portrait.
 
   **Header caption:**
 
@@ -43,7 +43,7 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
   - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
   - (16) All drivers 16steps (default)
-  - (32) All drivers 32steps
+  - (32) All drivers 32steps (TMC-UART)
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -57,28 +57,32 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
   - (W) Module ESP8266/ESP12 (infos at the middle of the page)
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan/Stock
-  - (B) Extruder BMG
+  - (B) Extruder BMG (also reverse direction)
   - (O) Extruder OMG
-  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Lgx/...)
+  - (X) Extruder DirectDrive Nema14 (SuperDriveHX/Mini-Sherpa/Lgx/...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
   - (g) SENSORLESS_PROBING (Only 2209)
+  - (m) MPCTEMP - Model predictive temperature control
+  - (H) Hotend Volcano or HotendAllMetal
   - (A) BED_LEVELING_BILINEAR
   - (U) BED_LEVELING_UBL
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
-  - (32) All axes in 32 steps instead of 16 steps.
+  - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
 
   **/*-------Others options for advanced users who build their firmware----*/**
-  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
-  - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
-  - BINARY_FILE_TRANSFER
+  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) (default)
+  - Host start print by menu (Only TFT_COLOR_UI)
+  - BINARY_FILE_TRANSFER (default)
   - TEMP_SENSOR_0 (After changed the thermitor nozzle)
   - LCD_LANGUAGE (Change to the native language)
+  - Add line for nb of leds.
+  - Fixed "Special Menu" for MPC and levelings.
   - etc 
-  
+ 
   **/*-------Others Firmwares for Q5 nanov1.2 or QQS with SKR family or Mks_Nano Family----*/**
   - (Q5_8+SCTPULR-Robin_nano)   Q5 Stock(3xTMC2208+1xA4988) with TITAN extruder. 
   - (Q5_9CBPULR-Robin_nano)     Q5 with 4xTMC2209 with BMG extruder.

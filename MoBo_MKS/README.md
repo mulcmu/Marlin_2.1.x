@@ -1,4 +1,4 @@
-### 2022-02-02 MARLIN 2.0.9.3+ BUGFIX
+### 2022-06-18 MARLIN 2.1
 
 - QQS-Pro With MoBo Nanov3+4xTMC2209 = QQSP_TFT-header-Robin_nano_v3.bin
 - QQS-Pro With MoBo SRK+4xTMC2209 = QQSP_STOCK-header-MoBo-firmware.bin
@@ -31,7 +31,7 @@ QQSP+TS35-U9CBPULR32-Robin_nano_v3.bin
   
  - P = Probe (Purple)
  - R = Runout for the filament (Orange)
- - F = Fan1 for the HeatSink (Green) (begin at 50°C)
+ - F = Fan1 for the HeatSink (Green) (begin at 80°C)
 
 ![Cnx_NanoV3](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/NanoV3-EndStop.png)
 
@@ -45,8 +45,8 @@ QQSP+TS35-U9CBPULR32-Robin_nano_v3.bin
   - (U9) 4xTMC2209_UART with no module ESP12.
   - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
-  - (16) All drivers 16steps
-  - (32) All drivers 32steps
+  - (16) All drivers 16steps (Default)
+  - (32) All drivers 32steps (TMC-UART)
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -61,26 +61,30 @@ QQSP+TS35-U9CBPULR32-Robin_nano_v3.bin
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan/Stock
   - (B) Extruder BMG
-  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Lgx/...)
+  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Orbiter/...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
   - (g) SENSORLESS_PROBING (Only 2209)
+  - (m) MPCTEMP - Model predictive temperature control
+  - (H) Hotend Volcano or HotendAllMetal
   - (A) BED_LEVELING_BILINEAR
   - (U) BED_LEVELING_UBL
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
-  - (16/32) Steps Number
-  
-  **/*-------Others options for advanced users who build their firmware----*/**
-  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
   - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
-  - BINARY_FILE_TRANSFER
+
+  **/*-------Others options for advanced users who build their firmware----*/**
+  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) (default)
+  - Host start print by menu (Only TFT_COLOR_UI)
+  - BINARY_FILE_TRANSFER (default)
   - TEMP_SENSOR_0 (After changed the thermitor nozzle)
   - LCD_LANGUAGE (Change to the native language)
+  - Add line for nb of leds.
+  - Fixed "Special Menu" for MPC and levelings.
   - etc 
-  
+   
   **/*-------Others Firmwares for Q5 nanov1.2 or QQS with SKR family or Mks_Nano Family----*/**
   - (Q5_8+SCTPULR-Robin_nano)   Q5 Stock(3xTMC2208+1xA4988) with TITAN extruder. 
   - (Q5_9CBPULR-Robin_nano)     Q5 with 4xTMC2209 with BMG extruder.

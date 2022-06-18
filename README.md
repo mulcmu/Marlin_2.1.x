@@ -3,16 +3,23 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/marlinfirmware/marlin.svg)
 [![Build Status](https://github.com/MarlinFirmware/Marlin/workflows/CI/badge.svg?branch=bugfix-2.0.x)](https://github.com/MarlinFirmware/Marlin/actions)
 
-<img align="right" width=175 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/000-ICON_BootLogo.jpg" />
-<img align="left" width=200 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/FLSun-LogoColor3.png" />
+<img align="right" width=175 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/icons/000-ICON_BootLogo.jpg" />
+<img align="left" width=200 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/icons/FLSun-LogoColor3.png" />
 
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
-# Last release of Marlin 2.0.x for Delta FLSun.
+# Last release of Marlin 2.1.x for Delta FLSun.
 ## QQS-Pro (motherboard HISPEED_V1, ROBIN_MINIv2)
 ## Q5 (motherboard NANO_V1.x)
 ## SR (motherboard MKS/BTT with other screen like BTT-TFT35v3/Mks-TS35v2/RepRap TFT).
+
+**20220618** Release 2.1
+- Last Marlin Release 2.1 (QQSP, Q5, SR)
+- New Pack Firmwares (STM/GD) for BTT-TFT mode landscape/portrait ("QQSP"&"SR").
+- TMC-UART => all firmwares on 32Steps
+- New control Temp nozzle (MPC) insteat PID Nozzle
+- .....
 
 **20220202** BugFix 2.0.9.3+
 - Last Marlin Release 2.0.9.3 (QQSP, Q5, SR)

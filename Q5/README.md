@@ -1,4 +1,4 @@
-### 2022-04-05 MARLIN 2.0.10 RELEASE BUGFIX
+### 2022-06-18 MARLIN 2.1 RELEASE
 
  # **NOTE**: Recently, the Q5 printer has two types of motherboards. The first ones have Mks_robin_nanoV1.2 and the new ones have Mks_robin_nanoV1.3. These are not the same firmwares for Marlin so be careful when downloading to take the right firmware associated with the MoBo.
 
@@ -23,9 +23,9 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   place it on your SD card, insert your SD card into the printer and power on your printer.
   
   After the flash and to configure and prepare your printer, please follow the steps on the Wiki => 
-  [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  [HERE](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/2.SETTINGS-THE-PRINTER)
   
-  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/icons/FLSun-Wiki.png" />
+  <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/icons/FLSun-Wiki.png" />
   
   **Header caption:**
 
@@ -39,7 +39,7 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
   - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
   - (16) All drivers 16steps (default)
-  - (32) All drivers 32steps
+  - (32) All drivers 32steps (TMC-UART)
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -60,21 +60,25 @@ Below is an example with the firmware for a Q5 printer with a Mks_Robin_nanov1.2
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
   - (g) SENSORLESS_PROBING (Only 2209)
+  - (m) MPCTEMP - Model predictive temperature control
+  - (H) Hotend Volcano or HotendAllMetal
   - (A) BED_LEVELING_BILINEAR
   - (U) BED_LEVELING_UBL
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
-  - (32) All axes in 32 steps instead of 16 steps.
+  - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
 
   **/*-------Others options for advanced users who build their firmware----*/**
-  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
-  - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
-  - BINARY_FILE_TRANSFER
+  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) (default)
+  - Host start print by menu (Only TFT_COLOR_UI)
+  - BINARY_FILE_TRANSFER (default)
   - TEMP_SENSOR_0 (After changed the thermitor nozzle)
   - LCD_LANGUAGE (Change to the native language)
+  - Add line for nb of leds.
+  - Fixed "Special Menu" for MPC and levelings.
   - etc 
-  
+ 
   **/*-------Others Firmwares for Q5 nanov1.2 or QQS with SKR family or Mks_Nano Family----*/**
   - (Q5_8+SCTPULR-Robin_nano)   Q5 Stock(3xTMC2208+1xA4988) with TITAN extruder. 
   - (Q5_9CBPULR-Robin_nano)     Q5 with 4xTMC2209 with BMG extruder.

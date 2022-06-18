@@ -1,4 +1,4 @@
-### 2022-02-02 MARLIN 2.0.9.3+ BUGFIX
+### 2022-06-18 MARLIN 2.1
 
 Each firmware has a header that corresponds to the hardware (board) and functions used in the firmware.
 
@@ -23,15 +23,15 @@ QQSP+BTT-U9rBPULR32-SKR2b-firmware.bin
   **Note**: After choosing your binary, remove the "8CWBL-SRKxx" header or rename the file to "firmware.bin" for QQS-SKR,
   place it on your SD card, insert your SD card into the printer and power on your printer.
   
-  After the flash and to configure and prepare your printer, please follow the steps on the Wiki => [HERE](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/2.SETTINGS-THE-PRINTER)
+  After the flash and to configure and prepare your printer, please follow the steps on the Wiki => [HERE](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/2.SETTINGS-THE-PRINTER)
   
   - P = Probe (Purple)
   - R = Runout for the filament (Orange)
   - F = Fan1 for the HeatSink (Green) (begin at 50°C)
 
-  ![Cnx_SKR13](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/SKR13_EndStop.png)
-  ![Cnx_SKR14](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/SKR14_EndStop.png)
-  ![Cnx_SKR2](https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/images/SKR2_EndStop.png)
+  ![Cnx_SKR13](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/images/SKR13_EndStop.png)
+  ![Cnx_SKR14](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/images/SKR14_EndStop.png)
+  ![Cnx_SKR2](https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/images/SKR2_EndStop.png)
 
   **/*-------Others Firmwares for QQS with SKR family or Mks_Nano Family----*/**
   - (QQS)U9rTPULR16-SKR14T_firmware   QQS SKR14T(4xTMC2209UART)16steps with TITAN extruder. 
@@ -49,8 +49,8 @@ QQSP+BTT-U9rBPULR32-SKR2b-firmware.bin
   - (U8+) 3xTMC2208 (XYZ) + Choice for E0 (A4988,TMC220x) 
   - (U9+) 3xTMC2209 (XYZ) + Choice for E0 (A4988,TMC220x)
   - **(UH) 4xTMC2209_UART with one wire (option modules Wifi/Rpi/Neopixel)**
-  - (16) All drivers 16steps
-  - (32) All drivers 32steps
+  - (16) All drivers 16steps (Default)  
+  - (32) All drivers 32steps (TMC-UART)
 
   **/*-------Options UI TFT--------*/**
   - (F) UI STANDARD (Emulation LCD screen on TFT)
@@ -64,23 +64,27 @@ QQSP+BTT-U9rBPULR32-SKR2b-firmware.bin
   - (w) Module ESP8266/ESP12 with ESP3Dv3.0 Firmware.
   - (T) Extruder Titan(Stock)/BMG left_Hand
   - (B) Extruder BMG Right_Hand (Also reverse the extruder direction)
-  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa...)
+  - (X) Extruder Nema14 (SuperDriveHX/Mini-Sherpa/Orbiter...)
   
   **/*-------Others options in firmware----*/**
   - (G) SENSORLESS_HOMING (Only 2209)
   - (g) SENSORLESS_PROBING (Only 2209)
+  - (m) MPCTEMP - Model predictive temperature control
+  - (H) Hotend Volcano or HotendAllMetal  
   - (A) BED_LEVELING_BILINEAR
   - (U) BED_LEVELING_UBL
   - (P) PreHeat bed before leveling
   - (R) ARC_SUPPORT
   - (L) Linear Advance (Possible Bug with BabyStep and TMC2208)
-  
-  **/*-------Others options for advanced users who build their firmware----*/**
-  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) 
   - (M) MEATPACK (Improve dialogue/communication with OctoPrint)
-  - BINARY_FILE_TRANSFER
+
+  **/*-------Others options for advanced users who build their firmware----*/**
+  - HOST_ACTION_COMMANDS (Action Command Prompt support Message on OctoPrint) (default)
+  - BINARY_FILE_TRANSFER (default)
   - TEMP_SENSOR_0 (After changed the thermitor nozzle)
   - LCD_LANGUAGE (Change to the native language)
+  - Add line for nb of leds.
+  - Fixed "Special Menu" for MPC and levelings.
   - etc 
-  
+ 
 ***
