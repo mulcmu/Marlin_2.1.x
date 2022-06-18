@@ -17,10 +17,25 @@
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
-# Last release of Marlin 2.x.x for Delta FLSun.
+# Last release of Marlin 2.1.x for Delta FLSun.
 ## QQS-Pro (motherboard HISPEED_V1, ROBIN_MINIv2)
 ## Q5 (motherboard NANO_V1.x)
 ## SR (motherboard MKS/BTT with other screen like BTT-TFT35v3/Mks-TS35v2/RepRap TFT).
+
+**20220618** 2.1
+- Add line to re-init EEPROM/TFT.
+- Add option "H"  for hotend VOLCANO or HotEndAllMetal.
+- Add option "m" for MPC  instead PID nozzle (Menu incl.).
+- Adjust MPC values for Delta and cartridge/filament (PLA)
+- Add option for host buffers (OCTO, Pronto, Cura)
+- Add host notifications/interactions with hosts (Only TFT_COLOR_UI)
+- Add host start print by menu (Only TFT_COLOR_UI)
+- Validation option "G" and "g" (Stallguard2) for SR.
+- Validation option "n" (Neopixels) for QQSP/SRM.
+- Add line for nb of leds.
+- Fixed "Special Menu" for MPC and levelings.
+- Fixed links to Marlin 2.1
+- Pending issues: SD card reading and print recovery after PowerOn.
 
 **20220112** 2.0.9.3
 - fix issue TFT on QQSPro
