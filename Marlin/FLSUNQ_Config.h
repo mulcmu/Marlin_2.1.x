@@ -1,9 +1,14 @@
 /*==========================================================================
+*===========================================================================
 *=================== FLSunQ - DELTA Printers ===============================
+*================= With pins_MKS_ROBIN_MINI.h BOARD (QQS-Pro)===============
 *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
 *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
+*================= With pins_MKS_ROBIN_NANO_V1_3_F4.h BOARD (Q5-2021-)======
+*================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
+*================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
 *===========================================================================
-*                         MARLIN_v2.1.x
+*                         BUGFIX-MARLIN_v2.1.x
 * For a Delta printer start with one of the configuration files in
 * the directory and customize for your machine:
 * https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.3/config/examples/delta/FLSUN/ 
@@ -22,7 +27,7 @@
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
-//#define EEPROM_INIT_NOW   
+#define EEPROM_INIT_NOW   
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -81,7 +86,7 @@
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
   //#define TFT_OTHER            // For the user who haven't the same screen.
-  //#define TFT_GENERI
+  //#define TFT_GENERIC
 #else
   #define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
@@ -129,7 +134,7 @@
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
 //#define NEOPIXEL_LED                   //(n) Use port GPIO Wifi module (PC7) on QQS
                                          //(n) Use port BLTouch (PA8) on SR_MKS
-//#define NEOPIXEL_PIXELS     18         // Number of LEDs in the strip
+//#define NEOPIXEL_PIXELS     24         // Number of LEDs in the strip
 
         /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
@@ -152,15 +157,15 @@
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13 
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
+//#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
-// For user who change their HotEnd like Volcano....
-//#define VOLCANO                        // 300°C With thermistor hight temp.
 
-// And those who want to increase the temperature limit.
-//#define HEATER_0_MAXTEMP 300
+// For user who change their HotEnd like Volcano and
+// want to increase the temperature limit.
+//#define HEATER_0_MAXTEMP 300           // Uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (M) 
+//#define MPCTEMP                        // (m) ex: run "M306 P40" Configure MPCTEMP for 40W hotend heater 
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -204,7 +209,7 @@
 * == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
 * ======================================================
 */
-#define OCTO                             // Enable buffer for Octoprint.
+//#define OCTO                             // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
@@ -217,7 +222,7 @@
 //----------Options Plus-----------//
 //#define SDCARD_SORT_ALPHA
 //#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
-
+//#define CONFIGURATION_EMBEDDING      // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
 //-----------------------------//
 //For tests on my dev'printer!!//
 //-----------------------------//
@@ -233,7 +238,7 @@
 * https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/5.Firmware-Wifi
 */
 #ifdef MOD_WIFI
-  #define MKS_WIFI
+  #define MOD_AUX                     // Enable UART2/3 on socket WIFI (MKs boards)
   #ifdef ESP3D_30
     #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
     #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
@@ -370,7 +375,7 @@
  * ---------------------------//
  */
 
-// Note:
+// Note for QQSPro::
 // HardwareSerial with one pins for four drivers
 // Compatible with TMC2209. Provides best performance.
 // Requires SLAVE_ADDRESS definitions in Configuration_adv.h

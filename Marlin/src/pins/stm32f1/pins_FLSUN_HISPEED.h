@@ -29,10 +29,10 @@
  * #define SERIAL_PORT_2 3
  */
 
-#if NOT_TARGET(__STM32F1__, STM32F1)
+#if NOT_TARGET(__STM32F1__, STM32F1xx)
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
 #elif HAS_MULTI_HOTEND || E_STEPPERS > 1
-  #error "FLSUN HiSpeedV1 only supports one hotend / E-stepper. Comment out this line to continue."
+  #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
 #endif
 
 #define BOARD_INFO_NAME      "FLSun HiSpeedV1"
@@ -330,7 +330,7 @@
 #else
   #define SDIO_SUPPORT
   #define SDIO_CLOCK                     4500000  // 4.5 MHz
-  //#define SDIO_READ_RETRIES                   16
+  #define SDIO_READ_RETRIES                   16
   #define ONBOARD_SPI_DEVICE                   1  // SPI1
   #define ONBOARD_SD_CS_PIN                 PC11
   #define SD_DETECT_PIN                     -1    // SD_CD (-1 active refresh)

@@ -160,7 +160,7 @@
 //#define BAUDRATE_2 250000   // Enable to override BAUDRATE
 #if ANY(SR_MKS, SR_BTT)
   #ifdef SR_BTT
-    #ifdef MKS_WIFI
+    #ifdef MOD_AUX
       #define SERIAL_PORT 3 // 3=ESP3Dv3.0 MKS-Wifi
       #define SERIAL_PORT_2 -1 // -1=USB Connection
       #define BAUDRATE 115200 
@@ -175,7 +175,7 @@
     #define BAUDRATE 250000
     #ifdef ESP3D_30
       #undef SERIAL_PORT_2 //1 // 1=ESP3Dv3.0 MKS-Wifi
-    #elif ENABLED(MKS_WIFI)
+    #elif ENABLED(MOD_AUX)
       #define SERIAL_PORT_2 1 // 1=ESP3Dv2.1 MKS-Wifi
       #define BAUDRATE_2 115200 //
       #define SERIAL_PORT_3 3 // 3=BTT-TFT(0,1=nok)

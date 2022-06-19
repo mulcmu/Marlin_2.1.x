@@ -59,17 +59,11 @@
 #define Z_DIAG_PIN                          PC8
 #define E0_DIAG_PIN                         PC4
 #define E1_DIAG_PIN                         PE7
-#if HAS_DELTA_SENSORLESS_PROBING
-  #define X_STOP_PIN                    X_DIAG_PIN  //X+
-  #define Y_STOP_PIN                    Y_DIAG_PIN  //Y+
-  #define Z_STOP_PIN                    Z_DIAG_PIN  //Z+ 
-  #define Z_MIN_PIN                    E0_DIAG_PIN  //Z-
-#else
-  #define X_STOP_PIN                    X_DIAG_PIN  //X+
-  #define Y_STOP_PIN                    Y_DIAG_PIN  //Y+
-  #define Z_MIN_PIN                     Z_DIAG_PIN  //Z+ 
-  #define Z_MAX_PIN                     E0_DIAG_PIN //Z-
-#endif
+
+#define X_STOP_PIN                    X_DIAG_PIN
+#define Y_STOP_PIN                    Y_DIAG_PIN
+#define Z_MIN_PIN                     Z_DIAG_PIN
+#define Z_MAX_PIN                    E0_DIAG_PIN
 
 //
 // Steppers
@@ -77,27 +71,22 @@
 #define X_ENABLE_PIN                        PE4
 #define X_STEP_PIN                          PE3
 #define X_DIR_PIN                           PE2
-#define X_CS_PIN                            PD5
 
 #define Y_ENABLE_PIN                        PE1
 #define Y_STEP_PIN                          PE0
 #define Y_DIR_PIN                           PB9
-#define Y_CS_PIN                            PD7
 
 #define Z_ENABLE_PIN                        PB8
 #define Z_STEP_PIN                          PB5
 #define Z_DIR_PIN                           PB4
-#define Z_CS_PIN                            PD4
 
 #define E0_ENABLE_PIN                       PB3
 #define E0_STEP_PIN                         PD6
 #define E0_DIR_PIN                          PD3
-#define E0_CS_PIN                           PD9
 
 #define E1_ENABLE_PIN                       PA3
 #define E1_STEP_PIN                         PD15
 #define E1_DIR_PIN                          PA1
-#define E0_CS_PIN                           PD9
 
 #if HAS_TMC_UART
   //
@@ -146,9 +135,7 @@
 #define HEATER_BED_PIN                      PA0   // HOT BED
 
 #define FAN_PIN                             PC14  // FAN
-#ifndef FAN1_PIN
-  #define FAN1_PIN                            PB1   // FAN1
-#endif
+#define FAN1_PIN                            PB1   // FAN1
 
 //
 // Thermocouples
@@ -319,7 +306,7 @@
   #define TOUCH_MOSI_PIN             EXP2_05_PIN  // SPI1_MOSI
 
   #define LCD_READ_ID                       0xD3
-  //#define LCD_USE_DMA_SPI
+  #define LCD_USE_DMA_SPI
 
   #define TFT_BUFFER_SIZE                  14400
 
