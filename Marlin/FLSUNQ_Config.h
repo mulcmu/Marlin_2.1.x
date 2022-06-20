@@ -223,6 +223,8 @@
 //#define SDCARD_SORT_ALPHA
 //#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
 //#define CONFIGURATION_EMBEDDING      // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
+//#define FWRETRACT                   // Firmware-based and LCD-controlled retract
+
 //-----------------------------//
 //For tests on my dev'printer!!//
 //-----------------------------//
