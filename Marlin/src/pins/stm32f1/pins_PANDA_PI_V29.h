@@ -38,6 +38,13 @@
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2K
 #endif
 
+//PandaPi sensor
+#if BD_SENSOR
+  #define  I2C_BD_SDA_PIN   PC6 // E1 DIR
+  #define  I2C_BD_SCL_PIN   PB2 // E1 STEP
+  #define  I2C_BD_DELAY  10
+#endif
+
 //
 // Servos
 //

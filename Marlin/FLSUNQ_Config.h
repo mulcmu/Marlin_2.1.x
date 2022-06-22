@@ -136,18 +136,19 @@
                                          //(n) Use port BLTouch (PA8) on SR_MKS
 //#define NEOPIXEL_PIXELS     24         // Number of LEDs in the strip
 
-        /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
+        /* Option for other Probe (BD_probe, IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
 // more at the bottom page.
 //#define STALLGUARD_1                   // (G) Special mod for TMC2209_UART = SENSORLESS_HOMING
 //#define STALLGUARD_2                   // (g) Special mod for TMC2209_UART = SENSORLESS_PROBING
 
-//For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
+//For other PROBE fixed without deploy like PandaSensor, IR, buzzer, Nozzle, ...
+//#define B_PROBE                        // Uncomment to use a BD_Sensor by PandaPi.
 //#define P_PROBE                        // Uncomment to use a piezo probe like ORION.
                                          // and Set Y,Z OFFSET at zero
 //#define X_PROBE                        // Uncomment and Set an other probe (invert the logic too).
 
-// Ajust the position of your new probe.
+// Ajust the position of your new probe (BD_SENSOR, IR, piezo).
 //#define X_OFFSET 0 //-2                // Uncomment and set your own X OffSet
 //#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
 //#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
@@ -209,7 +210,7 @@
 * == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
 * ======================================================
 */
-//#define OCTO                             // Enable buffer for Octoprint.
+//#define OCTO                           // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
@@ -221,9 +222,9 @@
 
 //----------Options Plus-----------//
 //#define SDCARD_SORT_ALPHA
-//#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
-//#define CONFIGURATION_EMBEDDING      // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
-//#define FWRETRACT                   // Firmware-based and LCD-controlled retract
+//#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
+//#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
+//#define FWRETRACT                      // Firmware-based and LCD-controlled retract
 
 //-----------------------------//
 //For tests on my dev'printer!!//
@@ -286,7 +287,8 @@
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen 
-  //#define CR10_STOCKDISPLAY 
+  //#define CR10_STOCKDISPLAY
+  #define MULTI_VOLUME            // Multiple volume support(µSD + USB) 
 #elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
@@ -463,6 +465,16 @@
   #else
     #define E_CURRENT       850
   #endif
+#endif
+// PanpaPi Probe: change your IC2 pins.
+#ifdef B_PROBE
+  #define BD_SENSOR 1
+  #undef AUTO_BED_LEVELING_UBL
+  #undef RESTORE_LEVELING_AFTER_G28
+  #undef G26_MESH_VALIDATION
+  #define I2C_BD_SDA_PIN   E1_DIR_PIN  //PA1  - PC6 // E1 DIR
+  #define I2C_BD_SCL_PIN   E1_STEP_PIN //PD15 - PB2 // E1 STEP
+  #define I2C_BD_DELAY  10
 #endif
 // NEOPIXEL for SR_MKS
 #if BOTH(NEOPIXEL_LED, SR_MKS)

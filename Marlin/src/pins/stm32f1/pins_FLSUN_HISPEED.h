@@ -58,6 +58,13 @@
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2K
 #endif
 
+//PandaPi sensor
+#if BD_SENSOR
+  #define  I2C_BD_SDA_PIN   PB7//PC6 EEPROM
+  #define  I2C_BD_SCL_PIN   PB6//PB2 EEPROM
+  #define  I2C_BD_DELAY  10
+#endif
+
 //
 // SPI
 // Note: FLSun Hispeed (clone MKS_Robin_miniV2) board is using SPI2 interface.

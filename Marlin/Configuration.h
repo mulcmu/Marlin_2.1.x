@@ -1206,7 +1206,7 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
-#if NONE(X_PROBE, N_PROBE)
+#if NONE(X_PROBE, N_PROBE, B_PROBE)
   #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #else
   #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -1226,7 +1226,7 @@
 #define U_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define V_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define W_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#if ANY(X_PROBE, N_PROBE)
+#if ANY(X_PROBE, N_PROBE, B_PROBE)
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false  // Set to true to invert the logic of the probe.
 #else
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the probe.
@@ -1688,7 +1688,7 @@
 #define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
-#if NONE(X_PROBE, P_PROBE, N_PROBE)
+#if NONE(X_PROBE, P_PROBE, N_PROBE, B_PROBE)
   #define PAUSE_BEFORE_DEPLOY_STOW
 #endif
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
@@ -2058,6 +2058,13 @@
   #define LEVELING_NOZZLE_TEMP  80   // (°C) Only applies to E0 at this time
   #define LEVELING_BED_TEMP     60
 #endif
+
+/*Bed Distance Sensor,
+ it can measure the distance from bed to nozzle with distance resolution 0.01mm
+ For information about this sensor https://github.com/markniu/Bed_Distance_sensor
+ Communicated to this sensor with I2C port,so it require a I2C libarary markyue/Panda_SoftMasterI2C
+*/
+//#define BD_SENSOR 0  
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
