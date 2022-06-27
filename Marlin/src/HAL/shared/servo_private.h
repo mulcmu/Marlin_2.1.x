@@ -94,5 +94,5 @@ extern ServoInfo_t servo_info[MAX_SERVOS];
 
 // Public functions
 
-void initISR(const timer16_Sequence_t timer_index);
-void finISR(const timer16_Sequence_t timer_index);
+extern void initISR(const timer16_Sequence_t timer);
+extern void finISR(const timer16_Sequence_t timer);
