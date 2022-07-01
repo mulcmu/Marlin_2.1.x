@@ -152,7 +152,7 @@ Marlin/*/*/*/*/readme.txt
 
 # Secure Credentials
 Configuration_Secure.h
-Marlin/Config_*.h
+Config_*.h
 
 #Visual Studio
 *.sln
