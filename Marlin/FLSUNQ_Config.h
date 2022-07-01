@@ -242,13 +242,11 @@
 //= For users who dont have a terminal =//
 #if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
   #define DELTA_CALIBRATION_MENU        //  (Default) Auto for CLASSIC and COLOR.
-  #define PID_EDIT_MENU                 //  (Default) Tune PID Bed and Nozzle.
-  #define PID_AUTOTUNE_MENU             //  (Default) Tune auto PID.
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.  
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview.
+  //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview (sec).
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
