@@ -5,11 +5,11 @@ Each firmware has a header that corresponds to the hardware (board) and function
 **ADD:**
   - Pack Firmware for BTT-TFT35/50/70 mode landscape and portrait for TFT35v3. 
   
-- BTT-TFT35v3,
+- BTT-TFT35v3 (Option "r"),
   
   <img width=400 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/menus/SR-TFT35v3.png" />
 
-- Mks-TS35R,
+- Mks-TS35R (Option "C"),
   
   <img width=700 src="https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/menus/SR-TS35R.png" />
 
