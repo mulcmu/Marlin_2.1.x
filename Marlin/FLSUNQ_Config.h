@@ -116,7 +116,7 @@
  */
                   /* User settings extruder */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SuperDriveHX.
-//#define EXTRUDER_STEPS  1120//560      // To ajust your eSteps.
+//#define EXTRUDER_STEPS  834//1440//708//830  // Ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
@@ -251,8 +251,6 @@
 //= For users who dont have a terminal =//
 #if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
   #define DELTA_CALIBRATION_MENU        //  (Default) Auto for CLASSIC and COLOR.
-  #define PID_EDIT_MENU                 //  (Default) Tune PID Bed and Nozzle.
-  #define PID_AUTOTUNE_MENU             //  (Default) Tune auto PID.
   #define LCD_INFO_MENU                 //  (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
