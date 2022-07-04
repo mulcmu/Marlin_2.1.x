@@ -17,7 +17,7 @@
 * 
 * TIPS/NOTES:
 * -For TMC mode UART, look the "pins_FLSUN_HISPEED.h" file (src/pins/stm32f1/) for more information to wire.
-* -To enable Stallguard function (Homing and/or probing) with TMC2209 with wiring Diag/EndStop.
+* -To enable Stallguard function (Homing and/or probing) with TMC2209 with wiring Diag/EndStop and put some jumpers.
 * -Comment/Uncomment line to add or modify some options. 
 *  Default is actif for QQS and it's uncommented ;-)
 */
