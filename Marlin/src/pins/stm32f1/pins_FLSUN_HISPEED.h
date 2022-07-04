@@ -28,10 +28,14 @@
  * MKS Robin Mini USB uses UART3 (PB10-TX, PB11-RX)
  * #define SERIAL_PORT_2 3
  */
-
-#if NOT_TARGET(__STM32F1__, STM32F1xx)
+#define ALLOW_STM32DUINO
+#include "env_validate.h"
+/*
+#if NOT_TARGET(__STM32F1__, STM32F1)
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
-#elif HAS_MULTI_HOTEND || E_STEPPERS > 1
+#el
+*/
+#if HAS_MULTI_HOTEND || E_STEPPERS > 1
   #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
 #endif
 
