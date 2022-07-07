@@ -29,10 +29,10 @@
  * #define SERIAL_PORT_2 3
  */
 
-#if NOT_TARGET(__STM32F1__, STM32F1xx)
-  #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
-#elif HAS_MULTI_HOTEND || E_STEPPERS > 1
-  #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
+#include "env_validate.h"
+
+#if HAS_MULTI_HOTEND || E_STEPPERS > 1
+  #error "FLSUN HiSpeedV1 only supports one hotend / E-stepper. Comment out this line to continue."
 #endif
 
 #define BOARD_INFO_NAME      "FLSun HiSpeedV1"
@@ -56,13 +56,6 @@
   #define EEPROM_PAGE_SIZE     (0x800U)           // 2K
   #define EEPROM_START_ADDRESS (0x8000000UL + (STM32_FLASH_SIZE) * 1024UL - (EEPROM_PAGE_SIZE) * 2UL)
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2K
-#endif
-
-//PandaPi sensor
-#if BD_SENSOR
-  #define  I2C_BD_SDA_PIN   PB7//PC6 EEPROM
-  #define  I2C_BD_SCL_PIN   PB6//PB2 EEPROM
-  #define  I2C_BD_DELAY  10
 #endif
 
 //
@@ -96,7 +89,6 @@
 #define X_DIAG_PIN                          PA15  //-X
 #define Y_DIAG_PIN                          PA12  //-Y
 #define Z_DIAG_PIN                          PC4   //-Z
-
 #ifdef SENSORLESS_PROBING
   #define X_STOP_PIN                  X_DIAG_PIN 
   #define Y_STOP_PIN                  Y_DIAG_PIN
@@ -151,10 +143,10 @@
     */
     // The 4xTMC2209 module doesn't have a serial multiplexer and
     // needs to set *_SLAVE_ADDRESS in Configuration_adv.h for X,Y,Z,E0
-    //#define X_HARDWARE_SERIAL  MSerial3
-    //#define Y_HARDWARE_SERIAL  MSerial3
-    //#define Z_HARDWARE_SERIAL  MSerial3
-    //#define E0_HARDWARE_SERIAL MSerial3
+    //#define X_HARDWARE_SERIAL  MSerial2
+    //#define Y_HARDWARE_SERIAL  MSerial2
+    //#define Z_HARDWARE_SERIAL  MSerial2
+    //#define E0_HARDWARE_SERIAL MSerial2
     #define  X_SLAVE_ADDRESS 3    // |  |  :
     #define  Y_SLAVE_ADDRESS 2    // :  |  :
     #define  Z_SLAVE_ADDRESS 1    // |  :  :
@@ -169,9 +161,9 @@
   #else /*  TMC220x   */
   // SoftwareSerial with one pin per driver
   // Compatible with TMC2208 and TMC2209 drivers
-    #define  X_SLAVE_ADDRESS 0
-    #define  Y_SLAVE_ADDRESS 0
-    #define  Z_SLAVE_ADDRESS 0
+    #define X_SLAVE_ADDRESS  0
+    #define Y_SLAVE_ADDRESS  0
+    #define Z_SLAVE_ADDRESS  0
 
     #define X_SERIAL_TX_PIN                   PA10  // RXD1
     #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
@@ -204,25 +196,12 @@
    *       ￣￣ AE￣￣
    */
   // Module ESP-WIFI
-  #ifdef MKS_WIFI
-    #define MKS_WIFI_SERIAL_NUM             SERIAL_PORT_2
-    #define MKS_WIFI_UART                   USART1
-    #undef PLATFORM_M997_SUPPORT
-    #define MKS_WIFI_IO0                    PA8
-    #define MKS_WIFI_IO4                    PC7
-    #define MKS_WIFI_IO_RST                 PA5
-  #endif
-  //#define WIFI_IO0_PIN                      PA8   // MKS ESP WIFI IO0 PIN
-  //#define WIFI_IO1_PIN       			          PC7   // MKS ESP WIFI IO1 PIN
-  //#define WIFI_RESET_PIN				            PA5   // MKS ESP WIFI RESET PIN
-  /* fix Marlin
   #define ESP_WIFI_MODULE_COM                  2  // Must also set either SERIAL_PORT or SERIAL_PORT_2 to this
   #define ESP_WIFI_MODULE_BAUDRATE      BAUDRATE  // Must use same BAUDRATE as SERIAL_PORT & SERIAL_PORT_2
   #define ESP_WIFI_MODULE_RESET_PIN         PA5   // WIFI CTRL/RST
   #define ESP_WIFI_MODULE_ENABLE_PIN        -1
   #define ESP_WIFI_MODULE_TXD_PIN           PA9   // MKS or ESP WIFI RX PIN
   #define ESP_WIFI_MODULE_RXD_PIN           PA10  // MKS or ESP WIFI TX PIN
-  */
 #endif
 
 //
@@ -238,7 +217,7 @@
   #define MOTOR_CURRENT_PWM_E_PIN           PB0   // VREF1 CONTROL E
   #define MOTOR_CURRENT_PWM_RANGE           1500  // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
   #ifndef DEFAULT_PWM_MOTOR_CURRENT
-   #define DEFAULT_PWM_MOTOR_CURRENT { 900, 900, 900 }
+    #define DEFAULT_PWM_MOTOR_CURRENT { 800, 800, 800 }
   #endif
 #endif
 
@@ -262,8 +241,8 @@
 #if ENABLED(BACKUP_POWER_SUPPLY)
   #define POWER_LOSS_PIN                    PA2   // PW_DET (UPS) MKSPWC
 #else
-    #define POWER_LOSS_PIN                  -1    // PW_DET
-    #define PS_ON_PIN                       PB2   // PW_OFF
+  #define POWER_LOSS_PIN                     -1    // PW_DET
+  #define PS_ON_PIN                         PB2   // PW_OFF
 #endif
 
 /**
@@ -281,21 +260,6 @@
 //
 // Power Supply Control
 //
-#if ENABLED(MKS_PWC)
-  #if ENABLED(TFT_LVGL_UI)
-    #undef PSU_CONTROL
-    #undef MKS_PWC
-    #define SUICIDE_PIN                     PB2   // Enable MKSPWC SUICIDE PIN
-    #define SUICIDE_PIN_STATE              false // Enable MKSPWC PIN STATE
-    #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
-    #define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
-  #else    
-    #define PS_ON_PIN                       PA3   // PW_OFF
-    #define KILL_PIN                        PA2
-    #define KILL_PIN_STATE                  HIGH
-  #endif
-#endif
-
 #if ENABLED(PSU_CONTROL)
   #define KILL_PIN                          PA2   // PW_DET
   #define KILL_PIN_STATE                    HIGH
@@ -376,8 +340,6 @@
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
   #define FSMC_DMA_DEV                      DMA2
   #define FSMC_DMA_CHANNEL               DMA_CH5
-  #define FSMC_CS_PIN                       PD7   // NE4
-  #define FSMC_RS_PIN                       PD11  // A0  
 
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0
@@ -391,17 +353,15 @@
     #define TFT_BTARROWS_COLOR            0xDEE6  // Yellow
     #define TFT_BTOKMENU_COLOR            0x145F  // Cyan
   #endif
-  #ifdef MKS_WIKI
-    #undef TFT_BUFFER_SIZE
-    #define TFT_BUFFER_SIZE                  320*8
-  #else  
-    #define TFT_BUFFER_SIZE                  14400  
-  #endif
+  #define TFT_BUFFER_SIZE                  14400
+
 #elif HAS_GRAPHICAL_TFT
+
   #define TFT_RESET_PIN                     PC6
   #define TFT_BACKLIGHT_PIN                 PD13
   #define TFT_CS_PIN                        PD7   // NE4
   #define TFT_RS_PIN                        PD11  // A0
+
 #endif
 
 #if NEED_TOUCH_PINS
@@ -411,92 +371,3 @@
   #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
   #define TOUCH_INT_PIN                     -1
 #endif
-
-/* Module TEST TFT BTT //
-#if HAS_WIRED_LCD
-    //#define BEEPER_PIN                      PC5 //PB5//EXP1_10
-    //#define BTN_ENC                         -1 //PA15//EXP1_09
-
-    #define BTN_EN1                         PA9//EXP1_06//RX1
-    #define BTN_EN2                         PA10//EXP1_08//TX1
-
-    #define LCD_PINS_RS                     -1 //PB8
-    #define LCD_PINS_ENABLE                 -1 //EXP1_3
-    //#define LCD_PINS_D4                     -1  //PB9
-    #ifndef TFT_BUFFER_SIZE
-      #define TFT_BUFFER_SIZE               1200
-    #endif
-    #ifndef TFT_QUEUE_SIZE
-      #define TFT_QUEUE_SIZE                6144
-    #endif    
-#endif
-*/
-/**
- *            SKR Mini E3 V2.0
- *                ------
- *            5V | 1  2 | GND
- * (LCD_EN) PB15 | 3  4 | PB8  (LCD_RS)
- * (LCD_D4) PB9  | 5  6   PA10 (BTN_EN2)RX1
- *         RESET | 7  8 | PA9  (BTN_EN1)TX1
- *(BTN_ENC) PA15 | 9 10 | PB5  (BEEPER)
- *                ------
- *                 EXP1
- *        ------              ------         
- *   VCC | 1  2 | GND    VCC | 1  2 | GND    
- *     A | 3  4 | B        A | 3  4 | B      
- *       | 5  6   TX    BEEP | 5  6   ENT    
- *       | 7  8 | RX      TX | 7  8 | RX     
- *  BEEP | 9 10 | ENT        | 9 10 |        
- *        ------              ------         
- *         EXP1                DWIN           
-   #if ENABLED(CR10_STOCKDISPLAY)
-
-    #define BEEPER_PIN                      PB5//EXP1_10
-    #define BTN_ENC                         PA15//EXP1_09
-
-    #define BTN_EN1                         PA9//EXP1_06//RX1
-    #define BTN_EN2                         PA10//EXP1_08//TX1
-
-    #define LCD_PINS_RS                     PB8
-    #define LCD_PINS_ENABLE               EXP1_3
-    #define LCD_PINS_D4                     PB9
-
-  #else     // !CR10_STOCKDISPLAY- SKR13 TFT AUX
- *               SKR 13
- *                ------
- *       0.3 RX0 | 2  1 | NC
- *       0.2 TX0 | 4  3 | NC 
- *           GND | 6  5   GND
- *            5v | 8  7 | 5V
- *                ------
- *                 AUX-1
-    #define LCD_PINS_RS              EXP1_07_PIN  //Reset
-
-    #define BTN_EN1                  EXP2_08_PIN  //3.26 (31) J3-2 & AUX-4
-    #define BTN_EN2                  EXP2_06_PIN  //3.25 (33) J3-4 & AUX-4
-    #define BTN_ENC                  EXP1_09_PIN  //0.28 (58) open-drain
-
-    #define LCD_PINS_ENABLE          EXP1_08_PIN
-    #define LCD_PINS_D4              EXP1_06_PIN
-
-    #define LCD_SDSS                 EXP2_07_PIN  //0.16 (SD_SS)// (16) J3-7 & AUX-4
-    #define SD_DETECT_PIN            EXP2_04_PIN  //1.31 (SD_DETECT)// (49) (NOT 5V tolerant)
-
-
- */
-/*
-#if HAS_WIRED_LCD
-  #define LCD_PINS_ENABLE        PD13
-  #define LCD_PINS_D4              -1 //PE14 //dataline EXP1_06_PIN  // PA6(LCD_D4)
-  #if IS_ULTIPANEL
-    #define LCD_PINS_D5            -1 //PE15 //dataline EXP1_05_PIN  // PA7(LCD_D5)
-    #define LCD_PINS_D6            -1 //PD11 //rs EXP1_04_PIN  // PC4(LCD_D6)
-    #define LCD_PINS_D7            -1 //PD10 //dataline EXP1_03_PIN  // PC5(LCD_D7)
-
-    #if !defined(BTN_ENC_EN) && ENABLED(REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER)
-      #define BTN_ENC_EN           LCD_PINS_D7  // Detect the presence of the encoder
-    #endif
-  #endif
-#endif
-*/
-
