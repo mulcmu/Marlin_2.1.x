@@ -202,13 +202,13 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #ifdef QQSP
-  #define CUSTOM_MACHINE_NAME "δDelta QQSP"
+  #define CUSTOM_MACHINE_NAME "Delta QQSP"
 #endif
 #ifdef Q5
-  #define CUSTOM_MACHINE_NAME "δDelta Q5"
+  #define CUSTOM_MACHINE_NAME "Delta Q5"
 #endif
 #if ANY(SR_MKS, SR_BTT)
-  #define CUSTOM_MACHINE_NAME "δDelta SuperRacer"
+  #define CUSTOM_MACHINE_NAME "Delta SuperRacer"
 #endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
