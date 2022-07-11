@@ -14,6 +14,10 @@ Please test this firmware and let us know if it misbehaves in any way. Volunteer
 ## Q5 (motherboard NANO_V1.x)
 ## SR (motherboard MKS/BTT with other screen like BTT-TFT35v3/Mks-TS35v2/RepRap TFT).
 
+**20220711** Release BugFix 2.1.1
+- Marlin BugFix 2.1.1 (QQSP, Q5, SR)
+- Fix issues from v2.1
+
 **20220618** Release 2.1
 - Last Marlin Release 2.1 (QQSP, Q5, SR)
 - New Pack Firmwares (STM/GD) for BTT-TFT mode landscape/portrait ("QQSP"&"SR").
