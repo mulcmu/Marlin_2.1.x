@@ -3,6 +3,7 @@
 *=================== FLSunQ - DELTA Printers ===============================
 *================= With pins_MKS_ROBIN_MINI.h BOARD (QQS-Pro)===============
 *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
+*================= With pins_FLSUN_HiSPEED.h BOARD GD32 (QQS-Pro)===========
 *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
 *================= With pins_MKS_ROBIN_NANO_V1_3_F4.h BOARD (Q5-2021-)======
 *================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
@@ -88,8 +89,8 @@
   //#define TFT_OTHER            // For the user who haven't the same screen.
   //#define TFT_GENERIC
 #else
-  //#define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
-  #define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
+  #define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
+  //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI            //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
