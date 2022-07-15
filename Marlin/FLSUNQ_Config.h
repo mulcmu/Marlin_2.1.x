@@ -67,7 +67,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT xxxxxx //A4988 //TMC2209_STANDALONE //TMC2209 // LV8729//
+//#define DRIVER_EXT TMC2209_STANDALONE //TMC2209 //A4988 // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
@@ -88,8 +88,8 @@
   //#define TFT_OTHER            // For the user who haven't the same screen.
   //#define TFT_GENERIC
 #else
-  #define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
-  //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
+  //#define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
+  #define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI            //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
@@ -121,7 +121,7 @@
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
 //#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx.
-//#define OMG                            //(O) Uncommment for OMG.
+//#define OMG                            //(O) Uncommment for OMG.(QQS no inv)
                   /*  Custom Effector  */
                   /* rods, height, arms*/
 //#define QQS_SR                         // Custom effector with balls like SR printer.
@@ -250,12 +250,14 @@
 
 //= For users who dont have a terminal =//
 #if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
-  #define DELTA_CALIBRATION_MENU        //  (Default) Auto for CLASSIC and COLOR.
-  #define LCD_INFO_MENU                 //  (Default) Informations printer.
+  #define DELTA_CALIBRATION_MENU        // (Default) Auto for CLASSIC and COLOR.
+  #define LCD_INFO_MENU                 // (Default) Informations printer.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  //#define MEDIA_MENU_AT_TOP           //  Print media menu at top list.
-  //#define TOUCH_IDLE_SLEEP 900        //  (Default) Auto-Sleep screenview. (M255 S100)
+  //#define MEDIA_MENU_AT_TOP           // Print media menu at top list.
+  //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview. (M255 S100)
+  //#define LCD_BACKLIGHT_TIMEOUT 30    // (s) Timeout before turning off the backlight
+  #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
@@ -286,7 +288,7 @@
 #elif ENABLED(TFT_BTT_UI)
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen 
   //#define CR10_STOCKDISPLAY
-  #define MULTI_VOLUME            // Multiple volume support(µSD + USB) 
+  //#define MULTI_VOLUME            // Multiple volume support(µSD + USB) 
 #elif ENABLED(TFT_GENERIC)
   #define TFT_DRIVER AUTO
   #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
