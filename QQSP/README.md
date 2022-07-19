@@ -1,4 +1,4 @@
-### 2022-06-18 MARLIN 2.1 RELEASE
+### 2022-06-18 MARLIN 2.1 RELEASE (compatible with GD32)
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
