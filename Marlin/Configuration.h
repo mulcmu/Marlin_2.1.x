@@ -2055,8 +2055,8 @@
   #endif
   #ifdef XP2
     #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
-    #define FIL_RUNOUT_PULLUP//#define FIL_RUNOUT_PULLDOWN
-    #define FIL_RUNOUT_STATE     HIGH
+    #define FIL_RUNOUT_PULLDOWN//#define FIL_RUNOUT_PULLDOWN
+    #define FIL_RUNOUT_STATE     LOW
   #else
     #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
     #define FIL_RUNOUT_PULLUP
