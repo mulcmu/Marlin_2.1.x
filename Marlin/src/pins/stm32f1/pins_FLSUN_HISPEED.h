@@ -27,15 +27,13 @@
  *
  * MKS Robin Mini USB uses UART3 (PB10-TX, PB11-RX)
  * #define SERIAL_PORT_2 3
- */
+ *
 #define ALLOW_STM32DUINO
 #include "env_validate.h"
-/*
+*/
 #if NOT_TARGET(__STM32F1__, STM32F1)
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
-#el
-*/
-#if HAS_MULTI_HOTEND || E_STEPPERS > 1
+#elif HAS_MULTI_HOTEND || E_STEPPERS > 1
   #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
 #endif
 
@@ -374,10 +372,10 @@
    * Setting an 'LCD_RESET_PIN' may cause a flicker when entering the LCD menu
    * because Marlin uses the reset as a failsafe to revive a glitchy LCD.
    */
-  //#define TFT_RESET_PIN                     PC6   // FSMC_RST
+  #define TFT_RESET_PIN                     PC6   // FSMC_RST
   #define TFT_BACKLIGHT_PIN                 PD13
   
-  //#define LCD_RESET_PIN            TFT_RESET_PIN
+  #define LCD_RESET_PIN            TFT_RESET_PIN
   #define LCD_BACKLIGHT_PIN    TFT_BACKLIGHT_PIN
   
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
