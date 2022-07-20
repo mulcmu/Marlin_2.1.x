@@ -22,7 +22,8 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
 
   **Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
-  *With GD32 chip, the rename is "Robin_nano.bin"
+  
+-* With GD32 chip, the rename is "Robin_nano.bin"
   
   After the flash and to configure and prepare your printer, please follow the steps on the Wiki => 
   
