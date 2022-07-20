@@ -1,4 +1,4 @@
-### 2022-06-18 MARLIN 2.1 RELEASE (compatible with GD32)
+### 2022-06-18 MARLIN 2.1 RELEASE (compatible with GD32*)
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -22,6 +22,7 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
 
   **Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.
+  *With GD32 chip, the rename is "Robin_nano.bin"
   
   After the flash and to configure and prepare your printer, please follow the steps on the Wiki => 
   
