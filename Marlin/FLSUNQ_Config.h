@@ -12,9 +12,9 @@
 *                         BUGFIX-MARLIN_v2.1.x
 * For a Delta printer start with one of the configuration files in
 * the directory and customize for your machine:
-* https://github.com/MarlinFirmware/Configurations/tree/release-2.0.9.3/config/examples/delta/FLSUN/ 
+* https://github.com/MarlinFirmware/Configurations/tree/bugfix-2.1.x/config/examples/delta/FLSUN/ 
 * 
-* Wiki: https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki
+* Wiki: https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki
 * 
 * TIPS/NOTES:
 * -For TMC mode UART, look the "pins_FLSUN_HISPEED.h" file (src/pins/stm32f1/) for more information to wire.
@@ -239,7 +239,7 @@
 * ==========================================
 * Note:You must update the Wifi module with
 * the ESP3D firmware or the MKS(Stock) firmware.
-* https://github.com/Foxies-CSTL/Marlin_2.0.x/wiki/5.Firmware-Wifi
+* https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/5.Firmware-Wifi
 */
 #ifdef MOD_WIFI
   #define MOD_AUX                     // Enable UART2/3 on socket WIFI (MKs boards)
