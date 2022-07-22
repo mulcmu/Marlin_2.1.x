@@ -85,8 +85,8 @@
   //#define TFT_OTHER            // For the user who haven't the same screen.
 #else
                 /*--- Choice UI TFT ----*/
-  //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
-  #define TFT_COLOR_UI              //(C) UI Color MARLIN with Mks-TS35v2
+  #define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
+  //#define TFT_COLOR_UI         //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
