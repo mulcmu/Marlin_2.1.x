@@ -776,9 +776,11 @@ void idle(bool no_stepper_sleep/*=false*/) {
     static uint16_t idle_depth = 0;
     if (++idle_depth > 5) SERIAL_ECHOLNPGM("idle() call depth: ", idle_depth);
   #endif
+
   #if BD_SENSOR
     BD_Level.BD_sensor_process();
-  #endif 
+  #endif
+  
   // Core Marlin activities
   manage_inactivity(no_stepper_sleep);
 

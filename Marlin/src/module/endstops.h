@@ -168,7 +168,8 @@ class Endstops {
     
     #if BD_SENSOR
       static void  BD_Zaxis_update(bool z_state);
-    #endif 
+    #endif
+     
     /**
      * Get Endstop hit state.
      */
