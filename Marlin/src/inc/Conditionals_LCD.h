@@ -461,7 +461,7 @@
   #define HAS_DGUS_LCD_CLASSIC 1
 #endif
 
-#if ANY(HAS_DGUS_LCD_CLASSIC, DGUS_LCD_UI_RELOADED)
+#if EITHER(HAS_DGUS_LCD_CLASSIC, DGUS_LCD_UI_RELOADED)
   #define HAS_DGUS_LCD 1
 #endif
 
@@ -513,7 +513,7 @@
   #define HAS_LCDPRINT 1
 #endif
 
-#if ANY(HAS_DISPLAY, HAS_DWIN_E3V2)
+#if HAS_DISPLAY || HAS_DWIN_E3V2
   #define HAS_STATUS_MESSAGE 1
 #endif
 
@@ -1353,7 +1353,7 @@
   #define TFT_DEFAULT_ORIENTATION 0
   #define TFT_RES_480x272
   #define TFT_INTERFACE_FSMC
-#elif ANY(MKS_ROBIN_TFT_V1_1R, LONGER_LK_TFT28)                               // ILI9328 or R61505
+#elif EITHER(MKS_ROBIN_TFT_V1_1R, LONGER_LK_TFT28)                            // ILI9328 or R61505
   #define TFT_DEFAULT_ORIENTATION (TFT_EXCHANGE_XY | TFT_INVERT_X | TFT_INVERT_Y)
   #define TFT_RES_320x240
   #define TFT_INTERFACE_FSMC
@@ -1389,7 +1389,8 @@
 #elif ENABLED(TFT_RES_1024x600)
   #define TFT_WIDTH  1024
   #define TFT_HEIGHT 600
-  #define GRAPHICAL_TFT_UPSCALE 4
+  #define GRAPHICAL_TFT_UPSCALE 6
+  #define TFT_PIXEL_OFFSET_X 120
 #endif
 
 // FSMC/SPI TFT Panels using standard HAL/tft/tft_(fsmc|spi|ltdc).h
