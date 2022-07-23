@@ -117,7 +117,7 @@
  */
                   /* User settings extruder */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SuperDriveHX.
-//#define EXTRUDER_STEPS  834//1440//708//830  // Ajust your eSteps (on firmware-32steps is doubled).
+//#define EXTRUDER_STEPS  410            // Uncomment to ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
@@ -167,7 +167,7 @@
 //#define HEATER_0_MAXTEMP 300           // Uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" Configure MPCTEMP for 40W hotend heater 
+//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -342,6 +342,7 @@
 
 // Software Serial UART for TMC2208
 #ifdef Q_UART8
+  #define MICROSTEPS32
   #define Q_TMC
   #define DRIVER_AXES TMC2208
   #ifndef DRIVER_EXT
@@ -352,6 +353,7 @@
 
 // Software Serial UART for TMC2209
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
+  #define MICROSTEPS32
   #define Q_TMC
   #define STEALTHCHOP_E
   #define DRIVER_AXES TMC2209
@@ -386,6 +388,7 @@
 // Requires SLAVE_ADDRESS definitions in Configuration_adv.h
 // and proper jumper configuration. Uses I/O pins PA8(Default QQS).
 #ifdef QQS_UARTH
+    #define MICROSTEPS32
     #define Q_TMC
     #define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
@@ -420,15 +423,27 @@
 // Variables to calculate steps and current
 //eSteps
 #ifndef EXTRUDER_STEPS
-  #ifdef NEMA14
-    #define EXTRUDER_STEPS 720 //1440 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
-  #elif ENABLED(OMG)           
-    #define EXTRUDER_STEPS 390 //780 //  
-  #elif ANY(BMG, SR_MKS, SR_BTT)
-    #define EXTRUDER_STEPS  417 //834 // Extruder BMG(Left/Right)
+  #ifdef MICROSTEPS32
+    #ifdef NEMA14
+      #define EXTRUDER_STEPS 1440 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
+    #elif ENABLED(OMG)           
+      #define EXTRUDER_STEPS 790 //  
+    #elif ANY(BMG, SR_MKS, SR_BTT)
+      #define EXTRUDER_STEPS 834 // Extruder BMG(Left/Right)
+    #else
+      #define EXTRUDER_STEPS 820 // Extruder TITAN(Default)
+    #endif  
   #else
-    #define EXTRUDER_STEPS 410  //820 // Extruder TITAN(Default)
-  #endif
+    #ifdef NEMA14
+      #define EXTRUDER_STEPS 720 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
+    #elif ENABLED(OMG)           
+      #define EXTRUDER_STEPS 390 //  
+    #elif ANY(BMG, SR_MKS, SR_BTT)
+      #define EXTRUDER_STEPS 417 // Extruder BMG(Left/Right)
+    #else
+      #define EXTRUDER_STEPS 410 //820 // Extruder TITAN(Default)
+    #endif
+  #endif  
 #endif
 //Jerk
 #ifndef XYZJERK
