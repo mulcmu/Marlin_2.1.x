@@ -2344,7 +2344,7 @@
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
-#elif ENABLED(TFT_BTT_UI)
+#elif ANY(TFT_BTT_UI, OCTO)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 16
@@ -2356,7 +2356,7 @@
 
 // The ASCII buffer for serial input
 #define MAX_CMD_SIZE 96
-#if ENABLED(TFT_BTT_UI)
+#if ANY(TFT_BTT_UI, OCTO)
   #define BUFSIZE 32
 #else
   #define BUFSIZE 16  //4
@@ -2369,12 +2369,10 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#ifdef OCTO
-  #define TX_BUFFER_SIZE 64
-#elif ENABLED(TFT_BTT_UI)
+#if ANY(TFT_BTT_UI, OCTO)
   #define TX_BUFFER_SIZE 32
 #else
-  #define TX_BUFFER_SIZE 0
+  #define TX_BUFFER_SIZE 16//0
 #endif
 
 // Host Receive Buffer Size
@@ -2383,7 +2381,7 @@
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
 //#define RX_BUFFER_SIZE 1024
 #ifdef OCTO
-  #define RX_BUFFER_SIZE 1024 
+  #define RX_BUFFER_SIZE 1024//2048 
 #endif
 
 #if RX_BUFFER_SIZE >= 1024
@@ -3825,6 +3823,8 @@
 //#define GCODE_CASE_INSENSITIVE  // Accept G-code sent to the firmware in lowercase
 
 //#define REPETIER_GCODE_M360     // Add commands originally from Repetier FW
+
+																				  
 
 /**
  * CNC G-code options
