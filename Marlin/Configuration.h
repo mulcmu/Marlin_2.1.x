@@ -1061,11 +1061,11 @@
     #define DELTA_DIAGONAL_ROD      280.0            // Custom arm with Ball = 285
     #define DELTA_HEIGHT            366.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            130.5            // Custom radius with Ball = 130.5
+    #define DELTA_RADIUS            140.8            // Custom radius with Ball = 130.5
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define PROBING_MARGIN 10
+    #define PROBING_MARGIN 15
   #elif ENABLED(Q5)
     #define DELTA_PRINTABLE_RADIUS 105.0
     #define DELTA_MAX_RADIUS       105.0
@@ -1779,7 +1779,7 @@
  */
 //#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
-#if ANY(P_PROBE, N_PROBE, X_PROBE)
+#if ANY(P_PROBE, N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING  1
 #else
