@@ -3745,7 +3745,9 @@
 /**
  * Auto-report position with M154 S<seconds>
  */
-//#define AUTO_REPORT_POSITION
+#ifdef TFT_BTT_UI
+  #define AUTO_REPORT_POSITION
+#endif
 
 /**
  * Include capabilities in M115 output
