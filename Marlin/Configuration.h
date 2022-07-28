@@ -3539,14 +3539,16 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#define FAN_SOFT_PWM
+#if NONE(SR_MKS, SR_BTT)
+  #define FAN_SOFT_PWM
+#endif
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#ifdef SR_MKS
+#if ANY(SR_MKS, SR_BTT)
   #define SOFT_PWM_SCALE 0
 #else
   #define SOFT_PWM_SCALE 1
