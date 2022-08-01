@@ -327,7 +327,6 @@
   #define Q_TMC
   #define DRIVER_AXES TMC2208_STANDALONE
   #ifndef DRIVER_EXT
-    #undef LIN_ADVANCE
     #define DRIVER_EXT TMC2208_STANDALONE
   #endif
 #endif
@@ -346,7 +345,6 @@
   #define Q_TMC
   #define DRIVER_AXES TMC2208
   #ifndef DRIVER_EXT
-    #undef LIN_ADVANCE
     #define DRIVER_EXT TMC2208
   #endif
 #endif
