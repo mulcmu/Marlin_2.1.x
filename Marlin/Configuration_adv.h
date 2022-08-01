@@ -612,7 +612,7 @@
  */
 #if NONE(Q5, SR_MKS, SR_BTT, NANO1X) 
   #define E0_AUTO_FAN_PIN -1
-#elif ENABLED(SR_MKS)
+#elif ENABLED(SR_MKS, NANO3)
   #define E0_AUTO_FAN_PIN PB0  //HE1
 #else
   #define E0_AUTO_FAN_PIN FAN1_PIN  //PB0 for SR_MKS(default) or wiring to PB1.
@@ -2624,7 +2624,7 @@
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      550
   #elif ENABLED(NEMA14)
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20    //40 LGX
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      110
   #elif ANY(SR_MKS, SR_BTT)
@@ -2648,8 +2648,8 @@
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
   #elif ENABLED(NEMA14)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15
-    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15  //20 LGX
+    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25  //15 LGX
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
@@ -3338,9 +3338,7 @@
    * Enable M122 debugging command for TMC stepper drivers.
    * M122 S0/1 will enable continuous reporting.
    */
-  #ifdef DBUG
-    #define TMC_DEBUG
-  #endif
+  #define TMC_DEBUG
 
   /**
    * You can set your own advanced settings by filling in predefined functions.
