@@ -177,13 +177,13 @@
     #endif
   #endif
 #else
-  #ifdef MOD_WIFI
+  #ifdef MOD_AUX
     #ifdef ESP3D_30
       #define SERIAL_PORT_2 1
       #define NUM_SERIAL 2
       #define BAUDRATE_2 115200
     #else
-      #define SERIAL_PORT_2 1
+      #define SERIAL_PORT_2 1   // 1=ESP3Dv2.1 MKS-Wifi or serial TFT.
       #define NUM_SERIAL 2
     #endif
   #endif
@@ -2283,7 +2283,7 @@
     #define GRID_MAX_POINTS_X 10     // MeshHight
   #elif ANY(XP1, XP2)
     #define MESH_INSET 15
-    #define GRID_MAX_POINTS_X 6      //MeshLow
+    #define GRID_MAX_POINTS_X 7      //MeshLow
   #else
   	#define MESH_INSET 15            // Set Mesh bounds as an inset region of the bed
 	  #define GRID_MAX_POINTS_X 8    // MeshFine Don't use more than 15 points per axis, implementation limited.
@@ -2522,8 +2522,8 @@
 // Preheat Constants - Up to 6 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
-#define PREHEAT_1_TEMP_BED     60
+#define PREHEAT_1_TEMP_HOTEND 205
+#define PREHEAT_1_TEMP_BED     70
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED   200 // Value from 0 to 255
 
