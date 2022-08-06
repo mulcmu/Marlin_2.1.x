@@ -612,7 +612,7 @@
  */
 #if NONE(Q5, SR_MKS, SR_BTT, NANO1X) 
   #define E0_AUTO_FAN_PIN -1
-#elif ENABLED(SR_MKS, NANO3)
+#elif ANY(SR_MKS, NANO3)
   #define E0_AUTO_FAN_PIN PB0  //HE1
 #else
   #define E0_AUTO_FAN_PIN FAN1_PIN  //PB0 for SR_MKS(default) or wiring to PB1.
@@ -1517,7 +1517,7 @@
     //#define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
     //#define POWER_LOSS_ZRAISE       2 // (mm) Z axis raise on resume (on power loss with UPS)
     #ifndef POWER_LOSS_PIN
-    //  #define POWER_LOSS_PIN           -1 //44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
+      #define POWER_LOSS_PIN           -1 //44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
     #endif
     //#define POWER_LOSS_STATE     HIGH // State of pin indicating power loss
     //#define POWER_LOSS_PULLUP         // Set pullup / pulldown as appropriate for your sensor
@@ -4020,8 +4020,8 @@
 #if ENABLED(HOST_ACTION_COMMANDS)
   //#define HOST_PAUSE_M76                // Tell the host to pause in response to M76
   #define HOST_PROMPT_SUPPORT           // Initiate host prompts to get user feedback
-  #if ENABLED(HOST_PROMPT_SUPPORT)
-    //#define HOST_STATUS_NOTIFICATIONS   // Send some status messages to the host as notifications
+  #if BOTH(HOST_PROMPT_SUPPORT, TFT_BTT_UI)
+    #define HOST_STATUS_NOTIFICATIONS   // Send some status messages to the host as notifications
   #endif
   //#define HOST_START_MENU_ITEM          // Add a menu item that tells the host to start
   //#define HOST_SHUTDOWN_MENU_ITEM       // Add a menu item that tells the host to shut down
