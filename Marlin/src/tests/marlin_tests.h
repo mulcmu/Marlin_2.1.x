@@ -21,16 +21,5 @@
  */
 #pragma once
 
-#include <stdint.h>
-
-class BDS_Leveling {
-public:
-  static int8_t config_state;
-  static uint8_t homing;
-  static void echo_name();
-  static void init(uint8_t _sda, uint8_t _scl, uint16_t delay_s);
-  static void process();
-  static float read();
-};
-
-extern BDS_Leveling bdl;
+void runStartupTests();
+void runPeriodicTests();

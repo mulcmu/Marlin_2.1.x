@@ -19,18 +19,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#pragma once
 
-#include <stdint.h>
+#include "../inc/MarlinConfigPre.h"
 
-class BDS_Leveling {
-public:
-  static int8_t config_state;
-  static uint8_t homing;
-  static void echo_name();
-  static void init(uint8_t _sda, uint8_t _scl, uint16_t delay_s);
-  static void process();
-  static float read();
-};
+#if ENABLED(MARLIN_TEST_BUILD)
 
-extern BDS_Leveling bdl;
+#include "../module/endstops.h"
+#include "../module/motion.h"
+#include "../module/planner.h"
+#include "../module/settings.h"
+#include "../module/stepper.h"
+#include "../module/temperature.h"
+
+// Individual tests are localized in each module.
+// Each test produces its own report.
+
+// Startup tests are run at the end of setup()
+void runStartupTests() {
+  // Call post-setup tests here to validate behaviors.
+}
+
+// Periodic tests are run from within loop()
+void runPeriodicTests() {
+  // Call periodic tests here to validate behaviors.
+}
+
+#endif // MARLIN_TEST_BUILD

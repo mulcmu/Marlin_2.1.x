@@ -165,11 +165,12 @@ class Endstops {
      * Called from ISR contexts.
      */
     static void update();
-    
-    #if BD_SENSOR
-      static void  BD_Zaxis_update(bool z_state);
+
+    #if ENABLED(BD_SENSOR)
+      static bool bdp_state;
+      static void bdp_state_update(const bool z_state) { bdp_state = z_state; }
     #endif
-     
+
     /**
      * Get Endstop hit state.
      */
