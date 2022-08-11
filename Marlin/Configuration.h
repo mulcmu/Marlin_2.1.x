@@ -785,11 +785,12 @@
   #define MPC_AUTOTUNE_MENU                         // Add MPC auto-tuning to the "Advanced Settings" menu. (~350 bytes of flash)
 
   #define MPC_MAX BANG_MAX                            // (0..255) Current to nozzle while MPC is active.
-  #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
+  //#define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
 
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
   
   #ifdef XP2
+    #define MPC_HEATER_POWER { 50.0f }
     #define MPC_BLOCK_HEAT_CAPACITY { 13.6647 }           // (J/K) Heat block heat capacities.
     #define MPC_SENSOR_RESPONSIVENESS { 0.0666 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
     #define MPC_AMBIENT_XFER_COEFF { 0.0774 }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
@@ -797,6 +798,7 @@
       #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1294 }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
     #endif  
   #else
+    #define MPC_HEATER_POWER { 40.0f }
   // Measured physical constants from M306
     #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
     #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
@@ -3550,7 +3552,7 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#if NONE(SR_MKS, SR_BTT)
+#ifndef SR_BTT
   #define FAN_SOFT_PWM
 #endif
 
