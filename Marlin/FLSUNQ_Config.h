@@ -343,6 +343,7 @@
 #ifdef Q_UART8
   #define MICROSTEPS32
   #define Q_TMC
+  #define STEALTHCHOP_E
   #define DRIVER_AXES TMC2208
   #ifndef DRIVER_EXT
     #define DRIVER_EXT TMC2208
@@ -480,12 +481,12 @@
     #define E_CURRENT       850
   #endif
 #endif
-// PanpaPi Probe: change your IC2 pins.
+// PanpaPi Probe: change your IC2 pins (Tests in progress.......).
 #ifdef B_PROBE
-  #define BD_SENSOR 1
-  #undef AUTO_BED_LEVELING_UBL
-  #undef RESTORE_LEVELING_AFTER_G28
-  #undef G26_MESH_VALIDATION
+  #define BD_SENSOR
+  //#undef AUTO_BED_LEVELING_UBL
+  //#undef RESTORE_LEVELING_AFTER_G28
+  //#undef G26_MESH_VALIDATION
   #define I2C_BD_SDA_PIN   E1_DIR_PIN  //PA1  - PC6 // E1 DIR
   #define I2C_BD_SCL_PIN   E1_STEP_PIN //PD15 - PB2 // E1 STEP
   #define I2C_BD_DELAY  10

@@ -1638,17 +1638,18 @@ void setup() {
   #if HAS_TRINAMIC_CONFIG && DISABLED(PSU_DEFAULT_OFF)
     SETUP_RUN(test_tmc_connection());
   #endif
-  
-  #if BD_SENSOR 
-   // Serial.end();
-    BD_Level.init(I2C_BD_SDA_PIN,I2C_BD_SCL_PIN,I2C_BD_DELAY);   
+
+  #if ENABLED(BD_SENSOR)
+    SETUP_RUN(bdl.init(I2C_BD_SDA_PIN, I2C_BD_SCL_PIN, I2C_BD_DELAY));
   #endif
-  
+
+  marlin_state = MF_RUNNING;
 
   SETUP_LOG("setup() completed.");
 
   TERN_(MARLIN_TEST_BUILD, runStartupTests());
 }
+
 /**
  * The main Marlin program loop
  *

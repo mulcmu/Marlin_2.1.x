@@ -1560,7 +1560,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-#if NONE(N_PROBE, P_PROBE)
+#if NONE(N_PROBE, P_PROBE, B_PROBE)
   #define FIX_MOUNTED_PROBE
 #endif
 
@@ -2210,13 +2210,6 @@
   #define LEVELING_NOZZLE_TEMP  80   // (°C) Only applies to E0 at this time
   #define LEVELING_BED_TEMP     60
 #endif
-
-/*Bed Distance Sensor,
- it can measure the distance from bed to nozzle with distance resolution 0.01mm
- For information about this sensor https://github.com/markniu/Bed_Distance_sensor
- Communicated to this sensor with I2C port,so it require a I2C libarary markyue/Panda_SoftMasterI2C
-*/
-//#define BD_SENSOR 0  
 
 /**
  * Bed Distance Sensor
