@@ -56,5 +56,5 @@ void GcodeSuite::M118() {
 
   if (hasE) SERIAL_ECHO_START();
   if (hasA) SERIAL_ECHOPGM("//");
-  SERIAL_ECHOLN(p);
+  SERIAL_ECHO(p); SERIAL_EOL();
 }

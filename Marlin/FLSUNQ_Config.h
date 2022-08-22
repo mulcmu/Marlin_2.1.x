@@ -100,7 +100,7 @@
 * =========================================//
 */
 //#define LCD_LANGUAGE en                // Change for your country ('bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'el':'Greek', 'fi':'Finnish', 'hr':'Croatian', 'hu':'Hungarian', 'jp_kana':'Japanese', 'nl':'Dutch', 'pl':'Polish', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', etc)
-//#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
+#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
 
 /*_________________________________4______________________________*/
           /*---- Extruder, Custom effector and Modules -----*/
@@ -165,8 +165,9 @@
 //#define HEATER_0_MAXTEMP 350           // Don't uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
 //#define BOOT_MARLIN_LOGO_SMALL
+
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -459,7 +460,7 @@
     #elif ANY(BMG, SR_MKS, SR_BTT)
       #define EXTRUDER_STEPS 417 //  Extruder BMG(Left/Right)
     #else
-      #define EXTRUDER_STEPS 410 //  Extruder TITAN(Default)
+      #define EXTRUDER_STEPS 429  // Extruder TITAN(Default)  Aug2022 Value
     #endif
   #endif
 #endif
@@ -479,7 +480,7 @@
   #ifndef Q5
     #define X_OFFSET        0
     #define Y_OFFSET        0
-    #define Z_OFFSET       -16.2
+    #define Z_OFFSET       -18.6787  //Aug2022 Value
   #else
     #define X_OFFSET        0
     #define Y_OFFSET        0
