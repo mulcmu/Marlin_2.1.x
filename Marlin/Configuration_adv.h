@@ -2078,7 +2078,7 @@
 //#define LIN_ADVANCE           // Define on FLSUNQ_Config
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
-  #define LIN_ADVANCE_K 0       // Unit: mm compression per 1mm/s extruder speed
+  #define LIN_ADVANCE_K 0.5      // Unit: mm compression per 1mm/s extruder speed  Aug2022 Value
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
   #define EXPERIMENTAL_SCURVE   // Enable this option to permit S-Curve Acceleration
   #ifdef NEMA14
@@ -3906,11 +3906,11 @@
   #define MAIN_MENU_ITEM_1_CONFIRM
 
   #define MAIN_MENU_ITEM_2_DESC "Fast Calib.Delta"
-  #define MAIN_MENU_ITEM_2_GCODE "G33P3V3\nM500\nM140S0"
+  #define MAIN_MENU_ITEM_2_GCODE "G33P3V3T\nM500\nM140S0"
   #define MAIN_MENU_ITEM_2_CONFIRM
 
   #define MAIN_MENU_ITEM_3_DESC "Fine Calib.Delta"
-  #define MAIN_MENU_ITEM_3_GCODE "G33P5V3\nM500\nM140S0"  //P6ok
+  #define MAIN_MENU_ITEM_3_GCODE "G33P5V3T\nM500\nM140S0"  //P6ok
   #define MAIN_MENU_ITEM_3_CONFIRM
 
   #define MAIN_MENU_ITEM_4_DESC "ZProbe Wizard"

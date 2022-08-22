@@ -188,7 +188,7 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #ifdef QQSP
-  #define CUSTOM_MACHINE_NAME "δDelta QQSP"
+  #define CUSTOM_MACHINE_NAME "FLSUN QQSP"
 #endif
 #ifdef Q5
   #define CUSTOM_MACHINE_NAME "δDelta Q5"
@@ -752,9 +752,9 @@
     //M301 P23.7612 I1.7268 D81.7385-220
     //M301 P19.6543 I1.4039 D68.7900-240
     //M301 P19.8891 I1.4288 D69.2140-250
-      #define DEFAULT_Kp   13.7
-      #define DEFAULT_Ki   0.48
-      #define DEFAULT_Kd   70.22
+        #define DEFAULT_Kp 14.39
+        #define DEFAULT_Kd 56.12
+        #define DEFAULT_Ki 0.92
     #else
     // FLSUN QQ-S, 200 C with 100% part cooling
       #define DEFAULT_Kp  28.16
@@ -791,11 +791,11 @@
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
 
   // Measured physical constants from M306
-  #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
-  #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
-  #define MPC_AMBIENT_XFER_COEFF { 0.068f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
+  #define MPC_BLOCK_HEAT_CAPACITY { 11.24f }           // (J/K) Heat block heat capacities.  Aug2022 Value
+  #define MPC_SENSOR_RESPONSIVENESS { 0.1025 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.  Aug2022 Value
+  #define MPC_AMBIENT_XFER_COEFF { 0.1197f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.  Aug2022 Value
   #if ENABLED(MPC_INCLUDE_FAN)
-    #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.097f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
+    #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1353f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.  Aug2022 Value
   #endif
 
   // For one fan and multiple hotends MPC needs to know how to apply the fan cooling effect.
@@ -864,9 +864,9 @@
   //#define DEFAULT_bedKp 111.12
   //#define DEFAULT_bedKi 22.05
   //#define DEFAULT_bedKd 373.36
-    #define DEFAULT_bedKp 75.6671
-    #define DEFAULT_bedKi 12.9567
-    #define DEFAULT_bedKd 294.5974
+    #define DEFAULT_bedKp 76.43
+    #define DEFAULT_bedKi 14.05
+    #define DEFAULT_bedKd 277.18
   #else
     #define DEFAULT_bedKp 82.98
     #define DEFAULT_bedKi 15.93
@@ -1096,15 +1096,15 @@
     #define DELTA_MAX_RADIUS         130.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-    #define DELTA_DIAGONAL_ROD       280.0      // (mm)
+    #define DELTA_DIAGONAL_ROD       282.5      // (mm)   Aug2022 Value
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT             370.00     //370 E3D-360 (mm) Get this value from G33 auto calibrate
+    #define DELTA_HEIGHT             371.7079     //Aug2022 Value
 
-    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
+    #define DELTA_ENDSTOP_ADJ { -0.433, 0.0, -0.431 } //Aug2022 Value
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-    #define DELTA_RADIUS             140.8      // (mm) Get this value from G33 auto calibrate
+    #define DELTA_RADIUS             141.9962      // Aug2022 Value
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
@@ -1113,7 +1113,7 @@
 
   // Delta radius and diagonal rod adjustments (mm)
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 1.05, 0.40, -0.460 }  //Aug2022 Value
   #endif
 #endif
 
@@ -2103,18 +2103,18 @@
   // Commands to execute on filament runout.
   // With multiple runout sensors use the %c placeholder for the current tool in commands (e.g., "M600 T%c")
   // NOTE: After 'M412 H1' the host handles filament runout and this script does not apply.
-  #define FILAMENT_RUNOUT_SCRIPT "M600"
+  #define FILAMENT_RUNOUT_SCRIPT "M600 Z25 L0 U0 X0 Y100"
 
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  #define FILAMENT_RUNOUT_DISTANCE_MM 25
+  #define FILAMENT_RUNOUT_DISTANCE_MM 7
 
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
     // as the filament moves. (Be sure to set FILAMENT_RUNOUT_DISTANCE_MM
     // large enough to avoid false positives.)
-    //#define FILAMENT_MOTION_SENSOR
+    #define FILAMENT_MOTION_SENSOR
   #endif
 #endif
 
