@@ -77,7 +77,7 @@
   #define COLOR_SELECTION_BG  0x9930  // #992380
 #endif
 #ifndef COLOR_WEBSITE_URL
-  #define COLOR_WEBSITE_URL   0xED03  // #EFA219 Change
+  #define COLOR_WEBSITE_URL   COLOR_WHITE  // #EFA219 Change
 #endif
 
 #ifndef COLOR_INACTIVE
