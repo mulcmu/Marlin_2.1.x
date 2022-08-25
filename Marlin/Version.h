@@ -28,7 +28,8 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "FLSunQ_bugfix-2.1.x"
+#define SHORT_BUILD_VERSION "FLSunQ_2.1.x"
+
 
 /**
  * Verbose version identifier which should contain a reference to the location
@@ -41,12 +42,13 @@
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-//#define STRING_DISTRIBUTION_DATE "2022-08-08"
+//#define STRING_DISTRIBUTION_DATE "2022-08-23"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-#define MACHINE_NAME "Delta_FLSun"
+#define MACHINE_NAME "FLSUN QQSP"
+
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source
@@ -55,6 +57,7 @@
  * Marlin repository.
  */
 #define SOURCE_CODE_URL "github.com/Foxies-CSTL/Marlin2.1.x"
+
 
 /**
  * Default generic printer UUID.
@@ -72,7 +75,8 @@
  * The WEBSITE_URL is the location where users can get more information such as
  * documentation about a specific Marlin release.
  */
-#define WEBSITE_URL "Powered by Foxies"
+#define WEBSITE_URL "mulcmu v3"
+
 
 /**
  * Set the vendor info the serial USB interface, if changable
@@ -81,3 +85,4 @@
 #define USB_DEVICE_VENDOR_ID           0x1a86
 #define USB_DEVICE_PRODUCT_ID          0x7523
 //#define USB_DEVICE_MANUFACTURE_NAME    WEBSITE_URL
+

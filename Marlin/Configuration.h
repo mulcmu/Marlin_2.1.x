@@ -128,6 +128,7 @@
   #define BAUDRATE 115200
 #endif
 
+
 /**
  * Serial Port Baud Rate
  * This is the default communication speed for all serial ports.
@@ -216,10 +217,16 @@
 //#define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
 
 /**
- * Stepper Drivers
+ * Define the number of coordinated linear axes.
+ * See https://github.com/DerAndere1/Marlin/wiki
+ * Each linear axis gets its own stepper control and endstop:
  *
- * These settings allow Marlin to tune stepper driver timing and enable advanced options for
- * stepper drivers that support them. You may also override timing options in Configuration_adv.h.
+ *   Steppers: *_STEP_PIN, *_ENABLE_PIN, *_DIR_PIN, *_ENABLE_ON
+ *   Endstops: *_STOP_PIN, USE_*MIN_PLUG, USE_*MAX_PLUG
+ *       Axes: *_MIN_POS, *_MAX_POS, INVERT_*_DIR
+ *    Planner: DEFAULT_AXIS_STEPS_PER_UNIT, DEFAULT_MAX_FEEDRATE
+ *             DEFAULT_MAX_ACCELERATION, AXIS_RELATIVE_MODES,
+ *             MICROSTEP_MODES, MANUAL_FEEDRATE
  *
  * Use TMC2208/TMC2208_STANDALONE for TMC2225 drivers and TMC2209/TMC2209_STANDALONE for TMC2226 drivers.
  *
@@ -270,17 +277,27 @@
  *
  * Regardless of these settings the axes are internally named I, J, K, U, V, W.
  */
-#ifdef I_DRIVER_TYPE
+#if LINEAR_AXES >= 4
   #define AXIS4_NAME 'A' // :['A', 'B', 'C', 'U', 'V', 'W']
   #define AXIS4_ROTATES
 #endif
-#ifdef J_DRIVER_TYPE
-  #define AXIS5_NAME 'B' // :['B', 'C', 'U', 'V', 'W']
-  #define AXIS5_ROTATES
+#if LINEAR_AXES >= 5
+  #define AXIS5_NAME 'B' // :['A', 'B', 'C', 'U', 'V', 'W']
 #endif
-#ifdef K_DRIVER_TYPE
-  #define AXIS6_NAME 'C' // :['C', 'U', 'V', 'W']
-  #define AXIS6_ROTATES
+#if LINEAR_AXES >= 6
+  #define AXIS6_NAME 'C' // :['A', 'B', 'C', 'U', 'V', 'W']
+#endif
+#ifdef U_DRIVER_TYPE
+  #define AXIS7_NAME 'U' // :['U', 'V', 'W']
+  //#define AXIS7_ROTATES
+#endif
+#ifdef V_DRIVER_TYPE
+  #define AXIS8_NAME 'V' // :['V', 'W']
+  //#define AXIS8_ROTATES
+#endif
+#ifdef W_DRIVER_TYPE
+  #define AXIS9_NAME 'W' // :['W']
+  //#define AXIS9_ROTATES
 #endif
 #ifdef U_DRIVER_TYPE
   #define AXIS7_NAME 'U' // :['U', 'V', 'W']
@@ -631,6 +648,7 @@
 #ifndef TEMP_SENSOR_BOARD
   #define TEMP_SENSOR_BOARD 0
 #endif
+
 #define TEMP_SENSOR_REDUNDANT 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -765,14 +783,14 @@
     //M301 P23.7612 I1.7268 D81.7385-220
     //M301 P19.6543 I1.4039 D68.7900-240
     //M301 P19.8891 I1.4288 D69.2140-250
-      #define DEFAULT_Kp   13.7
-      #define DEFAULT_Ki   0.48
-      #define DEFAULT_Kd   70.22
+        #define DEFAULT_Kp 14.39
+        #define DEFAULT_Kd 56.12
+        #define DEFAULT_Ki 0.92
     #else
     // FLSUN QQ-S, 200 C with 100% part cooling
-      #define DEFAULT_Kp 21.6708
-      #define DEFAULT_Ki  1.2515
-      #define DEFAULT_Kd 93.8127
+      #define DEFAULT_Kp  28.16
+      #define DEFAULT_Ki   3.38
+      #define DEFAULT_Kd  58.69
     #endif
     // FIND YOUR OWN: measured after M106 S180 with M303 E0 S230 C8 U
     //#define DEFAULT_Kp
@@ -814,12 +832,11 @@
   #else
     #define MPC_HEATER_POWER { 40.0f }
   // Measured physical constants from M306
-    #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
-    #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
-    #define MPC_AMBIENT_XFER_COEFF { 0.068f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
-    #if ENABLED(MPC_INCLUDE_FAN)
-      #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.097f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
-    #endif
+  #define MPC_BLOCK_HEAT_CAPACITY { 11.24f }           // (J/K) Heat block heat capacities.  Aug2022 Value
+  #define MPC_SENSOR_RESPONSIVENESS { 0.1025 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.  Aug2022 Value
+  #define MPC_AMBIENT_XFER_COEFF { 0.1197f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.  Aug2022 Value
+  #if ENABLED(MPC_INCLUDE_FAN)
+    #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1353f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.  Aug2022 Value
   #endif
 
   // For one fan and multiple hotends MPC needs to know how to apply the fan cooling effect.
@@ -882,13 +899,19 @@
     #define DEFAULT_bedKi 3.94
     #define DEFAULT_bedKd 69.11
   #elif ANY(SR_MKS, SR_BTT)
-    #define DEFAULT_bedKp 268.6112
-    #define DEFAULT_bedKi 52.5401
-    #define DEFAULT_bedKd 915.5167
+  //M304 P56.1605 I10.9688 D191.6944-60
+  //M304 P100.4504 I19.3174 D348.2281-80
+  //M304 P136.6639 I26.2815 D473.7682-90
+  //#define DEFAULT_bedKp 111.12
+  //#define DEFAULT_bedKi 22.05
+  //#define DEFAULT_bedKd 373.36
+    #define DEFAULT_bedKp 76.43
+    #define DEFAULT_bedKi 14.05
+    #define DEFAULT_bedKd 277.18
   #else
-    #define DEFAULT_bedKp 65.6075
-    #define DEFAULT_bedKi 11.7156
-    #define DEFAULT_bedKd 244.9348
+    #define DEFAULT_bedKp 82.98
+    #define DEFAULT_bedKi 15.93
+    #define DEFAULT_bedKd 288.25
   #endif
   // FIND YOUR OWN: "M303 E-1 S60 C8 U" to run autotune on the bed at 60 degrees for 8 cycles.
   //M303 E-1 C8 S60 =>Memo M304 P61.05 I11.27 D218.99
@@ -1076,36 +1099,35 @@
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
   #elif ENABLED(QQS_SR) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
-    #define DELTA_PRINTABLE_RADIUS  130.0            // (mm)
-    #define DELTA_MAX_RADIUS        130.0
-    #define DELTA_DIAGONAL_ROD      280.0            // Custom arm with Ball = 285
-    #define DELTA_HEIGHT            366.0
+
+    #define DELTA_PRINTABLE_RADIUS  130.0            //
+    #define DELTA_MAX_RADIUS        130.0            //
+    #define DELTA_DIAGONAL_ROD      280.0            //L285.8064
+    #define DELTA_HEIGHT            365.0            //H333.1926
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            140.8            // Custom radius with Ball = 130.5
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } //XYZ
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
-    //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define PROBING_MARGIN 15
-  #elif ENABLED(Q5)
-    #define DELTA_PRINTABLE_RADIUS 105.0
-    #define DELTA_MAX_RADIUS       105.0
-    #define DELTA_DIAGONAL_ROD     215.0
-    #define DELTA_HEIGHT           210.0
-    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
-    #define DELTA_RADIUS             107.5
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
+    #define DELTA_RADIUS            135.0            //R127.3126
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }    //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
+  #elif ENABLED(Q5)  
+    #define DELTA_PRINTABLE_RADIUS 105.0
+    #define DELTA_MAX_RADIUS       105.0
+    #define DELTA_DIAGONAL_ROD     215.0
+    #define DELTA_HEIGHT           210.0  //200.0
+    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
+    #define DELTA_RADIUS           107.5
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
+    //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
   #elif ANY(SR_MKS, SR_BTT)
-  //M665 L315.0 R151.67 H335.0 S160.0
     #define DELTA_PRINTABLE_RADIUS  132.0
     #define DELTA_MAX_RADIUS        132.0
     #define DELTA_DIAGONAL_ROD      315.0
     #define DELTA_HEIGHT            330.0
-    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }       // Trim adjustments for individual towers
+    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
     #define DELTA_RADIUS            151.67
-    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }  //XYZ
+    #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
     #define PROBING_MARGIN 10
@@ -1115,18 +1137,18 @@
     #define DELTA_PRINTABLE_RADIUS   130.0      // (mm)
 
   // Maximum reachable area
-    #define DELTA_MAX_RADIUS         132.0      // (mm)
+    #define DELTA_MAX_RADIUS         130.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-    #define DELTA_DIAGONAL_ROD       280.0      // (mm)
+    #define DELTA_DIAGONAL_ROD       282.5      // (mm)   Aug2022 Value
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT             370.00     // (mm) Get this value from G33 auto calibrate
+    #define DELTA_HEIGHT             371.7079     //Aug2022 Value
 
-    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
+    #define DELTA_ENDSTOP_ADJ { -0.433, 0.0, -0.431 } //Aug2022 Value
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-    #define DELTA_RADIUS             140.8      // (mm) Get this value from G33 auto calibrate
+    #define DELTA_RADIUS             141.9962      // Aug2022 Value
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
@@ -1135,9 +1157,8 @@
 
   // Delta radius and diagonal rod adjustments (mm)
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 1.05, 0.40, -0.460 }  //Aug2022 Value
   #endif
-
 #endif
 
 // @section scara
@@ -1902,7 +1923,7 @@
 // @section extruder
 
 #define DISABLE_E false             // Disable the extruder when not stepping
-#define DISABLE_INACTIVE_EXTRUDER   // Keep only the active extruder enabled
+#define DISABLE_INACTIVE_EXTRUDER  true // Keep only the active extruder enabled
 
 // @section machine
 
@@ -1980,7 +2001,6 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR 1
 #define Y_HOME_DIR 1
 #define Z_HOME_DIR 1
 //#define I_HOME_DIR -1
@@ -2131,7 +2151,7 @@
   // Commands to execute on filament runout.
   // With multiple runout sensors use the %c placeholder for the current tool in commands (e.g., "M600 T%c")
   // NOTE: After 'M412 H1' the host handles filament runout and this script does not apply.
-  #define FILAMENT_RUNOUT_SCRIPT "M600"
+  #define FILAMENT_RUNOUT_SCRIPT "M600 Z25 L0 U0 X0 Y100"
 
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
@@ -2139,14 +2159,14 @@
   #ifdef NEMA14
     #define FILAMENT_RUNOUT_DISTANCE_MM 190  //190mm print after detect
   #else
-    #define FILAMENT_RUNOUT_DISTANCE_MM 25  //OPT
+    #define FILAMENT_RUNOUT_DISTANCE_MM 7  //OPT
   #endif
 
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
     // as the filament moves. (Be sure to set FILAMENT_RUNOUT_DISTANCE_MM
     // large enough to avoid false positives.)
-    //#define FILAMENT_MOTION_SENSOR
+    #define FILAMENT_MOTION_SENSOR
   #endif
 #endif
 
@@ -2238,7 +2258,7 @@
   // Gradually reduce leveling correction until a set height is reached,
   // at which point movement will be level to the machine's XY plane.
   // The height can be set with M420 Z<height>
-  #define ENABLE_LEVELING_FADE_HEIGHT
+  //#define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
     #define DEFAULT_LEVELING_FADE_HEIGHT 10.0 // (mm) Default fade height.
   #endif
@@ -2272,7 +2292,6 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  // Works best with 5 or more points in each dimension.
   #define GRID_MAX_POINTS_X 9
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
@@ -2327,6 +2346,7 @@
                                           // as the Z-Height correction value.
 
   #define UBL_MESH_WIZARD           // Run several commands in a row to get a complete mesh
+
 
 #elif ENABLED(MESH_BED_LEVELING)
 
@@ -2553,8 +2573,10 @@
 // Preheat Constants - Up to 6 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
+
 #define PREHEAT_1_TEMP_HOTEND 205
-#define PREHEAT_1_TEMP_BED     70
+#define PREHEAT_1_TEMP_BED     60
+
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED   200 // Value from 0 to 255
 
@@ -2598,6 +2620,7 @@
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
   //#define NOZZLE_PARK_POINT { (X_MIN_POS + 10), 0, 20 }
+
   #if ANY(N_PROBE, P_PROBE)
     #define NOZZLE_PARK_POINT { 0, 0, 20 }
   #else
@@ -3539,7 +3562,7 @@
 //
 // Touch Screen Settings
 //
-//#define TOUCH_SCREEN
+//#define TOUCH_SCREEN  //Disable when using LVGL
 #if ENABLED(TOUCH_SCREEN)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus
@@ -3548,10 +3571,11 @@
 
   #define TOUCH_SCREEN_CALIBRATION //or (M995)
 
-  //#define TOUCH_CALIBRATION_X 12316
-  //#define TOUCH_CALIBRATION_Y -8981
-  //#define TOUCH_OFFSET_X        -43
-  //#define TOUCH_OFFSET_Y        257
+  // QQS-Pro use MKS Robin TFT v2.0
+  //#define TOUCH_CALIBRATION_X   12033
+  //#define TOUCH_CALIBRATION_Y   -9047
+  //#define TOUCH_OFFSET_X          -30
+  //#define TOUCH_OFFSET_Y          254
   //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
 
   #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
@@ -3591,6 +3615,7 @@
 #ifndef SR_BTT
   #define FAN_SOFT_PWM
 #endif
+
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.

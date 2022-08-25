@@ -60,10 +60,16 @@
 #define E0_DIAG_PIN                         PC4
 #define E1_DIAG_PIN                         PE7
 
-#define X_STOP_PIN                    X_DIAG_PIN
-#define Y_STOP_PIN                    Y_DIAG_PIN
-#define Z_MIN_PIN                     Z_DIAG_PIN
-#define Z_MAX_PIN                    E0_DIAG_PIN
+#if HAS_DELTA_SENSORLESS_PROBING
+  #define X_STOP_PIN                    X_DIAG_PIN  //X+
+  #define Y_STOP_PIN                    Y_DIAG_PIN  //Y+
+  #define Z_STOP_PIN                    Z_DIAG_PIN  //Z+ 
+#else
+  #define X_STOP_PIN                    X_DIAG_PIN  //X+
+  #define Y_STOP_PIN                    Y_DIAG_PIN  //Y+
+  #define Z_MIN_PIN                     Z_DIAG_PIN  //Z+ 
+  #define Z_MAX_PIN                     E0_DIAG_PIN //Z-
+#endif
 
 //
 // Steppers

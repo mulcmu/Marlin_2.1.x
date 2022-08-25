@@ -29,6 +29,7 @@
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
 #define EEPROM_INIT_NOW   
+
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -68,6 +69,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
+
 //#define DRIVER_EXT TMC2209_STANDALONE //TMC2209 //A4988 // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
@@ -92,6 +94,7 @@
   #define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI            //(D) UI for DGUS screen like CrealityTouch or Mks H43
+
 #endif
 
 /* ========================================//
@@ -101,7 +104,8 @@
 * =========================================//
 */
 //#define LCD_LANGUAGE en                // Change for your country ('bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'el':'Greek', 'fi':'Finnish', 'hr':'Croatian', 'hu':'Hungarian', 'jp_kana':'Japanese', 'nl':'Dutch', 'pl':'Polish', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', etc)
-//#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
+#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
+
 
 /*_________________________________4______________________________*/
           /*---- Extruder, Custom effector and Modules -----*/
@@ -129,6 +133,7 @@
 //#define FKSN                           // Customn effector FRANKENSUNrods, height
                   /* Module Mks_Wifi */ 
 #define MOD_WIFI                         //(W) (Default_QQS) Module ESP8266/ESP12
+
 //#define ESP3D_30                       //(w) Enable firmware ESP3D v3.0 (ESP8266/ESP12) only with TFT_LVGL_UI
 
                   /* Option for Neopixel */
@@ -138,6 +143,7 @@
 //#define NEOPIXEL_PIXELS     24         // Number of LEDs in the strip
 
         /* Option for other Probe (BD_probe, IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
+
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
 // more at the bottom page.
 //#define STALLGUARD_1                   // (G) Special mod for TMC2209_UART = SENSORLESS_HOMING
@@ -157,17 +163,17 @@
                   /* User settings Hotend */ 
 
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
-// by another one ex: "ATC Semitec 104GT-2/ATC Semitec 104NT-4-R025H42G" = 5, "100k Hisens 3950" = 13 
+// by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
 //#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
-
-// For user who change their HotEnd like Volcano and
-// want to increase the temperature limit.
-//#define HEATER_0_MAXTEMP 300           // Uncomment Volcano line.
+// For user who change their HotEnd and
+// want to increase the temperature limit. 
+//#define HEATER_0_MAXTEMP 350           // Uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+#define MPCTEMP                        // (m) ex: run "M306 P40" Configure MPCTEMP for 40W hotend heater
+
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -217,6 +223,7 @@
 
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
+
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
 //#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
@@ -227,12 +234,14 @@
 //#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
 //#define FWRETRACT                      // Firmware-based and LCD-controlled retract
 
+
 //-----------------------------//
 //For tests on my dev'printer!!//
 //-----------------------------//
 #else
+
  #include "Configs/Config_XP.h"
-#endif
+
 
 /** ========================================
 * == Options for Modules Hardware MKS_WIFI
@@ -259,6 +268,7 @@
   //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview. (M255 S100)
   //#define LCD_BACKLIGHT_TIMEOUT 30    // (s) Timeout before turning off the backlight
   #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
+
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
@@ -464,7 +474,7 @@
   #else
     #define X_OFFSET    0
     #define Y_OFFSET    0
-    #define Z_OFFSET  -18
+    #define Z_OFFSET  -18.6787  //Aug2022 Value
   #endif
 #endif
 // TMC Current in UART mode
