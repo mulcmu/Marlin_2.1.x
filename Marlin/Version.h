@@ -75,7 +75,7 @@
  * The WEBSITE_URL is the location where users can get more information such as
  * documentation about a specific Marlin release.
  */
-#define WEBSITE_URL "mulcmu v3"
+#define WEBSITE_URL "mulcmu v4a"
 
 
 /**
