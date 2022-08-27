@@ -122,10 +122,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(SR_MKS, SR_BTT)
-  #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
-  #define BAUDRATE 250000
-#else
+#if ANY(QQSP, Q5)
   #define SERIAL_PORT 3
   #define BAUDRATE 115200
 #endif
@@ -152,14 +149,29 @@
 //#define BAUDRATE_2 250000   // Enable to override BAUDRATE
 #if ANY(SR_MKS, SR_BTT)
   #ifdef SR_BTT
-    #define SERIAL_PORT_2 0 //BTT -1
+    #ifdef MOD_AUX
+      #define SERIAL_PORT 3 // 3=ESP3Dv3.0 MKS-Wifi
+      #define SERIAL_PORT_2 -1 // -1=USB Connection
+      #define BAUDRATE 115200 
+    #else
+      #define SERIAL_PORT  -1 // -1=USB Connection
+      #define SERIAL_PORT_2 0 // 0=USB Connection
+      #define BAUDRATE 115200
+    #endif
   #endif
   #ifdef SR_MKS
-    #define SERIAL_PORT_2  3 // 3 BTT-TFT(0,1=nok)
-    #define BAUDRATE_2 250000
-    #ifdef MOD_AUX
-      #define SERIAL_PORT_3 1 // 1 MKS-Wifi(2=nok)
-      //#define BAUDRATE_3 115200
+    #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
+    #define BAUDRATE 250000
+    #ifdef ESP3D_30
+      #undef SERIAL_PORT_2 //1 // 1=ESP3Dv3.0 MKS-Wifi
+    #elif ENABLED(MOD_AUX)
+      #define SERIAL_PORT_2 1 // 1=ESP3Dv2.1 MKS-Wifi
+      #define BAUDRATE_2 115200 //
+      #define SERIAL_PORT_3 3 // 3=BTT-TFT(0,1=nok)
+      #define BAUDRATE_3 250000 //115200   
+    #else
+      #define SERIAL_PORT_2 3 // 3=BTT-TFT(0,1=nok)TX3/RX3
+      #define BAUDRATE_2 250000      
     #endif
   #endif
 #else
@@ -188,13 +200,13 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #ifdef QQSP
-  #define CUSTOM_MACHINE_NAME "δDelta QQSP"
+  #define CUSTOM_MACHINE_NAME "Delta QQSP"
 #endif
 #ifdef Q5
-  #define CUSTOM_MACHINE_NAME "δDelta Q5"
+  #define CUSTOM_MACHINE_NAME "Delta Q5"
 #endif
 #if ANY(SR_MKS, SR_BTT)
-  #define CUSTOM_MACHINE_NAME "ΔDelta SuperRacer"
+  #define CUSTOM_MACHINE_NAME "Delta SuperRacer"
 #endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
@@ -728,7 +740,7 @@
 #endif
 //#define MPCTEMP        // ** EXPERIMENTAL **
 
-#define BANG_MAX 200     // Limits current to nozzle while in bang-bang mode; 255=full current
+#define BANG_MAX 250     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
@@ -834,9 +846,7 @@
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  * @section bed temp
  */
-#ifndef HX43
-  #define PIDTEMPBED
-#endif
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -1282,7 +1292,7 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#if NONE(X_PROBE, N_PROBE)
+#if NONE(X_PROBE, N_PROBE, B_PROBE)
   #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #else
   #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -1302,7 +1312,7 @@
 #define U_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define V_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define W_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#if NONE(X_PROBE, N_PROBE)
+#if NONE(X_PROBE, N_PROBE, B_PROBE)
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true  // Set to true to invert the logic of the probe.
 #else
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
@@ -1418,12 +1428,8 @@
  */
 #if ANY(SR_MKS, SR_BTT)
   #define DEFAULT_ACCELERATION          2800    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  2800    // E acceleration for retracts
+  #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   2800    // X, Y, Z acceleration for travel (non printing) moves
-#elif ENABLED(NEMA14)
-  #define DEFAULT_ACCELERATION          2000   // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1500   //3000/250    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   2000   // X, Y, Z acceleration for travel (non printing) moves
 #else
   #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
@@ -1541,7 +1547,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-#if NONE(N_PROBE, P_PROBE)
+#if NONE(N_PROBE, P_PROBE, B_PROBE)
   #define FIX_MOUNTED_PROBE
 #endif
 
@@ -1727,9 +1733,9 @@
 // X and Y axis travel speed (mm/min) between probes 
 #define XY_PROBE_FEEDRATE (66*60)    //3960
 
-#if ANY(N_PROBE, P_PROBE)
-  #define Z_PROBE_FEEDRATE_FAST (20*60)  //1200
-  #define Z_PROBE_FEEDRATE_SLOW (20*60)
+#if ANY(N_PROBE, P_PROBE, X_PROBE)
+  #define Z_PROBE_FEEDRATE_FAST (60*60)  //3600
+  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //600
 #else
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 //FEEDRATE_Z
@@ -1784,11 +1790,11 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#if ANY(P_PROBE, N_PROBE, X_PROBE)
+#if ANY(P_PROBE, N_PROBE)
   #define MULTIPLE_PROBING 2
   #define EXTRA_PROBING    1
-#elif ENABLED(N_PROBE)
-  #define MULTIPLE_PROBING 2
+#else
+  //#define MULTIPLE_PROBING 2
 #endif
 
 /**
@@ -1820,7 +1826,7 @@
 #define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
-#if NONE(X_PROBE, P_PROBE, N_PROBE)
+#if NONE(X_PROBE, P_PROBE, N_PROBE, B_PROBE)
   #define PAUSE_BEFORE_DEPLOY_STOW
 #endif
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
@@ -2229,7 +2235,7 @@
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
     #ifdef NEMA14
-      #define G26_RETRACT_MULTIPLIER   1.0
+      #define G26_RETRACT_MULTIPLIER   0.4
     #else
       #define G26_RETRACT_MULTIPLIER   4.0  // G26 Q (retraction) used by default between mesh test elements.
     #endif
@@ -2360,12 +2366,8 @@
  * Useful to retract or move the Z probe out of the way.
  */
 //#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
-#if ANY(QQSP, Q5, SR_MKS, SR_BTT)
-  #define Z_PROBE_END_SCRIPT "G28"
-#endif
-#ifdef HX43
-  #define Z_PROBE_END_HEIGHT  100 // MKS HX43 require this to work
-#endif
+#define Z_PROBE_END_SCRIPT "G28"
+
 
 // @section homing
 
@@ -2520,8 +2522,8 @@
 // Preheat Constants - Up to 6 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
-#define PREHEAT_1_TEMP_BED     60
+#define PREHEAT_1_TEMP_HOTEND 205
+#define PREHEAT_1_TEMP_BED     70
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED   200 // Value from 0 to 255
 
@@ -3546,14 +3548,16 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#define FAN_SOFT_PWM
+#ifndef SR_BTT
+  #define FAN_SOFT_PWM
+#endif
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#ifdef SR_MKS
+#if ANY(SR_MKS, SR_BTT)
   #define SOFT_PWM_SCALE 0
 #else
   #define SOFT_PWM_SCALE 1
@@ -3643,7 +3647,7 @@
   // Use some of the NeoPixel LEDs for static (background) lighting
   //#define NEOPIXEL_BKGD_INDEX_FIRST   0 // Index of the first background LED
   //#define NEOPIXEL_BKGD_INDEX_LAST    5 // Index of the last background LED
-  #define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
+  #define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 255 }  // R, G, B, W
   //#define NEOPIXEL_BKGD_ALWAYS_ON       // Keep the backlight on when other NeoPixels are off
 #endif
 

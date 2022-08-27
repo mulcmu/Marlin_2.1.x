@@ -1,26 +1,28 @@
 /**
-*==========================================================================
-*=================== FLSunQ - DELTA Printers ===============================
-*================= With pins_MKS_ROBIN_MINI.h BOARD (QQS-Pro)===============
-*================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
-*================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
-*================= With pins_MKS_ROBIN_NANO_V1_3_F4.h BOARD (Q5-2021-)======
-*================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
-*================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
-*===========================================================================
-*                         MARLIN_v2.1
-* For a Delta printer start with one of the configuration files in
-* the directory and customize for your machine:
-* https://github.com/MarlinFirmware/Configurations/tree/release-2.1/config/examples/delta/FLSUN/ 
-* 
-* Wiki: https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki
-* 
-* TIPS/NOTES:
-* -For TMC mode UART, look the "pins_FLSUN_HISPEED.h" file (src/pins/stm32f1/) for more information to wire.
-* -To enable Stallguard function (Homing and/or probing) with TMC2209 with wiring Diag/EndStop.
-* -Comment/Uncomment line to add or modify some options. 
-*  Default is actif for QQS and it's uncommented ;-)
-*/
+ *===========================================================================
+ *=================== FLSunQ - DELTA Printers ===============================
+ *================= With pins_MKS_ROBIN_MINI.h BOARD (QQS-Pro)===============
+ *================= With pins_FLSUN_HiSPEED.h BOARD (QQS-Pro)================
+ *================= With pins_FLSUN_HiSPEED.h BOARD GD32 (QQS-Pro)===========
+ *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
+ *================= With pins_MKS_ROBIN_NANO_V1_3_F4.h BOARD (Q5-2021-)======
+ *================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
+ *================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
+ *===========================================================================
+ *                         MARLIN_v2.1.1
+ * For a Delta printer start with one of the configuration files in
+ * the directory and customize for your machine:
+ * https://github.com/MarlinFirmware/Configurations/tree/release-2.1.1/config/examples/delta/FLSUN/ 
+ * 
+ * Wiki: https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki
+ * 
+ * TIPS/NOTES:
+ * -For TMC mode UART, look the "pins_FLSUN_HISPEED.h" file (src/pins/stm32f1/) for more information to wire.
+ * -To enable Stallguard function (Homing and/or probing) with TMC2209_UART with wiring Diag/EndStop and put some jumpers.
+ * 
+ * -Comment/Uncomment line to add or modify some options. 
+ *  Default is actif for QQSP and it's uncommented ;-)
+ */
 //For run tests on my dev'printers!!
 //#define XP_DEV
 //===================================================
@@ -30,7 +32,8 @@
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
 #define QQSP                         // (Default_QQS) env = flsun_hispeedv1
-//#define Q5                         // env = mks_robin_nano35 or (Q5_2021) env = mks_robin_nano_v1_3_f4
+                                     // env:flsun_hispeedv1 (GD32F303VE6) 
+//#define Q5                         // env = mks_robin_nano35 or (Q5_2021) env = mks_robin_nano_v1_3_f4 (#define TEMP_TIMER  5)
                                      // for Q5_2021 = uncomment/comment your MoBo in configuration.h (Line114)
 //#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
 //#define SR_BTT                     // env = lpc1768
@@ -64,7 +67,7 @@
  * -- TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209. ---//
  * =============================================================//
  */
-//#define DRIVER_EXT xxxxxx    //TMC2209_STANDALONE //A4988//TMC2209  // LV8729//
+//#define DRIVER_EXT TMC2209_STANDALONE //TMC2209  ////A4988 // LV8729//
 //Only WITH Q5 older stepper(A4988/DRV8825/LV8729)
 //#define INV_EXT
 
@@ -78,15 +81,15 @@
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI           //(C) (Default) UI Color MARLIN
   //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)
+  //#define MOD_BTT_UI           //(s) MOD for BTT TFT screen on QQSP/Q5.
   //#define TFT_LVGL_UI          //(I) Standard LCD (UI Color MKS) Color MKS (Bug with captor sensor PR22595)
-  //#define TFT_BTT_UI           //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
-  //#define TFT_OTHER            // For the user who haven't the same screen.
+  //#define TFT_OTHER            // For the user who haven't the same screen like Mks_TFT35v1.
 #else
                 /*--- Choice UI TFT ----*/
-  #define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
-  //#define TFT_COLOR_UI         //(C) UI Color MARLIN with Mks-TS35v2
+  #define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2
+  //#define TFT_BTT_UI           //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
@@ -112,13 +115,13 @@
  * =========================================================
  */
                   /* User settings extruder */
-//#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX.
+//#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX(QQS/Q5).
 //#define EXTRUDER_STEPS 1440//708//830  // Ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (X) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
 //#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Orbiter.
-//#define OMG                            //(O) Uncommment for OMGv2.
+//#define OMG                            //(O) Uncommment for OMG.(QQS no inv)
                   /*  Custom Effector  */
                   /* rods, height, arms*/
 //#define QQS_SR                         // Custom effector with Direct_Drive SuperDriveHX(QQSP)
@@ -133,17 +136,19 @@
                                         //(n) Use port BLTouch (PA8) on SR_MKS
 //#define NEOPIXEL_PIXELS     24        // Number of LEDs in the strip (mine is 24)
 
-        /* Option for other Probe (IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
+        /* Option for other Probe (BD_probe, IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
 // WARNING:These options need wiring pins DIAG to EndStop plug(Signal).
 // more at the bottom page.
 //#define STALLGUARD_1                   // (G) Special mod for TMC2209_UART = SENSORLESS_HOMING
 //#define STALLGUARD_2                   // (g) Special mod for TMC2209_UART = SENSORLESS_PROBING
 
-//For other PROBE fixed without deploy like IR, buzzer, Nozzle, ...
+//For other PROBE fixed without deploy like BD_Sensor, IR, piezo, Nozzle, ...
+//#define B_PROBE                        // Uncomment to use a BD_Sensor by PandaPi.
 //#define P_PROBE                        // Uncomment to use a piezo probe like ORION.
                                          // and Set X,Y,Z OFFSET at zero
-//#define X_PROBE                        // Uncomment and Set an other probe (invert the logic too).
+//#define X_PROBE                        // Uncomment and Set an other probe (IR, Hal) Note:invert the logic too.
 
+// Ajust the position of your new probe (BD_SENSOR, IR, piezo).
 //#define X_OFFSET 0 //-2                // Uncomment and set your own X OffSet
 //#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
 //#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
@@ -155,12 +160,13 @@
 //#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
 //#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
-// For user who change their HotEnd and
+// For user who change their HotEnd like Volcano, Revo, Rapido and
 // want to increase the temperature limit. 
-//#define HEATER_0_MAXTEMP 350           // Uncomment Volcano line.
+//#define HEATER_0_MAXTEMP 350           // Don't uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" Configure MPCTEMP for 40W hotend heater
+//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+//#define BOOT_MARLIN_LOGO_SMALL
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -197,31 +203,35 @@
  * = like (Prontoface/Octoprint/HostRepertier/Astoprint)=
  * ====== Choice add menu on TFT: (OPT) =================
  */
-#define ADD_MENUS                        // (Default) Add menu PID, DELTA, INFO,...
+#define ADD_MENUS                        // (Default) Add menu PID, Special DELTA, INFO,...
 
-/*__________________________8__________________________*/
-/** ===================================================
-* == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)
-* ======================================================
+/*___________________________________8_______________________________________*/
+/** ==========================================================================
+* == Option for Host (OCTOPRINT,REPETIER,PRONTERFACE,ESP3D, etc)            ==
+* == Tip: commented the line "BOOT_MARLIN_LOGO_SMALL" for more space EEPROM ==
+* ============================================================================
 */
 //#define OCTO                           // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
+#define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
+
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option. 
-
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
 //#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//
 //#define SDCARD_SORT_ALPHA
-//#define SD_REPRINT_LAST_SELECTED_FILE // Reselect last print file.
+//#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
+//#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
+//#define FWRETRACT                      // Firmware-based and LCD-controlled retract
 
 //-----------------------------//
 //For tests on my dev'printer!!//
 //-----------------------------//
 #else
- #include "Config_XP.h"  
+ #include "Configs/Config_XP.h"  
 #endif
 
 /** ========================================
@@ -232,7 +242,7 @@
 * https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/5.Firmware-Wifi
 */
 #ifdef MOD_WIFI
-  #define MOD_AUX                     // Enable UART2 on socket WIFI (MKs boards)
+  #define MOD_AUX                     // Enable UART2/3 on socket WIFI (MKs boards)
   #ifdef ESP3D_30
     #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
     #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
@@ -241,17 +251,18 @@
 
 //= For users who dont have a terminal =//
 #if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
-  #define DELTA_CALIBRATION_MENU        //  (Default) Auto for CLASSIC and COLOR.
-  #define LCD_INFO_MENU                 //  (Default) Informations printer.
+  #define DELTA_CALIBRATION_MENU        // (Default) Auto for CLASSIC and COLOR.
+  #define LCD_INFO_MENU                 // (Default) Informations printer.
   //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.  
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview (sec).
+  #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
     #define PROBE_OFFSET_WIZARD
-    #define G26_MESH_VALIDATION         //  (Default) Command G26 to print a Mesh Validation Pattern tool.
+    #define G26_MESH_VALIDATION         // (Default) Command G26 to print a Mesh Validation Pattern tool.
     #define CUSTOM_MENU_MAIN            // ENABLE "SPECIAL MENU DELTA"
   #endif
   #ifdef NEOPIXEL_LED
@@ -274,10 +285,17 @@
   //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
-  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen  
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
+  //#define MULTI_VOLUME            // Multiple volume support(µSD + USB)
+#elif ENABLED(MOD_BTT_UI)
+  #define MKS_ROBIN_TFT32           // (Default)
+  #define TFT_COLOR_UI              // (Default)
+  #define HOST_STATUS_NOTIFICATIONS // 
+  #define MOD_AUX                   // enable the UART2 for BTT_TFT (TOUCH UI)
+  #define G26_MESH_VALIDATION
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  #define MKS_ROBIN_TFT35           // Mks_Robin_TFT35V2.0
+  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
   //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43 
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #elif BOTH(TFT_COLOR_UI, SR_MKS)
@@ -306,7 +324,6 @@
     #define Q_TMC
     #define DRIVER_AXES TMC2208_STANDALONE
     #ifndef DRIVER_EXT
-      #undef LIN_ADVANCE
       #define DRIVER_EXT TMC2208_STANDALONE
     #endif
 #endif
@@ -321,17 +338,19 @@
 
 // Software Serial UART for TMC2208
 #ifdef Q_UART8
+    #define MICROSTEPS32
     #define Q_TMC
     #define BOOT_MARLIN_LOGO_SMALL
+  #define STEALTHCHOP_E
     #define DRIVER_AXES TMC2208
     #ifndef DRIVER_EXT
-      #undef LIN_ADVANCE
       #define DRIVER_EXT TMC2208
     #endif
 #endif
 
 // Software Serial UART for TMC2209
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
+    #define MICROSTEPS32
     #define Q_TMC
     #define BOOT_MARLIN_LOGO_SMALL
     #define STEALTHCHOP_E
@@ -341,7 +360,7 @@
     #endif
 #endif
 //Add definition for UART for Q5
-#if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)
+#if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)||BOTH(NANO1X, Q_UART8)||BOTH(NANO1X, Q_UART9)
     #define X_SERIAL_TX_PIN             PA10  // RXD1
     #define X_SERIAL_RX_PIN             PA10  // RXD1
     #define Y_SERIAL_TX_PIN             PA9   // TXD1
@@ -353,12 +372,13 @@
     #define TMC_BAUD_RATE               19200
 #endif
 
-/**---------------------------//
- * Special mods TMC2209:      //
- *                            //
- * UART: Single wire          //
- * SENSORLESS: Homing/Probing //
- * ---------------------------//
+/**-----------------------------//
+ * Special mods TMC or TFT:     //
+ * - TFT need wiring socket Wifi//
+ * - TMC2209                    //
+ * UART: Single wire            //
+ * SENSORLESS: Homing/Probing   //
+ * -----------------------------//
  */
 
 // Note for QQSPro:
@@ -367,6 +387,7 @@
 // Requires SLAVE_ADDRESS definitions in Configuration_adv.h
 // and proper jumper configuration. Uses I/O pins PA8(Default QQS).
 #ifdef QQS_UARTH
+    #define MICROSTEPS32
     #define Q_TMC
     #define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
@@ -377,22 +398,40 @@
     #endif
 #endif
 
-// Note:
-// Need wiring pins DIAG to EndSTOP(Signal).
+/** Note for QQSP/Q5 with serial screen(DWIN/BTT-TFT):
+ *  Need wiring pins PA10/PA9/GND/5v.
+ * Socket Module Wifi 
+ *
+ *      __ESP(M1)__       -J1-        -MoBo-  /  Wiring    / Socket RS232 on BTT-TFT
+ *  GND| 15 | | 08 |+3v3  (22)  TXD1  (PA10) => wire green => PA3 (RX2)
+ *     | 16 | | 07 |      (21)  RXD1  (PA9)  => wire white => PA2 (TX2)
+ *     | 17 | | 06 |      (15) Ground (GND)  => wire black => GND
+ *     | 18 | | 05 |      (Vcc)  +5v  (Vcc)  => wire red   => 5V
+ *     | 19 | | 03 |
+ *     | nc | | nc |  
+ *   RX| 21 | | nc |
+ *   TX| 22 | | 01 |
+ *       ￣￣ AE￣￣
+ */
+
+// Note for STALLGUARD functions:
+// Need wiring pins DIAG to EndSTOP(Signal) for QQSP/Q5.
+// Need put jumpers DIAG for SR.
 
 // Use the function Stallguard1 for homing without endstop
-// (Need to adjust the sensitivity).
+// (Need to adjust the sensitivity by TMC menu).
 // SENSORLESS_HOMING             
 #ifdef STALLGUARD_1
+  #undef DIAG_JUMPERS_REMOVED
   #define SENSORLESS_HOMING
 #endif
 // Use the function StallGuard2 for probing with the nozzle.
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
-  #define X_OFFSET 0
-  #define Y_OFFSET 0
-  #define Z_OFFSET 0
+  #define X_OFFSET 0.0
+  #define Y_OFFSET 0.0
+  #define Z_OFFSET 0.80
 #endif
 
 //===================PART CONSTANTS VARIALBES ===================//
@@ -400,14 +439,26 @@
 // Variables to calculate steps and current
 //eSteps
 #ifndef EXTRUDER_STEPS
-  #ifdef NEMA14
-    #define EXTRUDER_STEPS 720  // Extruder SuperHX, Mini-Sherpa, Orbiter
-  #elif ENABLED(OMG)           
-    #define EXTRUDER_STEPS 390
-  #elif ANY(BMG, SR_MKS, SR_BTT)
-    #define EXTRUDER_STEPS 417  // Extruder BMG(Left/Right)
+  #ifdef MICROSTEPS32
+    #ifdef NEMA14
+      #define EXTRUDER_STEPS 1440 // Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
+    #elif ENABLED(OMG)           
+      #define EXTRUDER_STEPS 790 //  
+    #elif ANY(BMG, SR_MKS, SR_BTT)
+      #define EXTRUDER_STEPS 834 //  Extruder BMG(Left/Right)
+    #else
+      #define EXTRUDER_STEPS 820 //  Extruder TITAN(Default)
+    #endif  
   #else
-    #define EXTRUDER_STEPS 410  // Extruder TITAN(Default)
+    #ifdef NEMA14
+      #define EXTRUDER_STEPS 720 //  Extruder SuperHX, Mini-Sherpa, Orbiter
+    #elif ENABLED(OMG)           
+      #define EXTRUDER_STEPS 390
+    #elif ANY(BMG, SR_MKS, SR_BTT)
+      #define EXTRUDER_STEPS 417 //  Extruder BMG(Left/Right)
+    #else
+      #define EXTRUDER_STEPS 410 //  Extruder TITAN(Default)
+    #endif
   #endif
 #endif
 //Jerk
