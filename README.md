@@ -22,6 +22,10 @@ Please test this firmware and let us know if it misbehaves in any way. Volunteer
 ## Q5 (motherboard NANO_V1.x)
 ## SR (motherboard MKS/BTT with other screen like BTT-TFT35v3/Mks-TS35v2/RepRap TFT).
 
+**20220827** Release 2.1.1
+- Marlin 2.1.1 (QQSP, Q5, SR)
+- Fix issues from v2.1
+
 **20220618** 2.1
 - Add line to re-init EEPROM/TFT.
 - Add option "H"  for hotend VOLCANO or HotEndAllMetal.
