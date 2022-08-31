@@ -257,6 +257,7 @@
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview (sec).
+  //#define LCD_BACKLIGHT_TIMEOUT 30    //Set LCD sleep time: "M255 S<minutes>" (0-99)
   #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
@@ -288,9 +289,10 @@
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
   //#define MULTI_VOLUME            // Multiple volume support(µSD + USB)
 #elif ENABLED(MOD_BTT_UI)
-  #define MKS_ROBIN_TFT32           // (Default)
-  #define TFT_COLOR_UI              // (Default)
-  #define HOST_STATUS_NOTIFICATIONS // 
+  #define TFT_GENERIC               
+  #define TFT_INTERFACE_FSMC
+  #define TFT_CLASSIC_UI            
+  #define HOST_STATUS_NOTIFICATIONS
   #define MOD_AUX                   // enable the UART2 for BTT_TFT (TOUCH UI)
   #define G26_MESH_VALIDATION
 #elif ENABLED(TFT_OTHER)
