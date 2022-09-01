@@ -127,7 +127,7 @@
 //#define QQS_SR                         // Custom effector with Direct_Drive SuperDriveHX(QQSP)
 //#define FKSN                           // Customn effector FRANKENSUN
                   /* Module Socket_Wifi */ 
-//#define MOD_WIFI                         //(W) (Default_QQS) With Module ESP8266/ESP12 or Connexion Tx/RX
+#define MOD_WIFI                         //(W) (Default_QQS) With Module ESP8266/ESP12 or Connexion Tx/RX
 #define ESP3D_30                       //(w) Enable firmware ESP3D v3.0 (ESP8266/ESP12) only with TFT_LVGL_UI
 
                   /* Option for Neopixel */
