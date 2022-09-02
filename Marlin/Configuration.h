@@ -178,13 +178,13 @@
   #endif
 #else
   #ifdef MOD_AUX
-    #ifdef ESP3D_30
-      #define SERIAL_PORT_2 1
+    #ifndef ESP3D_30
+      #define SERIAL_PORT_2 1   // 1=ESP3Dv2.1 MKS-Wifi or serial TFT.
       #define NUM_SERIAL 2
       #define BAUDRATE_2 115200
     #else
-      #define SERIAL_PORT_2 1   // 1=ESP3Dv2.1 MKS-Wifi or serial TFT.
-      #define NUM_SERIAL 2
+      //#define SERIAL_PORT_2 1
+      //#define NUM_SERIAL 2
     #endif
   #endif
 #endif
@@ -2525,6 +2525,36 @@
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
+/*
+MKS Robin EEPROM:
+EEPROM_SD
+EEPROM_W25Q
+*/
+//#define EEPROM_W25Q
+
+#if ENABLED(EEPROM_W25Q)
+#undef SDCARD_EEPROM_EMULATION
+#undef USE_REAL_EEPROM
+#undef FLASH_EEPROM_EMULATION
+#undef SRAM_EEPROM_EMULATION
+#undef I2C_EEPROM_AT24C16
+#define SPI_EEPROM_W25Q
+#define SPI_EEPROM
+#define SPI_EEPROM_OFFSET 0x700000
+#define USE_WIRED_EEPROM    1
+#define MARLIN_EEPROM_SIZE  4096
+#endif
+
+#if ENABLED(EEPROM_SD)
+#define SDCARD_EEPROM_EMULATION
+#undef USE_REAL_EEPROM
+#undef FLASH_EEPROM_EMULATION
+#undef SRAM_EEPROM_EMULATION
+#undef I2C_EEPROM_AT24C16
+#undef SPI_EEPROM_W25Q
+#undef USE_WIRED_EEPROM 
+#define MARLIN_EEPROM_SIZE  4096
+#endif
   #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
   //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
@@ -2838,7 +2868,7 @@
  *
  * Use CRC checks and retries on the SD communication.
  */
-//#define SD_CHECK_AND_RETRY
+#define SD_CHECK_AND_RETRY
 
 /**
  * LCD Menu Items

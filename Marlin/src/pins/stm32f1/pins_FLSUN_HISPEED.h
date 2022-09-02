@@ -263,7 +263,19 @@
 //
 // Misc. Functions
 //
-#if ENABLED(BACKUP_POWER_SUPPLY)
+#if HAS_TFT_LVGL_UI
+  #define MT_DET_1_PIN                      PA4
+  #define MT_DET_PIN_STATE                  LOW
+
+  #define WIFI_IO0_PIN                      PC13
+  #define WIFI_IO1_PIN                      PC7
+  #define WIFI_RESET_PIN                    PE9
+
+  #if ENABLED(MKS_TEST)
+    #define MKS_TEST_POWER_LOSS_PIN         PA2   // PW_DET
+    #define MKS_TEST_PS_ON_PIN              PB2   // PW_OFF
+  #endif
+#elif ENABLED(BACKUP_POWER_SUPPLY)
   #define POWER_LOSS_PIN                    PA2   // PW_DET (UPS) MKSPWC
 #else
     #define POWER_LOSS_PIN                  -1    // PW_DET
@@ -306,11 +318,6 @@
   //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
 #endif
 
-#if HAS_TFT_LVGL_UI
-  #define MT_DET_1_PIN                      PA4   // MT_DET
-  #define MT_DET_2_PIN                      PE6
-  #define MT_DET_PIN_STATE                   LOW
-#endif
 
 //
 // LED / NEOPixel
@@ -386,37 +393,32 @@
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0  
 
-  #define FSMC_CS_PIN                       PD7   // NE4
-  #define FSMC_RS_PIN                       PD11  // A0
-
   #define TFT_CS_PIN                 FSMC_CS_PIN
   #define TFT_RS_PIN                 FSMC_RS_PIN
 
+  #define TOUCH_BUTTONS_HW_SPI
+  #define TOUCH_BUTTONS_HW_SPI_DEVICE          2
+  
+  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
+  #define DOGLCD_SCK                        -1
+  
+  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
+  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
+  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
+  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
+  
   #ifdef TFT_CLASSIC_UI
     #define TFT_MARLINBG_COLOR            0x3186  // Grey
     #define TFT_MARLINUI_COLOR            0xC7B6  // Green
     #define TFT_BTARROWS_COLOR            0xDEE6  // Yellow
     #define TFT_BTOKMENU_COLOR            0x145F  // Cyan
   #endif
-  #ifdef MKS_WIKI
+  #ifdef MKS_WIFI
     #undef TFT_BUFFER_SIZE
-    #define TFT_BUFFER_SIZE                  320*8
+    #define TFT_BUFFER_SIZE                  480*8
   #else  
     #define TFT_BUFFER_SIZE                  14400  
   #endif
-#elif HAS_GRAPHICAL_TFT
-  #define TFT_RESET_PIN                     PC6
-  #define TFT_BACKLIGHT_PIN                 PD13
-  #define TFT_CS_PIN                        PD7   // NE4
-  #define TFT_RS_PIN                        PD11  // A0
-#endif
-
-#if NEED_TOUCH_PINS
-  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
-  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
-  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
-  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
-  #define TOUCH_INT_PIN                     -1
 #endif
 
 /* Module TEST TFT BTT //

@@ -244,6 +244,7 @@
 #ifdef MOD_WIFI
   #define MOD_AUX                     // Enable UART2/3 on socket WIFI (MKs boards)
   #ifdef ESP3D_30
+    #define MKS_WIFI
     #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
     #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
   #endif
@@ -305,6 +306,8 @@
   //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
   //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  //#define TFT_ROTATION TFT_ROTATE_180
+  //#define SINGLE_TOUCH_NAVIGATION
 #else
    #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
    #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
