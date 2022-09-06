@@ -84,10 +84,10 @@
   //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)
   //#define TFT_LVGL_UI          //(I) Standard LCD (UI Color MKS) Color MKS (Bug with captor sensor PR22595)
   //#define TFT_BTT_UI           //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
+  //#define MOD_BTT_UI           //(s) UI TOUCH for QQSP/Q5(without Wifi module) and BTT TFT screen.
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
   //#define TFT_OTHER            // For the user who haven't the same screen.
-  //#define TFT_GENERIC
 #else
   #define TFT_COLOR_UI             //(C) UI Color MARLIN with Mks-TS35v2
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
@@ -241,13 +241,58 @@
 * the ESP3D firmware or the MKS(Stock) firmware.
 * https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki/5.Firmware-Wifi
 */
-#ifdef MOD_WIFI
-  #define MOD_AUX                     // Enable UART2/3 on socket WIFI (MKs boards)
-  #ifdef ESP3D_30
-    #define MKS_WIFI
-    #define MKS_WIFI_MODULE           // Work with TFT_LVGL_UI(Modern UI using LVGL-MKS)
-    #define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
+#if ANY(MOD_WIFI, ESP3D_30)
+  #if ENABLED(ESP3D_30)
+    #define MKS_WIFI                    // Enable UART2/3 on socket WIFI (MKs boards)
+  #elif ENABLED(TFT_LVGL_UI)
+    #define MKS_WIFI_MODULE             // Works with TFT_LVGL_UI(Modern UI using LVGL-MKS)
+    //#define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
+  #else
+    #define MOD_AUX    
   #endif
+#endif
+
+/**
+ * =================================================
+ * ===Part for Hardware definitions=================
+ * ===Don't change if you're not sure how to do it.= 
+ * =================================================
+ */
+
+//Type of Driver TFT Color (1 choice)
+#ifdef TFT_DWIN_UI
+  #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
+//Note for QQSP/Q5 DGUS/DWIN: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
+  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
+  //#define DGUS_LCD_UI_CREALITY_TOUCH
+  //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
+  //#define LCD_SERIAL_PORT 1
+#elif ENABLED(TFT_BTT_UI)
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen 
+  //#define MULTI_VOLUME            // Multiple volume support(µSD + USB) like NANOv3.x/SKR2
+#elif ENABLED(MOD_BTT_UI)
+  #define MOD_AUX                   // enable the UART2 for BTT_TFT (TOUCH UI)
+  #define TFT_CLASSIC_UI
+  #define TFT_GENERIC
+  //#define TFT_DRIVER AUTO
+  #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
+  //#define TFT_INTERFACE_SPI
+  //#define TFT_RES_320x240
+  #define G26_MESH_VALIDATION   
+#elif BOTH(TFT_COLOR_UI, SR_MKS)
+  #define MKS_TS35_V2_0             // Only for NanoV2 or V3
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
+#elif ENABLED(TFT_OTHER)
+  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
+  #define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
+  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define TFT_ROTATION TFT_ROTATE_180
+  //#define SINGLE_TOUCH_NAVIGATION
+#else
+   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
+   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #endif
 
 //= For users who dont have a terminal =//
@@ -270,47 +315,6 @@
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU            // To control LedStrip.
   #endif
-#endif
-
-/**
- * =================================================
- * ===Part for Hardware definitions=================
- * ===Don't change if you're not sure how to do it.= 
- * =================================================
- */
-
-//Type of Driver TFT Color (1 choice)
-#ifdef TFT_DWIN_UI
-  #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
-//Note for QQSP/Q5 DGUS/DWIN: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
-  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
-  //#define DGUS_LCD_UI_CREALITY_TOUCH
-  //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
-  //#define LCD_SERIAL_PORT 1
-#elif ENABLED(TFT_BTT_UI)
-  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen 
-  //#define CR10_STOCKDISPLAY
-  //#define MULTI_VOLUME            // Multiple volume support(µSD + USB) 
-#elif ENABLED(TFT_GENERIC)
-  #define TFT_DRIVER AUTO
-  #define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
-  //#define TFT_INTERFACE_SPI
-  #define TFT_RES_320x240
-  //#define TFT_RES_480x320
-#elif BOTH(TFT_COLOR_UI, SR_MKS)
-  #define MKS_TS35_V2_0             // Only for NanoV2 or V3
-  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
-#elif ENABLED(TFT_OTHER)
-  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
-  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
-  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  //#define TFT_ROTATION TFT_ROTATE_180
-  //#define SINGLE_TOUCH_NAVIGATION
-#else
-   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
-   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
@@ -401,8 +405,25 @@
     #endif
 #endif
 
+/** Note for QQSP/Q5 with screen
+ *  Need wiring pins PA10/PA9/GND/5v.
+ * Socket Module Wifi 
+ *
+ *      __ESP(M1)__       -J1-        -MoBo-  /  Wiring    / Socket RS232 on BTT-TFT
+ *  GND| 15 | | 08 |+3v3  (22)  TXD1  (PA10) => wire green => PA3 (RX2)
+ *     | 16 | | 07 |      (21)  RXD1  (PA9)  => wire white => PA2 (TX2)
+ *     | 17 | | 06 |      (15) Ground (GND)  => wire black => GND
+ *     | 18 | | 05 |      (Vcc)  +5v  (Vcc)  => wire red   => 5V
+ *     | 19 | | 03 |
+ *     | nc | | nc |  
+ *   RX| 21 | | nc |
+ *   TX| 22 | | 01 |
+ *       ￣￣ AE￣￣
+ */
+
 // Note:
-// Need wiring pins DIAG to EndSTOP(Signal).
+// Need wiring pins DIAG to EndSTOP(Signal) for QQSP/Q5.
+// Need put jumpers DIAG for SR.
 
 // Use the function Stallguard1 for homing without endstop
 // (Need to adjust the sensitivity by TMC menu).
@@ -497,4 +518,11 @@
 // NEOPIXEL for SR_MKS
 #if BOTH(NEOPIXEL_LED, SR_MKS)
   #define LED_PWM    SERVO0_PIN
+#endif
+//Test TFT35v1
+#ifdef MKS_ROBIN_TFT35
+  #define XPT2046_X_CALIBRATION          16903
+  #define XPT2046_Y_CALIBRATION         -11047
+  #define XPT2046_X_OFFSET                 -27
+  #define XPT2046_Y_OFFSET                 326
 #endif
