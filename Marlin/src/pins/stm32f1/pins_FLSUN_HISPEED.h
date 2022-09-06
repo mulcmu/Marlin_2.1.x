@@ -27,8 +27,10 @@
  *
  * MKS Robin Mini USB uses UART3 (PB10-TX, PB11-RX)
  * #define SERIAL_PORT_2 3
- */
-
+ *
+#define ALLOW_STM32DUINO
+#include "env_validate.h"
+*/
 #if NOT_TARGET(__STM32F1__, STM32F1)
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
 #elif HAS_MULTI_HOTEND || E_STEPPERS > 1
@@ -191,9 +193,40 @@
    *       ￣￣ AE￣￣
    */
   // Module ESP-WIFI
-  #define WIFI_IO0_PIN                      PA8   // MKS ESP WIFI IO0 PIN
-  #define WIFI_IO1_PIN       			          PC7   // MKS ESP WIFI IO1 PIN
-  #define WIFI_RESET_PIN				            PA5   // MKS ESP WIFI RESET PIN
+  #ifdef MKS_WIFI
+    //Mode COMMUNICATION_PROTOCOL RAW_SERIAL with monitoring ESP3Dv3
+    #define MKS_WIFI_SERIAL_NUM             SERIAL_PORT_2
+    #define MKS_WIFI_UART                   USART1
+    #undef PLATFORM_M997_SUPPORT
+    #define MKS_WIFI_IO0                    PA8
+    #define MKS_WIFI_IO1                    PC7
+    #define MKS_WIFI_IO_RST                 PA5
+  #elif HAS_TFT_LVGL_UI
+    //Cura monitoring with MksWifi/ESP3Dv3/Mescianti (TFT35v1)
+    //Mode COMMUNICATION_PROTOCOL MKS_SERIAL for monitoring ESP3Dv3
+    //#define USES_MKS_WIFI_FUNCTION
+    //#define ESP_WIFI_MODULE_COM             2
+    //#define ESP_WIFI_MODULE_BAUDRATE     115200
+    #define WIFI_IO0_PIN                    PA8   // MKS ESP WIFI IO0 PIN
+    #define WIFI_IO1_PIN       			        PC7   // MKS ESP WIFI IO1 PIN
+    #define WIFI_RESET_PIN				          PA5   // MKS ESP WIFI RESET PIN
+  #else
+    #define ESP_WIFI_MODULE_COM               2   // Must also set either SERIAL_PORT or SERIAL_PORT_2 to this
+    #define ESP_WIFI_MODULE_BAUDRATE    BAUDRATE  // Must use same BAUDRATE as SERIAL_PORT & SERIAL_PORT_2
+    #undef PLATFORM_M997_SUPPORT
+    #define ESP_WIFI_MODULE_GPIO0_PIN        PA8
+    #define ESP_WIFI_MODULE_GPIO1_PIN        PC7
+    #define ESP_WIFI_MODULE_ENABLE_PIN      -1// PA5
+    #define ESP_WIFI_MODULE_RESET_PIN        PA5//-1
+  #endif
+  /* fix Marlin
+  #define ESP_WIFI_MODULE_COM                  2  // Must also set either SERIAL_PORT or SERIAL_PORT_2 to this
+  #define ESP_WIFI_MODULE_BAUDRATE      BAUDRATE  // Must use same BAUDRATE as SERIAL_PORT & SERIAL_PORT_2
+  #define ESP_WIFI_MODULE_RESET_PIN         PA5   // WIFI CTRL/RST
+  #define ESP_WIFI_MODULE_ENABLE_PIN        -1
+  #define ESP_WIFI_MODULE_TXD_PIN           PA9   // MKS or ESP WIFI RX PIN
+  #define ESP_WIFI_MODULE_RXD_PIN           PA10  // MKS or ESP WIFI TX PIN
+  */
 #endif
 
 //
@@ -230,7 +263,14 @@
 //
 // Misc. Functions
 //
-#if ENABLED(BACKUP_POWER_SUPPLY)
+#if HAS_TFT_LVGL_UI
+  #define MT_DET_1_PIN                      PA4
+  #define MT_DET_PIN_STATE                  LOW
+  #if ENABLED(MKS_TEST)
+    #define MKS_TEST_POWER_LOSS_PIN         PA2   // PW_DET
+    #define MKS_TEST_PS_ON_PIN              PB2   // PW_OFF
+  #endif
+#elif ENABLED(BACKUP_POWER_SUPPLY)
   #define POWER_LOSS_PIN                    PA2   // PW_DET (UPS) MKSPWC
 #else
   //#define POWER_LOSS_PIN                  PA1   // PW_SO
