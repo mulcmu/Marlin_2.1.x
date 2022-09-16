@@ -272,7 +272,6 @@
 
 #if HAS_TFT_LVGL_UI
   #define MT_DET_1_PIN                      PA4   // MT_DET
-  #define MT_DET_2_PIN                      PE6   // FALA_CRTL
   #define MT_DET_PIN_STATE                  LOW
 #endif
 
