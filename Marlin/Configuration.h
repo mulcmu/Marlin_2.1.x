@@ -615,9 +615,9 @@
  */
 #ifndef TEMP_SENSOR_0
   #if ANY(SR_MKS, SR_BTT)
-    #define TEMP_SENSOR_0 11
+    #define TEMP_SENSOR_0 11 //STOCK
   #else
-    #define TEMP_SENSOR_0 1
+    #define TEMP_SENSOR_0 1 //QQSP-Q5
   #endif
 #endif
 #define TEMP_SENSOR_1 0
