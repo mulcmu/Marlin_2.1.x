@@ -707,9 +707,9 @@
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
   #ifdef VOLCANO
-    #define HEATER_0_MAXTEMP 300
+    #define HEATER_0_MAXTEMP 300    //Real 285
   #else
-    #define HEATER_0_MAXTEMP 275
+    #define HEATER_0_MAXTEMP 275    //Real 260
   #endif
 #endif
 #define HEATER_1_MAXTEMP 275
@@ -719,7 +719,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      110
+#define BED_MAXTEMP      120
 #define CHAMBER_MAXTEMP  60
 
 /**
