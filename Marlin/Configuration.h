@@ -1073,10 +1073,10 @@
   #elif ENABLED(QQS_SR) //Custom effector (L<diagonal-rod> R<radius> H<height> S<seg-per-sec> XYZ<tower-angle-trim> ABC<rod-trim>)
     #define DELTA_PRINTABLE_RADIUS  130.0            //
     #define DELTA_MAX_RADIUS        130.0            //
-    #define DELTA_DIAGONAL_ROD      280.0            //L285.8064
-    #define DELTA_HEIGHT            365.0            //H333.1926
+    #define DELTA_DIAGONAL_ROD      285.0            //L285.8064
+    #define DELTA_HEIGHT            340.0            //H333.1926
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0 , 0.0 }     // Trim adjustments for individual towers
-    #define DELTA_RADIUS            135.0            //R127.3126
+    #define DELTA_RADIUS            130.0            //R127.3126
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }    //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -1396,7 +1396,7 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 #if ANY(XP1, SR_MKS, SR_BTT)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 500, 210 }
+  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 500, 100 }
 #else
   #define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 210 }
 #endif
@@ -1432,11 +1432,11 @@
  *   M204 T    Travel Acceleration
  */
 #if ANY(SR_MKS, SR_BTT)
-  #define DEFAULT_ACCELERATION          2800    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          3700    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   2800    // X, Y, Z acceleration for travel (non printing) moves
 #else
-  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          2500    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
 #endif
