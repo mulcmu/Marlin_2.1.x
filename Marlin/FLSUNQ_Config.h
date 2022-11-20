@@ -157,7 +157,7 @@
 
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13, "104NT-4-R025H42G = 5"
-//#define TEMP_SENSOR_0 5               // uncomment with a good number/type.
+//#define TEMP_SENSOR_0 5               // uncomment with a good number/type  (Revo,Rapido).
 //#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
 // For user who change their HotEnd like Volcano, Revo, Rapido and
