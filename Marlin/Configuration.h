@@ -303,7 +303,9 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 1
+#ifndef EXTRUDERS
+  #define EXTRUDERS 1
+#endif
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -1396,9 +1398,9 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 #if ANY(XP1, SR_MKS, SR_BTT)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 500, 100 }
+  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 400, 120 }
 #else
-  #define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 210 }
+  #define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 120 }
 #endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
@@ -1435,8 +1437,12 @@
   #define DEFAULT_ACCELERATION          3700    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   2800    // X, Y, Z acceleration for travel (non printing) moves
+#elif ENABLED(NEMA14)
+  #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION   400    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
 #else
-  #define DEFAULT_ACCELERATION          2500    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
 #endif
