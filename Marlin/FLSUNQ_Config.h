@@ -9,7 +9,7 @@
  *================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
  *================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
  *===========================================================================
- *                         MARLIN_v2.1.1
+ *                         MARLIN_v2.1.2
  * For a Delta printer start with one of the configuration files in
  * the directory and customize for your machine:
  * https://github.com/MarlinFirmware/Configurations/tree/release-2.1.1/config/examples/delta/FLSUN/ 
@@ -116,11 +116,11 @@
  */
                   /* User settings extruder */
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX(QQS/Q5).
-//#define EXTRUDER_STEPS 1440//708//830  // Ajust your eSteps (on firmware-32steps is doubled).
+//#define EXTRUDER_STEPS 1440//708//830  // Uncomment to ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (X) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
-//#define NEMA14                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Orbiter.
+//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Orbiter.
 //#define OMG                            //(O) Uncommment for OMG.(QQS no inv)
                   /*  Custom Effector  */
                   /* rods, height, arms*/
@@ -192,6 +192,8 @@
   //======Many options for Modules: ========//
 #define LIN_ADVANCE                      // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 #define POWER_LOSS_RECOVERY              // (Default) Continue print after Power-Loss.
+//#define FWRETRACT                      // Firmware-based and LCD-controlled retract
+//#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -211,12 +213,12 @@
 * == Tip: commented the line "BOOT_MARLIN_LOGO_SMALL" for more space EEPROM ==
 * ============================================================================
 */
-//#define OCTO                           // Enable buffer for Octoprint.
+//#define HOSTS                            // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
 
 #define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
-                                         // Not compatible with the MEATPACK option. 
+                                         // Not compatible with the MEATPACK option.
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
 //#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
@@ -225,13 +227,12 @@
 //#define SDCARD_SORT_ALPHA
 //#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
 //#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
-//#define FWRETRACT                      // Firmware-based and LCD-controlled retract
 
 //-----------------------------//
 //For tests on my dev'printer!!//
 //-----------------------------//
 #else
- #include "Configs/Config_XP.h"  
+ #include "Configs/Config_XP.h"
 #endif
 
 /** ========================================
@@ -250,14 +251,14 @@
 #endif
 
 //= For users who dont have a terminal =//
-#if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
+#if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)||BOTH(ADD_MENUS, MOD_BTT_UI)
   #define DELTA_CALIBRATION_MENU        // (Default) Auto for CLASSIC and COLOR.
   #define LCD_INFO_MENU                 // (Default) Informations printer.
-  //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.  
+  //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  //#define TOUCH_IDLE_SLEEP 900        // Auto-Sleep screenview (sec).
-  //#define LCD_BACKLIGHT_TIMEOUT 30    //Set LCD sleep time: "M255 S<minutes>" (0-99)
+  //#define DISPLAY_SLEEP_MINUTES 2     // Auto-Sleep screenview(minutes) Timeout 
+  //#define LCD_BACKLIGHT_TIMEOUT_MINS 3 //Set LCD sleep time: "M255 S<minutes>" (0-99)
   #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
@@ -289,21 +290,18 @@
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
   //#define MULTI_VOLUME            // Multiple volume support(µSD + USB)
 #elif ENABLED(MOD_BTT_UI)
-  #define TFT_GENERIC               
-  #define TFT_INTERFACE_FSMC
-  #define TFT_CLASSIC_UI            
-  #define HOST_STATUS_NOTIFICATIONS
   #define MOD_AUX                   // enable the UART2 for BTT_TFT (TOUCH UI)
-  #define G26_MESH_VALIDATION
-#elif ENABLED(TFT_OTHER)
-  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
-  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43 
-  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define TFT_CLASSIC_UI
+  #define MKS_ROBIN_TFT32
 #elif BOTH(TFT_COLOR_UI, SR_MKS)
   #define MKS_TS35_V2_0             // Only for NanoV2 or V3
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
   #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
+#elif ENABLED(TFT_OTHER)
+  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
+  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
+  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
+  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #else
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
@@ -323,43 +321,39 @@
 
 // Set for TMC2208_STANDALONE
 #ifdef ALL_TMC8
-    #define Q_TMC
-    #define DRIVER_AXES TMC2208_STANDALONE
-    #ifndef DRIVER_EXT
-      #define DRIVER_EXT TMC2208_STANDALONE
-    #endif
+  #define Q_TMC
+  #define DRIVER_AXES TMC2208_STANDALONE
+  #ifndef DRIVER_EXT
+    #define DRIVER_EXT TMC2208_STANDALONE
+  #endif
 #endif
 // Set for TMC2209_STANDALONE 
 #ifdef ALL_TMC9
-    #define Q_TMC
-    #define DRIVER_AXES TMC2209_STANDALONE
-    #ifndef DRIVER_EXT
-      #define DRIVER_EXT TMC2209_STANDALONE
-    #endif
+  #define Q_TMC
+  #define DRIVER_AXES TMC2209_STANDALONE
+  #ifndef DRIVER_EXT
+    #define DRIVER_EXT TMC2209_STANDALONE
+  #endif
 #endif
 
 // Software Serial UART for TMC2208
 #ifdef Q_UART8
-    #define MICROSTEPS32
-    #define Q_TMC
-    #define BOOT_MARLIN_LOGO_SMALL
-  #define STEALTHCHOP_E
-    #define DRIVER_AXES TMC2208
-    #ifndef DRIVER_EXT
-      #define DRIVER_EXT TMC2208
-    #endif
+  #define MICROSTEPS32
+  #define Q_TMC
+  #define DRIVER_AXES TMC2208
+  #ifndef DRIVER_EXT
+    #define DRIVER_EXT TMC2208
+  #endif
 #endif
 
 // Software Serial UART for TMC2209
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
-    #define MICROSTEPS32
-    #define Q_TMC
-    #define BOOT_MARLIN_LOGO_SMALL
-    #define STEALTHCHOP_E
-    #define DRIVER_AXES TMC2209
-    #ifndef DRIVER_EXT
-      #define DRIVER_EXT TMC2209
-    #endif
+  #define MICROSTEPS32
+  #define Q_TMC
+  #define DRIVER_AXES TMC2209
+  #ifndef DRIVER_EXT
+    #define DRIVER_EXT TMC2209
+  #endif
 #endif
 //Add definition for UART for Q5
 #if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)||BOTH(NANO1X, Q_UART8)||BOTH(NANO1X, Q_UART9)
@@ -393,7 +387,6 @@
     #define Q_TMC
     #define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
-    #define STEALTHCHOP_E
     #define DRIVER_AXES TMC2209
     #ifndef DRIVER_EXT
       #define DRIVER_EXT TMC2209
@@ -442,8 +435,8 @@
 //eSteps
 #ifndef EXTRUDER_STEPS
   #ifdef MICROSTEPS32
-    #ifdef NEMA14
-      #define EXTRUDER_STEPS 1440 // Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
+    #ifdef DDRIVE
+      #define EXTRUDER_STEPS 1440 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
     #elif ENABLED(OMG)           
       #define EXTRUDER_STEPS 790 //  
     #elif ANY(BMG, SR_MKS, SR_BTT)
@@ -452,7 +445,7 @@
       #define EXTRUDER_STEPS 820 //  Extruder TITAN(Default)
     #endif  
   #else
-    #ifdef NEMA14
+    #ifdef DDRIVE
       #define EXTRUDER_STEPS 720 //  Extruder SuperHX, Mini-Sherpa, Orbiter
     #elif ENABLED(OMG)           
       #define EXTRUDER_STEPS 390
@@ -468,7 +461,7 @@
   #define XYZJERK  10.0
 #endif
 #ifndef EJERK
-  #ifdef NEMA14
+  #ifdef DDRIVE
     #define EJERK       2.5
   #else
     #define EJERK       10.0
@@ -494,12 +487,46 @@
   #define XYZ_CURRENT_HOME  600
 #endif  
 #ifndef E_CURRENT
-  #ifdef NEMA14
+  #ifdef DDRIVE
     #define E_CURRENT       380
   #else
     #define E_CURRENT       850
   #endif
 #endif
+
+// Input Shaping -- EXPERIMENTAL //
+#ifdef INPUT_SHAPING    //Default QQSP
+  #define INPUT_SHAPING_X
+  #define INPUT_SHAPING_Y
+  #define SHAPING_MENU 
+  #ifdef Q5
+    #define SHAPING_FREQ_X    40.40
+    #define SHAPING_ZETA_X  0.15f
+    #define SHAPING_FREQ_Y    40.60
+    #define SHAPING_ZETA_Y  0.15f
+  #elif BOTH(SRM, DDRIVE)
+    #define SHAPING_FREQ_X    37.8
+    #define SHAPING_ZETA_X  0.15f  
+    #define SHAPING_FREQ_Y    40.8
+    #define SHAPING_ZETA_Y  0.15f
+  #elif BOTH(QQSP, DDRIVE)
+    #define SHAPING_FREQ_X    25.6
+    #define SHAPING_ZETA_X  0.15f  
+    #define SHAPING_FREQ_Y    25.6
+    #define SHAPING_ZETA_Y  0.15f      
+  #elif ANY(SR_BTT, SR_MKS)
+    #define SHAPING_FREQ_X    25.0   // info FLSun
+    #define SHAPING_ZETA_X  0.15f
+    #define SHAPING_FREQ_Y    23.39   // info FLSun
+    #define SHAPING_ZETA_Y  0.15f 
+  #else
+    #define SHAPING_FREQ_X    31.6  //27.8
+    #define SHAPING_ZETA_X  0.20f
+    #define SHAPING_FREQ_Y    23.6  //27.8
+    #define SHAPING_ZETA_Y  0.20f
+  #endif   
+#endif
+
 // NEOPIXEL for SR_MKS
 #if BOTH(NEOPIXEL_LED, SR_MKS)
   #define LED_PWM    SERVO0_PIN

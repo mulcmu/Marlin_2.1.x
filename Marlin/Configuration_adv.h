@@ -303,7 +303,7 @@
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
   #define THERMAL_PROTECTION_PERIOD 40        // Seconds
-  #define THERMAL_PROTECTION_HYSTERESIS  6  //4 Degrees Celsius
+  #define THERMAL_PROTECTION_HYSTERESIS 6     //4 Degrees Celsius
 
   //#define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
   #if BOTH(ADAPTIVE_FAN_SLOWING, PIDTEMP)
@@ -463,7 +463,7 @@
 
 // Show Temperature ADC value
 // Enable for M105 to include ADC values read from temperature sensors.
-#define SHOW_TEMP_ADC_VALUES  //
+#define SHOW_TEMP_ADC_VALUES
 
 /**
  * High Temperature Thermistor Support
@@ -515,7 +515,7 @@
  */
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
-  #define HOTEND_IDLE_TIMEOUT_SEC (10*60)    // (seconds) Time without extruder movement to trigger protection
+  #define HOTEND_IDLE_TIMEOUT_SEC (10*60)   // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER   180     // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET   0     // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET      0     // (°C) Safe temperature for the bed after timeout
@@ -888,7 +888,7 @@
 
 #define HOMING_BUMP_MM      { 5, 5, 5 }       // (linear=mm, rotational=°) Backoff from endstops after first bump
                                               // For delta all values must be the same
-#define HOMING_BUMP_DIVISOR { 10, 10, 10 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BUMP_DIVISOR { 10, 10, 10 }    // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
@@ -1089,6 +1089,7 @@
  *  X<1>         Set the given parameters only for the X axis.
  *  Y<1>         Set the given parameters only for the Y axis.
  */
+/* Define on FLSUNQ_Config.h 
 //#define INPUT_SHAPING_X
 //#define INPUT_SHAPING_Y
 #if EITHER(INPUT_SHAPING_X, INPUT_SHAPING_Y)
@@ -1104,6 +1105,7 @@
   //#define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
 #endif
+*/
 
 #define AXIS_RELATIVE_MODES { false, false, false, false }
 
@@ -1397,7 +1399,7 @@
      * Use a height slightly above the estimated nozzle-to-probe Z offset.
      * For example, with an offset of -5, consider a starting height of -4.
      */
-    #define PROBE_OFFSET_WIZARD_START_Z (Z_OFFSET +1)
+    #define PROBE_OFFSET_WIZARD_START_Z ( Z_OFFSET +1 )
 
     // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
     //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
@@ -1459,7 +1461,7 @@
   #define STATUS_MESSAGE_SCROLLING
 
   // Apply a timeout to low-priority status messages
-  #define STATUS_MESSAGE_TIMEOUT_SEC 30 // (seconds)
+  //#define STATUS_MESSAGE_TIMEOUT_SEC 30 // (seconds)
 
   // On the Info Screen, display XY with one decimal place when possible
   //#define LCD_DECIMAL_SMALL_XY
@@ -1477,8 +1479,8 @@
     //#define NEO2_COLOR_PRESETS              // Enable a second NeoPixel Preset Color menu option
     #if ENABLED(LED_COLOR_PRESETS)
       #define LED_USER_PRESET_RED        255  // User defined RED value
-      #define LED_USER_PRESET_GREEN      255  // User defined GREEN value
-      #define LED_USER_PRESET_BLUE       255  // User defined BLUE value
+      #define LED_USER_PRESET_GREEN      128  // User defined GREEN value
+      #define LED_USER_PRESET_BLUE         0  // User defined BLUE value
       #define LED_USER_PRESET_WHITE      255  // User defined WHITE value
       #define LED_USER_PRESET_BRIGHTNESS 255  // User defined intensity
       //#define LED_USER_PRESET_STARTUP       // Have the printer display the user preset color on startup
@@ -1496,12 +1498,12 @@
 #endif // HAS_DISPLAY || DWIN_LCD_PROUI
 
 // Add 'M73' to set print job progress, overrides Marlin's built-in estimate
-//#define SET_PROGRESS_MANUALLY
+#define SET_PROGRESS_MANUALLY
 #if ENABLED(SET_PROGRESS_MANUALLY)
   #define SET_PROGRESS_PERCENT            // Add 'P' parameter to set percentage done
   #define SET_REMAINING_TIME              // Add 'R' parameter to set remaining time
   //#define SET_INTERACTION_TIME          // Add 'C' parameter to set time until next filament change or other user interaction
-  //#define M73_REPORT                    // Report M73 values to host
+  #define M73_REPORT                    // Report M73 values to host
   #if BOTH(M73_REPORT, SDSUPPORT)
     #define M73_REPORT_SD_ONLY            // Report only when printing from SD
   #endif
@@ -1510,8 +1512,8 @@
 // LCD Print Progress options. Multiple times may be displayed in turn.
 #if HAS_DISPLAY && EITHER(SDSUPPORT, SET_PROGRESS_MANUALLY)
   #define SHOW_PROGRESS_PERCENT           // Show print progress percentage (doesn't affect progress bar)
-  #define SHOW_ELAPSED_TIME               // Display elapsed printing time (prefix 'E')
-  //#define SHOW_REMAINING_TIME           // Display estimated time to completion (prefix 'R')
+  //#define SHOW_ELAPSED_TIME               // Display elapsed printing time (prefix 'E')
+  #define SHOW_REMAINING_TIME           // Display estimated time to completion (prefix 'R')
   #if ENABLED(SET_INTERACTION_TIME)
     #define SHOW_INTERACTION_TIME         // Display time until next user interaction ('C' = filament change)
   #endif
@@ -1647,12 +1649,14 @@
 
   // Allow international symbols in long filenames. To display correctly, the
   // LCD's font must contain the characters. Check your selected LCD language.
-  //#define UTF_FILENAME_SUPPORT
+  #ifdef HOSTS
+    #define UTF_FILENAME_SUPPORT
 
-  #define LONG_FILENAME_HOST_SUPPORT    // Get the long filename of a file/folder with 'M33 <dosname>' and list long filenames with 'M20 L'
-  //#define LONG_FILENAME_WRITE_SUPPORT   // Create / delete files with long filenames via M28, M30, and Binary Transfer Protocol
+    #define LONG_FILENAME_HOST_SUPPORT    // Get the long filename of a file/folder with 'M33 <dosname>' and list long filenames with 'M20 L'
+    #define LONG_FILENAME_WRITE_SUPPORT   // Create / delete files with long filenames via M28, M30, and Binary Transfer Protocol
   //#define M20_TIMESTAMP_SUPPORT         // Include timestamps by adding the 'T' flag to M20 commands
-
+  #endif
+  
   #define SCROLL_LONG_FILENAMES         // Scroll long filenames in the SD card menu
 
   //#define SD_ABORT_NO_COOLDOWN          // Leave the heaters on after Stop Print (not recommended!)
@@ -2083,7 +2087,7 @@
 #if ENABLED(BABYSTEPPING)
   //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
-  #define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).
+  #define BABYSTEP_ALWAYS_AVAILABLE         // Allow babystepping at all times (not just during movement).
   //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   //#define BABYSTEP_MILLIMETER_UNITS       // Specify BABYSTEP_MULTIPLICATOR_(XY|Z) in mm instead of micro-steps
@@ -2130,14 +2134,19 @@
 #if ENABLED(LIN_ADVANCE)
   #if ENABLED(DISTINCT_E_FACTORS)
     #define ADVANCE_K { 0.22 }    // (mm) Compression length per 1mm/s extruder speed, per extruder
-  #else
-    #define ADVANCE_K 0.0        // (mm) Compression length applying to all extruders
+  //#else
+  //  #define ADVANCE_K 0.0        // (mm) Compression length applying to all extruders
   #endif
   //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with M900 L.
   //#define LA_DEBUG              // Print debug information to serial during operation. Disable for production use.
-  #define EXPERIMENTAL_SCURVE   // Allow S-Curve Acceleration to be used with LA.
-  #ifdef NEMA14
+  #ifndef INPUT_SHAPING
+    #define EXPERIMENTAL_SCURVE     // Allow S-Curve Acceleration to be used with LA.
+  #endif
+  #ifdef DDRIVE
+    #define ADVANCE_K 0.045  
     #define ALLOW_LOW_EJERK       // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
+  #else
+    #define ADVANCE_K 0.0
   #endif
   //#define EXPERIMENTAL_I2S_LA   // Allow I2S_STEPPER_STREAM to be used with LA. Performance degrades as the LA step rate reaches ~20kHz.
 #endif
@@ -2406,7 +2415,7 @@
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
   #define BLOCK_BUFFER_SIZE  8
-#elif ANY(TFT_BTT_UI, MOD_BTT_UI, OCTO)
+#elif ANY(TFT_BTT_UI, MOD_BTT_UI, HOSTS)
   #define BLOCK_BUFFER_SIZE 32
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 16
@@ -2417,12 +2426,8 @@
 // @section serial
 
 // The ASCII buffer for serial input
-#ifdef XP
-  #define MAX_CMD_SIZE 500
-#else
-  #define MAX_CMD_SIZE 96
-#endif
-#if ANY(TFT_BTT_UI, MOD_BTT_UI, OCTO)
+#define MAX_CMD_SIZE 96
+#if ANY(TFT_BTT_UI, MOD_BTT_UI, HOSTS)
   #define BUFSIZE 32
 #else
   #define BUFSIZE 16
@@ -2435,7 +2440,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#if ANY(TFT_BTT_UI, MOD_BTT_UI, OCTO)
+#if ANY(TFT_BTT_UI, MOD_BTT_UI, HOSTS)
   #define TX_BUFFER_SIZE 32
 #else
   #define TX_BUFFER_SIZE 16
@@ -2446,7 +2451,7 @@
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
 //#define RX_BUFFER_SIZE 1024
-#ifdef OCTO
+#ifdef HOSTS
   #define RX_BUFFER_SIZE 1024 //64 
 #endif
 
@@ -2509,7 +2514,7 @@
 //#define NO_TIMEOUTS 1000 // Milliseconds
 
 // Some clients will have this feature soon. This could make the NO_TIMEOUTS unnecessary.
-#ifdef OCTO
+#ifdef HOSTS
   #define ADVANCED_OK
 #endif
 
@@ -2563,19 +2568,19 @@
     #define MIN_AUTORETRACT             0.1 // (mm) Don't convert E moves under this length
     #define MAX_AUTORETRACT            10.0 // (mm) Don't convert E moves over this length
   #endif
-    #ifdef NEMA14
+    #ifdef DDRIVE
     #define RETRACT_LENGTH              0.4 // (mm) Default retract length (positive value)
-    #define RETRACT_FEEDRATE           30   // (mm/s) Default feedrate for retracting
+    #define RETRACT_FEEDRATE           35   // (mm/s) Default feedrate for retracting
     #define RETRACT_LENGTH_SWAP         3   // (mm) Default swap retract length (positive value)
   #else
     #define RETRACT_LENGTH              5   // (mm) Default retract length (positive value)
     #define RETRACT_FEEDRATE           50   // (mm/s) Default feedrate for retracting
     #define RETRACT_LENGTH_SWAP        13   // (mm) Default swap retract length (positive value)
   #endif
-  //#define RETRACT_LENGTH                3   // (mm) Default retract length (positive value)
-  //#define RETRACT_LENGTH_SWAP          13   // (mm) Default swap retract length (positive value)
-  //#define RETRACT_FEEDRATE             45   // (mm/s) Default feedrate for retracting
-  #define RETRACT_ZRAISE                0.4   // (mm) Default retract Z-raise
+  //#define RETRACT_LENGTH              3   // (mm) Default retract length (positive value)
+  //#define RETRACT_LENGTH_SWAP        13   // (mm) Default swap retract length (positive value)
+  //#define RETRACT_FEEDRATE           45   // (mm/s) Default feedrate for retracting
+  #define RETRACT_ZRAISE                0.4 // (mm) Default retract Z-raise
   #define RETRACT_RECOVER_LENGTH        0   // (mm) Default additional recover length (added to retract length on recover)
   #define RETRACT_RECOVER_LENGTH_SWAP   0   // (mm) Default additional swap recover length (added to retract length on recover from toolchange)
   #define RETRACT_RECOVER_FEEDRATE      8   // (mm/s) Default feedrate for recovering from retraction
@@ -2694,7 +2699,7 @@
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     28
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      550
-  #elif ENABLED(NEMA14)
+  #elif ENABLED(DDRIVE)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      100
@@ -2718,10 +2723,10 @@
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
-  #elif ENABLED(NEMA14)
+  #elif ENABLED(DDRIVE)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60 
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
@@ -3854,17 +3859,16 @@
   #define MAIN_MENU_ITEM_5_CONFIRM
   
   #ifdef MPCTEMP
-   #define MAIN_MENU_ITEM_6_DESC "1.Run Autotune on Active extruder"
-   #define MAIN_MENU_ITEM_6_GCODE "M306T\nM500\nG28\nM107"
-   #define MAIN_MENU_ITEM_6_CONFIRM
-  #else 
-   #define MAIN_MENU_ITEM_6_DESC "1.Run PID_Nozzle_for " PREHEAT_1_LABEL
-   #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107"
-   #define MAIN_MENU_ITEM_6_CONFIRM
+    #define MAIN_MENU_ITEM_6_DESC "1.Run Autotune on Active extruder"
+    #define MAIN_MENU_ITEM_6_GCODE "M306T\nM500\nG28\nM107"
+  #else
+    #define MAIN_MENU_ITEM_6_DESC "1.Run PID_Nozzle_for " PREHEAT_1_LABEL
+    #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107\nM117 PID Tune Done"
   #endif
+  #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "1.Print a test pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "G28\nG29L1\nG26I0P4\nM500\nG28"
+  #define MAIN_MENU_ITEM_7_DESC "1.Print_Test_Pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "G28\nG29L1\nG26I0P4\nM500\nG28\nM117 Print Mesh Done"
   #define MAIN_MENU_ITEM_7_CONFIRM
 
   #define MAIN_MENU_ITEM_8_DESC "2.Bed Level. UBL for " PREHEAT_2_LABEL
@@ -3985,7 +3989,7 @@
 #if ENABLED(HOST_ACTION_COMMANDS)
   #define HOST_PAUSE_M76                // Tell the host to pause in response to M76
   #define HOST_PROMPT_SUPPORT           // Initiate host prompts to get user feedback
-  #if BOTH(HOST_PROMPT_SUPPORT, TFT_BTT_UI)
+  #if BOTH(HOST_PROMPT_SUPPORT, TFT_BTT_UI) || BOTH(HOST_PROMPT_SUPPORT, MOD_BTT_UI)
     #define HOST_STATUS_NOTIFICATIONS   // Send some status messages to the host as notifications
   #endif
   //#define HOST_START_MENU_ITEM          // Add a menu item that tells the host to start

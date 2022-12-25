@@ -714,9 +714,9 @@
 // (Use MINTEMP for thermistor short/failure protection.)
 #ifndef HEATER_0_MAXTEMP
   #ifdef VOLCANO
-    #define HEATER_0_MAXTEMP 300    //Real 285
+    #define HEATER_0_MAXTEMP 315  // Volcano thermistor or HotMetal
   #else
-    #define HEATER_0_MAXTEMP 275    //Real 260
+    #define HEATER_0_MAXTEMP 275  //Real 260°C
   #endif
 #endif
 #define HEATER_1_MAXTEMP 275
@@ -726,7 +726,11 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      120
+#if ANY(SR_MKS, SR_BTT)
+  #define BED_MAXTEMP      120
+#else
+  #define BED_MAXTEMP      130
+#endif
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -747,7 +751,7 @@
 
 // Enable PIDTEMP for PID control or MPCTEMP for Predictive Model.
 // temperature control. Disable both for bang-bang heating.
-#ifndef MPCTEMP 
+#ifndef MPCTEMP
   #define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
 #endif
 //#define MPCTEMP        // ** EXPERIMENTAL **
@@ -810,8 +814,9 @@
   #define MPC_AUTOTUNE_MENU                         // Add MPC auto-tuning to the "Advanced Settings" menu. (~350 bytes of flash)
 
   #define MPC_MAX BANG_MAX                            // (0..255) Current to nozzle while MPC is active.
-  #define MPC_HEATER_POWER { 40.0f }                  // (W) Heat cartridge powers.
-
+  #ifndef MPC_HEATER_POWER
+    #define MPC_HEATER_POWER { 40.0f }                // (W) Heat cartridge powers.
+  #endif
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
 
   // Measured physical constants from M306
@@ -1038,10 +1043,10 @@
   // and processor overload (too many expensive sqrt calls).
   #if ANY(SR_MKS, SR_BTT)
     #define DEFAULT_SEGMENTS_PER_SECOND 160
-  #elif ANY(XP1, XP2)
-    #define DEFAULT_SEGMENTS_PER_SECOND 100  //200  
+  #elif ENABLED(XP1)
+    #define DEFAULT_SEGMENTS_PER_SECOND 100  //200
   #else
-    #define DEFAULT_SEGMENTS_PER_SECOND 80  //200
+    #define DEFAULT_SEGMENTS_PER_SECOND  80  //200
   #endif
 
   // After homing move down to a height where XY movement is unconstrained
@@ -1085,12 +1090,12 @@
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }    //XYZ
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
     //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define PROBING_MARGIN 10
-  #elif ENABLED(Q5)  
+    #define PROBING_MARGIN 15
+  #elif ENABLED(Q5)
     #define DELTA_PRINTABLE_RADIUS 105.0
     #define DELTA_MAX_RADIUS       105.0
     #define DELTA_DIAGONAL_ROD     215.0
-    #define DELTA_HEIGHT           210.0  //200.0
+    #define DELTA_HEIGHT           210.0
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
     #define DELTA_RADIUS           107.5
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0 , 0.0 }
@@ -1101,7 +1106,7 @@
     #define DELTA_MAX_RADIUS        132.0
     #define DELTA_DIAGONAL_ROD      315.0
     #define DELTA_HEIGHT            330.0
-    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }      // Trim adjustments for individual towers
+    #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 }       // Trim adjustments for individual towers
     #define DELTA_RADIUS            151.67
     #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 }
     #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 } //ABC
@@ -1113,7 +1118,7 @@
     #define DELTA_PRINTABLE_RADIUS   130.0      // (mm)
 
   // Maximum reachable area
-    #define DELTA_MAX_RADIUS         130.0      // (mm)
+    #define DELTA_MAX_RADIUS         132.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
     #define DELTA_DIAGONAL_ROD       280.0      // (mm)
@@ -1400,7 +1405,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#if ANY(XP1, SR_MKS, SR_BTT)
+#if ANY(SR_MKS, SR_BTT)
   #define DEFAULT_MAX_FEEDRATE          { 400, 400, 400, 120 }
 #else
   #define DEFAULT_MAX_FEEDRATE          { 250, 250, 250, 120 }
@@ -1436,7 +1441,7 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#ifdef NEMA14
+#ifdef DDRIVE
   #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION   400    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
@@ -1501,7 +1506,9 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#define S_CURVE_ACCELERATION
+#ifndef INPUT_SHAPING
+  #define S_CURVE_ACCELERATION
+#endif
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1517,7 +1524,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#ifndef N_PROBE 					   
+#ifndef N_PROBE
   #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 #endif
 
@@ -1748,8 +1755,8 @@
 #define XY_PROBE_FEEDRATE (66*60)    //3960
 
 #if ANY(N_PROBE, P_PROBE, X_PROBE)
-  #define Z_PROBE_FEEDRATE_FAST (60*60)  //3600
-  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 6) //600
+  #define Z_PROBE_FEEDRATE_FAST (80*60)  //4800
+  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 15) //320
 #else
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 //FEEDRATE_Z
@@ -2129,8 +2136,12 @@
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  #define FILAMENT_RUNOUT_DISTANCE_MM 25
-
+  #ifdef DDRIVE
+    #define FILAMENT_RUNOUT_DISTANCE_MM 190  //190mm print after detect
+  #else
+    #define FILAMENT_RUNOUT_DISTANCE_MM 25  //OPT
+  #endif
+  
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
     // as the filament moves. (Be sure to set FILAMENT_RUNOUT_DISTANCE_MM
@@ -2253,7 +2264,7 @@
     #define MESH_TEST_BED_TEMP      60    // (°C) Default bed temperature for G26.
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
-    #ifdef NEMA14
+    #ifdef DDRIVE
       #define G26_RETRACT_MULTIPLIER   0.4
     #else
       #define G26_RETRACT_MULTIPLIER   4.0  // G26 Q (retraction) used by default between mesh test elements.
@@ -2303,8 +2314,8 @@
     #define MESH_INSET 1
     #define GRID_MAX_POINTS_X 11
   #else
-  	#define MESH_INSET 15             // Set Mesh bounds as an inset region of the bed
-	  #define GRID_MAX_POINTS_X 8       // Don't use more than 15 points per axis, implementation limited.
+  	#define MESH_INSET 15           // Set Mesh bounds as an inset region of the bed
+	  #define GRID_MAX_POINTS_X 8   // Don't use more than 15 points per axis, implementation limited.
   /// 10=53points, 13=90points, 15=110points
   #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
@@ -2317,7 +2328,7 @@
   //#define UBL_Z_RAISE_WHEN_OFF_MESH 2.5 // When the nozzle is off the mesh, this value is used
                                           // as the Z-Height correction value.
 
-  #define UBL_MESH_WIZARD         // Run several commands in a row to get a complete mesh
+  #define UBL_MESH_WIZARD           // Run several commands in a row to get a complete mesh
 
 #elif ENABLED(MESH_BED_LEVELING)
 
@@ -2503,12 +2514,12 @@
  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
-#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+#define EEPROM_SETTINGS       // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
-  #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
+  //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
   //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
