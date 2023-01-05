@@ -246,6 +246,14 @@ typedef struct SettingsDataStruct {
   float planner_z_fade_height;                          // M420 Zn  planner.z_fade_height
 
   //
+  // AUTOTEMP
+  //
+  #if ENABLED(AUTOTEMP)
+    celsius_t planner_autotemp_max, planner_autotemp_min;
+    float planner_autotemp_factor;
+  #endif
+
+  //
   // MESH_BED_LEVELING
   //
   float mbl_z_offset;                                   // bedlevel.z_offset
@@ -464,7 +472,9 @@ typedef struct SettingsDataStruct {
   //
   // SKEW_CORRECTION
   //
-  skew_factor_t planner_skew_factor;                    // M852 I J K
+  #if ENABLED(SKEW_CORRECTION)
+    skew_factor_t planner_skew_factor;                  // M852 I J K
+  #endif
 
   //
   // ADVANCED_PAUSE_FEATURE
@@ -846,6 +856,16 @@ void MarlinSettings::postprocess() {
       const float zfh = TERN(ENABLE_LEVELING_FADE_HEIGHT, planner.z_fade_height, (DEFAULT_LEVELING_FADE_HEIGHT));
       EEPROM_WRITE(zfh);
     }
+
+    //
+    // AUTOTEMP
+    //
+    #if ENABLED(AUTOTEMP)
+      _FIELD_TEST(planner_autotemp_max);
+      EEPROM_WRITE(planner.autotemp.max);
+      EEPROM_WRITE(planner.autotemp.min);
+      EEPROM_WRITE(planner.autotemp.factor);
+    #endif
 
     //
     // Mesh Bed Leveling
@@ -1427,8 +1447,10 @@ void MarlinSettings::postprocess() {
     //
     // Skew correction factors
     //
-    _FIELD_TEST(planner_skew_factor);
-    EEPROM_WRITE(planner.skew_factor);
+    #if ENABLED(SKEW_CORRECTION)
+      _FIELD_TEST(planner_skew_factor);
+      EEPROM_WRITE(planner.skew_factor);
+    #endif
 
     //
     // Advanced Pause filament load & unload lengths
@@ -1776,6 +1798,15 @@ void MarlinSettings::postprocess() {
       // Global Leveling
       //
       EEPROM_READ(TERN(ENABLE_LEVELING_FADE_HEIGHT, new_z_fade_height, dummyf));
+
+      //
+      // AUTOTEMP
+      //
+      #if ENABLED(AUTOTEMP)
+        EEPROM_READ(planner.autotemp.max);
+        EEPROM_READ(planner.autotemp.min);
+        EEPROM_READ(planner.autotemp.factor);
+      #endif
 
       //
       // Mesh (Manual) Bed Leveling
@@ -2379,6 +2410,7 @@ void MarlinSettings::postprocess() {
       //
       // Skew correction factors
       //
+      #if ENABLED(SKEW_CORRECTION)
       {
         skew_factor_t skew_factor;
         _FIELD_TEST(planner_skew_factor);
@@ -2393,6 +2425,7 @@ void MarlinSettings::postprocess() {
           }
         #endif
       }
+      #endif
 
       //
       // Advanced Pause filament load & unload lengths
@@ -2947,6 +2980,15 @@ void MarlinSettings::reset() {
   TERN_(HAS_LEVELING, reset_bed_level());
 
   //
+  // AUTOTEMP
+  //
+  #if ENABLED(AUTOTEMP)
+    planner.autotemp.max = AUTOTEMP_MAX;
+    planner.autotemp.min = AUTOTEMP_MIN;
+    planner.autotemp.factor = AUTOTEMP_FACTOR;
+  #endif
+
+  //
   // X Axis Twist Compensation
   //
   TERN_(X_AXIS_TWIST_COMPENSATION, xatc.reset());
@@ -3218,7 +3260,7 @@ void MarlinSettings::reset() {
     #if ENABLED(DISTINCT_E_FACTORS)
       constexpr float linAdvanceK[] = ADVANCE_K;
       EXTRUDER_LOOP() {
-        const float a = linAdvanceK[_MAX(e, COUNT(linAdvanceK) - 1)];
+        const float a = linAdvanceK[_MAX(uint8_t(e), COUNT(linAdvanceK) - 1)];
         planner.extruder_advance_K[e] = a;
         TERN_(ADVANCE_K_EXTRA, other_extruder_advance_K[e] = a);
       }
