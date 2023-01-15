@@ -1506,9 +1506,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#ifndef INPUT_SHAPING
-  #define S_CURVE_ACCELERATION
-#endif
+#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================

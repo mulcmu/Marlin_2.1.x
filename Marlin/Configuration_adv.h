@@ -1089,7 +1089,6 @@
  *  X<1>         Set the given parameters only for the X axis.
  *  Y<1>         Set the given parameters only for the Y axis.
  */
-/* Define on FLSUNQ_Config.h 
 //#define INPUT_SHAPING_X
 //#define INPUT_SHAPING_Y
 #if EITHER(INPUT_SHAPING_X, INPUT_SHAPING_Y)
@@ -1105,7 +1104,6 @@
   //#define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
 #endif
-*/
 
 #define AXIS_RELATIVE_MODES { false, false, false, false }
 
@@ -2139,9 +2137,7 @@
   #endif
   //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with M900 L.
   //#define LA_DEBUG              // Print debug information to serial during operation. Disable for production use.
-  #ifndef INPUT_SHAPING
-    #define EXPERIMENTAL_SCURVE     // Allow S-Curve Acceleration to be used with LA.
-  #endif
+  #define EXPERIMENTAL_SCURVE     // Allow S-Curve Acceleration to be used with LA.
   #ifdef DDRIVE
     #define ADVANCE_K 0.045  
     #define ALLOW_LOW_EJERK       // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.

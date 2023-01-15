@@ -193,7 +193,6 @@
 #define LIN_ADVANCE                      // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 #define POWER_LOSS_RECOVERY              // (Default) Continue print after Power-Loss.
 //#define FWRETRACT                      // Firmware-based and LCD-controlled retract
-//#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -492,42 +491,6 @@
   #else
     #define E_CURRENT       850
   #endif
-#endif
-
-// Input Shaping -- EXPERIMENTAL //
-#ifdef INPUT_SHAPING    //Default QQSP
-  #define INPUT_SHAPING_X
-  #define INPUT_SHAPING_Y
-  #define SHAPING_MENU 
-  #ifdef Q5
-    #define SHAPING_FREQ_X    40.40
-    #define SHAPING_ZETA_X  0.15f
-    #define SHAPING_FREQ_Y    40.60
-    #define SHAPING_ZETA_Y  0.15f
-  #elif ENABLED(QQSP)
-    #define SHAPING_FREQ_X    31.6  //27.8
-    #define SHAPING_ZETA_X  0.20f
-    #define SHAPING_FREQ_Y    23.6  //27.8
-    #define SHAPING_ZETA_Y  0.20f
-  #elif BOTH(SRM, DDRIVE)
-    #define SHAPING_FREQ_X    37.8
-    #define SHAPING_ZETA_X  0.15f  
-    #define SHAPING_FREQ_Y    40.8
-    #define SHAPING_ZETA_Y  0.15f
-  #elif BOTH(QQSP, DDRIVE)
-    #define SHAPING_FREQ_X    25.6
-    #define SHAPING_ZETA_X  0.15f  
-    #define SHAPING_FREQ_Y    25.6
-    #define SHAPING_ZETA_Y  0.15f      
-  #elif ANY(SR_BTT, SR_MKS)
-    #define SHAPING_FREQ_X    25.0   // info FLSun
-    #define SHAPING_ZETA_X  0.15f
-    #define SHAPING_FREQ_Y    23.39   // info FLSun
-    #define SHAPING_ZETA_Y  0.15f 
-  #else
-    #define SHAPING_MIN_FREQ  20
-    #define SHAPING_MAX_STEPRATE 10000
-  #endif 
 #endif
 
 // NEOPIXEL for SR_MKS
