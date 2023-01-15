@@ -484,7 +484,7 @@
   #define XYZ_CURRENT       900
 #endif
 #ifndef XYZ_CURRENT_HOME
-  #define XYZ_CURRENT_HOME  600
+  #define XYZ_CURRENT_HOME  650
 #endif  
 #ifndef E_CURRENT
   #ifdef DDRIVE
@@ -504,6 +504,11 @@
     #define SHAPING_ZETA_X  0.15f
     #define SHAPING_FREQ_Y    40.60
     #define SHAPING_ZETA_Y  0.15f
+  #elif ENABLED(QQSP)
+    #define SHAPING_FREQ_X    31.6  //27.8
+    #define SHAPING_ZETA_X  0.20f
+    #define SHAPING_FREQ_Y    23.6  //27.8
+    #define SHAPING_ZETA_Y  0.20f
   #elif BOTH(SRM, DDRIVE)
     #define SHAPING_FREQ_X    37.8
     #define SHAPING_ZETA_X  0.15f  
@@ -520,11 +525,9 @@
     #define SHAPING_FREQ_Y    23.39   // info FLSun
     #define SHAPING_ZETA_Y  0.15f 
   #else
-    #define SHAPING_FREQ_X    31.6  //27.8
-    #define SHAPING_ZETA_X  0.20f
-    #define SHAPING_FREQ_Y    23.6  //27.8
-    #define SHAPING_ZETA_Y  0.20f
-  #endif   
+    #define SHAPING_MIN_FREQ  20
+    #define SHAPING_MAX_STEPRATE 10000
+  #endif 
 #endif
 
 // NEOPIXEL for SR_MKS
