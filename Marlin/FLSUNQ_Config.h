@@ -12,7 +12,7 @@
  *                         MARLIN_v2.1.2
  * For a Delta printer start with one of the configuration files in
  * the directory and customize for your machine:
- * https://github.com/MarlinFirmware/Configurations/tree/release-2.1.1/config/examples/delta/FLSUN/ 
+ * https://github.com/MarlinFirmware/Configurations/tree/release-2.1.2/config/examples/delta/FLSUN/ 
  * 
  * Wiki: https://github.com/Foxies-CSTL/Marlin_2.1.x/wiki
  * 
@@ -176,7 +176,7 @@
       * ===============================
       */
 
-//#define DELTA_HOME_TO_SAFE_ZONE        // Option to move down after homing to a height where XYZ movement is unconstrained.
+#define DELTA_HOME_TO_SAFE_ZONE        // Option to move down after homing to a height where XYZ movement is unconstrained.
 
 #define PREHEAT_BEFORE_PROBING           //(P) (Default) Run a PreHeat bed at 60°C only.
 //#define PREHEAT_BEFORE_LEVELING        // Option to preheat (nozzle and bed) before levelling (H80/B60).
@@ -216,10 +216,10 @@
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
 
-#define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
+//#define BINARY_FILE_TRANSFER           // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-//#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB
+#define MEATPACK_ON_SERIAL_PORT_1        // (M) With connection USB
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//
@@ -249,25 +249,25 @@
   #endif
 #endif
 
-//= For users who dont have a terminal =//
+//= For users who dont have a terminal  =//
 #if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)||BOTH(ADD_MENUS, MOD_BTT_UI)
-  #define DELTA_CALIBRATION_MENU        // (Default) Auto for CLASSIC and COLOR.
-  #define LCD_INFO_MENU                 // (Default) Informations printer.
-  //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.
-  //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
-  //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  //#define DISPLAY_SLEEP_MINUTES 2     // Auto-Sleep screenview(minutes) Timeout 
+  #define DELTA_CALIBRATION_MENU         // (Default) Auto for CLASSIC and COLOR.
+  #define LCD_INFO_MENU                  // (Default) Informations printer.
+  //#define MEDIA_MENU_AT_TOP            // Add Print media menu at top list.
+  //#define PREHEAT_SHORTCUT_MENU_ITEM   // Add preheat/temperature menu (first page)
+  //#define CANCEL_OBJECTS               // Add menu "Cancel Objet"
+  //#define DISPLAY_SLEEP_MINUTES 2      // Auto-Sleep screenview(minutes) Timeout 
   //#define LCD_BACKLIGHT_TIMEOUT_MINS 3 //Set LCD sleep time: "M255 S<minutes>" (0-99)
-  #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
+  #define SOUND_MENU_ITEM                // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
     #define PROBE_OFFSET_WIZARD
-    #define G26_MESH_VALIDATION         // (Default) Command G26 to print a Mesh Validation Pattern tool.
-    #define CUSTOM_MENU_MAIN            // ENABLE "SPECIAL MENU DELTA"
+    #define G26_MESH_VALIDATION          // (Default) Command G26 to print a Mesh Validation Pattern tool.
+    #define CUSTOM_MENU_MAIN             // ENABLE "SPECIAL MENU DELTA"
   #endif
   #ifdef NEOPIXEL_LED
-    #define LED_CONTROL_MENU            // To control LedStrip.
+    #define LED_CONTROL_MENU             // To control LedStrip.
   #endif
 #endif
 
@@ -280,30 +280,30 @@
 
 //Type of Driver TFT Color (1 choice)
 #ifdef TFT_DWIN_UI
-  #define DGUS_LCD_UI_MKS           //Mks_H43_v1.0 (T5LCFG_800x480)
+  #define DGUS_LCD_UI_MKS                //Mks_H43_v1.0 (T5LCFG_800x480)
 //Note for QQSP/Q5 DGUS/DWIN: The wiring is done on the UART2 (Wifi socket pins(PA10/PA9) for Tx/Rx).
-  //#define DWIN_CREALITY_TOUCHLCD  // CREALITY/SuperRacer (T5LCFG_480x272)
-  //#define DWIN_MARLINUI_PORTRAIT  // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
+  //#define DWIN_CREALITY_TOUCHLCD       // CREALITY/SuperRacer (T5LCFG_480x272)
+  //#define DWIN_MARLINUI_PORTRAIT       // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
-  //#define MULTI_VOLUME            // Multiple volume support(µSD + USB)
+  //#define MULTI_VOLUME                // Multiple volume support(µSD + USB)
 #elif ENABLED(MOD_BTT_UI)
-  #define MOD_AUX                   // enable the UART2 for BTT_TFT (TOUCH UI)
+  #define MOD_AUX                       // enable the UART2 for BTT_TFT (TOUCH UI)
   #define TFT_CLASSIC_UI
   #define MKS_ROBIN_TFT32
 #elif BOTH(TFT_COLOR_UI, SR_MKS)
-  #define MKS_TS35_V2_0             // Only for NanoV2 or V3
-  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
+  #define MKS_TS35_V2_0                 // Mks_TS35v2 and Mks_TS35Rv2(Only for NanoV2.x or V3.x)
+  #define TOUCH_SCREEN                  // (C/F) (Default) UI MARLIN
+  #define MULTI_VOLUME                  // Multiple volume support(µSD + USB)
 #elif ENABLED(TFT_OTHER)
-  //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
-  //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
-  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  //#define MKS_TS35_V2_0              // Mks_TS35v2 and Mks_TS35Rv2(Only for NanoV2.x or V3.x)
+  #define MKS_ROBIN_TFT35              // Mks_Robin_TFT35v1.0
+  //#define MKS_ROBIN_TFT43            // Mks_Robin_TFT43
+  #define TOUCH_SCREEN                 // (C/F) (Default) UI MARLIN
 #else
-  #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
-  #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define MKS_ROBIN_TFT32              // (Default) Mks_Robin_TFT_V2.0
+  #define TOUCH_SCREEN                 // (C/F) (Default) UI MARLIN
 #endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
@@ -435,23 +435,23 @@
 #ifndef EXTRUDER_STEPS
   #ifdef MICROSTEPS32
     #ifdef DDRIVE
-      #define EXTRUDER_STEPS 1440 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
+      #define EXTRUDER_STEPS 1440     //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
     #elif ENABLED(OMG)           
-      #define EXTRUDER_STEPS 790 //  
+      #define EXTRUDER_STEPS 790      //  
     #elif ANY(BMG, SR_MKS, SR_BTT)
-      #define EXTRUDER_STEPS 834 //  Extruder BMG(Left/Right)
+      #define EXTRUDER_STEPS 834      //  Extruder BMG(Left/Right)
     #else
-      #define EXTRUDER_STEPS 820 //  Extruder TITAN(Default)
+      #define EXTRUDER_STEPS 820      //  Extruder TITAN(Default)
     #endif  
   #else
     #ifdef DDRIVE
-      #define EXTRUDER_STEPS 720 //  Extruder SuperHX, Mini-Sherpa, Orbiter
+      #define EXTRUDER_STEPS 720      //  Extruder SuperHX, Mini-Sherpa, Orbiter
     #elif ENABLED(OMG)           
       #define EXTRUDER_STEPS 390
     #elif ANY(BMG, SR_MKS, SR_BTT)
-      #define EXTRUDER_STEPS 417 //  Extruder BMG(Left/Right)
+      #define EXTRUDER_STEPS 417      //  Extruder BMG(Left/Right)
     #else
-      #define EXTRUDER_STEPS 410 //  Extruder TITAN(Default)
+      #define EXTRUDER_STEPS 410      //  Extruder TITAN(Default)
     #endif
   #endif
 #endif
@@ -480,10 +480,10 @@
 #endif
 // TMC Current in UART mode
 #ifndef XYZ_CURRENT
-  #define XYZ_CURRENT       900
+  #define XYZ_CURRENT       980
 #endif
 #ifndef XYZ_CURRENT_HOME
-  #define XYZ_CURRENT_HOME  650
+  #define XYZ_CURRENT_HOME  700
 #endif  
 #ifndef E_CURRENT
   #ifdef DDRIVE
