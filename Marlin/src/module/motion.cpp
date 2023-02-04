@@ -354,7 +354,7 @@ void report_current_position_projected() {
 
   // Return true if the given position is within the machine bounds.
   bool position_is_reachable(const_float_t rx, const_float_t ry) {
-    if (!COORDINATE_OKAY(ry, Y_MIN_POS - fslop, Y_MAX_POS + fslop)) return false;
+    if (TERN0(HAS_Y_AXIS, !COORDINATE_OKAY(ry, Y_MIN_POS - fslop, Y_MAX_POS + fslop))) return false;
     #if ENABLED(DUAL_X_CARRIAGE)
       if (active_extruder)
         return COORDINATE_OKAY(rx, X2_MIN_POS - fslop, X2_MAX_POS + fslop);
@@ -621,7 +621,7 @@ void do_blocking_move_to(LINEAR_AXIS_ARGS(const float), const_feedRate_t fr_mm_s
       if (current_position.z < z) { current_position.z = z; line_to_current_position(z_feedrate); }
     #endif
 
-    current_position.set(x, y); line_to_current_position(xy_feedrate);
+    current_position.set(x OPTARG(HAS_Y_AXIS, y)); line_to_current_position(xy_feedrate);
 
     #if HAS_I_AXIS
       current_position.i = i; line_to_current_position(i_feedrate);
@@ -863,6 +863,8 @@ void restore_feedrate_and_scaling() {
       #if BOTH(HAS_HOTEND_OFFSET, DELTA)
         // The effector center position will be the target minus the hotend offset.
         const xy_pos_t offs = hotend_offset[active_extruder];
+      #elif ENABLED(POLARGRAPH)
+        // POLARGRAPH uses draw_area_* below...
       #elif ENABLED(POLAR)
         // For now, we don't limit POLAR
       #else
@@ -1325,12 +1327,8 @@ void prepare_line_to_destination() {
   #if EITHER(PREVENT_COLD_EXTRUSION, PREVENT_LENGTHY_EXTRUDE)
 
     if (!DEBUGGING(DRYRUN) && destination.e != current_position.e) {
-      bool ignore_e = false;
-
-      #if ENABLED(PREVENT_COLD_EXTRUSION)
-        ignore_e = thermalManager.tooColdToExtrude(active_extruder);
-        if (ignore_e) SERIAL_ECHO_MSG(STR_ERR_COLD_EXTRUDE_STOP);
-      #endif
+      bool ignore_e = thermalManager.tooColdToExtrude(active_extruder);
+      if (ignore_e) SERIAL_ECHO_MSG(STR_ERR_COLD_EXTRUDE_STOP);
 
       #if ENABLED(PREVENT_LENGTHY_EXTRUDE)
         const float e_delta = ABS(destination.e - current_position.e) * planner.e_factor[active_extruder];
@@ -1396,22 +1394,19 @@ void prepare_line_to_destination() {
     return axis_bits;
   }
 
-  bool homing_needed_error(linear_axis_bits_t axis_bits/*=linear_bits*/) {
-    if ((axis_bits = axes_should_home(axis_bits))) {
-      PGM_P home_first = GET_TEXT(MSG_HOME_FIRST);
-      char msg[strlen_P(home_first)+1];
-      sprintf_P(msg, home_first,
-        LINEAR_AXIS_LIST(
-          TEST(axis_bits, X_AXIS) ? "X" : "",
-          TEST(axis_bits, Y_AXIS) ? "Y" : "",
-          TEST(axis_bits, Z_AXIS) ? "Z" : "",
-          TEST(axis_bits, I_AXIS) ? STR_I : "",
-          TEST(axis_bits, J_AXIS) ? STR_J : "",
-          TEST(axis_bits, K_AXIS) ? STR_K : ""
-        )
-      );
+  bool homing_needed_error(main_axes_bits_t axis_bits/*=main_axes_mask*/) {
+    if ((axis_bits &= axes_should_home(axis_bits))) {
+      char all_axes[] = STR_AXES_MAIN, need[NUM_AXES + 1];
+      uint8_t n = 0;
+      LOOP_NUM_AXES(i) if (TEST(axis_bits, i)) need[n++] = all_axes[i];
+      need[n] = '\0';
+
+      char msg[30];
+      sprintf_P(msg, GET_EN_TEXT(MSG_HOME_FIRST), need);
       SERIAL_ECHO_START();
       SERIAL_ECHOLN(msg);
+
+      sprintf_P(msg, GET_TEXT(MSG_HOME_FIRST), need);
       ui.set_status(msg);
       return true;
     }

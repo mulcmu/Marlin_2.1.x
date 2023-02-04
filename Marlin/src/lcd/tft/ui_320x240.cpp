@@ -674,11 +674,6 @@ struct MotionAxisState {
 
 MotionAxisState motionAxisState;
 
-#define E_BTN_COLOR COLOR_YELLOW
-#define X_BTN_COLOR COLOR_CORAL_RED
-#define Y_BTN_COLOR COLOR_VIVID_GREEN
-#define Z_BTN_COLOR COLOR_LIGHT_BLUE
-
 #define BTN_WIDTH 48
 #define BTN_HEIGHT 39
 #define X_MARGIN 15
@@ -768,12 +763,10 @@ static void drawAxisValue(const AxisEnum axis) {
 static void moveAxis(const AxisEnum axis, const int8_t direction) {
   quick_feedback();
 
-  #if ENABLED(PREVENT_COLD_EXTRUSION)
-    if (axis == E_AXIS && thermalManager.tooColdToExtrude(motionAxisState.e_selection)) {
-      drawMessage(F("Too cold"));
-      return;
-    }
-  #endif
+  if (axis == E_AXIS && thermalManager.tooColdToExtrude(motionAxisState.e_selection)) {
+    drawMessage(F("Too cold"));
+    return;
+  }
 
   const float diff = motionAxisState.currentStepSize * direction;
 
