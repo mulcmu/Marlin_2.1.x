@@ -26,8 +26,12 @@
 //For run tests on my dev'printers!!
 //#define XP_DEV
 //===================================================
-#ifndef XP_DEV                       // (Default)
 #define EEPROM_INIT_NOW              // (Default) Set commented after the first build.
+#define COLOR_BACKGROUND        COLOR_DARK
+#define COLOR_PROGRESS_BAR      COLOR_VIVID_GREEN
+#define COLOR_WEBSITE_URL       COLOR_DODGER_BLUE  //0xED03 //OrangeFox
+#define COLOR_AXIS_NOT_HOMED    COLOR_SCARLET
+#ifndef XP_DEV                       // (Default)
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -132,8 +136,8 @@
 
                   /* Option for Neopixel */
 //For LedStrip which need an external power source on Vcc_ledstrip_pin.
-//#define NEOPIXEL_LED                  //(n) Use port GPIO Wifi module (PC7) on QQS
-                                        //(n) Use port BLTouch (PA8) on SR_MKS
+//#define NEOPIXEL_LED                  //(N) Use port GPIO Wifi module (PC7) on QQS
+                                        //(N) Use port BLTouch (PA8) on SR_MKS
 //#define NEOPIXEL_PIXELS     24        // Number of LEDs in the strip (mine is 24)
 
         /* Option for other Probe (BD_probe, IR, Touch-Mi,.. ) or Sensorless (TMC2209_UART) */
@@ -157,7 +161,7 @@
 
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2" = 5, "100k Hisens 3950" = 13, "104NT-4-R025H42G = 5"
-//#define TEMP_SENSOR_0 5               // uncomment with a good number/type  (Revo,Rapido).
+//#define TEMP_SENSOR_0 5                // uncomment with a good number/type  (Revo,Rapido).
 //#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
 // For user who change their HotEnd like Volcano, Revo, Rapido and
@@ -176,7 +180,7 @@
       * ===============================
       */
 
-#define DELTA_HOME_TO_SAFE_ZONE        // Option to move down after homing to a height where XYZ movement is unconstrained.
+#define DELTA_HOME_TO_SAFE_ZONE         // Option to move down after homing to a height where XYZ movement is unconstrained.
 
 #define PREHEAT_BEFORE_PROBING           //(P) (Default) Run a PreHeat bed at 60°C only.
 //#define PREHEAT_BEFORE_LEVELING        // Option to preheat (nozzle and bed) before levelling (H80/B60).
@@ -212,7 +216,7 @@
 * == Tip: commented the line "BOOT_MARLIN_LOGO_SMALL" for more space EEPROM ==
 * ============================================================================
 */
-//#define HOSTS                            // Enable buffer for Octoprint.
+//#define HOSTS                          // Enable buffer for Octoprint.
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
 
@@ -287,15 +291,18 @@
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
-  //#define MULTI_VOLUME                // Multiple volume support(µSD + USB)
+  #define MULTI_VOLUME                // Multiple volume support(µSD + USB)
+  #define SPEAKER
 #elif ENABLED(MOD_BTT_UI)
   #define MOD_AUX                       // enable the UART2 for BTT_TFT (TOUCH UI)
   #define TFT_CLASSIC_UI
   #define MKS_ROBIN_TFT32
+  #define SPEAKER
 #elif BOTH(TFT_COLOR_UI, SR_MKS)
   #define MKS_TS35_V2_0                 // Mks_TS35v2 and Mks_TS35Rv2(Only for NanoV2.x or V3.x)
   #define TOUCH_SCREEN                  // (C/F) (Default) UI MARLIN
   #define MULTI_VOLUME                  // Multiple volume support(µSD + USB)
+  #define SPEAKER
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0              // Mks_TS35v2 and Mks_TS35Rv2(Only for NanoV2.x or V3.x)
   #define MKS_ROBIN_TFT35              // Mks_Robin_TFT35v1.0
