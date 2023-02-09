@@ -106,7 +106,8 @@
     #define BAUD_RATE_GCODE
   #endif
   #ifdef SR_MKS
-    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3
+    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3      // (Default) SR 2nd MoBo 
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3_1      // SR new MoBo
     #define BAUD_RATE_GCODE
   #endif
   #ifdef SR_BTT
