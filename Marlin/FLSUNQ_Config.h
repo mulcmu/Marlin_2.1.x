@@ -26,11 +26,6 @@
 //For run tests on my dev'printers!!
 //#define XP_DEV
 //===================================================
-#define EEPROM_INIT_NOW              // (Default) Set commented after the first build.
-#define COLOR_BACKGROUND        COLOR_DARK
-#define COLOR_PROGRESS_BAR      COLOR_VIVID_GREEN
-#define COLOR_WEBSITE_URL       COLOR_DODGER_BLUE  //0xED03 //OrangeFox
-#define COLOR_AXIS_NOT_HOMED    COLOR_SCARLET
 #ifndef XP_DEV                       // (Default)
 /*_______________________1___________________________*/
 //==================== Hardware =====================//

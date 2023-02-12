@@ -313,10 +313,6 @@
   #define BEEPER_PIN                        PC5
 #endif
 
-#if ENABLED(SPEAKER) && BEEPER_PIN == PC5
-  #error "FLSun HiSpeed default BEEPER_PIN is not a SPEAKER."
-#endif
-
 //
 // TFT with FSMC interface
 //
