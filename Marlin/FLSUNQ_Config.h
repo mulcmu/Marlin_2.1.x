@@ -27,6 +27,7 @@
 //#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
+#define EEPROM_INIT_NOW              // Init EEPROM on first boot after a new build.
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
