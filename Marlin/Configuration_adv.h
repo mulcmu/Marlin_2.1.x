@@ -643,6 +643,8 @@
  */
 #if NONE(Q5, SR_MKS, SR_BTT, NANO3) 
   #define E0_AUTO_FAN_PIN -1
+#elif ENABLED(XP2)
+  #define E0_AUTO_FAN_PIN FAN1_PIN
 #elif ENABLED(SR_MKS)
   #define E0_AUTO_FAN_PIN PB0  
 #else
