@@ -641,7 +641,7 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#if NONE(Q5, SR_MKS, SR_BTT, NANO3) 
+#if NONE(Q5, SR_MKS, SR_BTT, NANO1X, NANO3) 
   #define E0_AUTO_FAN_PIN -1
 #elif ENABLED(XP2)
   #define E0_AUTO_FAN_PIN FAN1_PIN
@@ -3065,7 +3065,7 @@
    * Set *_SERIAL_TX_PIN and *_SERIAL_RX_PIN to match for all drivers
    * on the same serial port, either here or in your board's pins file.
    */
-  #if ANY(Q5, SR_MKS, SR_BTT, NANO3)
+  #if ANY(Q5, SR_MKS, SR_BTT, NAN1X, NANO3)
     #define  X_SLAVE_ADDRESS 0
     #define  Y_SLAVE_ADDRESS 0
     #define  Z_SLAVE_ADDRESS 0
