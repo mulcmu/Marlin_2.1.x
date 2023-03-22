@@ -734,7 +734,7 @@
 #if ANY(SR_MKS, SR_BTT)
   #define BED_MAXTEMP      120
 #else
-  #define BED_MAXTEMP      130
+  #define BED_MAXTEMP      120
 #endif
 #define CHAMBER_MAXTEMP  60
 
