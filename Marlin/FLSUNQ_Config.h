@@ -115,12 +115,12 @@
  * =========================================================
  */
                   /* User settings extruder */
-//#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX(QQS/Q5).
+//#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SDHX/LGX-lite(QQS/Q5/SR).
 //#define EXTRUDER_STEPS 1440//708//830  // Uncomment to ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (X) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left.
-//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Orbiter.
+//#define DDRIVE                         //(X) Uncommment for SuperDriveHX/Mini-Sherpa/Orbiter/LGX-Lite.
 //#define OMG                            //(O) Uncommment for OMG.(QQS no inv)
                   /*  Custom Effector  */
                   /* rods, height, arms*/
