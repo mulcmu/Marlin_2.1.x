@@ -402,7 +402,7 @@ public:
   }
   FORCE_INLINE static void reset_stepper_timeout(const millis_t ms=millis()) { previous_move_ms = ms; }
 
-  #if HAS_DISABLE_INACTIVE_AXIS
+  #if HAS_DISABLE_IDLE_AXES
     static millis_t stepper_inactive_time;
     FORCE_INLINE static bool stepper_inactive_timeout(const millis_t ms=millis()) {
       return ELAPSED(ms, previous_move_ms + stepper_inactive_time);
@@ -1037,6 +1037,10 @@ private:
     static void M486();
   #endif
 
+  #if ENABLED(FT_MOTION)
+    static void M493();
+  #endif
+
   static void M500();
   static void M501();
   static void M502();
@@ -1083,7 +1087,7 @@ private:
     static void M575();
   #endif
 
-  #if HAS_SHAPING
+  #if HAS_ZV_SHAPING
     static void M593();
     static void M593_report(const bool forReplay=true);
   #endif

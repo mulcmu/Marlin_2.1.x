@@ -38,15 +38,14 @@
     PROBE_PT_NONE,      // No raise or stow after run_z_probe
     PROBE_PT_STOW,      // Do a complete stow after run_z_probe
     PROBE_PT_LAST_STOW, // Stow for sure, even in BLTouch HS mode
-    PROBE_PT_RAISE,     // Raise to "between" clearance after run_z_probe
-    PROBE_PT_BIG_RAISE  // Raise to big clearance after run_z_probe
+    PROBE_PT_RAISE      // Raise to "between" clearance after run_z_probe
   };
 #endif
 
 #if USES_Z_MIN_PROBE_PIN
-  #define PROBE_TRIGGERED() (READ(Z_MIN_PROBE_PIN) != Z_MIN_PROBE_ENDSTOP_INVERTING)
+  #define PROBE_TRIGGERED() (READ(Z_MIN_PROBE_PIN) == Z_MIN_PROBE_ENDSTOP_HIT_STATE)
 #else
-  #define PROBE_TRIGGERED() (READ(Z_MIN_PIN) != Z_MIN_ENDSTOP_INVERTING)
+  #define PROBE_TRIGGERED() (READ(Z_MIN_PIN) == Z_MIN_ENDSTOP_HIT_STATE)
 #endif
 
 #if ALL(DWIN_LCD_PROUI, INDIVIDUAL_AXIS_HOMING_SUBMENU, MESH_BED_LEVELING)
@@ -58,6 +57,9 @@
 #else
   #define Z_POST_CLEARANCE 10
 #endif
+
+// In BLTOUCH HS mode, the probe travels in a deployed state.
+#define Z_PROBE_SAFE_CLEARANCE SUM_TERN(BLTOUCH, Z_CLEARANCE_BETWEEN_PROBES, bltouch.z_extra_clearance())
 
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #ifndef LEVELING_NOZZLE_TEMP
@@ -90,7 +92,7 @@ public:
 
     static void probe_error_stop();
 
-    static bool set_deployed(const bool deploy);
+    static bool set_deployed(const bool deploy, const bool no_return=false);
 
     #if IS_KINEMATIC
 
@@ -182,11 +184,13 @@ public:
 
     static constexpr xyz_pos_t offset = xyz_pos_t(NUM_AXIS_ARRAY_1(0)); // See #16767
 
-    static bool set_deployed(const bool) { return false; }
+    static bool set_deployed(const bool, const bool=false) { return false; }
 
     static bool can_reach(const_float_t rx, const_float_t ry, const bool=true) { return position_is_reachable(rx, ry); }
 
   #endif // !HAS_BED_PROBE
+
+  static void use_probing_tool(const bool=true) IF_DISABLED(DO_TOOLCHANGE_FOR_PROBING, {});
 
   static void move_z_after_homing() {
     #if ALL(DWIN_LCD_PROUI, INDIVIDUAL_AXIS_HOMING_SUBMENU, MESH_BED_LEVELING) || defined(Z_AFTER_HOMING)
@@ -216,8 +220,8 @@ public:
     static constexpr xy_pos_t offset_xy = xy_pos_t({ 0, 0 });   // See #16767
   #endif
 
-  static bool deploy() { return set_deployed(true); }
-  static bool stow()   { return set_deployed(false); }
+  static bool deploy(const bool no_return=false) { return set_deployed(true, no_return); }
+  static bool stow(const bool no_return=false)   { return set_deployed(false, no_return); }
 
   #if HAS_BED_PROBE || HAS_LEVELING
     #if IS_KINEMATIC
@@ -308,9 +312,9 @@ public:
             points[1] = xy_float_t({ (X_CENTER) + probe_radius() * COS120, (Y_CENTER) + probe_radius() * SIN120 });
             points[2] = xy_float_t({ (X_CENTER) + probe_radius() * COS240, (Y_CENTER) + probe_radius() * SIN240 });
           #elif ENABLED(AUTO_BED_LEVELING_UBL)
-            points[0] = xy_float_t({ _MAX(MESH_MIN_X, min_x()), _MAX(MESH_MIN_Y, min_y()) });
-            points[1] = xy_float_t({ _MIN(MESH_MAX_X, max_x()), _MAX(MESH_MIN_Y, min_y()) });
-            points[2] = xy_float_t({ (_MAX(MESH_MIN_X, min_x()) + _MIN(MESH_MAX_X, max_x())) / 2, _MIN(MESH_MAX_Y, max_y()) });
+            points[0] = xy_float_t({ _MAX(float(MESH_MIN_X), min_x()), _MAX(float(MESH_MIN_Y), min_y()) });
+            points[1] = xy_float_t({ _MIN(float(MESH_MAX_X), max_x()), _MAX(float(MESH_MIN_Y), min_y()) });
+            points[2] = xy_float_t({ (_MAX(float(MESH_MIN_X), min_x()) + _MIN(float(MESH_MAX_X), max_x())) / 2, _MIN(float(MESH_MAX_Y), max_y()) });
           #else
             points[0] = xy_float_t({ min_x(), min_y() });
             points[1] = xy_float_t({ max_x(), min_y() });
