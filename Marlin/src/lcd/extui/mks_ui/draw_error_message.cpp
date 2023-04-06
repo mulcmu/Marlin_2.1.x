@@ -31,10 +31,6 @@
 #include "../../../inc/MarlinConfig.h"
 #include "mks_hardware.h"
 
-#if ENABLED(MKS_TEST)
-  #include "mks_hardware_test.h"
-#endif
-
 static lv_obj_t *scr;
 
 void lv_draw_error_message(FSTR_P const fmsg) {
