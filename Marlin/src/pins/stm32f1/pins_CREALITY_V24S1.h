@@ -23,7 +23,7 @@
 
 <<<<<<<< HEAD:Marlin/src/pins/stm32f1/pins_CREALITY_V24S1.h
 /**
- * Creality v2.4.S1 (STM32F103RE / STM32F103RC) v101 as found in the Ender 7
+ * Creality v2.4.S1 (STM32F103RE / STM32F103RC) v101 as found in the Ender-7
  */
 
 #define BOARD_INFO_NAME      "Creality v2.4.S1 V101"

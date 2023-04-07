@@ -209,7 +209,7 @@
   #error "Ender-3 V2 display requires a custom cable with TX = P0_15, RX = P0_16. Comment out this line to continue."
 
  /**
-  *          Ender 3 V2 display                       SKR E3 Turbo (EXP1)                Ender 3 V2 display --> SKR E3 Turbo
+  *          Ender-3 V2 display                       SKR E3 Turbo (EXP1)                Ender-3 V2 display --> SKR E3 Turbo
   *                ------                                     ------                                  RX  3 -->  5  P0_15
   *           --  | 1  2 | --                (BEEPER)  P2_08 |10  9 | P0_16 (BTN_ENC)                 TX  4 -->  9  P0_16
   * (SKR_TX1) RX  | 3  4 | TX (SKR_RX1)      (BTN_EN1) P0_19 | 8  7 | RESET                       BEEPER  6 --> 10  P2_08
