@@ -29,7 +29,8 @@
 #include "env_validate.h"
 
 #if HAS_MULTI_HOTEND || E_STEPPERS > 1
-  #error "Creality V24S1 only supports one hotend / E-stepper. Comment out this line to continue."
+  #error "Creality v24S1 only supports 1 hotend / E stepper."
+  #define E_ERROR 1
 #endif
 
 #if BOTH(BLTOUCH, Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN)

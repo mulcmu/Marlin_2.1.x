@@ -46,18 +46,13 @@
 void GcodeSuite::M425() {
   bool noArgs = true;
 
-  auto axis_can_calibrate = [](const uint8_t a) {
+  auto axis_can_calibrate = [](const uint8_t a) -> bool {
+    #define _CAN_CASE(N) case N##_AXIS: return bool(AXIS_CAN_CALIBRATE(N));
     switch (a) {
-      default: return false;
-      LINEAR_AXIS_CODE(
-        case X_AXIS: return AXIS_CAN_CALIBRATE(X),
-        case Y_AXIS: return AXIS_CAN_CALIBRATE(Y),
-        case Z_AXIS: return AXIS_CAN_CALIBRATE(Z),
-        case I_AXIS: return AXIS_CAN_CALIBRATE(I),
-        case J_AXIS: return AXIS_CAN_CALIBRATE(J),
-        case K_AXIS: return AXIS_CAN_CALIBRATE(K)
-      );
+      MAIN_AXIS_MAP(_CAN_CASE)
+      default: break;
     }
+    return false;
   };
 
   LOOP_LINEAR_AXES(a) {

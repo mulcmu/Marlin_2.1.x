@@ -27,8 +27,8 @@
 
 #include "env_validate.h"
 
-#if HAS_MULTI_HOTEND || E_STEPPERS > 1
-  #error "Creality V4 only supports one hotend / E-stepper. Comment out this line to continue."
+#if !E_ERROR && (HAS_MULTI_HOTEND || E_STEPPERS > 1)
+  #error "Creality v4 only supports 1 hotend / E stepper."
 #endif
 
 #ifndef BOARD_INFO_NAME
@@ -159,7 +159,7 @@
 //
 #define SD_DETECT_PIN                       PC7
 #define SDCARD_CONNECTION ONBOARD
-#define SDIO_SUPPORT
+#define ONBOARD_SDIO
 #define NO_SD_HOST_DRIVE                          // This board's SD is only seen by the printer
 
 #if ANY(RET6_12864_LCD, HAS_DWIN_E3V2, IS_DWIN_MARLINUI)
