@@ -1206,7 +1206,7 @@ private:
     static void M995();
   #endif
 
-  #if BOTH(SPI_FLASH, HAS_MEDIA)
+  #if SPI_FLASH_BACKUP
     static void M993();
     static void M994();
   #endif
