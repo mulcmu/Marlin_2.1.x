@@ -165,8 +165,9 @@
 //#define HEATER_0_MAXTEMP 350           // Don't uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
 //#define BOOT_MARLIN_LOGO_SMALL
+
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -176,7 +177,7 @@
       * ===============================
       */
 
-#define DELTA_HOME_TO_SAFE_ZONE         // Option to move down after homing to a height where XYZ movement is unconstrained.
+//#define DELTA_HOME_TO_SAFE_ZONE        // Option to move down after homing to a height where XYZ movement is unconstrained.
 
 #define PREHEAT_BEFORE_PROBING           //(P) (Default) Run a PreHeat bed at 60°C only.
 //#define PREHEAT_BEFORE_LEVELING        // Option to preheat (nozzle and bed) before levelling (H80/B60).
@@ -216,11 +217,11 @@
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
 
-//#define BINARY_FILE_TRANSFER           // Bin transfert for ESP3D firmware v2.1 or others.
-                                         // Not compatible with the MEATPACK option.
+#define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
+                                         // Not compatible with the MEATPACK option. 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-#define MEATPACK_ON_SERIAL_PORT_1        // (M) With connection USB
-//#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
+//#define MEATPACK_ON_SERIAL_PORT_1        // (M) With connection USB
+#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//
 //#define SDCARD_SORT_ALPHA
@@ -231,7 +232,7 @@
 //For tests on my dev'printer!!//
 //-----------------------------//
 #else
- #include "Configs/Config_XP.h"
+ #include "Configs/Config_XP.h"  
 #endif
 
 /** ========================================
@@ -286,7 +287,7 @@
   //#define DWIN_MARLINUI_PORTRAIT       // A DWIN display with Rotary Encoder (Ender-3 v2 OEM display).
   //#define LCD_SERIAL_PORT 1
 #elif ENABLED(TFT_BTT_UI)
-  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER  //(r)(Default) UI Color FLSUN or BTT screen 
   #define MULTI_VOLUME                // Multiple volume support(µSD + USB)
   #define SPEAKER
 #elif ENABLED(MOD_BTT_UI)
@@ -323,39 +324,39 @@
 
 // Set for TMC2208_STANDALONE
 #ifdef ALL_TMC8
-  #define Q_TMC
-  #define DRIVER_AXES TMC2208_STANDALONE
-  #ifndef DRIVER_EXT
-    #define DRIVER_EXT TMC2208_STANDALONE
-  #endif
+    #define Q_TMC
+    #define DRIVER_AXES TMC2208_STANDALONE
+    #ifndef DRIVER_EXT
+      #define DRIVER_EXT TMC2208_STANDALONE
+    #endif
 #endif
 // Set for TMC2209_STANDALONE 
 #ifdef ALL_TMC9
-  #define Q_TMC
-  #define DRIVER_AXES TMC2209_STANDALONE
-  #ifndef DRIVER_EXT
-    #define DRIVER_EXT TMC2209_STANDALONE
-  #endif
+    #define Q_TMC
+    #define DRIVER_AXES TMC2209_STANDALONE
+    #ifndef DRIVER_EXT
+      #define DRIVER_EXT TMC2209_STANDALONE
+    #endif
 #endif
 
 // Software Serial UART for TMC2208
 #ifdef Q_UART8
-  #define MICROSTEPS32
-  #define Q_TMC
-  #define DRIVER_AXES TMC2208
-  #ifndef DRIVER_EXT
-    #define DRIVER_EXT TMC2208
-  #endif
+    #define MICROSTEPS32
+    #define Q_TMC
+    #define DRIVER_AXES TMC2208
+    #ifndef DRIVER_EXT
+      #define DRIVER_EXT TMC2208
+    #endif
 #endif
 
 // Software Serial UART for TMC2209
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
-  #define MICROSTEPS32
-  #define Q_TMC
-  #define DRIVER_AXES TMC2209
-  #ifndef DRIVER_EXT
-    #define DRIVER_EXT TMC2209
-  #endif
+    #define MICROSTEPS32
+    #define Q_TMC
+    #define DRIVER_AXES TMC2209
+    #ifndef DRIVER_EXT
+      #define DRIVER_EXT TMC2209
+    #endif
 #endif
 //Add definition for UART for Q5
 #if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)||BOTH(NANO1X, Q_UART8)||BOTH(NANO1X, Q_UART9)
@@ -474,7 +475,7 @@
   #ifndef Q5
     #define X_OFFSET        0
     #define Y_OFFSET        0
-    #define Z_OFFSET       -16.2
+    #define Z_OFFSET       -18.6787  //Aug2022 Value
   #else
     #define X_OFFSET        0
     #define Y_OFFSET        0
