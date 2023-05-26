@@ -1130,15 +1130,15 @@
     #define DELTA_MAX_RADIUS         132.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-    #define DELTA_DIAGONAL_ROD       282.5      // (mm)   Aug2022 Value
+    #define DELTA_DIAGONAL_ROD       280.0      // (mm)   May2023 Value
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT             371.7079     //Aug2022 Value
+    #define DELTA_HEIGHT             371.6182     //May2023 Value
 
-    #define DELTA_ENDSTOP_ADJ { -0.433, 0.0, -0.431 } //Aug2022 Value
+    #define DELTA_ENDSTOP_ADJ { -0.5554, 0.0, -0.4388 } //May2023 Value
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-    #define DELTA_RADIUS             141.9962      // Aug2022 Value
+    #define DELTA_RADIUS             141.2014      // May2023 Value
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
@@ -1147,7 +1147,7 @@
 
   // Delta radius and diagonal rod adjustments (mm)
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 1.05, 0.40, -0.460 }  //Aug2022 Value
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }  //May2023 Value
   #endif
 #endif
 

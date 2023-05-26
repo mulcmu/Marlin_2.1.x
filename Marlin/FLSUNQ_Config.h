@@ -217,7 +217,7 @@
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
 
-#define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
+//#define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option. 
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
 //#define MEATPACK_ON_SERIAL_PORT_1        // (M) With connection USB
@@ -475,7 +475,7 @@
   #ifndef Q5
     #define X_OFFSET        0
     #define Y_OFFSET        0
-    #define Z_OFFSET       -18.6787  //Aug2022 Value
+    #define Z_OFFSET       -21.5077  //May2023 Value
   #else
     #define X_OFFSET        0
     #define Y_OFFSET        0
