@@ -475,7 +475,7 @@
   #ifndef Q5
     #define X_OFFSET        0
     #define Y_OFFSET        0
-    #define Z_OFFSET       -21.5077  //May2023 Value
+    #define Z_OFFSET       -21.2781  //May2023 Value
   #else
     #define X_OFFSET        0
     #define Y_OFFSET        0

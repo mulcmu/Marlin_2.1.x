@@ -825,11 +825,11 @@
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
 
   // Measured physical constants from M306
-  #define MPC_BLOCK_HEAT_CAPACITY { 11.24f }           // (J/K) Heat block heat capacities.  Aug2022 Value
-  #define MPC_SENSOR_RESPONSIVENESS { 0.1025 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.  Aug2022 Value
-  #define MPC_AMBIENT_XFER_COEFF { 0.1197f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.  Aug2022 Value
+  #define MPC_BLOCK_HEAT_CAPACITY { 14.99f }           // (J/K) Heat block heat capacities.  May2023 Value
+  #define MPC_SENSOR_RESPONSIVENESS { 0.0728 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.  May2023 Value
+  #define MPC_AMBIENT_XFER_COEFF { 0.1446f }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.  May2023 Value
   #if ENABLED(MPC_INCLUDE_FAN)
-    #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1353f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.  Aug2022 Value
+    #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1464f }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.  May2023 Value
   #endif
 
   // For one fan and multiple hotends MPC needs to know how to apply the fan cooling effect.
@@ -1130,15 +1130,15 @@
     #define DELTA_MAX_RADIUS         132.0      // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-    #define DELTA_DIAGONAL_ROD       280.0      // (mm)   May2023 Value
+    #define DELTA_DIAGONAL_ROD       282.7840      // (mm)   May2023 Value
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT             371.6182     //May2023 Value
+    #define DELTA_HEIGHT             371.6369     //May2023 Value
 
-    #define DELTA_ENDSTOP_ADJ { -0.5554, 0.0, -0.4388 } //May2023 Value
+    #define DELTA_ENDSTOP_ADJ { -0.5467, 0.0, -0.4201 } //May2023 Value
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-    #define DELTA_RADIUS             141.2014      // May2023 Value
+    #define DELTA_RADIUS             142.1237      // May2023 Value
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
@@ -1147,7 +1147,7 @@
 
   // Delta radius and diagonal rod adjustments (mm)
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }  //May2023 Value
+    #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.1260, 0.1580, -0.2840 }  //May2023 Value
   #endif
 #endif
 
